@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dankShiba"
+    tools:context="vw.splash1.Splash">
+
+    <Button
+        android:id="@+id/ChickieTendies"
+        style="@android:style/Widget.Button"
+        android:layout_width="166dp"
+        android:layout_height="107dp"
+        android:onClick="intensifyEurobeat"
+        android:text="Press4Eurobeat"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="112dp" />
+</android.support.constraint.ConstraintLayout>
