@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vw.splash1;
 
 import org.junit.Test;
 

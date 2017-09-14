@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vw.splash1;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("vanwingerdenbarrier.sheetmusictutor", appContext.getPackageName());
+        assertEquals("vw.splash1", appContext.getPackageName());
     }
 }
