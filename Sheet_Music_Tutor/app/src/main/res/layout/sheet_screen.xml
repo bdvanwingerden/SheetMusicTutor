@@ -7,7 +7,7 @@
     android:background="@android:color/background_light"
     android:orientation="horizontal"
     android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.MainMenu">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.SheetScreen">
 
     <FrameLayout
         android:layout_width="0dp"
