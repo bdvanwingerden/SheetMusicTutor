@@ -17,4 +17,10 @@ public class MainActivity extends AppCompatActivity {
         Intent sheet = new Intent(this, SheetScreen.class);
         this.startActivity(sheet);
     }
+
+    //TODO create options menu basic layout
+    public void optionsButton(View v){}
+
+    //TODO create stats menu basic layout
+    public void statsButton(View v){}
 }
