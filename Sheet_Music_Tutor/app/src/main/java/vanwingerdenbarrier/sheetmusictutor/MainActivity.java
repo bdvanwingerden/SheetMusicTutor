@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startButton(View v){
-        Intent sheet = new Intent(this, SheetScreen.class);
-        this.startActivity(sheet);
+        //Intent sheet = new Intent(this, SheetScreen.class);
+        //this.startActivity(sheet);
     }
 
     //TODO create options menu basic layout

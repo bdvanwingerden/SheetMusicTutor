@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * creates the staff
  */
 
-public class Staff {
+public class Staff{
     private enum Clef{
         TREBLE,BASS
     }
