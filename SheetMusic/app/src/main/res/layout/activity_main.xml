@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/brown"
+    android:orientation="horizontal"
+    tools:context="com.example.doriangh4.sheetmusic.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:weightSum="7"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="84dp"
+        android:text="a"
+        android:id="@+id/a"
+        android:background="@drawable/border"
+        android:layout_height="350dp" />
+
+        <Button
+            android:layout_width="84dp"
+            android:background="@drawable/border"
+            android:text="b"
+            android:id="@+id/b"
+            android:layout_height="350dp" />
+
+        <Button
+            android:id="@+id/c"
+            android:background="@drawable/border"
+            android:layout_width="84dp"
+            android:layout_height="350dp"
+            android:text="c" />
+
+        <Button
+            android:layout_width="84dp"
+            android:background="@drawable/border"
+            android:text="d"
+            android:id="@+id/d"
+            android:layout_height="350dp" />
+
+        <Button
+            android:layout_width="84dp"
+            android:background="@drawable/border"
+            android:text="e"
+            android:id="@+id/e"
+            android:layout_height="350dp" />
+
+        <Button
+            android:layout_width="84dp"
+            android:background="@drawable/border"
+            android:text="f"
+            android:id="@+id/f"
+            android:layout_height="350dp" />
+
+        <Button
+            android:layout_width="84dp"
+            android:background="@drawable/border"
+            android:text="g"
+            android:id="@+id/g"
+            android:layout_height="350dp" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
