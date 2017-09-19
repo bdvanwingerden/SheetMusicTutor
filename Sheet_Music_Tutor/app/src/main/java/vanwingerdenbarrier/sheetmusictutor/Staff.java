@@ -35,7 +35,7 @@ public class Staff {
         this.timeSig[0] = timeSig1;
         this.timeSig[1] = timeSig2;
         this.staff = new ArrayList<>(numBars);
-        int numBeats = (timeSig1 * (timeSig2/2));
+        int numBeats = (timeSig1 * (timeSig2/4));
         staff = new ArrayList<>(0);
 
         for(int i = 0; i < numBars; i++){
