@@ -12,17 +12,17 @@ import android.view.animation.PathInterpolator;
  * Created by Bronson VanWingerden on 9/20/2017.
  */
 
-public class drawShapes extends View {
+public class DrawShapes extends View {
     Paint paint = new Paint();
 
-    public drawShapes(Context context) {
+    public DrawShapes(Context context) {
         super(context);
     }
 
     @Override
     public void onDraw(Canvas canvas){
         paint.setColor(Color.MAGENTA);
-        Rect rect = new Rect(10,10,10,10);
+        Rect rect = new Rect(100,100,100,100);
         canvas.drawRect(rect, paint);
     }
 }
