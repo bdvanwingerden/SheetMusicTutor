@@ -14,9 +14,11 @@ import android.view.WindowManager;
 import android.widget.Switch;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
- * Created by Bronson VanWingerden on 9/26/2017.
+ * @author Bronson VanWingerden
+ * Creates a staff then draws notes on it using the Staff structure
  */
 public class DrawStaff extends View {
 
@@ -26,6 +28,7 @@ public class DrawStaff extends View {
      */
     Point size;
     Paint paint = new Paint();
+    Random random = new Random();
 
     /**
      * creates an array to contain the x and y coordinates for the line since each line only has
@@ -34,12 +37,15 @@ public class DrawStaff extends View {
      */
     float[] lineArray;
     Staff currentStaff;
+    int spaceBetween;
     int bars = 1;
     int beats = 4;
-    int noteDiameter = 100;
-    int subdivision =4;
+    int subdivision = 4;
 
-
+    /**
+     * public constructor to create a DrawStaff object
+     * @param context
+     */
     public DrawStaff(Context context) {
         super(context);
 
@@ -51,19 +57,24 @@ public class DrawStaff extends View {
 
     @Override
     protected void onDraw(Canvas canvas){
+
         drawStaff(canvas);
         populateStaff();
         drawNotes(canvas);
     }
 
+    /**
+     * draws the lines of the staff on the staff
+     * @param canvas the canvas to draw on
+     */
     private void drawStaff(Canvas canvas){
         paint.setStrokeWidth(size.y/50);
         paint.setColor(Color.BLACK);
 
         lineArray = new float[20];
 
-        int margin = 40;
-        int spaceBetween = (size.y/5);
+        int margin = 20;
+        spaceBetween = (size.y/5) - margin* 5;
         int position = margin;
         int right = size.x;
         int left = 0;
@@ -89,42 +100,97 @@ public class DrawStaff extends View {
         canvas.drawLines(lineArray, paint);
     }
 
+    /**
+     * creates and populates a new staff object for the current staff
+     */
     private void populateStaff(){
         // creates an empty staff consisting of 1 bar of 4/4 music
         currentStaff = new Staff(Clef.TREBLE, 1, 4, 4);
+        bars  = currentStaff.numBars;
+        beats = currentStaff.numBeats;
 
-        currentStaff.insertNote(bars-1, 0, Tone.E, 4, 4);
-        currentStaff.insertNote(bars-1, 1, Tone.F, 4, 4);
-        currentStaff.insertNote(bars-1, 2, Tone.E, 4, 4);
-        currentStaff.insertNote(bars-1, 3, Tone.F, 4, 4);
+        for(int i = 0; i < bars; i++){
+            for(int j = 0; j < beats; j++){
+                /**
+                 * gets us a random tone to draw temporary method for testing
+                 */
+                Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+                int tempPitch = 5;
+                if(tempTone == Tone.E || tempTone == Tone.F){
+                    if(random.nextInt(2) == 0){
+                        tempPitch = 4;
+                    }
+                }
+
+               currentStaff.insertNote(i,j,tempTone,tempPitch,beats);
+            }
+        }
     }
 
+    /**
+     * draws all notes in the currentStaff onto visualization of the staff
+     * @param canvas the canvas to draw onto
+     */
     private void drawNotes(Canvas canvas){
+        int noteRadius = (spaceBetween - 40)/2;
         for(int i = 0; i < bars; i++){
             for(int j = 0; j < beats; j++){
                 ArrayList<Note> tempList = currentStaff.getNoteList(i,j);
                 for(Note note : tempList){
-                    float xPos = ((size.x/beats) * j) + 250;
-                    canvas.drawCircle(xPos,locateNote(note), noteDiameter, paint);
+                    /*TODO replace magic number 100 with dynamic variable
+                    * 100 represents the left margin of the notes
+                    */
+                    note.x = ((size.x/beats) * j) + 100;
+                    note.y = locateNote(note);
+                    canvas.drawCircle(note.x,note.y, noteRadius, paint);
+
+                    /**
+                     * TODO implement duration of notes
+                     * accounts for not duration
+                     */
+                    if(note.duration < beats) {
+                        j += beats / note.duration;
+                    }
                 }
             }
         }
     }
 
+    /**
+     * determines the notes location based on its tone and pitch
+     * @param note the Note object to find a place on the staff
+     * @return returns the notes float y - location on the staff, the x-axis is handled elsewhere
+     */
     private float locateNote(Note note){
         float noteLocation = 0;
 
+        /**
+         * big ole if/else to catch certain tones/pitches
+         * lineArray[1 + 4x] gives me the x height of a the desired line
+         * then subtracting spaceBetween/2 will put the note directly between 2 lines
+         * TODO expand to support all notes & more pitches
+         */
         if(note.tone == Tone.E && note.pitch == 4){
-            noteLocation = ((size.y/5) * 4) + paint.getStrokeWidth();
+            noteLocation = lineArray[17];
         }else if(note.tone == Tone.F && note.pitch == 4){
-            noteLocation = ((size.y/5) * 3) + paint.getStrokeWidth() - noteDiameter;
+            noteLocation = lineArray[17] - spaceBetween/2;
+        }else if(note.tone == Tone.G && note.pitch == 4){
+            noteLocation = lineArray[13];
+        }else if(note.tone == Tone.A && note.pitch == 5){
+            noteLocation = lineArray[13] - spaceBetween/2;
+        }else if(note.tone == Tone.B && note.pitch == 5){
+            noteLocation = lineArray[9];
+        }else if(note.tone == Tone.C && note.pitch == 5){
+            noteLocation = lineArray[9] - spaceBetween/2;
+        }else if(note.tone == Tone.D && note.pitch == 5){
+            noteLocation = lineArray[5];
+        }else if(note.tone == Tone.E && note.pitch == 5){
+            noteLocation = lineArray[5] - spaceBetween/2;
+        }else if(note.tone == Tone.F && note.pitch == 5){
+            noteLocation = lineArray[1];
         }
 
         return noteLocation;
-    }
-
-    public float[] getLineArray(){
-        return lineArray;
     }
 }
 

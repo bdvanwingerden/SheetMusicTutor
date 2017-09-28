@@ -8,16 +8,11 @@ package vanwingerdenbarrier.sheetmusictutor;
  */
 
 public enum Tone {
-    GSharp,
     G,
-    FSharp,
     F,
     E,
-    DSharp,
     D,
-    CSharp,
     C,
     B,
-    ASharp,
     A
 }

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class Staff{
 
+    int numBars;
+    int numBeats;
+
     /**
      * contains the current staffs clef
      */
@@ -28,6 +31,8 @@ public class Staff{
 
 
     public Staff(Clef clef, int numBars, int timeSig1, int timeSig2){
+        this.numBars = numBars;
+        this.numBeats = timeSig1;
         this.clef = clef;
         this.timeSig[0] = timeSig1;
         this.timeSig[1] = timeSig2;

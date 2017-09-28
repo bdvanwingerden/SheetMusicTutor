@@ -26,13 +26,21 @@ public class Note {
     int duration;
 
     /**
-     * Enumeration for Tone to ensure correct notes are selected
+     * the x location of this note set to 0 until changed
      */
+    float x;
+
+    /**
+     * the y location of this note set to 0 until changed
+     */
+    float y;
 
     public Note(Tone tone, int pitch, int duration){
         this.tone = tone;
         this.pitch = pitch;
         this.duration = duration;
+        this.x = 0;
+        this.y = 0;
     }
 
     public Tone getTone() {
