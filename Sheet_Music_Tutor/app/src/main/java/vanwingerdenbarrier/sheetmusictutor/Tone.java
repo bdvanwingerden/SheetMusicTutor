@@ -1,15 +1,23 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
 /**
- * Created by Bronson VanWingerden on 9/15/2017.
+ * @author Bronson VanWingerden
+ *
+ * Enumeration to hold the possible tone values for a given note
+ * NOTE: on a standard keyboard there is no B sharp or E sharp
  */
 
 public enum Tone {
-    A,
-    B,
-    C,
-    D,
-    E,
+    GSharp,
+    G,
+    FSharp,
     F,
-    G
+    E,
+    DSharp,
+    D,
+    CSharp,
+    C,
+    B,
+    ASharp,
+    A
 }

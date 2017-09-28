@@ -1,5 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.graphics.Canvas;
+
 /**
  * Contains the Individual values for each not in a given sheet
  * Created by Bronson VanWingerden on 9/15/2017.
@@ -31,6 +33,18 @@ public class Note {
         this.tone = tone;
         this.pitch = pitch;
         this.duration = duration;
+    }
+
+    public Tone getTone() {
+        return tone;
+    }
+
+    public int getPitch() {
+        return pitch;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }
 

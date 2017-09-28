@@ -8,9 +8,6 @@ import java.util.ArrayList;
  */
 
 public class Staff{
-    private enum Clef{
-        TREBLE,BASS
-    }
 
     /**
      * contains the current staffs clef
@@ -36,7 +33,6 @@ public class Staff{
         this.timeSig[1] = timeSig2;
         this.staff = new ArrayList<>(numBars);
         int numBeats = (timeSig1 * (timeSig2/4));
-        staff = new ArrayList<>(0);
 
         for(int i = 0; i < numBars; i++){
             ArrayList<ArrayList<Note>> tempBar = new ArrayList<>(0);
@@ -44,14 +40,26 @@ public class Staff{
                 tempBar.add(new ArrayList<Note>(0));
             }
             staff.add(tempBar);
-
         }
 
     }
 
-    public void insertNote(int beatLocation, int barLocation, Tone tone, int pitch, int duration){
-
+    /**
+     * inserts a note into the Staff
+     * @param barLocation the bar to insert into
+     * @param beatLocation the beat to insert into
+     * @param tone the tone of the note to insert
+     * @param pitch the pitch i.e. a number cooresponding to how high or low the note is ussually
+     *              4 or 5
+     * @param duration the duration the note for example whole = 1 half = 2, quarter = 4
+     *                 eighth = 8 etc
+     */
+    public void insertNote(int barLocation, int beatLocation, Tone tone, int pitch, int duration){
         staff.get(barLocation).get(beatLocation).add(new Note(tone, pitch, duration));
+    }
+
+    public ArrayList<Note> getNoteList(int barLocation, int beatLocation){
+        return staff.get(barLocation).get(beatLocation);
     }
 
 }
