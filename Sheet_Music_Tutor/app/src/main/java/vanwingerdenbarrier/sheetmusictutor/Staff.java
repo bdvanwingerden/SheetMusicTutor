@@ -4,9 +4,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * creates the staff
+ * @author Bronson VanWingerden
+ * creates a staff structure to be the backbone of the game activity
  */
-
 public class Staff{
 
     int numBars;
@@ -30,6 +30,15 @@ public class Staff{
     ArrayList<ArrayList<ArrayList<Note>>> staff;
 
 
+    /**
+     * public constructor of the staff object
+     * @param clef the clef type to use
+     * @param numBars the number of bars in the staff
+     * @param timeSig1 the top number of the time signature correlating to the number of beats per
+     *                 bar
+     * @param timeSig2 the bottom number of the time signature correlating the subdivision of beats
+     *                 per bar
+     */
     public Staff(Clef clef, int numBars, int timeSig1, int timeSig2){
         this.numBars = numBars;
         this.numBeats = timeSig1;
@@ -63,6 +72,12 @@ public class Staff{
         staff.get(barLocation).get(beatLocation).add(new Note(tone, pitch, duration));
     }
 
+    /**
+     * returns the arraylist of notes for the current beat/bar
+     * @param barLocation the number location of the bar starting at 0
+     * @param beatLocation the number location of the beat start at 0
+     * @return the arraylist of notes at that location
+     */
     public ArrayList<Note> getNoteList(int barLocation, int beatLocation){
         return staff.get(barLocation).get(beatLocation);
     }

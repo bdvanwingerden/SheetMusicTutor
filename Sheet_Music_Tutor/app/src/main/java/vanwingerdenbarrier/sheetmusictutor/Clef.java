@@ -1,7 +1,10 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
 /**
- * Created by Bronson VanWingerden on 9/27/2017.
+ * @author Bronson VanWingerden
+ *
+ * the public enumeration to contain the 2 types of Clef Sheet Music Tutor will use
+ * //TODO Implement Bass Clefs
  */
 
 public enum Clef{

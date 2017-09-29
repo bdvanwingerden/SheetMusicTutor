@@ -7,6 +7,7 @@ package vanwingerdenbarrier.sheetmusictutor;
  * NOTE: on a standard keyboard there is no B sharp or E sharp
  */
 
+//TODO add sharps
 public enum Tone {
     G,
     F,

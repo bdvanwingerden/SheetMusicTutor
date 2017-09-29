@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * @author Bronson VanWingerden
+ * the main menu activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * when the start button is pressed this method calls the the Game Activity
+     * TODO add a game type selection screen before activity
+     * @param v
+     */
     public void startButton(View v){
         Intent game = new Intent(this, GameActivity.class);
         this.startActivity(game);
