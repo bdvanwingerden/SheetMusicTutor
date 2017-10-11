@@ -29,7 +29,6 @@ public class Staff{
      */
     ArrayList<ArrayList<ArrayList<Note>>> staff;
 
-
     /**
      * public constructor of the staff object
      * @param clef the clef type to use
