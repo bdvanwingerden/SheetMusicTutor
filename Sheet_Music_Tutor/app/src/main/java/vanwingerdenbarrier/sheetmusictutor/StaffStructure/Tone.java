@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 /**
  * @author Bronson VanWingerden

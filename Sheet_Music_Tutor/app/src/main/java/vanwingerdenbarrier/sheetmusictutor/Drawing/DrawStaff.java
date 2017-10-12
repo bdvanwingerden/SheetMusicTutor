@@ -1,26 +1,34 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Drawing;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
 
 /**
  * @author Bronson VanWingerden
  * Creates a staff then draws notes on it using the Staff structure
  */
-public class DrawStaff extends View {
+public class DrawStaff extends AppCompatImageView {
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
 
     /**
@@ -145,9 +153,14 @@ public class DrawStaff extends View {
      */
     private void populateStaff(){
         // creates an empty staff consisting of 1 bar of 4/4 music
-        currentStaff = new Staff(Clef.TREBLE, 1, 4, 4);
-        bars  = currentStaff.numBars;
-        beats = currentStaff.numBeats;
+        int[] timeSig = new int[2];
+        timeSig[0] = 4;
+        timeSig[1] = 4;
+
+
+        currentStaff = new Staff(Clef.TREBLE, 1, timeSig);
+        bars  = currentStaff.getNumOfBars();
+        beats = currentStaff.getNumOfBeats(0);
 
         for(int i = 0; i < bars; i++){
             for(int j = 0; j < beats; j++){
@@ -167,7 +180,8 @@ public class DrawStaff extends View {
                 /**
                  * temporary random assignment of notes
                  */
-                currentStaff.insertNote(i,j,tempTone, tempPitch,beats);
+                Note tempNote = new Note(tempTone, tempPitch, 4);
+                currentStaff.insertNote(tempNote, i, j);
 
                 // UNCOMMENT ME TO SHOW MULTIPLE NOTES PER BEAT
                 //currentStaff.insertNote(i,j, Tone.A, 5, beats);
@@ -180,7 +194,7 @@ public class DrawStaff extends View {
      * @param canvas the canvas to draw onto
      */
     private void drawNotes(Canvas canvas){
-        int noteRadius = (spaceBetween - 40)/2;
+        int noteRadius = (spaceBetween - 10)/2;
         for(int i = 0; i < bars; i++){
             for(int j = 0; j < beats; j++){
                 ArrayList<Note> tempList = currentStaff.getNoteList(i,j);
@@ -188,28 +202,30 @@ public class DrawStaff extends View {
                     /*TODO replace magic number 100 with dynamic variable
                     * 100 represents the left margin of the notes
                     */
-                    note.x = ((size.x/beats) * j) + 100;
-                    note.y = locateNote(note);
+                    note.setX((size.x/beats) * j + 100 );
+                    note.setY(locateNote(note));
 
-                    canvas.drawOval(note.x - noteRadius - 30, note.y - noteRadius
-                            ,note.x + noteRadius + 30, note.y + noteRadius, paint);
+                    Drawable noteShape = getResources().getDrawable(R.drawable.ic_quarterbase, null);
+                    noteShape.setBounds(note.getX() - noteRadius - 40, note.getY() - noteRadius
+                                   ,note.getX() + noteRadius + 40, note.getY() + noteRadius);
+                    noteShape.draw(canvas);
 
 
-                    canvas.drawLine(note.x + (noteRadius - paint.getStrokeWidth() + 30)
-                            , note.y, note.x + 100
-                            , note.y - spaceBetween, paint);
+                    canvas.drawLine(note.getX() + (noteRadius - paint.getStrokeWidth() + 45)
+                            , note.getY(), note.getX() + 100
+                            , note.getY() - spaceBetween, paint);
 
                     paint.setColor(Color.WHITE);
                     //TODO Change constant 40 to figure out the center of a note
-                    canvas.drawText(note.tone.toString(),note.x,note.y + 40, paint);
+                    canvas.drawText(note.getTone().toString(),note.getX(),note.getY() + 40, paint);
                     paint.setColor(Color.BLACK);
 
                     /**
                      * TODO implement duration of notes
                      * accounts for not duration
                      */
-                    if(note.duration < beats) {
-                        j += beats / note.duration;
+                    if(note.getDuration() < beats) {
+                        j += beats / note.getDuration();
                     }
                 }
             }
@@ -221,7 +237,7 @@ public class DrawStaff extends View {
      * @param note the Note object to find a place on the staff
      * @return returns the notes float y - location on the staff, the x-axis is handled elsewhere
      */
-    private float locateNote(Note note){
+    private int locateNote(Note note){
         float noteLocation = 0;
 
         /**
@@ -230,27 +246,27 @@ public class DrawStaff extends View {
          * then subtracting spaceBetween/2 will put the note directly between 2 lines
          * TODO expand to support all notes & more pitches
          */
-        if(note.tone == Tone.E && note.pitch == 4){
+        if(note.getTone() == Tone.E && note.getPitch() == 4){
             noteLocation = lineArray[17];
-        }else if(note.tone == Tone.F && note.pitch == 4){
+        }else if(note.getTone() == Tone.F && note.getPitch() == 4){
             noteLocation = lineArray[17] - spaceBetween/2;
-        }else if(note.tone == Tone.G && note.pitch == 4){
+        }else if(note.getTone() == Tone.G && note.getPitch() == 4){
             noteLocation = lineArray[13];
-        }else if(note.tone == Tone.A && note.pitch == 5){
+        }else if(note.getTone() == Tone.A && note.getPitch() == 5){
             noteLocation = lineArray[13] - spaceBetween/2;
-        }else if(note.tone == Tone.B && note.pitch == 5){
+        }else if(note.getTone() == Tone.B && note.getPitch() == 5){
             noteLocation = lineArray[9];
-        }else if(note.tone == Tone.C && note.pitch == 5){
+        }else if(note.getTone() == Tone.C && note.getPitch() == 5){
             noteLocation = lineArray[9] - spaceBetween/2;
-        }else if(note.tone == Tone.D && note.pitch == 5){
+        }else if(note.getTone() == Tone.D && note.getPitch() == 5){
             noteLocation = lineArray[5];
-        }else if(note.tone == Tone.E && note.pitch == 5){
+        }else if(note.getTone() == Tone.E && note.getPitch() == 5){
             noteLocation = lineArray[5] - spaceBetween/2;
-        }else if(note.tone == Tone.F && note.pitch == 5){
+        }else if(note.getTone() == Tone.F && note.getPitch() == 5){
             noteLocation = lineArray[1];
         }
 
-        return noteLocation;
+        return (int)noteLocation;
     }
 }
 

@@ -1,6 +1,5 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
-import android.graphics.Canvas;
 
 /**
  * Contains the Individual values for each not in a given sheet
@@ -28,12 +27,12 @@ public class Note {
     /**
      * the x location of this note set to 0 until changed
      */
-    float x;
+    int x;
 
     /**
      * the y location of this note set to 0 until changed
      */
-    float y;
+    int y;
 
     public Note(Tone tone, int pitch, int duration){
         this.tone = tone;
@@ -53,6 +52,29 @@ public class Note {
 
     public int getDuration() {
         return duration;
+    }
+
+    /**
+     * decrements the remaining duration for the current note
+     */
+    public void decDuration(){
+        duration--;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
 
