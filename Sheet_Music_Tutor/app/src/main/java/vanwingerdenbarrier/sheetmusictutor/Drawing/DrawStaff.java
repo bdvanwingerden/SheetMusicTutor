@@ -100,7 +100,6 @@ public class DrawStaff extends AppCompatImageView {
         Display display = wm.getDefaultDisplay();
         size = new Point();
         display.getSize(size);
-        paint.setStrokeWidth(size.y/50);
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(textSize);
@@ -122,7 +121,9 @@ public class DrawStaff extends AppCompatImageView {
         lineArray = new float[20];
 
         int margin = 150;
-        spaceBetween = (size.y/7);
+        spaceBetween = (size.y/7) - 60;
+        paint.setStrokeWidth(spaceBetween/20);
+
         int position = margin;
         int right = size.x;
         int left = 0;
@@ -194,7 +195,11 @@ public class DrawStaff extends AppCompatImageView {
      * @param canvas the canvas to draw onto
      */
     private void drawNotes(Canvas canvas){
-        int noteRadius = (spaceBetween - 10)/2;
+        int noteHeight = (spaceBetween - (int)paint.getStrokeWidth()/2)/2;
+        int noteWidth = noteHeight + 10;
+
+        paint.setStrokeWidth(noteHeight/4);
+
         for(int i = 0; i < bars; i++){
             for(int j = 0; j < beats; j++){
                 ArrayList<Note> tempList = currentStaff.getNoteList(i,j);
@@ -205,15 +210,23 @@ public class DrawStaff extends AppCompatImageView {
                     note.setX((size.x/beats) * j + 100 );
                     note.setY(locateNote(note));
 
-                    Drawable noteShape = getResources().getDrawable(R.drawable.ic_quarterbase, null);
-                    noteShape.setBounds(note.getX() - noteRadius - 40, note.getY() - noteRadius
-                                   ,note.getX() + noteRadius + 40, note.getY() + noteRadius);
+                    /**
+                     * drawing the note head
+                     */
+                    Drawable noteShape = getResources()
+                            .getDrawable(R.drawable.q_note_head, null);
+                    noteShape.setBounds(note.getX() - noteWidth, note.getY() - noteHeight
+                                   ,note.getX() + noteWidth, note.getY() + noteHeight);
                     noteShape.draw(canvas);
 
+                    /**
+                     * drawing the stem
+                     */
 
-                    canvas.drawLine(note.getX() + (noteRadius - paint.getStrokeWidth() + 45)
-                            , note.getY(), note.getX() + 100
-                            , note.getY() - spaceBetween, paint);
+                    canvas.drawLine(note.getX() + (noteWidth - paint.getStrokeWidth()/2) - 2
+                            , note.getY() - 15
+                            ,note.getX() + (noteWidth - paint.getStrokeWidth()/2) - 2,
+                            note.getY() - spaceBetween*2, paint);
 
                     paint.setColor(Color.WHITE);
                     //TODO Change constant 40 to figure out the center of a note

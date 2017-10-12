@@ -12,7 +12,7 @@ public class Bar {
     ArrayList<Beat> beats;
 
     public Bar(int[] timeSig) {
-        this.numOfBeats = numOfBeats;
+        this.numOfBeats = 0;
         beats = new ArrayList<>();
 
         for (int i = 0; i < timeSig[0]; i++){
