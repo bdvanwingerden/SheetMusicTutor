@@ -5,6 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.File;
+import java.io.IOException;
+
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
+
 /**
  * @author Bronson VanWingerden
  * the main menu activity
@@ -22,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
      * TODO add a game type selection screen before activity
      * @param v
      */
-    public void startButton(View v){
+    public void startButton(View v) throws IOException {
         Intent game = new Intent(this, GameActivity.class);
+        UserList users = new UserList(getApplicationContext());
         this.startActivity(game);
     }
 
