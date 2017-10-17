@@ -3,12 +3,14 @@ package vanwingerdenbarrier.sheetmusictutor.Drawing;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
@@ -29,7 +31,6 @@ public class DrawStaff extends AppCompatImageView {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
-
 
     /**
      * stores the dimension of the current display
@@ -57,7 +58,7 @@ public class DrawStaff extends AppCompatImageView {
     /**
      * the current staff structure that we are working with
      */
-    Staff currentStaff;
+    Staff currentStaff = null;
 
     /**
      * the space between the lines of the staff
@@ -109,7 +110,9 @@ public class DrawStaff extends AppCompatImageView {
     protected void onDraw(Canvas canvas){
 
         drawStaff(canvas);
-        populateStaff();
+        if(currentStaff == null){
+            populateStaff();
+        }
         drawNotes(canvas);
     }
 
@@ -280,6 +283,14 @@ public class DrawStaff extends AppCompatImageView {
         }
 
         return (int)noteLocation;
+    }
+
+    public void changeColor(){
+        if(paint.getColor() == Color.BLACK){
+            paint.setColor(Color.MAGENTA);
+        }else{
+            paint.setColor(Color.BLACK);
+        }
     }
 }
 
