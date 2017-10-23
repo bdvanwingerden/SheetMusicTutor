@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grey"
+    android:orientation="horizontal"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.Keyboard">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="c"
+            android:id="@+id/c"
+            android:background="@drawable/key_background"
+            android:layout_height="fill_parent" />
+
+        <Button
+            android:id="@+id/d"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@drawable/key_background"
+            android:text="d" />
+
+        <Button
+            android:id="@+id/e"
+            android:background="@drawable/key_background"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="e" />
+
+        <Button
+            android:id="@+id/f"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@drawable/key_background"
+            android:text="f" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:background="@drawable/key_background"
+            android:text="g"
+            android:id="@+id/g"
+            android:layout_height="fill_parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:background="@drawable/key_background"
+            android:text="a"
+            android:id="@+id/a"
+            android:layout_height="fill_parent" />
+
+        <Button
+            android:id="@+id/b"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:background="@drawable/key_background"
+            android:text="b" />
+
+        <Button
+            android:id="@+id/as"
+            android:layout_width="84dp"
+            android:layout_height="175dp"
+            android:layout_marginLeft="-120dp"
+            android:background="@drawable/sharp_key_background"
+            android:gravity="bottom"
+            android:text="AS"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/gs"
+            android:layout_width="84dp"
+            android:layout_height="175dp"
+            android:layout_marginLeft="-175dp"
+            android:background="@drawable/sharp_key_background"
+            android:gravity="bottom"
+            android:text="GS"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/fs"
+            android:layout_width="84dp"
+            android:layout_height="175dp"
+            android:layout_marginLeft="-175dp"
+            android:background="@drawable/sharp_key_background"
+            android:gravity="bottom"
+            android:lineSpacingExtra="18sp"
+            android:text="FS"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/ds"
+            android:layout_width="84dp"
+            android:layout_height="175dp"
+            android:layout_marginLeft="-250dp"
+            android:background="@drawable/sharp_key_background"
+            android:gravity="bottom"
+            android:text="DS"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/cs"
+            android:layout_width="84dp"
+            android:layout_height="175dp"
+            android:layout_marginLeft="-175dp"
+            android:background="@drawable/sharp_key_background"
+            android:gravity="bottom"
+            android:text="@string/c"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
