@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startButton(View v) throws IOException {
         Intent game = new Intent(this, GameActivity.class);
-        UserList users = new UserList(getApplicationContext());
         this.startActivity(game);
     }
 
