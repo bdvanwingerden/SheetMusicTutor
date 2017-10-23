@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/grey"
     android:orientation="horizontal"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.Keyboard">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.KeyFragment">
 
 
     <LinearLayout
@@ -115,11 +115,9 @@
             android:layout_marginLeft="-175dp"
             android:background="@drawable/sharp_key_background"
             android:gravity="bottom"
-            android:text="@string/c"
+            android:text="CS"
             android:textAlignment="center"
             android:textColor="@color/white" />
-
-
 
     </LinearLayout>
 

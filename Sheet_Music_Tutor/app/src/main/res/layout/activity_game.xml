@@ -8,32 +8,36 @@
     tools:context="vanwingerdenbarrier.sheetmusictutor.GameActivity">
 
     <fragment
-        android:id="@+id/fragment4"
-        android:name="vanwingerdenbarrier.sheetmusictutor.KeyFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        tools:layout="@layout/keyboard_fragment"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="207dp" />
-
-    <fragment
         android:id="@+id/staffFrag"
         android:name="vanwingerdenbarrier.sheetmusictutor.StaffFragment"
-        android:layout_width="343dp"
+        android:layout_width="match_parent"
         android:layout_height="198dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginLeft="49dp"
-        android:layout_marginRight="49dp"
-        android:layout_marginStart="49dp"
         android:layout_marginTop="9dp"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_staff"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" />
+
+    <fragment
+        android:id="@+id/keyFragment"
+        android:name="vanwingerdenbarrier.sheetmusictutor.KeyFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/staffFrag"
+        tools:layout="@layout/keyboard_fragment"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
