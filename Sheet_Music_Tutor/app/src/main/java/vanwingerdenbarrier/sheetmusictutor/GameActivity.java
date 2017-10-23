@@ -9,7 +9,7 @@ import android.view.View;
  * @author Bronson VanWingerden
  * the game activity screen to display the Staff Fragment and the Key Fragment
  */
-public class GameActivity extends AppCompatActivity{
+public class GameActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
