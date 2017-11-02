@@ -107,7 +107,6 @@ public class DrawStaff extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas){
-
         drawStaff(canvas);
         populateStaff();
         drawNotes(canvas);
@@ -214,7 +213,7 @@ public class DrawStaff extends AppCompatImageView {
                      * drawing the note head
                      */
                     Drawable noteShape = getResources()
-                            .getDrawable(R.drawable.q_note_head, null);
+                            .getDrawable(R.drawable.h_note_head, null);
                     noteShape.setBounds(note.getX() - noteWidth, note.getY() - noteHeight
                                    ,note.getX() + noteWidth, note.getY() + noteHeight);
                     noteShape.draw(canvas);
