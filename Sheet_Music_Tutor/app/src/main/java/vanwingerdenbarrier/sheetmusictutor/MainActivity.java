@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
-
 
 /**
  * @author Bronson VanWingerden
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void optionsButton(View v){
-        Intent optionsMenu = new Intent(this, Options.class);
+        Intent optionsMenu = new Intent(this, OptionsActivity.class);
         this.startActivity(optionsMenu);
     }
 

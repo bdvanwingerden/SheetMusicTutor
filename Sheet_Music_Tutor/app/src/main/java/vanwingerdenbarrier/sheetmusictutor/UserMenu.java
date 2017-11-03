@@ -1,6 +1,5 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,9 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class UserMenu extends AppCompatActivity {
+    /**
+     * contains the current list of users
+     */
     private UserList users;
 
     @Override

@@ -22,7 +22,7 @@
         <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Options"
+        <activity android:name=".OptionsActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".UserMenu"
             android:screenOrientation="landscape"/>
