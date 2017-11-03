@@ -1,11 +1,15 @@
 package vanwingerdenbarrier.sheetmusictutor.UserInfo;
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -25,12 +29,9 @@ public class UserList {
      */
     User currentUser;
 
-    public UserList(){
+    public UserList(Context context){
         this.userLinkedList = new LinkedList<>();
-
-            //this means the UserDB is empty
-            //so we add a new user
-        userLinkedList.add(new User(userLinkedList.size(),"Bill", 2));
+        readUserList(context);
     }
 
     /**
@@ -43,8 +44,9 @@ public class UserList {
         userLinkedList.add(new User(ID,name,selectedDifficulty));
     }
 
-    public void addUser(User u){
+    public void addUser(User u, Context context){
         userLinkedList.add(u);
+        writeUserList(context);
     }
 
     /**
@@ -60,7 +62,65 @@ public class UserList {
     }
 
     /**TODO figure out this things purpose */
-    public void updateDB() {
+    public void readUserList(Context context) {
+        String userDataFileName = "userData.txt";
+        String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
+        FileInputStream fileInputStream = null;
 
+        try{
+            fileInputStream = context.openFileInput(userDataFileName);
+        }catch (FileNotFoundException e){
+            File userData = new File(userDataFilePath);
+
+            try{
+                userData.createNewFile();
+                fileInputStream = context.openFileInput(userDataFileName);
+            } catch (Exception e1) {
+                System.out.println("The userData file could not be created\n" + e1.getMessage());
+                System.exit(1);
+            }
+        }
+
+        Scanner scanFile = new Scanner(fileInputStream);
+
+        while(scanFile.hasNext()){
+            addUser(scanFile.nextInt(), scanFile.next(), scanFile.nextInt());
+        }
+
+        try {
+            fileInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeUserList(Context context){
+        String userDataFileName = "userData.txt";
+        String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
+        FileOutputStream fileOutputStream = null;
+
+        try{
+            fileOutputStream = context.openFileOutput(userDataFileName, Context.MODE_PRIVATE);
+        }catch (FileNotFoundException e){
+            File userData = new File(userDataFilePath);
+            try{
+                userData.createNewFile();
+                fileOutputStream = context.openFileOutput(userDataFileName
+                        , Context.MODE_PRIVATE);
+            } catch (Exception e1) {
+                System.out.println("The userData file could not be created\n" + e1.getMessage());
+                System.exit(1);
+            }
+        }
+
+        for(User u : userLinkedList){
+            String tempString = u.getID() + " " + u.getName() + " "  + u.getSelectedDifficulty()
+                    + "\n";
+            try {
+                fileOutputStream.write(tempString.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

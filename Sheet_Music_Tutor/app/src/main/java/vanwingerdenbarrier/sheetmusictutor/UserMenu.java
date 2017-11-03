@@ -21,7 +21,7 @@ public class UserMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_menu);
-        users = new UserList();
+        users = new UserList(this);
         createButtons();
     }
 
@@ -45,7 +45,7 @@ public class UserMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 User tempUser = new User(users.getUserList().size(), "Ted", 2);
-                users.addUser(tempUser);
+                users.addUser(tempUser, getApplicationContext());
                 linearLayout.addView(addUserButton(tempUser));
             }
         });
