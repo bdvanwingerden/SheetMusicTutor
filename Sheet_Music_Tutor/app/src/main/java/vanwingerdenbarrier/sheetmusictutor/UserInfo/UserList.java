@@ -15,95 +15,51 @@ import java.util.Scanner;
 
 public class UserList {
 
-    LinkedList<User> userLinkedList;
+    /**
+     * linked list containing all users
+     */
+    private LinkedList<User> userLinkedList;
+
+    /**
+     * the current user
+     */
     User currentUser;
-    Scanner scanIn;
-    File userDB;
 
-    public UserList(Context context) throws IOException {
-        this.userLinkedList = new LinkedList<User>();
+    public UserList(){
+        this.userLinkedList = new LinkedList<>();
 
-        userDB = new File(context.getFilesDir(), "userDB.txt");
-        userDB.createNewFile();
-
-        try {
-            scanIn = new Scanner(userDB);
-        }catch (FileNotFoundException e){
-            System.out.println(e.getMessage() + " UserDB not found");
-            System.exit(1);
-        }
-
-        if(scanIn.hasNext()){
-            //this means the UserDB has information from a previous session
-            while(scanIn.hasNext()){
-
-                //adds fields in this order ID, name, selectedDifficulty, noteAccuracy,
-                //timingAccuracy, durationAccuracy, currentLevel, isCurrent
-                //NOTE a new ID is generated at runtime to ensure it corresponds to the index in the
-                //linked list
-                userLinkedList.add(new User(
-                        userLinkedList.size(),//ID
-                        scanIn.next(),     //name
-                        scanIn.nextInt(),  //selectedDifficulty
-                        scanIn.nextInt(),  //noteAccuracy
-                        scanIn.nextInt(),  //timingAccuracy
-                        scanIn.nextInt(),  //durationAccuracy
-                        scanIn.nextInt(),  //currentLevel
-                        scanIn.nextInt()));//isCurrent
-            }
-        }else{
             //this means the UserDB is empty
             //so we add a new user
-            userLinkedList.add(new User(userLinkedList.size(),"new user", 2));
-        }
-
-        updateDB();
+        userLinkedList.add(new User(userLinkedList.size(),"Bill", 2));
     }
 
+    /**
+     * adds a user to the app
+     * @param ID the users ID
+     * @param name the users name
+     * @param selectedDifficulty the users selected difficulty
+     */
     public void addUser(int ID, String name, int selectedDifficulty){
         userLinkedList.add(new User(ID,name,selectedDifficulty));
-        updateDB();
     }
 
+    public void addUser(User u){
+        userLinkedList.add(u);
+    }
+
+    /**
+     * removes a user from the app using the ID as a unique identifier
+     * @param ID corresponding to the user to remove
+     */
     public void removeUser(int ID){
         userLinkedList.remove(ID);
-        updateDB();
     }
 
+    public LinkedList<User> getUserList(){
+        return userLinkedList;
+    }
+
+    /**TODO figure out this things purpose */
     public void updateDB() {
-        BufferedWriter bw = null;
-        FileWriter fw = null;
-        String userInfo = "";
-
-        for (User user : userLinkedList) {
-            userInfo += (user.toSting() + "\n");
-        }
-
-        try {
-
-            fw = new FileWriter(userDB);
-            bw = new BufferedWriter(fw);
-            bw.write(userInfo);
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        } finally {
-
-            try {
-
-                if (bw != null)
-                    bw.close();
-
-                if (fw != null)
-                    fw.close();
-
-            } catch (IOException ex) {
-
-                ex.printStackTrace();
-            }
-
-        }
     }
 }
