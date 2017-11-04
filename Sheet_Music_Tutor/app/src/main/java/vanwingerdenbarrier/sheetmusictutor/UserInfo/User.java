@@ -56,7 +56,7 @@ public class User {
     /**
      * 0 if the user is not the current user & 1 if the user is a current user
      */
-    private int isCurrent;
+    private boolean isCurrent;
 
     /**
      * default constructor for a new user
@@ -72,7 +72,7 @@ public class User {
         this.timingAccuracy = STARTING_ACCURACY;
         this.durationAccuracy = STARTING_ACCURACY;
         this.currentLevel = STARTING_LEVEL;
-        isCurrent = 0;
+        isCurrent = false;
     }
 
     /**
@@ -87,7 +87,7 @@ public class User {
      * @param isCurrent
      */
     public User(int ID, String name, int selectedDifficulty, int noteAccuracy,
-                int timingAccuracy, int durationAccuracy, int currentLevel, int isCurrent) {
+                int timingAccuracy, int durationAccuracy, int currentLevel, boolean isCurrent) {
         this.ID = ID;
         this.name = name;
         this.selectedDifficulty = selectedDifficulty;
@@ -96,6 +96,18 @@ public class User {
         this.durationAccuracy = durationAccuracy;
         this.currentLevel = currentLevel;
         this.isCurrent = isCurrent;
+    }
+
+    public User(int ID, String name, int selectedDifficulty, boolean isCurrent){
+        this.ID = ID;
+        this.name = name;
+        this.selectedDifficulty = selectedDifficulty;
+        this.isCurrent = isCurrent;
+        this.noteAccuracy = STARTING_ACCURACY;
+        this.timingAccuracy = STARTING_ACCURACY;
+        this.durationAccuracy = STARTING_ACCURACY;
+        this.currentLevel = STARTING_LEVEL;
+
     }
 
     /**
@@ -190,21 +202,15 @@ public class User {
      * returns true if this user is the currently selected user
      * @return
      */
-    public int getIsCurrent(){
+    public boolean isCurrent(){
         return isCurrent;
     }
 
     /**
      * swaps the users current status to the opposite of what it was
      */
-    public void IsCurrent()
-    {
-        if(isCurrent == 0){
-            isCurrent = 1;
-        }else{
-            isCurrent = 0;
-        }
-
+    public void swapCurrent(){
+        isCurrent = !isCurrent;
     }
 
     public String toSting(){
