@@ -1,5 +1,6 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.app.DialogFragment;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
@@ -16,6 +18,8 @@ public class UserMenu extends AppCompatActivity {
      * contains the current list of users
      */
     private UserList users;
+
+    DialogFragment createUserDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,8 @@ public class UserMenu extends AppCompatActivity {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User tempUser = new User(users.getUserList().size(), "Ted", 2);
-                users.addUser(tempUser, getApplicationContext());
-                linearLayout.addView(addUserButton(tempUser));
+                createUserDialog = new CreateUserDialog();
+                createUserDialog.show(getFragmentManager(),"createUserDialog");
             }
         });
 
@@ -59,6 +62,14 @@ public class UserMenu extends AppCompatActivity {
         Button remUser = new Button(this);
         remUser.setText("Remove User");
         remUser.setBackgroundColor(Color.RED);
+        remUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO correctly remove users
+                users.removeUser(getApplicationContext());
+                recreate();
+            }
+        });
 
         remUser.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -76,5 +87,12 @@ public class UserMenu extends AppCompatActivity {
         return tempButton;
     }
 
-
+    public void onAcceptDialog(View view, String name) {
+        System.out.println("NAME IS -----------------------------------------" + name);
+        User user = new User(users.getUserList().size() + 1,
+                name, 2);
+        users.addUser(user, this);
+        createUserDialog.dismiss();
+        recreate();
+    }
 }

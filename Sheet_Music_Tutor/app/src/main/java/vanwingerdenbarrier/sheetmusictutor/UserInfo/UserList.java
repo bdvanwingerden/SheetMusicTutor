@@ -52,9 +52,11 @@ public class UserList {
     /**
      * removes a user from the app using the ID as a unique identifier
      * @param ID corresponding to the user to remove
+     *           //TODO implement proper functionality
      */
-    public void removeUser(int ID){
-        userLinkedList.remove(ID);
+    public void removeUser(Context context){
+        userLinkedList = new LinkedList<>();
+        emptyUserList(context);
     }
 
     public LinkedList<User> getUserList(){
@@ -92,6 +94,15 @@ public class UserList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void emptyUserList(Context context){
+        String userDataFileName = "userData.txt";
+        String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
+
+        File newUserData = new File (userDataFilePath);
+        newUserData.delete();
+
     }
 
     public void writeUserList(Context context){
