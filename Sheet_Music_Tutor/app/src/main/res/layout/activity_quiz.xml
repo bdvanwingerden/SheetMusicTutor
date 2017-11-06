@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/grey"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.QuizActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            android:textColor="#C1A875"
+            android:layout_alignParentLeft="true"
+            android:textSize="20sp"
+            android:id="@+id/score_text"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/score"
+            android:layout_alignParentRight="true"
+            android:text="0"
+            android:textColor="#C1A875"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This acronym will help you remember the notes along the LINES in the TREBLE clef"
+        android:textSize="20sp"
+        android:textColor="#C1A875"
+        android:padding="8dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/question"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Every Good Boy Deserves Food"
+        android:background="#592C88"
+        android:textColor="#C1A875"
+        android:padding="8dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/choice1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eddie Ate Dynamite Goodbye Eddie"
+        android:background="#592C88"
+        android:textColor="#C1A875"
+        android:padding="8dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/choice2"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FACE"
+        android:background="#592C88"
+        android:textColor="#C1A875"
+        android:padding="8dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/choice3"/>
+
+
+</LinearLayout>
