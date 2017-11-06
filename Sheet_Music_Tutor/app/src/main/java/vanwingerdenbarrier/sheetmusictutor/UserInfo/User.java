@@ -77,14 +77,14 @@ public class User {
 
     /**
      * constructor for re-adding current userLinkedList
-     * @param ID
-     * @param name
-     * @param selectedDifficulty
-     * @param noteAccuracy
-     * @param timingAccuracy
-     * @param durationAccuracy
-     * @param currentLevel
-     * @param isCurrent
+     * @param ID the users ID
+     * @param name the users name
+     * @param selectedDifficulty the users selected difficulty
+     * @param noteAccuracy the users current noteAccuracy
+     * @param timingAccuracy the users current timingAccuracy
+     * @param durationAccuracy the users current durationAccuracy
+     * @param currentLevel the users current Level
+     * @param isCurrent the boolean corresponding to whether or not the user is the current user
      */
     public User(int ID, String name, int selectedDifficulty, int noteAccuracy,
                 int timingAccuracy, int durationAccuracy, int currentLevel, boolean isCurrent) {
@@ -98,6 +98,13 @@ public class User {
         this.isCurrent = isCurrent;
     }
 
+    /**
+     * simplified constructor
+     * @param ID users ID
+     * @param name users name
+     * @param selectedDifficulty the selected users difficulty
+     * @param isCurrent whether or not the user is the current user
+     */
     public User(int ID, String name, int selectedDifficulty, boolean isCurrent){
         this.ID = ID;
         this.name = name;
@@ -213,7 +220,11 @@ public class User {
         isCurrent = !isCurrent;
     }
 
-    public String toSting(){
+    /**
+     * prints the current users info in a CSV friendly format
+     * @return
+     */
+    public String toCSV(){
         return (ID + "," + name + "," + selectedDifficulty + "," + noteAccuracy + ","
                 + timingAccuracy + "," + durationAccuracy + "," + currentLevel + ","
                 + isCurrent + ",");

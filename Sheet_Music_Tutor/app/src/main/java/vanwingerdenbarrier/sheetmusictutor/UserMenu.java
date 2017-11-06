@@ -28,6 +28,9 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     private UserList users;
 
+    /**
+     * Will contain the fragment to prompt the user to enter their name
+     */
     DialogFragment createUserDialog;
 
     @Override
@@ -38,7 +41,10 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         createButtons();
     }
 
-    //TODO create makeButton method to minimize repeated code
+    /**
+     * Creates a Button for all current users in the users list and then creates the Add & remove
+     * Buttons & corresponding dialogs to confirm deletion of a user
+     */
     public void createButtons() {
         final ViewGroup linearLayout = (ViewGroup) findViewById(R.id.UserListLayout);
 
@@ -124,7 +130,11 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         linearLayout2.addView(remUser);
     }
 
-    //TODO Implement this
+    /**
+     * Currently unused method that adds a user to the list
+     * @param u the users to add to the list
+     * @return the button created
+     */
     private Button addUserButton(User u) {
         Button tempButton = new Button(this);
         tempButton.setText(u.getName());
@@ -135,6 +145,12 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         return tempButton;
     }
 
+    /**
+     * called when CreateUserDialogs accept button is pressed this creates a new user then adds them
+     * to screen then calls recreate to redraw the list of users
+     * @param view
+     * @param name
+     */
     public void onAcceptDialog(View view, String name) {
         System.out.println("NAME IS ADDED IS -------> " + name);
         User user = new User(users.getUserList().size(),
@@ -144,6 +160,10 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         recreate();
     }
 
+    /**
+     * onClick used for selecting the current user
+     * @param view
+     */
     public void onClick(View view) {
         Button bt = (Button) view;
         bt.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
