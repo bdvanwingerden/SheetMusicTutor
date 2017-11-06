@@ -15,6 +15,13 @@ import android.widget.Button;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
+
+/**
+ * Android Activity that builds a user menu then facilitates the addition and removal of users
+ *
+ * @author Bronson VanWingerden
+ * @author Dorian Barrier
+ */
 public class UserMenu extends AppCompatActivity implements View.OnClickListener {
     /**
      * contains the current list of users
