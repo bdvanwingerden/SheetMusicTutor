@@ -29,7 +29,7 @@ public class QuizActivity extends AppCompatActivity {
     /**Keeps track of the current question number*/
     private int questionNumber = 0;
 
-    private View.OnClickListener vl = new View.OnClickListener(){
+/**    private View.OnClickListener vl = new View.OnClickListener(){
         @Override
         public void onClick(View view){
 
@@ -49,6 +49,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
     };
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,23 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();//??To get initial question from array to display
 
         //Start button listener for Button1
-        buttonChoice1.setOnClickListener(vl);
+        //buttonChoice1.setOnClickListener(vl); will need when combine buttons
+        buttonChoice1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                if(buttonChoice1.getText() == answer){
+                    score += 1;
+                    updateScore(score);
+                    updateQuestion();
+                    //this line of code is optional
+                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         //End button listener for Button1
 
         //Start button listener for Button2
