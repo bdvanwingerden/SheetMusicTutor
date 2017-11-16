@@ -25,6 +25,11 @@ public class UserList {
      */
     User currentUser;
 
+    /**
+     * public constructor that initializes the linked list and then reads in the stored info in
+     * the csv
+     * @param context
+     */
     public UserList(Context context){
         this.userLinkedList = new LinkedList<>();
         readUserList(context);
@@ -37,18 +42,24 @@ public class UserList {
      * @param selectedDifficulty the users selected difficulty
      */
     public void addUser(int ID, String name, int selectedDifficulty, boolean isCurrent){
-        userLinkedList.add(new User(ID,name,selectedDifficulty, isCurrent));
+        userLinkedList.add(new User(ID,name,selectedDifficulty, isCurrent));;
     }
 
+    /**
+     * simplified add user that takes a premade user and adds it to the app
+     * @param u the user to add
+     * @param context current app context
+     */
     public void addUser(User u, Context context){
         userLinkedList.add(u);
         writeUserList(context);
     }
 
     /**
-     * removes a user from the app using the ID as a unique identifier
-     * TODO @param corresponding to the user to remove
-     *           //TODO implement proper functionality
+     * removes a user from the app using their ID as the unique Identifier & also the users location
+     * in the linked list
+     * @param context current app context
+     * @param toRemove the user to remove
      */
     public void removeUser(Context context, User toRemove){
         userLinkedList.remove(toRemove.getID());
@@ -56,11 +67,19 @@ public class UserList {
         writeUserList(context);
     }
 
+    /**
+     * returns the current list of users, useful for creating buttons in the UserMenu
+     * @return
+     */
     public LinkedList<User> getUserList(){
         return userLinkedList;
     }
 
-    /**TODO figure out this things purpose */
+    /**
+     * Reads in the currently saved information in the userData "CSV" and then adds it into a new
+     * linked list to ensure the most current user info is stored
+     * @param context current app context
+     */
     public void readUserList(Context context) {
         String userDataFileName = "userData";
         String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
@@ -94,6 +113,10 @@ public class UserList {
         }
     }
 
+    /**
+     * deletes and creates a new userData file
+     * @param context
+     */
     public void emptyUserList(Context context){
         String userDataFileName = "userData";
         String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
@@ -102,6 +125,10 @@ public class UserList {
         newUserData.delete();
     }
 
+    /**
+     * writes all the data currently stored in the userLinkedList to the userData CSV
+     * @param context
+     */
     public void writeUserList(Context context){
         String userDataFileName = "userData";
         String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
@@ -135,6 +162,10 @@ public class UserList {
         }
     }
 
+    /**
+     * finds the current current user
+     * @return
+     */
     public User findCurrent(){
         User tempUser = null;
         for(User u : userLinkedList){

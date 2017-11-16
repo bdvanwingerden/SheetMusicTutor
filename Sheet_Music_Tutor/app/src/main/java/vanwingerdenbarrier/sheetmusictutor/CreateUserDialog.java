@@ -10,9 +10,22 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+/**
+ * Basic Dialog that appears when the user attempts to add a new user
+ *
+ * @author Bronson VanWingerden
+ * @author Dorian Barrier
+ */
 public class CreateUserDialog extends DialogFragment implements View.OnClickListener{
+
+    /**
+     * the accept button
+     */
     Button accept;
+
+    /**
+     * the EditText field containing the name to add
+     */
     EditText nameToAdd;
 
     /** The system calls this to get the DialogFragment's layout, regardless
@@ -42,6 +55,9 @@ public class CreateUserDialog extends DialogFragment implements View.OnClickList
     }
 
     @Override
+    /**
+     * calls UserMenus onAccept button
+     */
     public void onClick(View view){
         switch(view.getId()){
             case R.id.acceptUserButton:

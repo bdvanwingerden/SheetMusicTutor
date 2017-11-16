@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(optionsMenu);
     }
 
-    //TODO create stats menu basic layout
-    public void statsButton(View v){}
+
+    public void quizButton(View v){
+        Intent quiz = new Intent(this, QuizActivity.class);
+        this.startActivity(quiz);
+    }
 }
