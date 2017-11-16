@@ -27,18 +27,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:onClick="quizButton"
-<<<<<<< HEAD
-        android:text="@string/stats"
-=======
-        android:text="@string/quiz"
->>>>>>> DorianTemp
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        android:onClick="quizButton" />
 
     <Button
         android:id="@+id/OptionsButton"

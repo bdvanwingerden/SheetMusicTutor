@@ -47,7 +47,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     public void createButtons() {
         final ViewGroup linearLayout = (ViewGroup) findViewById(R.id.UserListLayout);
-
+        //
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
             tempButton.setText(u.getName());
