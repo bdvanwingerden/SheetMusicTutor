@@ -3,7 +3,7 @@ package vanwingerdenbarrier.sheetmusictutor;
  * Created by Dorian Barrier 9/28/17
  * Class that implements the keyboard view
  */
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

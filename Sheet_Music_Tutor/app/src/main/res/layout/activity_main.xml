@@ -12,22 +12,27 @@
         android:id="@+id/StartButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="startButton"
         android:text="@string/start"
         app:layout_constraintBottom_toTopOf="@+id/OptionsButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/OptionsButton"
         app:layout_constraintRight_toRightOf="@+id/OptionsButton"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:onClick="startButton"/>
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/QuizButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:onClick="quizButton" />
+        android:layout_marginBottom="27dp"
+        android:onClick="quizButton"
+        android:text="@string/quiz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/OptionsButton"
