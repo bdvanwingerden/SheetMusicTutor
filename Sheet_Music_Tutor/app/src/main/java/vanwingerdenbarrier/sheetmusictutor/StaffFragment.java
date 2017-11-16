@@ -16,10 +16,11 @@ public class StaffFragment extends Fragment {
                              Bundle savedInstanceState) {
         getActivity();
 
-        /**
-         * sets the fragments view
-         */
-        return new DrawStaff(this.getContext());
+        ViewGroup staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff, container, false);
+
+        staff.addView(new DrawStaff(this.getContext()));
+
+        return staff;
     }
 
 

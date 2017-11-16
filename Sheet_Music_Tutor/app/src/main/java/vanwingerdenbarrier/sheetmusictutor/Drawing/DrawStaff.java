@@ -119,8 +119,8 @@ public class DrawStaff extends AppCompatImageView {
     private void drawStaff(Canvas canvas){
         lineArray = new float[20];
 
-        int margin = 150;
-        spaceBetween = (size.y/7) - 60;
+        int margin = 200;
+        spaceBetween = (size.y/7) - 100;
         paint.setStrokeWidth(spaceBetween/20);
 
         int position = margin;

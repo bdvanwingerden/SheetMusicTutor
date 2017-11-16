@@ -8,4 +8,27 @@
     android:orientation="horizontal"
     tools:context="vanwingerdenbarrier.sheetmusictutor.GameActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/question_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="40">
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/answer_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="80">
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -21,14 +21,20 @@ public class GameActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
-        addFragment(new StaffFragment());
-        addFragment(new KeyFragment());
+        addQuestion(new StaffFragment());
+        addAnswer(new KeyFragment());
         setContentView(R.layout.activity_game);
     }
 
-    public void addFragment(Fragment fragment){
+    public void addQuestion(Fragment fragment){
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentholder, fragment);
+        fragmentTransaction.add(R.id.question_holder, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void addAnswer(Fragment fragment){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.answer_holder, fragment);
         fragmentTransaction.commit();
     }
 }
