@@ -5,14 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.zip.CheckedOutputStream;
 
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
@@ -89,14 +93,25 @@ public class DrawStaff extends AppCompatImageView {
      */
     int textSize = 80;
 
+    boolean noteClicked;
+
+    float lastClickY;
+    float lastClickX;
+
+    int noteHeight;
+    int noteWidth;
+    int margin = 200;
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
      *
      * @param context
      */
-    public DrawStaff(Context context) {
+    public DrawStaff(final Context context) {
         super(context);
+
+        noteClicked = false;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -105,13 +120,32 @@ public class DrawStaff extends AppCompatImageView {
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(textSize);
+        populateStaff();
+
+        setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println(event.getX() + " " + event.getY());
+                noteClicked = true;
+                lastClickX = event.getX();
+                lastClickY = event.getY();
+
+                invalidate();
+                return true;
+            }
+        });
+
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         drawStaff(canvas);
-        populateStaff();
         drawNotes(canvas);
+        if(noteClicked){
+            getClickedNote(lastClickX, lastClickY, canvas);
+            noteClicked = false;
+        }
     }
 
     /**
@@ -122,7 +156,6 @@ public class DrawStaff extends AppCompatImageView {
     private void drawStaff(Canvas canvas) {
         lineArray = new float[20];
 
-        int margin = 200;
         spaceBetween = ((size.y / 7) - 100)/bars;
         paint.setStrokeWidth(spaceBetween / 20);
 
@@ -198,9 +231,9 @@ public class DrawStaff extends AppCompatImageView {
      * @param canvas the canvas to draw onto
      */
     private void drawNotes(Canvas canvas) {
-        int noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
-        int noteWidth = noteHeight + 10;
-        int margin = 100;
+
+        noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
+        noteWidth = noteHeight + 10;
 
         paint.setStrokeWidth(noteHeight / 4);
 
@@ -313,6 +346,56 @@ public class DrawStaff extends AppCompatImageView {
 
         return noteShape;
     }
+
+    public Note getClickedNote(float x, float y, Canvas canvas){
+        Note locatedNote = null;
+
+        for(int i = 0; i < bars; i++) {
+            for(int j = 0; j < beats; j++)
+            for (Note temp : currentStaff.getNoteList(i,j)){
+
+                if((temp.getX() <= x+(spaceBetween) && temp.getX() >= x-(spaceBetween))
+                        &&(temp.getY() <= y+(spaceBetween) && temp.getY() >= y-(spaceBetween))){
+
+                    locatedNote = temp;
+                    callKeyboard(locatedNote);
+
+                    paint.setColor(Color.RED);
+
+                    Drawable noteShape = getNoteShape(temp);
+                    noteShape.mutate();
+                    noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+
+                    noteShape.setBounds(temp.getX() - noteWidth, temp.getY() - noteHeight
+                            , temp.getX() + noteWidth, temp.getY() + noteHeight);
+                    noteShape.draw(canvas);
+
+                    /**
+                     * drawing the stem
+                     */
+                    if (temp.getDuration() != Duration.WHOLE) {
+                        canvas.drawLine(temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2
+                                , temp.getY() - 15
+                                , temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2,
+                                temp.getY() - spaceBetween * 2, paint);
+
+                    }
+
+                    paint.setColor(Color.WHITE);
+                    //TODO Change constant 40 to figure out the center of a note
+                    canvas.drawText(temp.getTone().toString(), temp.getX(), temp.getY() + 40, paint);
+                    paint.setColor(Color.BLACK);
+                }
+            }
+        }
+
+        return locatedNote;
+    }
+
+    public void callKeyboard(Note note){
+        
+    }
+
 }
 
 

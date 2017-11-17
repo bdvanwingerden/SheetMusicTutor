@@ -20,6 +20,7 @@ public class StaffFragment extends Fragment {
 
         staff.addView(new DrawStaff(this.getContext()));
 
+
         return staff;
     }
 
