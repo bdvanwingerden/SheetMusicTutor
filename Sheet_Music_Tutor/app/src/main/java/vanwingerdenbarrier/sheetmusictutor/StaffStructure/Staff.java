@@ -71,4 +71,8 @@ public class Staff{
     public int getCurrentBeatIndex(int barlocation){
         return bars.get(barlocation).getLastNoteIndex();
     }
+
+    public Clef getClef(){
+        return clef;
+    }
 }

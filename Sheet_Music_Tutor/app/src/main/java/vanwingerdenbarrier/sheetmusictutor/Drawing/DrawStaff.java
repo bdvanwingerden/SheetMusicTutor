@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -100,7 +101,8 @@ public class DrawStaff extends AppCompatImageView {
 
     int noteHeight;
     int noteWidth;
-    int margin = 200;
+    int horMargin;
+    int verMargin;
 
     /**
      * public constructor to create a DrawStaff object
@@ -112,6 +114,8 @@ public class DrawStaff extends AppCompatImageView {
         super(context);
 
         noteClicked = false;
+        horMargin = 300;
+        verMargin = 200;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -125,10 +129,16 @@ public class DrawStaff extends AppCompatImageView {
         setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println(event.getX() + " " + event.getY());
-                noteClicked = true;
-                lastClickX = event.getX();
-                lastClickY = event.getY();
+
+
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    noteClicked = true;
+                    lastClickX = event.getX();
+                    lastClickY = event.getY();
+
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    noteClicked = false;
+                }
 
                 invalidate();
                 return true;
@@ -140,12 +150,62 @@ public class DrawStaff extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        horMargin = 200;
         drawStaff(canvas);
+        drawClef(canvas);
+        drawGuides(canvas, 8);
         drawNotes(canvas);
         if(noteClicked){
             getClickedNote(lastClickX, lastClickY, canvas);
-            noteClicked = false;
         }
+    }
+
+    private void drawGuides(Canvas canvas, int guideDivision){
+        float top = (spaceBetween - paint.getStrokeWidth()) * 2;
+        float bottom = (spaceBetween * 6) - paint.getStrokeWidth();
+        paint.setStrokeWidth(paint.getStrokeWidth()*2);
+        paint.setColor(Color.parseColor("#DCDCDC"));
+
+        for(int i = 0; i < bars; i++){
+            for(int j = 0; j < beats; j+=(beats/guideDivision)) {
+
+                int location = (((size.x - horMargin) / beats) * j + horMargin);
+
+                canvas.drawLine(location, top,
+                        location, bottom, paint);
+            }
+        }
+
+        paint.setStrokeWidth(paint.getStrokeWidth()/2);
+        paint.setColor(Color.BLACK);
+    }
+
+    private void drawClef(Canvas canvas){
+        Drawable clef =  getResources().getDrawable(R.drawable.t_clef);
+        int numberOflines = 7;
+        int left = 0;
+        int right = horMargin + 100;
+        int top = spaceBetween + (spaceBetween/2);
+        int bottom = (spaceBetween * 6) + (spaceBetween/2);
+
+        if(currentStaff.getClef() == Clef.BASS){
+            clef = getResources().getDrawable(R.drawable.b_clef);
+            numberOflines = 5;
+        }
+
+        clef.setBounds(left, top ,right , bottom);
+
+        horMargin += horMargin;
+
+        clef.draw(canvas);
+        canvas.drawLine(right, (spaceBetween - paint.getStrokeWidth()) * 2 ,
+                right, (spaceBetween * 6) - paint.getStrokeWidth() , paint);
+
+        right += 20;
+
+        canvas.drawLine(right, (spaceBetween - paint.getStrokeWidth()) * 2 ,
+                right, (spaceBetween * 6) - paint.getStrokeWidth() , paint);
+
     }
 
     /**
@@ -159,9 +219,9 @@ public class DrawStaff extends AppCompatImageView {
         spaceBetween = ((size.y / 7) - 100)/bars;
         paint.setStrokeWidth(spaceBetween / 20);
 
-        int position = margin;
-        int right = size.x;
-        int left = 0;
+        int position = verMargin;
+        int right = size.x - 40;
+        int left = 40;
 
 
         for (int i = 0; i < 20; i += 4) {
@@ -241,10 +301,8 @@ public class DrawStaff extends AppCompatImageView {
             for (int j = 0; j < beats; j++) {
                 ArrayList<Note> tempList = currentStaff.getNoteList(i, j);
                 for (Note note : tempList) {
-                    /*TODO replace magic number 100 with dynamic variable
-                    * 100 represents the left margin of the notes
-                    */
-                    note.setX(((size.x / beats) * j + margin));
+
+                    note.setX((((size.x - horMargin) / beats) * j + horMargin));
                     note.setY(locateNote(note));
 
                     /**
@@ -393,7 +451,6 @@ public class DrawStaff extends AppCompatImageView {
     }
 
     public void callKeyboard(Note note){
-        
     }
 
 }
