@@ -36,12 +36,28 @@ public class Staff{
         bars = new ArrayList<>();
 
         for(int i = 0; i < numOfBars; i++){
-            bars.add(new Bar(timeSig));
+            bars.add(new Bar());
         }
     }
 
-    public void insertNote(Note note, int barLocation, int beatLocation){
-        bars.get(barLocation).getBeats().get(beatLocation).insertNote(note);
+    public void insertNote(Note note, int barLocation){
+        Bar current = bars.get(barLocation);
+        if(current.getLastNoteIndex() < 16){
+            bars.get(barLocation).getBeats().get(current.getLastNoteIndex()).insertNote(note);
+
+            switch (note.getDuration()){
+                case WHOLE: current.incrementNoteIndex(16);
+                    break;
+                case HALF: current.incrementNoteIndex(8);
+                    break;
+                case QUARTER: current.incrementNoteIndex(4);
+                    break;
+                case EIGHTH: current.incrementNoteIndex(2);
+                    break;
+                case SIXTEENTH: current.incrementNoteIndex(1);
+                    break;
+            }
+        }
     }
 
     public ArrayList<Note> getNoteList(int barLocation, int beatLocation){
@@ -52,7 +68,7 @@ public class Staff{
         return bars.size();
     }
 
-    public int getNumOfBeats(int barLocation){
-        return bars.get(barLocation).getNumOfBeats();
+    public int getCurrentBeatIndex(int barlocation){
+        return bars.get(barlocation).getLastNoteIndex();
     }
 }

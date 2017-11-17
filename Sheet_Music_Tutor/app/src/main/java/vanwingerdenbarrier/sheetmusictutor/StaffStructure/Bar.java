@@ -7,17 +7,16 @@ import java.util.ArrayList;
  */
 
 public class Bar {
-    int numOfBeats;
+    int noteIndex;
 
     ArrayList<Beat> beats;
 
-    public Bar(int[] timeSig) {
-        this.numOfBeats = 0;
+    public Bar() {
+        this.noteIndex = 0;
         beats = new ArrayList<>();
 
-        for (int i = 0; i < timeSig[0]; i++){
+        for (int i = 0; i < 16; i++){
             beats.add(new Beat());
-            numOfBeats++;
         }
     }
 
@@ -25,7 +24,11 @@ public class Bar {
         return beats;
     }
 
-    public int getNumOfBeats(){
-        return beats.size();
+    public int getLastNoteIndex(){
+        return noteIndex;
+    }
+
+    public void incrementNoteIndex(int index){
+        noteIndex += index;
     }
 }

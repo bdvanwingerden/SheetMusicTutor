@@ -18,11 +18,10 @@ public class Note {
      */
     int pitch;
 
-    /**
-     * the duration of the note in number of beats so 1 quarter note would equal 1 in 4/4 and half
-     * notes would equal 2 and whole notes would equal 4
-     */
-    int duration;
+
+    Duration duration;
+
+    int remainingDuration;
 
     /**
      * the x location of this note set to 0 until changed
@@ -34,12 +33,15 @@ public class Note {
      */
     int y;
 
-    public Note(Tone tone, int pitch, int duration){
+    boolean drawn;
+
+    public Note(Tone tone, int pitch, Duration duration){
         this.tone = tone;
         this.pitch = pitch;
         this.duration = duration;
         this.x = 0;
         this.y = 0;
+        drawn = false;
     }
 
     public Tone getTone() {
@@ -50,15 +52,8 @@ public class Note {
         return pitch;
     }
 
-    public int getDuration() {
+    public Duration getDuration() {
         return duration;
-    }
-
-    /**
-     * decrements the remaining duration for the current note
-     */
-    public void decDuration(){
-        duration--;
     }
 
     public int getX() {
