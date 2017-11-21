@@ -40,6 +40,11 @@ public class Staff{
         }
     }
 
+    /**
+     * inserts a given note into the given location
+     * @param note the note to insert
+     * @param barLocation the location to insert to
+     */
     public void insertNote(Note note, int barLocation){
         Bar current = bars.get(barLocation);
         if(current.getLastNoteIndex() < 16){
@@ -60,6 +65,12 @@ public class Staff{
         }
     }
 
+    /**
+     * returns the list of notes a the given location
+     * @param barLocation the bar to look in
+     * @param beatLocation the beat to look in
+     * @return the note list for the beat
+     */
     public ArrayList<Note> getNoteList(int barLocation, int beatLocation){
         return bars.get(barLocation).getBeats().get(beatLocation).getNotes();
     }
