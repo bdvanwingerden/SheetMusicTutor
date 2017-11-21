@@ -16,7 +16,7 @@ import vanwingerdenbarrier.sheetmusictutor.Key.KeySound2;
 public class KeyFragment extends Fragment {
 
     /*Buttons that correspond with each sound*/
-    Button a,b,c,d,e,f,g,cs,ds,fs,gs,as;
+    Button a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2;
 
     /**Instance of KeySoundAPI*/
     KeySound2 keysound;
@@ -52,9 +52,16 @@ public class KeyFragment extends Fragment {
         as = (Button) v.findViewById(R.id.as);
         fs = (Button) v.findViewById(R.id.fs);
         gs = (Button) v.findViewById(R.id.gs);
+        a2 = (Button) v.findViewById(R.id.a2);
+        b2 = (Button) v.findViewById(R.id.b2);
+        c2 = (Button) v.findViewById(R.id.c2);
+        d2 = (Button) v.findViewById(R.id.d2);
+        e2 = (Button) v.findViewById(R.id.e2);
+        f2 = (Button) v.findViewById(R.id.f2);
+        g2 = (Button) v.findViewById(R.id.g2);
 
         //create instance of KeySound2 API and pass buttons and context
-        keysound = new KeySound2(a,b,c,d,e,f,g,cs,ds,fs,gs,as, getActivity());
+        keysound = new KeySound2(a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2,getActivity());
         keysound.createPool();
 
     }

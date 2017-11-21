@@ -1,17 +1,15 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vanwingerdenbarrier.sheetmusictutor.Quiz.QuestionLibrary;
-
 public class QuizActivity extends AppCompatActivity {
 
-    private QuestionLibrary questionLibrary = new QuestionLibrary();
+    private QuestionStorage questionLibrary = new QuestionStorage();
 
     /**Attach these variable to XML Buttons*/
     private TextView scoreView;
@@ -23,33 +21,49 @@ public class QuizActivity extends AppCompatActivity {
     /**Use to compare user answer to correct answer*/
     private String answer;
 
+    private int difficulty;
+
     /**Keep track of users current score*/
     private int score = 0;
 
     /**Keeps track of the current question number*/
     private int questionNumber = 0;
 
-/**    private View.OnClickListener vl = new View.OnClickListener(){
+
+
+    private View.OnClickListener vl = new View.OnClickListener(){
         @Override
         public void onClick(View view){
 
             if (view instanceof  Button) {
                 Button button = (Button) view;
                 //My logic for Button goes here
-                if (buttonChoice1.getText() == answer) {
-                    score += 1;
+                if (button.getText().equals(answer)) {
+                    score += difficulty;
                     updateScore(score);
-                    updateQuestion();
+                    if(questionNumber < 4)
+                        updateQuestion();
                     //this line of code is optional
                     Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
+
+
+                    if(difficulty > 1){
+                        difficulty--;
+                        Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(difficulty == 1){
+                        Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
+                        if(questionNumber < 4)
+                            updateQuestion();
+                    }
+
                 }
             }
         }
     };
- */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,65 +75,20 @@ public class QuizActivity extends AppCompatActivity {
         buttonChoice2 = (Button)findViewById(R.id.choice2);
         buttonChoice3 = (Button)findViewById(R.id.choice3);
 
-        //Add method to write initial score.
+        questionLibrary.initialQuestions(getApplicationContext());
         updateQuestion();//??To get initial question from array to display
+        updateScore(score);
 
         //Start button listener for Button1
-        //buttonChoice1.setOnClickListener(vl); will need when combine buttons
-        buttonChoice1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-                if(buttonChoice1.getText() == answer){
-                    score += 1;
-                    updateScore(score);
-                    updateQuestion();
-                    //this line of code is optional
-                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-
-                }else{
-                    Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        buttonChoice1.setOnClickListener(vl);
         //End button listener for Button1
 
         //Start button listener for Button2
-        buttonChoice2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-                if(buttonChoice2.getText() == answer){
-                    score += 1;
-                    updateScore(score);
-                    updateQuestion();
-                    //this line of code is optional
-                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-
-                }else{
-                    Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        buttonChoice2.setOnClickListener(vl);
         //End button listener for Button2
 
         //Start button listener for Button3
-        buttonChoice3.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //My logic for Button goes here
-                if(buttonChoice3.getText() == answer){
-                    score += 1;
-                    updateScore(score);
-                    updateQuestion();
-                    //this line of code is optional
-                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
-
-                }else{
-                    Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        buttonChoice3.setOnClickListener(vl);
         //End button listener for Button3
     }
 
@@ -128,11 +97,13 @@ public class QuizActivity extends AppCompatActivity {
      * Updates text in xml
      */
     public void updateQuestion(){
-        questionView.setText(questionLibrary.getQuestions(questionNumber));
-        buttonChoice1.setText(questionLibrary.getChoice1(questionNumber));
-        buttonChoice2.setText(questionLibrary.getChoice2(questionNumber));
-        buttonChoice3.setText(questionLibrary.getChoice3(questionNumber));
+        questionView.setText(questionLibrary.getQuestion(questionNumber));
+        buttonChoice1.setText(questionLibrary.getChoice(questionNumber,1));
+        buttonChoice2.setText(questionLibrary.getChoice(questionNumber,2));
+        buttonChoice3.setText(questionLibrary.getChoice(questionNumber,3));
 
+        String diff = questionLibrary.getDifficultyScore(questionNumber);
+        difficulty = Integer.parseInt(diff);
         answer = questionLibrary.getCorrectAnswer(questionNumber);
         questionNumber++;
     }
@@ -145,3 +116,5 @@ public class QuizActivity extends AppCompatActivity {
         scoreView.setText("" + score);
     }
 }//end Class QuizActivity
+
+

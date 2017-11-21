@@ -13,8 +13,7 @@
             android:layout_weight=".85"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/key_background"
-            android:text="c"
+            android:background="@drawable/border"
             android:id="@+id/c2"/>
         <Button
             android:layout_weight=".79"
@@ -22,14 +21,13 @@
             android:layout_height="fill_parent"
             android:text="cs"
             android:textColor="@color/white"
-            android:background="@drawable/sharp_key_background"
+            android:background="@color/black"
             android:id="@+id/cs"/>
         <Button
             android:layout_weight=".88"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="d"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/d2"/>
         <Button
             android:layout_weight=".79"
@@ -37,21 +35,19 @@
             android:layout_height="fill_parent"
             android:text="ds"
             android:textColor="@color/white"
-            android:background="@drawable/sharp_key_background"
+            android:background="@color/black"
             android:id="@+id/ds"/>
         <Button
             android:layout_weight=".8465"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="e"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/e2"/>
         <Button
             android:layout_weight=".85"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="f"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/f2"/>
         <Button
             android:layout_weight=".79"
@@ -59,14 +55,13 @@
             android:layout_height="fill_parent"
             android:text="fs"
             android:textColor="@color/white"
-            android:background="@drawable/sharp_key_background"
+            android:background="@color/black"
             android:id="@+id/fs"/>
         <Button
             android:layout_weight=".88"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="g"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/g2"/>
         <Button
             android:layout_weight=".79"
@@ -74,14 +69,13 @@
             android:layout_height="fill_parent"
             android:text="gs"
             android:textColor="@color/white"
-            android:background="@drawable/sharp_key_background"
+            android:background="@color/black"
             android:id="@+id/gs"/>
         <Button
             android:layout_weight=".88"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="a"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/a2"/>
         <Button
             android:layout_weight=".79"
@@ -89,7 +83,7 @@
             android:layout_height="fill_parent"
             android:text="as"
             android:textColor="@color/white"
-            android:background="@drawable/sharp_key_background"
+            android:background="@color/black"
             android:id="@+id/as"/>
 
         <Button
@@ -97,8 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".85"
-            android:background="@drawable/key_background"
-            android:text="b" />
+            android:background="@drawable/border" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +103,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:text="c"
             android:id="@+id/c"/>
         <Button
@@ -118,42 +111,42 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="d"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/d"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="e"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/e"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="f"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/f"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="g"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/g"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="a"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/a"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="b"
-            android:background="@drawable/key_background"
+            android:background="@drawable/border"
             android:id="@+id/b"/>
     </LinearLayout>
 </LinearLayout>

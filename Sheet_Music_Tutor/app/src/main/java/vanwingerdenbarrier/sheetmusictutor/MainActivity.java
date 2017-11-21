@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void quizButton(View v){
+    public void quizButton(View v) {
         Intent quiz = new Intent(this, QuizActivity.class);
         this.startActivity(quiz);
     }
