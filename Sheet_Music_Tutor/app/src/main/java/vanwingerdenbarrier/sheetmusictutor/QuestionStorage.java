@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by Doriangh4 on 11/6/2017.
  */
-
 public class QuestionStorage {
 
     //Declare list of Question objects
@@ -51,6 +50,7 @@ public class QuestionStorage {
     public String getDifficultyScore(int a){
         return list.get(a).getDifficulty();
     }//end getDifficultyScore
+
 
     public void initialQuestions(Context context){
         myDatabaseHelper = new DatabaseHelper(context);

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.zip.CheckedOutputStream;
 
+import vanwingerdenbarrier.sheetmusictutor.Key.KeySound2;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
