@@ -126,26 +126,6 @@ public class DrawStaff extends AppCompatImageView {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(textSize);
         populateStaff();
-
-        setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    noteClicked = true;
-                    lastClickX = event.getX();
-                    lastClickY = event.getY();
-
-                }else if(event.getAction() == MotionEvent.ACTION_UP){
-                    noteClicked = false;
-                }
-
-                invalidate();
-                return true;
-            }
-        });
-
-
     }
 
     @Override
@@ -157,7 +137,15 @@ public class DrawStaff extends AppCompatImageView {
         drawNotes(canvas);
         if(noteClicked){
             getClickedNote(lastClickX, lastClickY, canvas);
+            System.out.println("REDRAWING");
         }
+        System.out.println("REDRAWING");
+    }
+
+    public void reDraw(boolean noteClicked, float lastClickX, float lastClickY){
+        this.noteClicked = noteClicked;
+        this.lastClickX = lastClickX;
+        this.lastClickY = lastClickY;
     }
 
     private void drawGuides(Canvas canvas, int guideDivision){
