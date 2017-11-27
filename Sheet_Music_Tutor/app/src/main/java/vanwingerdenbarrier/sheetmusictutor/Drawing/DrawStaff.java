@@ -37,7 +37,6 @@ public class DrawStaff extends AppCompatImageView {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
-
     /**
      * stores the dimension of the current display
      */
@@ -95,8 +94,10 @@ public class DrawStaff extends AppCompatImageView {
      */
     int textSize = 80;
 
+    /** true if there is a currently clicked note */
     boolean noteClicked;
 
+    /**x & y of last clicked note */
     float lastClickY;
     float lastClickX;
 
@@ -130,7 +131,6 @@ public class DrawStaff extends AppCompatImageView {
         setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
 
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     noteClicked = true;
