@@ -12,14 +12,24 @@ import android.view.View;
  * @author Bronson VanWingerden
  * the game activity screen to display the Staff Fragment and the Key Fragment
  */
-public class GameActivity extends FragmentActivity {
+public class GameActivity extends FragmentActivity implements QuestionDisplay.Display{
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
+    /**
+     * Observery method hopefully?
+     */
+    public void printMessage(String s) {
+        System.out.println(s);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO NOTELISTENER INTERFACE CREATING & PASSING HERE
+        //OBSERVER PATTERN WITH MULTIPLE OBSERVERS
+        //LOOK AT JAVA OBSERVER
         fragmentManager = getSupportFragmentManager();
         addQuestion(new StaffFragment());
         addAnswer(new KeyFragment());
