@@ -8,7 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import vanwingerdenbarrier.sheetmusictutor.Drawing.DrawStaff;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 
 public class StaffFragment extends Fragment implements QuestionDisplay {
 
@@ -20,27 +23,21 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                              Bundle savedInstanceState) {
         getActivity();
 
-         staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
+        staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
                 container, false);
-         staff.setWillNotDraw(false);
 
-         drawStaff = new DrawStaff(this.getContext());
+        drawStaff = new DrawStaff(this.getContext());
+        staff.addView(drawStaff);
 
-        staff.addView(new DrawStaff(this.getContext()));
+        staff.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
 
-        staff.setOnTouchListener(new  View.OnTouchListener(){
-            public boolean onTouch(View view, MotionEvent event){
+                float[] location = new float[2];
+                location[0] = event.getX();
+                location[1] = event.getY();
 
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    drawStaff.reDraw(true, event.getX(), event.getY());
-                }else if(event.getAction() == MotionEvent.ACTION_UP){
-                    // sets both lastClickX & Y back to default
-                    drawStaff.reDraw(false, 0,0);
-                }
+                colorNoteOnStaff(location, event);
 
-                staff.removeAllViews();
-                staff.addView(drawStaff);
-                System.out.println("fragment ontouch");
                 return true;
             }
         });
@@ -48,7 +45,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         return staff;
     }
 
-    public void onAttach(Activity activity){
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         try {
@@ -58,5 +55,54 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                     + " must implement OnHeadlineSelectedListener");
         }
     }
+
+    public void colorNoteOnStaff(float[] location, MotionEvent event){
+        Note tempNote;
+        if (event.getAction() == MotionEvent.ACTION_DOWN && location != null) {
+            tempNote = drawStaff.reDraw(true, location[0], location[1]);
+            if(tempNote != null) {
+                callback.questionPressed(tempNote);
+            }
+        } else if (event.getAction() == MotionEvent.ACTION_UP && location != null) {
+            // sets both lastClickX & Y back to default
+            drawStaff.reDraw(false, 0, 0);
+        }
+
+        staff.removeAllViews();
+        staff.addView(drawStaff);
+    }
+
+
+    /** finds the first note matching the key pressed */
+    public float[] getNoteLocation(Note noteToFind){
+        return drawStaff.getCurrentStaff().findNoteLocation(noteToFind);
+    }
+
+    public float[] getNoteAtCurrentLocation(Note noteToFind){
+        float[] location = null;
+
+        ArrayList<Note> noteList = drawStaff.getCurrentStaff()
+                .getNoteList(drawStaff.getCurrentBar(), drawStaff.getCurrentBeat());
+        for(Note note : noteList){
+            if(note.getTone() == noteToFind.getTone()) {
+                if (note.getTone() == noteToFind.getTone()) {
+                    location = new float[2];
+                    location[0] = note.getX();
+                    location[1] = note.getY();
+
+                    drawStaff.incrementPointer();
+                    if(drawStaff.getCurrentBeat() >= 16){
+                        drawStaff = new DrawStaff(this.getContext());
+                        staff.removeAllViews();
+                        staff.addView(drawStaff);
+                    }
+                    return location;
+                }
+
+            }
+        }
+        return location;
+    }
+
 
 }

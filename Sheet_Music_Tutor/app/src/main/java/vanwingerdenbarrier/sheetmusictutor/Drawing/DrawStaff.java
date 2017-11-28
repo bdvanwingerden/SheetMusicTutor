@@ -16,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.zip.CheckedOutputStream;
 
@@ -87,6 +89,9 @@ public class DrawStaff extends AppCompatImageView {
      */
     int subdivision = 4;
 
+    int currentBar;
+    int currentBeat;
+
     /**
      * the size of the text to display the note name within the note
      * TODO set this based on the scale of the screen
@@ -105,6 +110,8 @@ public class DrawStaff extends AppCompatImageView {
     int horMargin;
     int verMargin;
 
+    LinkedList<Note> nextToPlay;
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -113,6 +120,8 @@ public class DrawStaff extends AppCompatImageView {
      */
     public DrawStaff(final Context context) {
         super(context);
+
+        nextToPlay = new LinkedList<Note>();
 
         noteClicked = false;
         horMargin = 300;
@@ -135,17 +144,29 @@ public class DrawStaff extends AppCompatImageView {
         drawClef(canvas);
         drawGuides(canvas, 8);
         drawNotes(canvas);
+        drawPointer(canvas, currentBar, currentBeat);
         if(noteClicked){
-            getClickedNote(lastClickX, lastClickY, canvas);
-            System.out.println("REDRAWING");
+            Note tempNote = getClickedNote(lastClickX, lastClickY);
+            if(tempNote != null){
+                selectNote(tempNote, canvas);
+            }
         }
-        System.out.println("REDRAWING");
     }
 
-    public void reDraw(boolean noteClicked, float lastClickX, float lastClickY){
+    public Note reDraw(boolean noteClicked, float lastClickX, float lastClickY){
         this.noteClicked = noteClicked;
         this.lastClickX = lastClickX;
         this.lastClickY = lastClickY;
+        return getClickedNote(lastClickX,lastClickY);
+    }
+
+    public void incrementPointer(){
+        currentBeat++;
+        while(currentStaff.getNoteList(currentBar,currentBeat).isEmpty() && currentBeat <= 16){
+            currentBeat++;
+        }
+
+        System.out.println("current Beat" + currentBeat);
     }
 
     private void drawGuides(Canvas canvas, int guideDivision){
@@ -390,10 +411,11 @@ public class DrawStaff extends AppCompatImageView {
                 break;
         }
 
+
         return noteShape;
     }
 
-    public Note getClickedNote(float x, float y, Canvas canvas){
+    public Note getClickedNote(float x, float y){
         Note locatedNote = null;
 
         for(int i = 0; i < bars; i++) {
@@ -404,33 +426,7 @@ public class DrawStaff extends AppCompatImageView {
                         &&(temp.getY() <= y+(spaceBetween) && temp.getY() >= y-(spaceBetween))){
 
                     locatedNote = temp;
-                    callKeyboard(locatedNote);
 
-                    paint.setColor(Color.RED);
-
-                    Drawable noteShape = getNoteShape(temp);
-                    noteShape.mutate();
-                    noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-
-                    noteShape.setBounds(temp.getX() - noteWidth, temp.getY() - noteHeight
-                            , temp.getX() + noteWidth, temp.getY() + noteHeight);
-                    noteShape.draw(canvas);
-
-                    /**
-                     * drawing the stem
-                     */
-                    if (temp.getDuration() != Duration.WHOLE) {
-                        canvas.drawLine(temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2
-                                , temp.getY() - 15
-                                , temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2,
-                                temp.getY() - spaceBetween * 2, paint);
-
-                    }
-
-                    paint.setColor(Color.WHITE);
-                    //TODO Change constant 40 to figure out the center of a note
-                    canvas.drawText(temp.getTone().toString(), temp.getX(), temp.getY() + 40, paint);
-                    paint.setColor(Color.BLACK);
                 }
             }
         }
@@ -438,7 +434,61 @@ public class DrawStaff extends AppCompatImageView {
         return locatedNote;
     }
 
-    public void callKeyboard(Note note){
+    public void selectNote(Note temp, Canvas canvas){
+        paint.setColor(Color.RED);
+
+        Drawable noteShape = getNoteShape(temp);
+        noteShape.mutate();
+        noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+
+        noteShape.setBounds(temp.getX() - noteWidth, temp.getY() - noteHeight
+                , temp.getX() + noteWidth, temp.getY() + noteHeight);
+        noteShape.draw(canvas);
+
+        /**
+         * drawing the stem
+         */
+        if (temp.getDuration() != Duration.WHOLE) {
+            canvas.drawLine(temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2
+                    , temp.getY() - 15
+                    , temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2,
+                    temp.getY() - spaceBetween * 2, paint);
+
+        }
+
+        paint.setColor(Color.WHITE);
+        //TODO Change constant 40 to figure out the center of a note
+        canvas.drawText(temp.getTone().toString(), temp.getX(), temp.getY() + 40, paint);
+        paint.setColor(Color.BLACK);
+    }
+
+    public Staff getCurrentStaff(){
+        return currentStaff;
+    }
+
+    public void drawPointer(Canvas canvas, int barLocation, int beatLocation){
+        Drawable arrow = getResources().getDrawable(R.drawable.arrowgreen);
+        for(Note note : currentStaff.getNoteList(barLocation, beatLocation)){
+
+            arrow.setBounds(note.getX() - noteWidth,
+                            spaceBetween*6,
+                            note.getX() + noteWidth,
+                            spaceBetween*7);
+        }
+
+        arrow.draw(canvas);
+    }
+
+    public LinkedList<Note> getNextToPlay(){
+        return nextToPlay;
+    }
+
+    public int getCurrentBar(){
+        return currentBar;
+    }
+
+    public int getCurrentBeat(){
+        return currentBeat;
     }
 
 }

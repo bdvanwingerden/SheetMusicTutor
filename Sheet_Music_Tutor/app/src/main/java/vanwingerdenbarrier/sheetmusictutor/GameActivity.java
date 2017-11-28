@@ -6,43 +6,60 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
 
 /**
  * @author Bronson VanWingerden
  * the game activity screen to display the Staff Fragment and the Key Fragment
  */
-public class GameActivity extends FragmentActivity implements QuestionDisplay.Display{
+public class GameActivity extends FragmentActivity
+        implements QuestionDisplay.Display, AnswerDisplay.Display{
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    Fragment currentQuestion;
+    Fragment currentAnswer;
 
     /**
      * Observery method hopefully?
      */
-    public void printMessage(String s) {
-        System.out.println(s);
+    public void questionPressed(Note note) {
+
+    }
+
+    public void answerPressed(Note note, MotionEvent event){
+
+        if(currentQuestion instanceof StaffFragment){
+            ((StaffFragment) currentQuestion)
+                    .colorNoteOnStaff(((StaffFragment) currentQuestion)
+                            .getNoteAtCurrentLocation(note),event);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO NOTELISTENER INTERFACE CREATING & PASSING HERE
-        //OBSERVER PATTERN WITH MULTIPLE OBSERVERS
-        //LOOK AT JAVA OBSERVER
+
         fragmentManager = getSupportFragmentManager();
+
         addQuestion(new StaffFragment());
         addAnswer(new KeyFragment());
         setContentView(R.layout.activity_game);
     }
 
     public void addQuestion(Fragment fragment){
+        currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.question_holder, fragment);
         fragmentTransaction.commit();
     }
 
     public void addAnswer(Fragment fragment){
+        currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.answer_holder, fragment);
         fragmentTransaction.commit();

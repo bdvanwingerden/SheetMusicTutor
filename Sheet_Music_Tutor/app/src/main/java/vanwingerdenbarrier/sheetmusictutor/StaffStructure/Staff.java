@@ -72,7 +72,13 @@ public class Staff{
      * @return the note list for the beat
      */
     public ArrayList<Note> getNoteList(int barLocation, int beatLocation){
-        return bars.get(barLocation).getBeats().get(beatLocation).getNotes();
+        if(barLocation < bars.size()){
+            if(beatLocation < bars.get(barLocation).getBeats().size()){
+                return bars.get(barLocation).getBeats().get(beatLocation).getNotes();
+            }
+        }
+        /* Returns an empty list if the notelist is out of bounds*/
+        return new ArrayList<>();
     }
 
     public int getNumOfBars(){
@@ -85,5 +91,23 @@ public class Staff{
 
     public Clef getClef(){
         return clef;
+    }
+
+    public float[] findNoteLocation(Note noteToFind){
+        float[] location = null;
+        for(Bar bar : bars){
+            for(Beat beat : bar.getBeats()){
+                for(Note note : beat.getNotes()){
+                    if(note.getTone() == noteToFind.getTone()
+                            && note.getPitch() == noteToFind.getPitch()){
+                        location = new float[2];
+                        location[0] = note.getX();
+                        location[1] = note.getY();
+                        return location;
+                    }
+                }
+            }
+        }
+        return location;
     }
 }
