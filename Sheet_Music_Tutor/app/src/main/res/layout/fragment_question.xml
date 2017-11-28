@@ -1,13 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.QuestionFragment">
+    android:orientation="vertical"
+    android:background="@color/black"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.QuizActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="A"
+            android:background="#592C88"
+            android:textColor="#C1A875"
+            android:padding="8dp"
+            android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="B"
+            android:background="#592C88"
+            android:textColor="#C1A875"
+            android:padding="8dp"
+            android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="C"
+            android:background="#592C88"
+            android:textColor="#C1A875"
+            android:padding="8dp"
+            android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -74,16 +74,6 @@ public class KeySound2 {
     }
 
 
-    public void aButtons(){
-        a.setBackgroundColor(Color.RED);
-        a2.setBackgroundColor(Color.RED);
-    }
-
-    public void aButtons2(){
-
-    }
-
-
     /**
      * Creates a sound pool then loads in the sounds from .wav files for each sound
      */
@@ -323,6 +313,7 @@ public class KeySound2 {
 
 
     }//end createPool
+
 
 
 }//end KeySound2
