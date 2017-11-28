@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import vanwingerdenbarrier.sheetmusictutor.AnswerDisplay;
+import vanwingerdenbarrier.sheetmusictutor.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 
 /**
@@ -15,7 +17,7 @@ import vanwingerdenbarrier.sheetmusictutor.R;
  * API that may be used to implement keynote sounds into buttons
  */
 
-public class KeySound2 {
+public class KeySound2  implements AnswerDisplay {
 
     /**Sound pool of the notes being played*/
     private SoundPool soundPool;
