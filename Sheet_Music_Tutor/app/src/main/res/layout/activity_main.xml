@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple"
     android:orientation="horizontal"
     tools:context="vanwingerdenbarrier.sheetmusictutor.MainActivity">
 
@@ -21,7 +22,9 @@
         app:layout_constraintRight_toRightOf="@+id/OptionsButton"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        android:background="@color/black"
+        android:textColor="@color/gold"/>
 
     <Button
         android:id="@+id/QuizButton"
@@ -32,7 +35,9 @@
         android:text="@string/quiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/black"
+        android:textColor="@color/gold"/>
 
     <Button
         android:id="@+id/OptionsButton"
@@ -46,7 +51,9 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        android:background="@color/black"
+        android:textColor="@color/gold"/>
 
     <ImageView
         android:id="@+id/imageView"

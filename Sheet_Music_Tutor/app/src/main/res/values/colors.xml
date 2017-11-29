@@ -9,4 +9,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="key_pressed">#ff0004</color>
     <color name="key_focused">#ff0004</color>
+    <color name="purple">#592C88</color>
+    <color name="gold">#C1A875</color>
+    <color name="grey">#383735</color>
 </resources>

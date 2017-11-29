@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple"
     tools:context="vanwingerdenbarrier.sheetmusictutor.OptionsActivity">
 
     <Button
@@ -18,5 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:background="@color/black"
+        android:textColor="@color/gold"/>
 </android.support.constraint.ConstraintLayout>
