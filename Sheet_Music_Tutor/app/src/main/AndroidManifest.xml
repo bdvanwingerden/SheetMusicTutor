@@ -28,6 +28,8 @@
             android:screenOrientation="landscape"/>
         <activity android:name=".QuizActivity"
             android:screenOrientation="landscape"/>
+        <activity android:name=".ResultsActivity"
+            android:screenOrientation="landscape"/>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

@@ -8,6 +8,8 @@
     android:background="@color/purple"
     tools:context="vanwingerdenbarrier.sheetmusictutor.QuizActivity">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +74,19 @@
         android:padding="8dp"
         android:layout_marginBottom="5dp"
         android:id="@+id/choice3"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Results"
+        android:background="@color/key_focused"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="resultsButton"
+        android:layout_marginLeft="450dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/results"/>
 
 
 </LinearLayout>

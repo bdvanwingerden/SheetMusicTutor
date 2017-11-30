@@ -1,11 +1,14 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.NumberFormat;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -20,6 +23,12 @@ public class QuizActivity extends AppCompatActivity {
 
     /**Use to compare user answer to correct answer*/
     private String answer;
+
+    /**Most possible points you can get*/
+    private int pointsPossible = 0;
+
+    /**Score based on number of attempts*/
+    private float percentage;
 
     private int difficulty;
 
@@ -97,6 +106,7 @@ public class QuizActivity extends AppCompatActivity {
      * Updates text in xml
      */
     public void updateQuestion(){
+        pointsPossible+=difficulty;
         questionView.setText(questionLibrary.getQuestion(questionNumber));
         buttonChoice1.setText(questionLibrary.getChoice(questionNumber,1));
         buttonChoice2.setText(questionLibrary.getChoice(questionNumber,2));
@@ -104,6 +114,7 @@ public class QuizActivity extends AppCompatActivity {
 
         String diff = questionLibrary.getDifficultyScore(questionNumber);
         difficulty = Integer.parseInt(diff);
+       //adds difficulty to number of possible points
         answer = questionLibrary.getCorrectAnswer(questionNumber);
         questionNumber++;
     }
@@ -115,6 +126,30 @@ public class QuizActivity extends AppCompatActivity {
     public void updateScore(int point){
         scoreView.setText("" + score);
     }
+
+    public void resultsButton(View v){
+        Intent results = new Intent(this, ResultsActivity.class);
+
+        /**
+         * changing score here
+         */
+        pointsPossible = 5;
+
+        percentage = ( (float) score/ (float) pointsPossible)*100;
+
+
+        Toast.makeText(QuizActivity.this, "Percent: "+percentage, Toast.LENGTH_SHORT).show();
+
+        //System.out.println("Percentage 1: "+percentage);
+
+
+        results.putExtra("key1",(int) percentage);
+
+        this.startActivity(results);
+    }
+
+
+
 }//end Class QuizActivity
 
 
