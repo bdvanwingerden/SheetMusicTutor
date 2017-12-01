@@ -14,6 +14,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private QuestionStorage questionLibrary = new QuestionStorage();
 
+    private final int MAX_ATTEMPTS = 1;
+
     /**Attach these variable to XML Buttons*/
     private TextView scoreView;
     private TextView questionView;
@@ -69,9 +71,9 @@ public class QuizActivity extends AppCompatActivity {
                         difficulty--;
                         Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
                     }
-                    else if(difficulty == 1){
+                    else if(difficulty == MAX_ATTEMPTS){
                         Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
-                        if(questionNumber < 4)
+                        if(questionNumber < numQuestions)
                             updateQuestion();
                     }
 
@@ -114,7 +116,7 @@ public class QuizActivity extends AppCompatActivity {
      * Updates text in xml
      */
     public void updateQuestion(){
-        pointsPossible+=difficulty;
+
         questionView.setText(questionLibrary.getQuestion(questionNumber));
         buttonChoice1.setText(questionLibrary.getChoice(questionNumber,1));
         buttonChoice2.setText(questionLibrary.getChoice(questionNumber,2));
@@ -123,6 +125,7 @@ public class QuizActivity extends AppCompatActivity {
         String diff = questionLibrary.getDifficultyScore(questionNumber);
         difficulty = Integer.parseInt(diff);
        //adds difficulty to number of possible points
+        pointsPossible+=difficulty;
         answer = questionLibrary.getCorrectAnswer(questionNumber);
         questionNumber++;
     }
@@ -137,11 +140,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public void resultsButton(View v){
         Intent results = new Intent(this, ResultsActivity.class);
-
-        /**
-         * changing score here
-         */
-        pointsPossible = 5;
+        
 
         percentage = ( (float) score/ (float) pointsPossible)*100;
 
