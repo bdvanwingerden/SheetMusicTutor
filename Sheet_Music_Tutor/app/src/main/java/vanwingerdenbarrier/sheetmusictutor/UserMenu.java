@@ -153,8 +153,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     public void onAcceptDialog(View view, String name) {
         System.out.println("NAME IS ADDED IS -------> " + name);
-        User user = new User(users.getUserList().size(),
-                name, 2);
+        User user = new User(users.getUserList().size(), name, false);
         users.addUser(user, this);
         createUserDialog.dismiss();
         recreate();

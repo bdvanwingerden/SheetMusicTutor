@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
+
 
 /**
  * @author Bronson VanWingerden
@@ -34,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void quizButton(View v) {
-        Intent quiz = new Intent(this, QuizActivity.class);
-        this.startActivity(quiz);
+    public void statsButton(View v) {
+        Intent stats = new Intent(this, ResultsActivity.class);
+        this.startActivity(stats);
     }
 }

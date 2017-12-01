@@ -13,4 +13,5 @@
     <string name="accept">Accept</string>
     <string name="enter_a_name_to_add">Enter a name to add</string>
     <string name="please_enter_your_name">Please_Enter_Your_Name</string>
+    <string name="stats">Stats</string>
 </resources>

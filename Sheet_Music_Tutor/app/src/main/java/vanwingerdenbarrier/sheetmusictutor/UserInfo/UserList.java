@@ -36,13 +36,14 @@ public class UserList {
     }
 
     /**
-     * adds a user to the app
+     * adds a user to the app used to rebuild the app
      * @param ID the users ID
      * @param name the users name
-     * @param selectedDifficulty the users selected difficulty
      */
-    public void addUser(int ID, String name, int selectedDifficulty, boolean isCurrent){
-        userLinkedList.add(new User(ID,name,selectedDifficulty, isCurrent));;
+    public void addUser(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
+                        int currentLevel, boolean isCurrent){
+        userLinkedList.add(new User(ID, name, numQuestionsAttempted, numQuestionsCorrect,
+                currentLevel, isCurrent));
     }
 
     /**
@@ -103,7 +104,8 @@ public class UserList {
         scanFile.useDelimiter(",");
 
         while(scanFile.hasNext()){
-            addUser(scanFile.nextInt(), scanFile.next(), scanFile.nextInt(), scanFile.nextBoolean());
+            addUser(scanFile.nextInt(), scanFile.next(), scanFile.nextInt(), scanFile.nextInt()
+                    , scanFile.nextInt(), scanFile.nextBoolean());
         }
 
         try {
@@ -151,8 +153,7 @@ public class UserList {
         int newID = 0;
 
         for(User u : userLinkedList){
-            String tempString = newID + "," + u.getName() + ","  + u.getSelectedDifficulty()
-                    + "," + u.isCurrent() + ",";
+            String tempString = u.toCSV();
             newID++;
             try {
                 fileOutputStream.write(tempString.getBytes());
