@@ -30,7 +30,14 @@ public class QuizActivity extends AppCompatActivity {
     /**Score based on number of attempts*/
     private float percentage;
 
+    /**Number of questions*/
+    private int numQuestions;
+
+    /**Question difficulty*/
     private int difficulty;
+
+    /**Number of questions correct*/
+    private int correct;
 
     /**Keep track of users current score*/
     private int score = 0;
@@ -50,9 +57,9 @@ public class QuizActivity extends AppCompatActivity {
                 if (button.getText().equals(answer)) {
                     score += difficulty;
                     updateScore(score);
+                    correct++;
                     if(questionNumber < 4)
                         updateQuestion();
-                    //this line of code is optional
                     Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -85,6 +92,7 @@ public class QuizActivity extends AppCompatActivity {
         buttonChoice3 = (Button)findViewById(R.id.choice3);
 
         questionLibrary.initialQuestions(getApplicationContext());
+        numQuestions = questionLibrary.list.size();
         updateQuestion();//??To get initial question from array to display
         updateScore(score);
 
@@ -138,12 +146,17 @@ public class QuizActivity extends AppCompatActivity {
         percentage = ( (float) score/ (float) pointsPossible)*100;
 
 
-        Toast.makeText(QuizActivity.this, "Percent: "+percentage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(QuizActivity.this, "Percent: "+numQuestions, Toast.LENGTH_SHORT).show();
 
         //System.out.println("Percentage 1: "+percentage);
 
 
-        results.putExtra("key1",(int) percentage);
+        results.putExtra("percent",(int) percentage);
+        results.putExtra("numQuestions",numQuestions);
+        results.putExtra("correct",correct);
+        results.putExtra("score",score);
+        results.putExtra("points",pointsPossible);
+
 
         this.startActivity(results);
     }
