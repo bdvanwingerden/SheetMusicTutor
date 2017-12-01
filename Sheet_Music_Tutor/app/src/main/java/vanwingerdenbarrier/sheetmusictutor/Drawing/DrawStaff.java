@@ -28,6 +28,8 @@ import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
  * @author Bronson VanWingerden

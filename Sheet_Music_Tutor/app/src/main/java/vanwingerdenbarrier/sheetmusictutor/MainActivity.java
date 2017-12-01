@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
-
-
 /**
  * @author Bronson VanWingerden
  * the main menu activity
@@ -27,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void startButton(View v){
-        Intent game = new Intent(this, GameActivity.class);
+        Intent game = new Intent(this, GameSelection.class);
         this.startActivity(game);
     }
 
