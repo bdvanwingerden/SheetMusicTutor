@@ -51,6 +51,7 @@ public class CreateUserDialog extends DialogFragment implements View.OnClickList
         // remove the dialog title, but you must call the superclass to get the Dialog.
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         return dialog;
     }
 
@@ -63,6 +64,11 @@ public class CreateUserDialog extends DialogFragment implements View.OnClickList
             case R.id.acceptUserButton:
                 ((UserMenu)(CreateUserDialog.this.getActivity())).onAcceptDialog(view,
                         nameToAdd.getText().toString());
+                break;
+            case R.id.toAddName:
+                EditText nameField = (EditText) view.findViewById(view.getId());
+                nameField.getText().clear();
+                break;
         }
 
     }

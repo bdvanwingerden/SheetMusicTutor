@@ -1,5 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor.UserInfo;
 
+import android.content.Context;
+
 /**
  * Contains all the information for a single user
  *
@@ -103,6 +105,23 @@ public class User {
         return ID;
     }
 
+    public int getNumQuestionsAttempted() {
+        return numQuestionsAttempted;
+    }
+
+    public int getNumQuestionsCorrect() {
+        return numQuestionsCorrect;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setId(int newId){
+        this.ID = newId;
+
+    }
+
     /**
      * returns true if this user is the currently selected user
      * @return
@@ -116,6 +135,7 @@ public class User {
      */
     public void swapCurrent(){
         isCurrent = !isCurrent;
+        System.out.println(name + "is current =" + isCurrent);
     }
 
     /**

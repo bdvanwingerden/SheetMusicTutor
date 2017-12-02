@@ -1,9 +1,14 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
  * @author Bronson VanWingerden
@@ -24,7 +29,27 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startButton(View v){
         Intent game = new Intent(this, GameSelection.class);
-        this.startActivity(game);
+        if(new UserList(this).findCurrent() == null){
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("No Current User found");
+            alertDialog.setMessage("Please Select a User");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
+
+            alertDialog.show();
+        }else {
+            this.startActivity(game);
+        }
+
+
     }
 
     public void optionsButton(View v){

@@ -1,6 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 
 import vanwingerdenbarrier.sheetmusictutor.Drawing.DrawStaff;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class StaffFragment extends Fragment implements QuestionDisplay {
 
@@ -61,7 +64,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         if (event.getAction() == MotionEvent.ACTION_DOWN && location != null) {
             tempNote = drawStaff.reDraw(true, location[0], location[1]);
             if(tempNote != null) {
-                callback.questionPressed(tempNote);
+                //callback.questionPressed(tempNote);
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP && location != null) {
             // sets both lastClickX & Y back to default
@@ -80,12 +83,14 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
 
     public float[] getNoteAtCurrentLocation(Note noteToFind){
         float[] location = null;
+        UserList userList = new UserList(this.getContext());
 
         ArrayList<Note> noteList = drawStaff.getCurrentStaff()
                 .getNoteList(drawStaff.getCurrentBar(), drawStaff.getCurrentBeat());
         for(Note note : noteList){
             if(note.getTone() == noteToFind.getTone()) {
-                if (note.getTone() == noteToFind.getTone()) {
+                userList.addUserAttempt(this.getContext());
+
                     location = new float[2];
                     location[0] = note.getX();
                     location[1] = note.getY();
@@ -93,11 +98,12 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                     drawStaff.incrementPointer();
                     if(drawStaff.getCurrentBeat() >= 16){
                         drawStaff = new DrawStaff(this.getContext());
+                        userList.levelUpUser(this.getContext());
                         staff.removeAllViews();
                         staff.addView(drawStaff);
                     }
                     return location;
-                }
+
 
             }
         }

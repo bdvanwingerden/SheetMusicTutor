@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
+
 /**
  * Created by Doriangh4 on 11/29/2017.
  */
@@ -49,6 +52,10 @@ public class ResultsActivity extends AppCompatActivity{
         percentView.setText("Score: "+percentage+"%");
         prg = (ProgressBar) findViewById(R.id.ProgressBar);
         prg.setProgress(percentage);
+
+        User current = new UserList(getBaseContext()).findCurrent();
+        System.out.println(current.getName() + " Lvl:" + current.getCurrentLevel() + " correct:" +
+        current.getNumQuestionsAttempted() + " attempts:" + current.getNumQuestionsCorrect());
     }
 
     public void menuButton(View v){

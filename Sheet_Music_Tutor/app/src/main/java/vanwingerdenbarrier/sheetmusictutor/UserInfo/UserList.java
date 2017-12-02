@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -18,12 +19,7 @@ public class UserList {
     /**
      * linked list containing all users
      */
-    private LinkedList<User> userLinkedList;
-
-    /**
-     * the current user
-     */
-    User currentUser;
+    private ArrayList<User> userLinkedList;
 
     /**
      * public constructor that initializes the linked list and then reads in the stored info in
@@ -31,8 +27,9 @@ public class UserList {
      * @param context
      */
     public UserList(Context context){
-        this.userLinkedList = new LinkedList<>();
+        this.userLinkedList = new ArrayList<>();
         readUserList(context);
+        //emptyUserList(context);
     }
 
     /**
@@ -72,7 +69,7 @@ public class UserList {
      * returns the current list of users, useful for creating buttons in the UserMenu
      * @return
      */
-    public LinkedList<User> getUserList(){
+    public ArrayList<User> getUserList(){
         return userLinkedList;
     }
 
@@ -153,6 +150,7 @@ public class UserList {
         int newID = 0;
 
         for(User u : userLinkedList){
+            u.setId(newID);
             String tempString = u.toCSV();
             newID++;
             try {
@@ -176,4 +174,40 @@ public class UserList {
         }
         return tempUser;
     }
+
+    public void addUserAttempt(Context context){
+        User user = findCurrent();
+
+        userLinkedList.remove(user.getID());
+        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
+                user.getNumQuestionsAttempted()+1,
+                user.getNumQuestionsCorrect(),
+                user.getCurrentLevel(), true));
+
+        writeUserList(context);
+    }
+
+    public void addUserCorrect(Context context){
+        User user = findCurrent();
+
+        userLinkedList.remove(user.getID());
+        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
+                user.getNumQuestionsAttempted(),
+                user.getNumQuestionsCorrect()+1,
+                user.getCurrentLevel(), true));
+
+        writeUserList(context);
+    }
+
+    public void levelUpUser(Context context){
+        User user = findCurrent();
+        userLinkedList.remove(user.getID());
+        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
+                user.getNumQuestionsAttempted(),
+                user.getNumQuestionsCorrect(),
+                user.getCurrentLevel()+1, true));
+
+        writeUserList(context);
+    }
+
 }

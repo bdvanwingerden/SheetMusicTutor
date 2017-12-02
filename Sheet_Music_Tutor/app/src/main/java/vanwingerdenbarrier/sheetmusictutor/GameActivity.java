@@ -11,6 +11,8 @@ import android.view.View;
 
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
  * @author Bronson VanWingerden
@@ -32,7 +34,9 @@ public class GameActivity extends FragmentActivity
     }
 
     public void answerPressed(Note note, MotionEvent event){
-
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            new UserList(this.getApplicationContext()).addUserCorrect(this.getApplicationContext());
+        }
         if(currentQuestion instanceof StaffFragment){
             ((StaffFragment) currentQuestion)
                     .colorNoteOnStaff(((StaffFragment) currentQuestion)

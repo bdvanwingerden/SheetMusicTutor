@@ -131,21 +131,6 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
     }
 
     /**
-     * Currently unused method that adds a user to the list
-     * @param u the users to add to the list
-     * @return the button created
-     */
-    private Button addUserButton(User u) {
-        Button tempButton = new Button(this);
-        tempButton.setText(u.getName());
-        tempButton.setId(u.getID());
-        tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                , ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        return tempButton;
-    }
-
-    /**
      * called when CreateUserDialogs accept button is pressed this creates a new user then adds them
      * to screen then calls recreate to redraw the list of users
      * @param view
@@ -172,6 +157,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
             Button currentButton = (Button) findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
         }
+
         users.getUserList().get(view.getId()).swapCurrent();
         users.emptyUserList(getApplicationContext());
         users.writeUserList(getApplicationContext());

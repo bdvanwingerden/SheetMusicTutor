@@ -168,8 +168,6 @@ public class DrawStaff extends AppCompatImageView {
         while(currentStaff.getNoteList(currentBar,currentBeat).isEmpty() && currentBeat <= 16){
             currentBeat++;
         }
-
-        System.out.println("current Beat" + currentBeat);
     }
 
     private void drawGuides(Canvas canvas, int guideDivision){
@@ -191,6 +189,7 @@ public class DrawStaff extends AppCompatImageView {
         paint.setStrokeWidth(paint.getStrokeWidth()/2);
         paint.setColor(Color.BLACK);
     }
+
 
     private void drawClef(Canvas canvas){
         Drawable clef =  getResources().getDrawable(R.drawable.t_clef);
