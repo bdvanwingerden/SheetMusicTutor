@@ -89,7 +89,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                 .getNoteList(drawStaff.getCurrentBar(), drawStaff.getCurrentBeat());
         for(Note note : noteList){
             if(note.getTone() == noteToFind.getTone()) {
-                userList.addUserAttempt(this.getContext());
+                userList.addUserCorrect(this.getContext());
 
                     location = new float[2];
                     location[0] = note.getX();
