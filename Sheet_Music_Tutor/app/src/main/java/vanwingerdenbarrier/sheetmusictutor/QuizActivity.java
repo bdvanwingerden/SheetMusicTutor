@@ -1,5 +1,6 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button buttonChoice1;
     private Button buttonChoice2;
     private Button buttonChoice3;
+
+    UserList userList;
 
     /**Use to compare user answer to correct answer*/
     private String answer;
@@ -60,9 +66,29 @@ public class QuizActivity extends AppCompatActivity {
                     score += difficulty;
                     updateScore(score);
                     correct++;
-                    if(questionNumber < 4)
+                    userList.addUserCorrect(getBaseContext());
+                    userList.addUserAttempt(getBaseContext());
+                    if(questionNumber < numQuestions) {
+
+                        Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
                         updateQuestion();
-                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(questionNumber == numQuestions){
+
+                        Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+
+                        Intent results = new Intent(view.getContext(), ResultsActivity.class);
+
+                        percentage = ( (float) score/ (float) pointsPossible)*100;
+
+                        results.putExtra("percent",(int) percentage);
+                        results.putExtra("numQuestions",numQuestions);
+                        results.putExtra("correct",correct);
+                        results.putExtra("score",score);
+                        results.putExtra("points",pointsPossible);
+
+                        startActivityForResult(results,0);
+                    }
 
                 } else {
 
@@ -73,8 +99,30 @@ public class QuizActivity extends AppCompatActivity {
                     }
                     else if(difficulty == MAX_ATTEMPTS){
                         Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
-                        if(questionNumber < numQuestions)
+                        if(questionNumber < numQuestions) {
+                            userList.addUserAttempt(getBaseContext());
                             updateQuestion();
+                        }
+                        else{
+                            /**
+                            Intent myIntent = new Intent(view.getContext(),ResultsActivity.class);
+                            startActivityForResult(myIntent,0);
+                             */
+                            Intent results = new Intent(view.getContext(), ResultsActivity.class);
+
+                            percentage = ( (float) score/ (float) pointsPossible)*100;
+
+                            Toast.makeText(QuizActivity.this, "Percent: "+numQuestions, Toast.LENGTH_SHORT).show();
+
+                            results.putExtra("percent",(int) percentage);
+                            results.putExtra("numQuestions",numQuestions);
+                            results.putExtra("correct",correct);
+                            results.putExtra("score",score);
+                            results.putExtra("points",pointsPossible);
+
+                            startActivityForResult(results,0);
+
+                        }
                     }
 
                 }
@@ -92,6 +140,8 @@ public class QuizActivity extends AppCompatActivity {
         buttonChoice1 = (Button)findViewById(R.id.choice1);
         buttonChoice2 = (Button)findViewById(R.id.choice2);
         buttonChoice3 = (Button)findViewById(R.id.choice3);
+
+        userList = new UserList(this);
 
         questionLibrary.initialQuestions(getApplicationContext());
         numQuestions = questionLibrary.list.size();
@@ -138,17 +188,14 @@ public class QuizActivity extends AppCompatActivity {
         scoreView.setText("" + score);
     }
 
+
+    /**
     public void resultsButton(View v){
         Intent results = new Intent(this, ResultsActivity.class);
-        
 
         percentage = ( (float) score/ (float) pointsPossible)*100;
 
-
         Toast.makeText(QuizActivity.this, "Percent: "+numQuestions, Toast.LENGTH_SHORT).show();
-
-        //System.out.println("Percentage 1: "+percentage);
-
 
         results.putExtra("percent",(int) percentage);
         results.putExtra("numQuestions",numQuestions);
@@ -159,7 +206,7 @@ public class QuizActivity extends AppCompatActivity {
 
         this.startActivity(results);
     }
-
+    */
 
 
 }//end Class QuizActivity

@@ -16,17 +16,39 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class ResultsActivity extends AppCompatActivity{
 
+    /**Attached to XML to display number of correct answers*/
     private TextView correctView;
+
+    /**Attached to XML to display users accuracy*/
     private TextView percentView;
+
+    /**Attached to XML to display number of points possible*/
     private TextView pointsView;
 
+    /**Attached to XML to display correct quote*/
+    private TextView quoteView;
 
-    ProgressBar prg;
+    /**Attached to XML to update progress bar according to percentage*/
+    private ProgressBar prg;
+
+    /**Percent of questions right*/
     private int percentage;
+
+    /**Total number of questions*/
     private int numQuestions;
+
+    /**Total number of questions user got correct*/
     private int correct;
+
+    /**Score or number of points user has collected*/
     private int score;
+
+    /**Max number of points a user may receive during quiz*/
     private int pointsPossible;
+
+    /**Quote to critique user's results*/
+    private String quote;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +60,7 @@ public class ResultsActivity extends AppCompatActivity{
         correctView = (TextView) findViewById(R.id.correct);
         percentView = (TextView) findViewById(R.id.percent);
         pointsView = (TextView) findViewById(R.id.points);
+        quoteView = (TextView) findViewById(R.id.quote);
 
 
 
@@ -49,6 +72,7 @@ public class ResultsActivity extends AppCompatActivity{
             pointsPossible = getIntent().getIntExtra("points",0);
         }
 
+        quoteView.setText(quoteResult(percentage));
 
         correctView.setText("Correct: "+current.getNumQuestionsCorrect()+"/"+current.getNumQuestionsAttempted()
         );
@@ -76,22 +100,24 @@ public class ResultsActivity extends AppCompatActivity{
      */
     public String quoteResult(int numPercent){
 
-        String quote;
-
         if(numPercent >= 90)
             quote = "Great Job! You're a Master!";
         else if(numPercent >= 80)
-            quote = "Not bad...but a little more practice wont hurt";
+            quote = "Good, but you can do better!";
         else if(numPercent >= 70)
             quote = "Not bad...but a little more practice wont hurt";
         else if(numPercent >= 60)
             quote = "You should definitely give the quiz another try!";
         else
-            quote = "Try going over the lesson again. Then give the quiz another try";
+            quote = "Try going over the lesson again.";
 
         return quote;
     }
 
+    public void quizGame(View v){
+        Intent game = new Intent(this, QuizActivity.class);
+        this.startActivity(game);
+    }
 
 
 }
