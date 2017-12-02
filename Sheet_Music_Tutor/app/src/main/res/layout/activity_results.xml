@@ -30,7 +30,8 @@
                 android:layout_weight=".1"
                 android:gravity="center"
                 android:text="Quiz Results"
-                android:textColor="@color/gold" />
+                android:textColor="@color/gold"
+                android:id="@+id/title"/>
 
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Large"
@@ -107,7 +108,7 @@
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Try Again"
+            android:text="Try Again(Placeholder)"
             android:onClick="quizGame"
             android:background="@color/black"
             android:textColor="@color/gold"

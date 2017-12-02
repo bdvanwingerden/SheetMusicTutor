@@ -28,6 +28,9 @@ public class QuizActivity extends AppCompatActivity {
     private Button buttonChoice3;
 
     UserList userList;
+    User current;
+
+    private boolean isQuiz = true;
 
     /**Use to compare user answer to correct answer*/
     private String answer;
@@ -53,6 +56,8 @@ public class QuizActivity extends AppCompatActivity {
     /**Keeps track of the current question number*/
     private int questionNumber = 0;
 
+    boolean levelUp = true;
+
 
 
     private View.OnClickListener vl = new View.OnClickListener(){
@@ -68,6 +73,13 @@ public class QuizActivity extends AppCompatActivity {
                     correct++;
                     userList.addUserCorrect(getBaseContext());
                     userList.addUserAttempt(getBaseContext());
+
+                    if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
+                        levelUp = false;
+                        userList.levelUpUser(getBaseContext());
+                        userList.addUserPointsNeeded(getBaseContext());//increment points needed to level up
+                    }
+
                     if(questionNumber < numQuestions) {
 
                         Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -86,6 +98,8 @@ public class QuizActivity extends AppCompatActivity {
                         results.putExtra("correct",correct);
                         results.putExtra("score",score);
                         results.putExtra("points",pointsPossible);
+                        results.putExtra("isQuiz",isQuiz);
+
 
                         startActivityForResult(results,0);
                     }
@@ -119,6 +133,7 @@ public class QuizActivity extends AppCompatActivity {
                             results.putExtra("correct",correct);
                             results.putExtra("score",score);
                             results.putExtra("points",pointsPossible);
+                            results.putExtra("isQuiz",isQuiz);
 
                             startActivityForResult(results,0);
 
@@ -142,6 +157,7 @@ public class QuizActivity extends AppCompatActivity {
         buttonChoice3 = (Button)findViewById(R.id.choice3);
 
         userList = new UserList(this);
+        current = new UserList(getBaseContext()).findCurrent();
 
         questionLibrary.initialQuestions(getApplicationContext());
         numQuestions = questionLibrary.list.size();

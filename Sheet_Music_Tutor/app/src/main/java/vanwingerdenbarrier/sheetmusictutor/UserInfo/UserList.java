@@ -38,9 +38,9 @@ public class UserList {
      * @param name the users name
      */
     public void addUser(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                        int currentLevel, boolean isCurrent){
+                        int currentLevel, int numPointsNeeded, boolean isCurrent){
         userLinkedList.add(new User(ID, name, numQuestionsAttempted, numQuestionsCorrect,
-                currentLevel, isCurrent));
+                currentLevel, numPointsNeeded, isCurrent));
     }
 
     /**
@@ -102,7 +102,7 @@ public class UserList {
 
         while(scanFile.hasNext()){
             addUser(scanFile.nextInt(), scanFile.next(), scanFile.nextInt(), scanFile.nextInt()
-                    , scanFile.nextInt(), scanFile.nextBoolean());
+                    , scanFile.nextInt(), scanFile.nextInt(), scanFile.nextBoolean());
         }
 
         try {
@@ -182,7 +182,7 @@ public class UserList {
         userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
                 user.getNumQuestionsAttempted()+1,
                 user.getNumQuestionsCorrect(),
-                user.getCurrentLevel(), true));
+                user.getCurrentLevel(),user.getNumPointsNeeded(), true));
 
         writeUserList(context);
     }
@@ -194,7 +194,23 @@ public class UserList {
         userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
                 user.getNumQuestionsAttempted(),
                 user.getNumQuestionsCorrect()+1,
-                user.getCurrentLevel(), true));
+                user.getCurrentLevel(), user.getNumPointsNeeded(), true));
+
+        writeUserList(context);
+    }
+
+    /**
+     * Adding 8 since 8 correct answers between levels
+     * @param context
+     */
+    public void addUserPointsNeeded(Context context){
+        User user = findCurrent();
+
+        userLinkedList.remove(user.getID());
+        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
+                user.getNumQuestionsAttempted(),
+                user.getNumQuestionsCorrect(),
+                user.getCurrentLevel(), user.getNumPointsNeeded()+8,true));
 
         writeUserList(context);
     }
@@ -205,7 +221,7 @@ public class UserList {
         userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
                 user.getNumQuestionsAttempted(),
                 user.getNumQuestionsCorrect(),
-                user.getCurrentLevel()+1, true));
+                user.getCurrentLevel()+1, user.getNumPointsNeeded(),true));
 
         writeUserList(context);
     }

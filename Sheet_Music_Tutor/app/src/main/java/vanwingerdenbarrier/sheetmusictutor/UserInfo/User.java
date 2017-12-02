@@ -36,6 +36,11 @@ public class User {
     private int numQuestionsAttempted;
 
     /**
+     * number of points need to level up
+     */
+    private int numPointsNeeded;
+
+    /**
      * number of correct answers
      */
     private int numQuestionsCorrect;
@@ -60,6 +65,7 @@ public class User {
         this.ID = ID;
         this.numQuestionsAttempted = 0;
         this.numQuestionsCorrect = 0;
+        this.numPointsNeeded = 8;
         this.currentLevel = STARTING_LEVEL;
         this.isCurrent = isCurrent;
     }
@@ -72,11 +78,12 @@ public class User {
      * @param isCurrent the boolean corresponding to whether or not the user is the current user
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                int currentLevel, boolean isCurrent) {
+                int currentLevel, int numPointsNeeded, boolean isCurrent) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
         this.numQuestionsCorrect = numQuestionsCorrect;
+        this.numPointsNeeded = numPointsNeeded;
         this.currentLevel = currentLevel;
         this.isCurrent = isCurrent;
     }
@@ -113,6 +120,10 @@ public class User {
         return numQuestionsCorrect;
     }
 
+    public int getNumPointsNeeded() {
+        return numPointsNeeded;
+    }
+
     public int getCurrentLevel() {
         return currentLevel;
     }
@@ -144,7 +155,7 @@ public class User {
      */
     public String toCSV(){
         return (ID + "," + name + "," + numQuestionsAttempted + "," + numQuestionsCorrect + ","
-                + currentLevel + "," + isCurrent + ",");
+                + currentLevel + "," + numPointsNeeded + "," + isCurrent + ",");
     }
 }
 

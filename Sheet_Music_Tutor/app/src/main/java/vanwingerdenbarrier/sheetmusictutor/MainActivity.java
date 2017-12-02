@@ -59,7 +59,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void statsButton(View v) {
+
+        User current = new UserList(getBaseContext()).findCurrent();
+
+        boolean isQuiz = false;
+
+        float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) current.getNumPointsNeeded())*100;
+
         Intent stats = new Intent(this, ResultsActivity.class);
+
+        stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
+        stats.putExtra("correct",current.getNumQuestionsCorrect());
+        stats.putExtra("numQuestions",current.getNumQuestionsAttempted());
+        stats.putExtra("score",current.getCurrentLevel());//random number for now(Score)
+        stats.putExtra("points",current.getNumPointsNeeded());
+        stats.putExtra("isQuiz",isQuiz);
+
         this.startActivity(stats);
     }
 }
