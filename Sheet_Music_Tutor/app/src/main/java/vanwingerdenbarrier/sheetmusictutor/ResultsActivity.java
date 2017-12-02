@@ -31,6 +31,9 @@ public class ResultsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        User current = new UserList(getBaseContext()).findCurrent();
+
         setContentView(R.layout.activity_results);
         correctView = (TextView) findViewById(R.id.correct);
         percentView = (TextView) findViewById(R.id.percent);
@@ -47,15 +50,13 @@ public class ResultsActivity extends AppCompatActivity{
         }
 
 
-        correctView.setText("Correct: "+correct+"/"+numQuestions);
+        correctView.setText("Correct: "+current.getNumQuestionsCorrect()+"/"+current.getNumQuestionsAttempted()
+        );
         pointsView.setText("Points: "+score+"/"+pointsPossible);
         percentView.setText("Score: "+percentage+"%");
         prg = (ProgressBar) findViewById(R.id.ProgressBar);
         prg.setProgress(percentage);
 
-        User current = new UserList(getBaseContext()).findCurrent();
-        System.out.println(current.getName() + " Lvl:" + current.getCurrentLevel() + " correct:" +
-        current.getNumQuestionsAttempted() + " attempts:" + current.getNumQuestionsCorrect());
     }
 
     public void menuButton(View v){
