@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/black"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.QuizActivity">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
