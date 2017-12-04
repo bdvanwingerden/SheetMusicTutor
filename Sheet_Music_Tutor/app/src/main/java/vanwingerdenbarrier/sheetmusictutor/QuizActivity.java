@@ -56,17 +56,22 @@ public class QuizActivity extends AppCompatActivity {
     /**Keeps track of the current question number*/
     private int questionNumber = 0;
 
+    /**True if user has not leveled up during a quiz session. False if they have leveled up*/
     boolean levelUp = true;
 
 
-
+    /**
+     * This listener holds the logic for the quiz.
+     * Updates the score, points needed to level up,
+     */
     private View.OnClickListener vl = new View.OnClickListener(){
         @Override
         public void onClick(View view){
 
             if (view instanceof  Button) {
                 Button button = (Button) view;
-                //My logic for Button goes here
+
+                //If correct answers is chosen
                 if (button.getText().equals(answer)) {
                     score += difficulty;
                     updateScore(score);
@@ -74,20 +79,20 @@ public class QuizActivity extends AppCompatActivity {
                     userList.addUserCorrect(getBaseContext());
                     userList.addUserAttempt(getBaseContext());
 
+                    //This if levels up the user if they have reached the number of points needed
                     if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
-                        levelUp = false;
+                        levelUp = false;//So that we don't level up the user more than once by mistake
                         userList.levelUpUser(getBaseContext());
                         userList.addUserPointsNeeded(getBaseContext());//increment points needed to level up
                     }
 
-                    if(questionNumber < numQuestions) {
+                    Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    //If not the last question
+                    if(questionNumber < numQuestions) {
                         updateQuestion();
                     }
-                    else if(questionNumber == numQuestions){
-
-                        Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    else if(questionNumber == numQuestions){//If is the last question. Send stats to quiz results screen
 
                         Intent results = new Intent(view.getContext(), ResultsActivity.class);
 
@@ -100,17 +105,18 @@ public class QuizActivity extends AppCompatActivity {
                         results.putExtra("points",pointsPossible);
                         results.putExtra("isQuiz",isQuiz);
 
-
                         startActivityForResult(results,0);
                     }
 
-                } else {
+                } else {//Incorrect answer chosen
 
-
-                    if(difficulty > 1){
+                    //Decrement difficulty which corresponds to the number of points a user will receive
+                    //In other words the more questions you get wrong the less points a user gets
+                    if(difficulty > MAX_ATTEMPTS){
                         difficulty--;
                         Toast.makeText(QuizActivity.this, "Wrong!", Toast.LENGTH_SHORT).show();
                     }
+                    //If you have reached max number of attempts for a question
                     else if(difficulty == MAX_ATTEMPTS){
                         Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
                         if(questionNumber < numQuestions) {
@@ -118,10 +124,7 @@ public class QuizActivity extends AppCompatActivity {
                             updateQuestion();
                         }
                         else{
-                            /**
-                            Intent myIntent = new Intent(view.getContext(),ResultsActivity.class);
-                            startActivityForResult(myIntent,0);
-                             */
+
                             Intent results = new Intent(view.getContext(), ResultsActivity.class);
 
                             percentage = ( (float) score/ (float) pointsPossible)*100;
@@ -145,6 +148,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Set up all initial fields to be updated when a new question is drawn t the display
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,25 +211,6 @@ public class QuizActivity extends AppCompatActivity {
         scoreView.setText("" + score);
     }
 
-
-    /**
-    public void resultsButton(View v){
-        Intent results = new Intent(this, ResultsActivity.class);
-
-        percentage = ( (float) score/ (float) pointsPossible)*100;
-
-        Toast.makeText(QuizActivity.this, "Percent: "+numQuestions, Toast.LENGTH_SHORT).show();
-
-        results.putExtra("percent",(int) percentage);
-        results.putExtra("numQuestions",numQuestions);
-        results.putExtra("correct",correct);
-        results.putExtra("score",score);
-        results.putExtra("points",pointsPossible);
-
-
-        this.startActivity(results);
-    }
-    */
 
 
 }//end Class QuizActivity

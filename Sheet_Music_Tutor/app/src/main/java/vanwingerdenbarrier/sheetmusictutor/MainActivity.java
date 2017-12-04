@@ -62,19 +62,40 @@ public class MainActivity extends AppCompatActivity {
 
         User current = new UserList(getBaseContext()).findCurrent();
 
-        boolean isQuiz = false;
+        if(new UserList(this).findCurrent() == null){
 
-        float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) current.getNumPointsNeeded())*100;
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("No Current User found");
+            alertDialog.setMessage("Please Select a User");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
 
-        Intent stats = new Intent(this, ResultsActivity.class);
+            alertDialog.show();
+        }else {
 
-        stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
-        stats.putExtra("correct",current.getNumQuestionsCorrect());
-        stats.putExtra("numQuestions",current.getNumQuestionsAttempted());
-        stats.putExtra("score",current.getCurrentLevel());//random number for now(Score)
-        stats.putExtra("points",current.getNumPointsNeeded());
-        stats.putExtra("isQuiz",isQuiz);
+            boolean isQuiz = false;
 
-        this.startActivity(stats);
+            float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) current.getNumPointsNeeded())*100;
+
+            Intent stats = new Intent(this, ResultsActivity.class);
+
+            stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
+            stats.putExtra("correct",current.getNumQuestionsCorrect());
+            stats.putExtra("numQuestions",current.getNumQuestionsAttempted());
+            stats.putExtra("score",current.getCurrentLevel());//random number for now(Score)
+            stats.putExtra("points",current.getNumPointsNeeded());
+            stats.putExtra("isQuiz",isQuiz);
+
+            this.startActivity(stats);
+        }
+
+
     }
 }
