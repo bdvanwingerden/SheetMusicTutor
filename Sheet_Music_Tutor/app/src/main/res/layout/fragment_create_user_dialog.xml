@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/purple"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.UserInfo.CreateUserDialog">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.CreateUserDialog">
 
 
     <EditText

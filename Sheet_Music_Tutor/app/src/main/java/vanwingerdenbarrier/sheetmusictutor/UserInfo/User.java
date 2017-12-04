@@ -105,26 +105,14 @@ public class User {
         return ID;
     }
 
-    /**
-     * returns the number of questions attempted
-     * @return
-     */
     public int getNumQuestionsAttempted() {
         return numQuestionsAttempted;
     }
 
-    /**
-     * returns the numebr of questions the user has gotten correct
-     * @return
-     */
     public int getNumQuestionsCorrect() {
         return numQuestionsCorrect;
     }
 
-    /**
-     * returns the users current users
-     * @return
-     */
     public int getCurrentLevel() {
         return currentLevel;
     }

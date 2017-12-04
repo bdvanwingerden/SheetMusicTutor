@@ -1,10 +1,8 @@
-package vanwingerdenbarrier.sheetmusictutor.Game;
+package vanwingerdenbarrier.sheetmusictutor;
 
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 
 /**
- * Interface Used for passing information between activities and containing fragments
- *
  * Created by Bronson VanWingerden on 11/23/2017.
  */
 

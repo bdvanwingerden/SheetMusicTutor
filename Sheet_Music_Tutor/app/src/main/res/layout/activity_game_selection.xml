@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.Game.GameSelection">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.GameSelection">
 
     <Button
         android:id="@+id/staffgame"

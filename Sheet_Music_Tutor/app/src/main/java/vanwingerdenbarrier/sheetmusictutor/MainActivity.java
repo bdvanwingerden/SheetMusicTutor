@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
 
 /**
  * @author Bronson VanWingerden

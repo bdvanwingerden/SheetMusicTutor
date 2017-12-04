@@ -1,13 +1,11 @@
-package vanwingerdenbarrier.sheetmusictutor.Game;
+package vanwingerdenbarrier.sheetmusictutor;
 
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 
 /**
- * Interface Used for passing information between activities and containing fragments
- *
- * Created by Bronson VanWingerden on 11/23/2017.
+ * Created by Bronson VanWingerden on 11/27/2017.
  */
 
 public interface AnswerDisplay {

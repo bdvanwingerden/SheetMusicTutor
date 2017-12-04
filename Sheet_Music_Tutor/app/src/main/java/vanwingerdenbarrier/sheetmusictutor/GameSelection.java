@@ -1,17 +1,10 @@
-package vanwingerdenbarrier.sheetmusictutor.Game;
+package vanwingerdenbarrier.sheetmusictutor;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.QuizActivity;
-import vanwingerdenbarrier.sheetmusictutor.R;
-
-/**
- * Allows the user to select a game type then opens the corresponding game type
- *
- */
 public class GameSelection extends AppCompatActivity {
 
     @Override

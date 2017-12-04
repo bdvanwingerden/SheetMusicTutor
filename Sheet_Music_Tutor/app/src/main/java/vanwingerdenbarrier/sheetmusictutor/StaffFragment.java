@@ -1,6 +1,7 @@
-package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
+package vanwingerdenbarrier.sheetmusictutor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,8 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
-import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.Drawing.DrawStaff;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class StaffFragment extends Fragment implements QuestionDisplay {
