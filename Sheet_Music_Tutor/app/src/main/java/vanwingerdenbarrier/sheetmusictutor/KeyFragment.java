@@ -110,6 +110,7 @@ public class KeyFragment extends Fragment implements  AnswerDisplay{
         a.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         soundPool.play(sa, 1,1,0,0,1);
