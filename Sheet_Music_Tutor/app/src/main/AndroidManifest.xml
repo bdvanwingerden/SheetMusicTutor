@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Game.GameActivity"
+            android:name=".GameActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".OptionsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".UserInfo.UserMenu"
+            android:name=".UserMenu"
             android:screenOrientation="landscape" />
         <activity
             android:name=".QuizActivity"
@@ -36,12 +36,10 @@
         <activity
             android:name=".ResultsActivity"
             android:screenOrientation="landscape" />
-<<<<<<< HEAD
-        <activity android:name=".Game.GameSelection"></activity>
-=======
+
         <activity android:name=".GameSelection"
             android:screenOrientation="landscape" ></activity>
->>>>>>> 698573ace9175906f29b79085baa4e4519f03611
+
     </application>
 
 </manifest>
