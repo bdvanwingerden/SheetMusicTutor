@@ -156,7 +156,7 @@ public class User {
      */
     public String toCSV(){
         return (ID + "," + name + "," + numQuestionsAttempted + "," + numQuestionsCorrect + ","
-                + currentLevel + "," + isCurrent + ",");
+                + currentLevel + "," + numPointsNeeded + "," + isCurrent + ",");
     }
 }
 

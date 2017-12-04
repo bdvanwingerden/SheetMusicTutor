@@ -57,10 +57,16 @@ public class QuestionStorage {
         list = myDatabaseHelper.getAllQuestionsList();//get all questions/choices/answers from database
 
         if(list.isEmpty()){
-            myDatabaseHelper.addFirstQuestion(new Question("This Acronym will help you",new String[]{"EVERY GOOD BOY DESERVES FOOD","EDDIE ATE DYNAMITE GOODBYE EDDIE","FACE"},"5","EVERY GOOD BOY DESERVES FOOD"));
-            myDatabaseHelper.addFirstQuestion(new Question("2. What up",new String[]{"1","answer","3"},"3","answer"));
-            myDatabaseHelper.addFirstQuestion(new Question("3. Sup",new String[]{"1","2","answer"},"2","answer"));
-            myDatabaseHelper.addFirstQuestion(new Question("4. Dorian",new String[]{"answer","2","3"},"1","answer"));
+            myDatabaseHelper.addFirstQuestion(new Question("This acronym will help you remember the notes along the LINES in the TREBLE clef",
+                    new String[]{"EVERY GOOD BOY DESERVES FOOD","EDDIE ATE DYNAMITE GOODBYE EDDIE","FACE"},
+                    "5","EVERY GOOD BOY DESERVES FOOD"));
+            myDatabaseHelper.addFirstQuestion(new Question("This acronym will help you remember the notes along the SPACES in the TREBLE clef",
+                    new String[]{"Every Good Boy Deserves Food","Eddie Ate Dynamite Goodbye Eddie","FACE"},
+                    "3","FACE"));
+            myDatabaseHelper.addFirstQuestion(new Question("The term ________ denotes when to play each note",
+                    new String[]{"Pitch","Rhythm","Time Signature"},"2","Rhythm"));
+            myDatabaseHelper.addFirstQuestion(new Question("The term ________ denotes which notes to play.",
+                    new String[]{"Pitch","Rhythm","Time Signature"},"1","Pitch"));
 
             list = myDatabaseHelper.getAllQuestionsList();//get list from database again
         }
