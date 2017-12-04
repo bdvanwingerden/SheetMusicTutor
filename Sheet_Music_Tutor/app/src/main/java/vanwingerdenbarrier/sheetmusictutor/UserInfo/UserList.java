@@ -199,6 +199,7 @@ public class UserList {
         writeUserList(context);
     }
 
+<<<<<<< HEAD
     /**
      * Adding 8 since 8 correct answers between levels
      * @param context
@@ -215,6 +216,7 @@ public class UserList {
         writeUserList(context);
     }
 
+=======
     public void levelUpUser(Context context){
         User user = findCurrent();
         userLinkedList.remove(user.getID());
