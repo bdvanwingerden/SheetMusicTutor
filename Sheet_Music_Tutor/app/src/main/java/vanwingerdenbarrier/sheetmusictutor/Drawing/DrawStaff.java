@@ -10,26 +10,18 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Random;
-import java.util.zip.CheckedOutputStream;
 
-import vanwingerdenbarrier.sheetmusictutor.Key.KeySound2;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
  * @author Bronson VanWingerden

@@ -1,13 +1,15 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 
 /**
- * Created by Bronson VanWingerden on 11/27/2017.
+ * Interface within an interface used to facilitate call-backs to the main game activity from the
+ * fragment
+ *
+ * @author Bronson VanWingerden
  */
-
 public interface AnswerDisplay {
     interface Display{
     void answerPressed(Note note, MotionEvent event);

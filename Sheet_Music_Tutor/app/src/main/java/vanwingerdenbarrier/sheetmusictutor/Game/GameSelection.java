@@ -1,9 +1,12 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
+import vanwingerdenbarrier.sheetmusictutor.R;
 
 public class GameSelection extends AppCompatActivity {
 

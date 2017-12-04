@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.UserInfo;
 
 import android.app.DialogFragment;
 import android.content.DialogInterface;
@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
+import vanwingerdenbarrier.sheetmusictutor.R;
 
 
 /**
