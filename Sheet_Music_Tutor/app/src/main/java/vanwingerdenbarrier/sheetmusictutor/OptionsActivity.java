@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
+
 public class OptionsActivity extends AppCompatActivity {
 
     @Override

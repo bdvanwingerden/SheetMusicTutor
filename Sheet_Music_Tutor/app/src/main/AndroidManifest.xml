@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameActivity"
+            android:name=".Game.GameActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".OptionsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".UserMenu"
+            android:name=".UserInfo.UserMenu"
             android:screenOrientation="landscape" />
         <activity
             android:name=".QuizActivity"
@@ -36,7 +36,7 @@
         <activity
             android:name=".ResultsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".GameSelection"></activity>
+        <activity android:name=".Game.GameSelection"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.UserInfo;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import vanwingerdenbarrier.sheetmusictutor.R;
 
 /**
  * Basic Dialog that appears when the user attempts to add a new user

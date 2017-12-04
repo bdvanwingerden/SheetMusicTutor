@@ -1,17 +1,16 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
 
+import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -33,6 +32,11 @@ public class GameActivity extends FragmentActivity
 
     }
 
+    /**
+     * Used to communicate with Question fragment when an answer fragment receives input
+     * @param note
+     * @param event
+     */
     public void answerPressed(Note note, MotionEvent event){
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
             new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
@@ -55,6 +59,10 @@ public class GameActivity extends FragmentActivity
         setContentView(R.layout.activity_game);
     }
 
+    /**
+     * adds a new question fragment
+     * @param fragment
+     */
     public void addQuestion(Fragment fragment){
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -62,6 +70,10 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * adds a new answer fragment
+     * @param fragment
+     */
     public void addAnswer(Fragment fragment){
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();

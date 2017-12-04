@@ -175,6 +175,10 @@ public class UserList {
         return tempUser;
     }
 
+    /**
+     * increments the number of questions the user has attempted
+     * @param context the current application context
+     */
     public void addUserAttempt(Context context){
         User user = findCurrent();
 
@@ -187,6 +191,10 @@ public class UserList {
         writeUserList(context);
     }
 
+    /**
+     * increments the number of questions the user has gotten correct
+     * @param context the current application context
+     */
     public void addUserCorrect(Context context){
         User user = findCurrent();
 
@@ -199,6 +207,10 @@ public class UserList {
         writeUserList(context);
     }
 
+    /**
+     * levels up the current user
+     * @param context the current application context
+     */
     public void levelUpUser(Context context){
         User user = findCurrent();
         userLinkedList.remove(user.getID());
