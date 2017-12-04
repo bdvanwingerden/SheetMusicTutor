@@ -51,6 +51,12 @@ public class User {
     private boolean isCurrent;
 
     /**
+     *
+     */
+
+    private int numPointsNeeded;
+
+    /**
      * default constructor for a new user
      * @param name
      * @param ID
@@ -60,6 +66,7 @@ public class User {
         this.ID = ID;
         this.numQuestionsAttempted = 0;
         this.numQuestionsCorrect = 0;
+        this.numPointsNeeded = 8;
         this.currentLevel = STARTING_LEVEL;
         this.isCurrent = isCurrent;
     }
@@ -72,12 +79,13 @@ public class User {
      * @param isCurrent the boolean corresponding to whether or not the user is the current user
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                int currentLevel, boolean isCurrent) {
+                int currentLevel,int numPointsNeeded, boolean isCurrent) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
         this.numQuestionsCorrect = numQuestionsCorrect;
         this.currentLevel = currentLevel;
+        this.numPointsNeeded = numPointsNeeded;
         this.isCurrent = isCurrent;
     }
 
@@ -136,6 +144,10 @@ public class User {
     public void swapCurrent(){
         isCurrent = !isCurrent;
         System.out.println(name + "is current =" + isCurrent);
+    }
+
+    public int getNumPointsNeeded() {
+        return numPointsNeeded;
     }
 
     /**
