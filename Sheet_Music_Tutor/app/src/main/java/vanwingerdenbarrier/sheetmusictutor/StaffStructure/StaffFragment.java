@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import vanwingerdenbarrier.sheetmusictutor.Drawing.DrawStaff;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 public class StaffFragment extends Fragment implements QuestionDisplay {

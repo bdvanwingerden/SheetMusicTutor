@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor.Drawing;
+package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 import android.content.Context;
 import android.graphics.Canvas;
