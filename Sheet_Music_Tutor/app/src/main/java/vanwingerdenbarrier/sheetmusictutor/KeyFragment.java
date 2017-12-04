@@ -247,6 +247,86 @@ public class KeyFragment extends Fragment implements  AnswerDisplay{
             }
         });
 
+        cs.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(scs, 1,1,0,0,1);
+                        cs.setBackgroundColor(Color.RED);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        cs.setBackgroundResource(R.color.black);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        ds.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(sds, 1,1,0,0,1);
+                        ds.setBackgroundColor(Color.RED);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        ds.setBackgroundResource(R.color.black);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        fs.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(sfs, 1,1,0,0,1);
+                        fs.setBackgroundColor(Color.RED);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        fs.setBackgroundResource(R.color.black);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        gs.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(sgs, 1,1,0,0,1);
+                        gs.setBackgroundColor(Color.RED);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        gs.setBackgroundResource(R.color.black);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        as.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(sas, 1,1,0,0,1);
+                        as.setBackgroundColor(Color.RED);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        as.setBackgroundResource(R.color.black);
+                        return false;
+                }
+                return false;
+            }
+        });
+
         //TODO ADD SHARPS
 
     }
