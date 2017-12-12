@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Game;
 
 /**
  * Created by Doriangh4 on 11/6/2017.

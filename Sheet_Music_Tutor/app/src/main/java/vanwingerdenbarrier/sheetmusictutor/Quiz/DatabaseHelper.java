@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Quiz;
 
 
 import android.content.ContentValues;
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import android.database.Cursor;
 
+import vanwingerdenbarrier.sheetmusictutor.Game.Question;
+
 
 /**
  * Created by Doriangh4 on 11/6/2017.
@@ -17,7 +19,7 @@ import android.database.Cursor;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     //Database name
-    public static final String DATABASE_NAME = "questionStorage2.db";
+    public static final String DATABASE_NAME = "questionStorage3.db";
 
     // Current version of database
     public static final int DATABASE_VERSION = 1;

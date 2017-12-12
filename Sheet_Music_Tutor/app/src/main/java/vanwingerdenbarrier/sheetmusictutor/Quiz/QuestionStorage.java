@@ -1,10 +1,13 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Quiz;
 
 
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vanwingerdenbarrier.sheetmusictutor.Game.Question;
+import vanwingerdenbarrier.sheetmusictutor.Quiz.DatabaseHelper;
 
 /**
  * Created by Doriangh4 on 11/6/2017.

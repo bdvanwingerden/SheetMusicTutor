@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 

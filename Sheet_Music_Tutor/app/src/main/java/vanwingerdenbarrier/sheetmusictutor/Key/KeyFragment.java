@@ -1,4 +1,4 @@
-package vanwingerdenbarrier.sheetmusictutor;
+package vanwingerdenbarrier.sheetmusictutor.Key;
 /**
  * Created by Dorian Barrier 9/28/17
  * Class that implements the keyboard view
@@ -17,13 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import vanwingerdenbarrier.sheetmusictutor.Key.KeySound2;
+import vanwingerdenbarrier.sheetmusictutor.Game.AnswerDisplay;
+import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
 
 
-public class KeyFragment extends Fragment implements  AnswerDisplay{
+public class KeyFragment extends Fragment implements AnswerDisplay {
 
     Display callback;
 
@@ -110,6 +111,7 @@ public class KeyFragment extends Fragment implements  AnswerDisplay{
         a.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         soundPool.play(sa, 1,1,0,0,1);

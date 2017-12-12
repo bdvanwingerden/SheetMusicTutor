@@ -28,8 +28,12 @@ public class UserList {
      */
     public UserList(Context context){
         this.userLinkedList = new ArrayList<>();
-        readUserList(context);
-        //emptyUserList(context);
+        try {
+            readUserList(context);
+        }catch (Exception e){
+            emptyUserList(context);
+        }
+
     }
 
     /**
@@ -78,7 +82,7 @@ public class UserList {
      * linked list to ensure the most current user info is stored
      * @param context current app context
      */
-    public void readUserList(Context context) {
+    public void readUserList(Context context) throws Exception {
         String userDataFileName = "userData";
         String userDataFilePath = context.getFilesDir() + "/" + userDataFileName;
         FileInputStream fileInputStream = null;
