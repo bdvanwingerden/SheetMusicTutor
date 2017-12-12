@@ -119,11 +119,11 @@ public class QuizActivity extends AppCompatActivity {
                     //If you have reached max number of attempts for a question
                     else if(difficulty == MAX_ATTEMPTS){
                         Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
-                        if(questionNumber < numQuestions) {
+                        if(questionNumber < numQuestions) {//if not the last question
                             userList.addUserAttempt(getBaseContext());
                             updateQuestion();
                         }
-                        else{
+                        else{//if the last question pass the results to the stats screen
 
                             Intent results = new Intent(view.getContext(), ResultsActivity.class);
 

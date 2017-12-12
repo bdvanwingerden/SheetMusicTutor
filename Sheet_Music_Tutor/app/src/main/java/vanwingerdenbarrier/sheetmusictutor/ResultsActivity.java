@@ -11,9 +11,9 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
+ * Class to handle writing results to results screen
  * Created by Doriangh4 on 11/29/2017.
  */
-
 public class ResultsActivity extends AppCompatActivity{
 
     /**Attached to XML to display title*/
@@ -57,7 +57,12 @@ public class ResultsActivity extends AppCompatActivity{
 
     User current;
 
-
+    /**
+     * Acquires the fields passed from the class that called results
+     * calls the method that actualy writes the results to the screen
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +148,11 @@ public class ResultsActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Gives user a title based on their level
+     * @param level - user level
+     * @return
+     */
     public String quoteLevel(int level){
 
         if(level <= 1)
@@ -159,6 +169,10 @@ public class ResultsActivity extends AppCompatActivity{
         return quote;
     }
 
+    /**
+     * Starts the quiz game when button is pressed
+     * @param v
+     */
     public void quizGame(View v){
         Intent game = new Intent(this, QuizActivity.class);
         this.startActivity(game);

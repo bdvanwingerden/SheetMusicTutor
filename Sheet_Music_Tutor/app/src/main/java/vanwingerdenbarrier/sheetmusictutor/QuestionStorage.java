@@ -47,11 +47,21 @@ public class QuestionStorage {
         return list.get(a).getAnswer();
     }//end getCorrectAnswer
 
+    /**
+     * Gets the difficulty of teh question from the user.
+     * @param a which question
+     * @return
+     */
     public String getDifficultyScore(int a){
         return list.get(a).getDifficulty();
     }//end getDifficultyScore
 
 
+    /**
+     * Writes the initial questions to the database. Only called once the user initially creates
+     * the database. After this point database entries may be made to the file manually
+     * @param context
+     */
     public void initialQuestions(Context context){
         myDatabaseHelper = new DatabaseHelper(context);
         list = myDatabaseHelper.getAllQuestionsList();//get all questions/choices/answers from database
