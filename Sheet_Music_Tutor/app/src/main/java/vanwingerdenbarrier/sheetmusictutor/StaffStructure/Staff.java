@@ -81,18 +81,36 @@ public class Staff{
         return new ArrayList<>();
     }
 
+    /**
+     * returns the number of bars in the staff
+     * @return the number of bars in the staff
+     */
     public int getNumOfBars(){
         return bars.size();
     }
 
+    /**
+     * returns the beat index for the given bar location
+     * @param barlocation the bar location to query
+     * @return the beat index for the give bar location
+     */
     public int getCurrentBeatIndex(int barlocation){
         return bars.get(barlocation).getLastNoteIndex();
     }
 
+    /**
+     * returns the current clef type
+     * @return the current clef type
+     */
     public Clef getClef(){
         return clef;
     }
 
+    /**
+     * finds the location of a note in the staff
+     * @param noteToFind the note to find
+     * @return the x and y coordinates of the note in the staff
+     */
     public float[] findNoteLocation(Note noteToFind){
         float[] location = null;
         for(Bar bar : bars){

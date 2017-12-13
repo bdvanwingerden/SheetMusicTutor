@@ -41,13 +41,13 @@ public class DrawStaff extends AppCompatImageView {
     /**
      * the paint to use throughout DrawStaff, what fills objects
      */
-    Paint paint = new Paint();
+    Paint paint;
 
     /**
      * a temporary random integer to allow testing of our other methods
      * //TODO implement random based on users level/selected difficulty
      */
-    Random random = new Random();
+    Random random;
 
     /**
      * creates an array to contain the x and y coordinates for the line since each line only has
@@ -84,6 +84,9 @@ public class DrawStaff extends AppCompatImageView {
      */
     int subdivision = 4;
 
+    /**
+     * current beat and bar that we have indexed to in the staff
+     */
     int currentBar;
     int currentBeat;
 
@@ -100,11 +103,15 @@ public class DrawStaff extends AppCompatImageView {
     float lastClickY;
     float lastClickX;
 
+    /** Dimension of the note */
     int noteHeight;
     int noteWidth;
+
+    /**the horizontal and vertical margins*/
     int horMargin;
     int verMargin;
 
+    /** a list containing all the next note to play  is a list so we can implement chords later */
     LinkedList<Note> nextToPlay;
 
     /**
@@ -116,14 +123,18 @@ public class DrawStaff extends AppCompatImageView {
     public DrawStaff(final Context context) {
         super(context);
 
-        nextToPlay = new LinkedList<Note>();
+        nextToPlay = new LinkedList<>();
 
         noteClicked = false;
-        horMargin = 300;
+
+        /* hard coding the horizontal and vertical margins */
+        horMargin = 200;
         verMargin = 200;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
+        paint = new Paint();
+        random = new Random();
         size = new Point();
         display.getSize(size);
         paint.setColor(Color.BLACK);
@@ -134,10 +145,11 @@ public class DrawStaff extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        /* ensures the horizontal margin is back at the start*/
         horMargin = 200;
         drawStaff(canvas);
         drawClef(canvas);
-        drawGuides(canvas, 8);
+        //drawGuides(canvas, 8);
         drawNotes(canvas);
         drawPointer(canvas, currentBar, currentBeat);
         if(noteClicked){
@@ -148,6 +160,13 @@ public class DrawStaff extends AppCompatImageView {
         }
     }
 
+    /**
+     * redraws the staff when a note is clicked
+     * @param noteClicked true if a note is clicked
+     * @param lastClickX the last x position clicked
+     * @param lastClickY the last y position clicked
+     * @return Note the note that was clicked
+     */
     public Note reDraw(boolean noteClicked, float lastClickX, float lastClickY){
         this.noteClicked = noteClicked;
         this.lastClickX = lastClickX;
@@ -155,6 +174,9 @@ public class DrawStaff extends AppCompatImageView {
         return getClickedNote(lastClickX,lastClickY);
     }
 
+    /**
+     * increments the pointer 1 space ahead
+     */
     public void incrementPointer(){
         currentBeat++;
         while(currentStaff.getNoteList(currentBar,currentBeat).isEmpty() && currentBeat <= 16){
@@ -162,6 +184,11 @@ public class DrawStaff extends AppCompatImageView {
         }
     }
 
+    /**
+     * draws guidelines where notes should be drawn for the current time signature
+     * @param canvas the canvas to draw on
+     * @param guideDivision the division of guides
+     */
     private void drawGuides(Canvas canvas, int guideDivision){
         float top = (spaceBetween - paint.getStrokeWidth()) * 2;
         float bottom = (spaceBetween * 6) - paint.getStrokeWidth();
@@ -182,7 +209,10 @@ public class DrawStaff extends AppCompatImageView {
         paint.setColor(Color.BLACK);
     }
 
-
+    /**
+     * draws the clef on the staff
+     * @param canvas the current canvas to draw on
+     */
     private void drawClef(Canvas canvas){
         Drawable clef =  getResources().getDrawable(R.drawable.t_clef);
         int numberOflines = 7;
@@ -375,6 +405,11 @@ public class DrawStaff extends AppCompatImageView {
         return (int) noteLocation;
     }
 
+    /**
+     * gets the note shape of the requested note
+     * @param note the note to find the shape of
+     * @return the drawable to draw for the given note
+     */
     private Drawable getNoteShape(Note note) {
         Drawable noteShape = null;
 
@@ -409,6 +444,12 @@ public class DrawStaff extends AppCompatImageView {
         return noteShape;
     }
 
+    /**
+     * finds if there are any notes located close to the last clicked location
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return the Note if there is one at that location
+     */
     public Note getClickedNote(float x, float y){
         Note locatedNote = null;
 
@@ -428,6 +469,11 @@ public class DrawStaff extends AppCompatImageView {
         return locatedNote;
     }
 
+    /**
+     * changes the color of a note from Black to red
+     * @param temp the temp note to draw
+     * @param canvas the canvas to draw on
+     */
     public void selectNote(Note temp, Canvas canvas){
         paint.setColor(Color.RED);
 
@@ -456,16 +502,27 @@ public class DrawStaff extends AppCompatImageView {
         paint.setColor(Color.BLACK);
     }
 
+    /**
+     * returns the current staff
+     * @return the current staff structure
+     */
     public Staff getCurrentStaff(){
         return currentStaff;
     }
 
+    /**
+     * draws the pointer at the current position
+     *
+     * @param canvas the canvas to draw on
+     * @param barLocation the current bar location
+     * @param beatLocation the current beat location
+     */
     public void drawPointer(Canvas canvas, int barLocation, int beatLocation){
         Drawable arrow = getResources().getDrawable(R.drawable.arrowgreen);
         for(Note note : currentStaff.getNoteList(barLocation, beatLocation)){
 
             arrow.setBounds(note.getX() - noteWidth,
-                            spaceBetween*6,
+                            spaceBetween*6 + 20,
                             note.getX() + noteWidth,
                             spaceBetween*7);
         }
@@ -473,14 +530,18 @@ public class DrawStaff extends AppCompatImageView {
         arrow.draw(canvas);
     }
 
-    public LinkedList<Note> getNextToPlay(){
-        return nextToPlay;
-    }
-
+    /**
+     * retuns the current bar
+     * @return the current bar
+     */
     public int getCurrentBar(){
         return currentBar;
     }
 
+    /**
+     * returns the current beat
+     * @return the current beat
+     */
     public int getCurrentBeat(){
         return currentBeat;
     }

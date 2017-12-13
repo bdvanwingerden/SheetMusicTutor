@@ -18,10 +18,10 @@ public class Note {
      */
     int pitch;
 
-
+    /**
+     * the duration of this note
+     */
     Duration duration;
-
-    int remainingDuration;
 
     /**
      * the x location of this note set to 0 until changed
@@ -33,8 +33,15 @@ public class Note {
      */
     int y;
 
+    /** whether or not the note is about to be redrawn*/
     boolean drawn;
 
+    /**
+     * public constructor for note that sets the tone pitch and duration
+     * @param tone the tone for the note
+     * @param pitch the pitch for the note
+     * @param duration the duration of the note
+     */
     public Note(Tone tone, int pitch, Duration duration){
         this.tone = tone;
         this.pitch = pitch;
@@ -44,30 +51,58 @@ public class Note {
         drawn = false;
     }
 
+    /**
+     * gets the notes tone
+     * @return the notes tone
+     */
     public Tone getTone() {
         return tone;
     }
 
+    /**
+     * gets the notes pitch
+     * @return the notes pitch
+     */
     public int getPitch() {
         return pitch;
     }
 
+    /**
+     * gets the notes duration
+     * @return the notes duration
+     */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     * gets the notes x location
+     * @return the notes x location
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * sets the notes x location
+     * @param x the location to set x to
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * gets the notes y location
+     * @return the notes y location
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * sets the notes y location
+     * @param y the location to set x to
+     */
     public void setY(int y) {
         this.y = y;
     }
