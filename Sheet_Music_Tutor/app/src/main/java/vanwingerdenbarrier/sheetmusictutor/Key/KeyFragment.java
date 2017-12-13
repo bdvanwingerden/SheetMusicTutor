@@ -122,7 +122,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         a.setBackgroundResource(R.drawable.border);
                         a2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER), event);
+                       // callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;

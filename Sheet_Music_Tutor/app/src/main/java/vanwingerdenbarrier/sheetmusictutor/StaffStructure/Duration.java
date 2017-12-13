@@ -1,7 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 /**
- * Created by Bronson VanWingerden on 11/16/2017.
+ * Enumeration used to denote a notes length
  */
 
 public enum Duration {

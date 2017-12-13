@@ -64,7 +64,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
             if(tempNote != null) {
                 //callback.questionPressed(tempNote);
             }
-        } else if (event.getAction() == MotionEvent.ACTION_UP && location != null) {
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
             // sets both lastClickX & Y back to default
             drawStaff.reDraw(false, 0, 0);
         }

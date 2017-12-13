@@ -9,11 +9,11 @@ package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 //TODO add sharps
 public enum Tone {
-    G,
+    G,//GSHARP,
     F,
-    E,
-    D,
+    E,//ESHARP,
+    D,//DSHARP,
     C,
-    B,
-    A
+    B,//BSHARP,
+    A,//ASHARP,
 }
