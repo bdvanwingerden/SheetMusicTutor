@@ -127,16 +127,22 @@ public class DrawStaff extends AppCompatImageView {
 
         noteClicked = false;
 
-        /* hard coding the horizontal and vertical margins */
-        horMargin = 200;
-        verMargin = 200;
+
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         paint = new Paint();
         random = new Random();
         size = new Point();
+        /* hard coding the horizontal and vertical margins */
+
         display.getSize(size);
+
+        horMargin = 200;
+        /*middle of screen vermarginATM*/
+        verMargin = size.x/8;
+        System.out.println("AAA " + verMargin + " " + size.x);
+
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(textSize);
@@ -218,8 +224,8 @@ public class DrawStaff extends AppCompatImageView {
         int numberOflines = 7;
         int left = 0;
         int right = horMargin + 100;
-        int top = spaceBetween + (spaceBetween/2);
-        int bottom = (spaceBetween * 6) + (spaceBetween/2);
+        int top = verMargin - spaceBetween;
+        int bottom = verMargin + (spaceBetween * 5);
 
         if(currentStaff.getClef() == Clef.BASS){
             clef = getResources().getDrawable(R.drawable.b_clef);
@@ -231,13 +237,13 @@ public class DrawStaff extends AppCompatImageView {
         horMargin += horMargin;
 
         clef.draw(canvas);
-        canvas.drawLine(right, (spaceBetween - paint.getStrokeWidth()) * 2 ,
-                right, (spaceBetween * 6) - paint.getStrokeWidth() , paint);
+        canvas.drawLine(right, (verMargin) ,
+                right, (verMargin + (spaceBetween*4)) + paint.getStrokeWidth() , paint);
 
         right += 20;
 
-        canvas.drawLine(right, (spaceBetween - paint.getStrokeWidth()) * 2 ,
-                right, (spaceBetween * 6) - paint.getStrokeWidth() , paint);
+        canvas.drawLine(right, (verMargin) ,
+                right, (verMargin+ (spaceBetween * 4) + paint.getStrokeWidth()) , paint);
 
     }
 
@@ -249,7 +255,7 @@ public class DrawStaff extends AppCompatImageView {
     private void drawStaff(Canvas canvas) {
         lineArray = new float[20];
 
-        spaceBetween = ((size.y / 7) - 100)/bars;
+        spaceBetween = ((verMargin/3) )/bars;
         paint.setStrokeWidth(spaceBetween / 20);
 
         int position = verMargin;
