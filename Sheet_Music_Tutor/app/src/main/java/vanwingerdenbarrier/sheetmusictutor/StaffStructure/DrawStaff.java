@@ -90,11 +90,6 @@ public class DrawStaff extends AppCompatImageView {
     int currentBar;
     int currentBeat;
 
-    /**
-     * the size of the text to display the note name within the note
-     * TODO set this based on the scale of the screen
-     */
-    int textSize = 80;
 
     /** true if there is a currently clicked note */
     boolean noteClicked;
@@ -138,21 +133,21 @@ public class DrawStaff extends AppCompatImageView {
 
         display.getSize(size);
 
-        horMargin = 200;
+        horMargin = size.y/6;
         /*middle of screen vermarginATM*/
         verMargin = size.x/8;
-        System.out.println("AAA " + verMargin + " " + size.x);
+        System.out.println("AAA " + horMargin + " " + size.y);
 
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(textSize);
+        paint.setTextSize(horMargin/3);
         populateStaff();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         /* ensures the horizontal margin is back at the start*/
-        horMargin = 200;
+        horMargin = size.y/6;
         drawStaff(canvas);
         drawClef(canvas);
         //drawGuides(canvas, 8);
@@ -234,7 +229,7 @@ public class DrawStaff extends AppCompatImageView {
 
         clef.setBounds(left, top ,right , bottom);
 
-        horMargin += horMargin;
+        horMargin += horMargin/2;
 
         clef.draw(canvas);
         canvas.drawLine(right, (verMargin) ,
@@ -243,7 +238,7 @@ public class DrawStaff extends AppCompatImageView {
         right += 20;
 
         canvas.drawLine(right, (verMargin) ,
-                right, (verMargin+ (spaceBetween * 4) + paint.getStrokeWidth()) , paint);
+                right, (verMargin + (spaceBetween * 4) + paint.getStrokeWidth()) , paint);
 
     }
 
@@ -336,6 +331,8 @@ public class DrawStaff extends AppCompatImageView {
 
         paint.setStrokeWidth(noteHeight / 4);
 
+        horMargin+= horMargin;
+
         for (int i = 0; i < bars; i++) {
             for (int j = 0; j < beats; j++) {
                 ArrayList<Note> tempList = currentStaff.getNoteList(i, j);
@@ -365,7 +362,7 @@ public class DrawStaff extends AppCompatImageView {
 
                     paint.setColor(Color.WHITE);
                     //TODO Change constant 40 to figure out the center of a note
-                    canvas.drawText(note.getTone().toString(), note.getX(), note.getY() + 40, paint);
+                    canvas.drawText(note.getTone().toString(), note.getX(), note.getY() + noteWidth/2, paint);
                     paint.setColor(Color.BLACK);
 
                 }
@@ -495,16 +492,16 @@ public class DrawStaff extends AppCompatImageView {
          * drawing the stem
          */
         if (temp.getDuration() != Duration.WHOLE) {
-            canvas.drawLine(temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2
+            canvas.drawLine(temp.getX() + (noteWidth - paint.getStrokeWidth() / 2)
                     , temp.getY() - 15
-                    , temp.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2,
+                    , temp.getX() + (noteWidth - paint.getStrokeWidth() / 2),
                     temp.getY() - spaceBetween * 2, paint);
 
         }
 
         paint.setColor(Color.WHITE);
         //TODO Change constant 40 to figure out the center of a note
-        canvas.drawText(temp.getTone().toString(), temp.getX(), temp.getY() + 40, paint);
+        canvas.drawText(temp.getTone().toString(), temp.getX(), temp.getY(), paint);
         paint.setColor(Color.BLACK);
     }
 
