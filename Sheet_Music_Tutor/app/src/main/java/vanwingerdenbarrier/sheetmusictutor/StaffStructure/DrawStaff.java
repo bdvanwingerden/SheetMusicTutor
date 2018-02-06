@@ -170,6 +170,7 @@ public class DrawStaff extends AppCompatImageView {
      */
     public Note reDraw(boolean noteClicked, float lastClickX, float lastClickY){
         this.noteClicked = noteClicked;
+
         this.lastClickX = lastClickX;
         this.lastClickY = lastClickY;
         return getClickedNote(lastClickX,lastClickY);
@@ -327,7 +328,7 @@ public class DrawStaff extends AppCompatImageView {
     private void drawNotes(Canvas canvas) {
 
         noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
-        noteWidth = noteHeight + 10;
+        noteWidth = noteHeight + (noteHeight/3);
 
         paint.setStrokeWidth(noteHeight / 4);
 
@@ -525,9 +526,9 @@ public class DrawStaff extends AppCompatImageView {
         for(Note note : currentStaff.getNoteList(barLocation, beatLocation)){
 
             arrow.setBounds(note.getX() - noteWidth,
-                            spaceBetween*6 + 20,
+                            horMargin + spaceBetween/2,
                             note.getX() + noteWidth,
-                            spaceBetween*7);
+                            horMargin + (spaceBetween*3)/2);
         }
 
         arrow.draw(canvas);

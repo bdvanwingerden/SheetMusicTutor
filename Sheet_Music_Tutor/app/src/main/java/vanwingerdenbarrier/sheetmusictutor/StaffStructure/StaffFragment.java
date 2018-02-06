@@ -2,6 +2,7 @@ package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
@@ -19,6 +21,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
     DrawStaff drawStaff;
     Display callback;
     ViewGroup staff;
+    long illumDelay = 200; /* delay in milliseconds?*/
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,20 +60,25 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         }
     }
 
-    public void colorNoteOnStaff(float[] location, MotionEvent event){
-        Note tempNote;
-        if (event.getAction() == MotionEvent.ACTION_DOWN && location != null) {
-            tempNote = drawStaff.reDraw(true, location[0], location[1]);
-            if(tempNote != null) {
-                //callback.questionPressed(tempNote);
-            }
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            // sets both lastClickX & Y back to default
-            drawStaff.reDraw(false, 0, 0);
-        }
+    public void colorNoteOnStaff(final float[] location, MotionEvent event){
+        Handler handler = new Handler();
 
-        staff.removeAllViews();
-        staff.addView(drawStaff);
+        if (event.getAction() == MotionEvent.ACTION_DOWN && location != null) {
+            drawStaff.reDraw(true, location[0], location[1]);
+
+            staff.removeAllViews();
+            staff.addView(drawStaff);
+
+            /* delays the unillumination of the note after the user has lifted up*/
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    drawStaff.reDraw(false,location[0],location[1]);
+                    staff.removeAllViews();
+                    staff.addView(drawStaff);
+                }
+            }, illumDelay);
+
+        }
     }
 
 
@@ -95,7 +103,10 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
 
                     drawStaff.incrementPointer();
                     if(drawStaff.getCurrentBeat() >= 16){
+
                         drawStaff = new DrawStaff(this.getContext());
+                        drawStaff.lastClickX = 0;
+                        drawStaff.lastClickY = 0;
                         userList.levelUpUser(this.getContext());
                         staff.removeAllViews();
                         staff.addView(drawStaff);
