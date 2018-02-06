@@ -142,7 +142,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         b.setBackgroundResource(R.drawable.border);
                         b2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.B, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.B, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
@@ -162,7 +162,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         c.setBackgroundResource(R.drawable.border);
                         c2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.C, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.C, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
@@ -182,7 +182,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         d.setBackgroundResource(R.drawable.border);
                         d2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.D, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.D, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
@@ -202,7 +202,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         e.setBackgroundResource(R.drawable.border);
                         e2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.E, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.E, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
@@ -222,7 +222,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         f.setBackgroundResource(R.drawable.border);
                         f2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
@@ -242,7 +242,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     case MotionEvent.ACTION_UP:
                         g.setBackgroundResource(R.drawable.border);
                         g2.setBackgroundResource(R.drawable.border);
-                        callback.answerPressed(new Note(Tone.G, 5, Duration.QUARTER), event);
+                        //callback.answerPressed(new Note(Tone.G, 5, Duration.QUARTER), event);
                         return false;
                 }
                 return false;
