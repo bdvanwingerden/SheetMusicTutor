@@ -38,6 +38,10 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_user_menu);
         users = new UserList(this);
         createButtons();
+        if(users.findCurrent() == null){
+            createUserDialog = new CreateUserDialog();
+            createUserDialog.show(getFragmentManager(), "createUserDialog");
+        }
     }
 
     /**
@@ -144,6 +148,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         users.addUser(user, this);
         createUserDialog.dismiss();
         recreate();
+        finish();
     }
 
     /**
