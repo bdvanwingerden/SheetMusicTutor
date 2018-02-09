@@ -96,6 +96,11 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         for(Note note : noteList){
             if(note.getTone() == noteToFind.getTone()) {
                 userList.addUserCorrect(this.getContext());
+                if(userList.findCurrent().getNumPointsNeeded()
+                        == userList.findCurrent().getNumQuestionsCorrect()){
+                    userList.addUserPointsNeeded(this.getContext());
+                    userList.levelUpUser(this.getContext());
+                }
 
                     location = new float[2];
                     location[0] = note.getX();
@@ -107,7 +112,6 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                         drawStaff = new DrawStaff(this.getContext());
                         drawStaff.lastClickX = 0;
                         drawStaff.lastClickY = 0;
-                        userList.levelUpUser(this.getContext());
                         staff.removeAllViews();
                         staff.addView(drawStaff);
                     }
