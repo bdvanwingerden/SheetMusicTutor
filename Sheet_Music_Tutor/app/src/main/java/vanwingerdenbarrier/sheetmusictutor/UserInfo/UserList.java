@@ -69,6 +69,7 @@ public class UserList {
         writeUserList(context);
     }
 
+
     /**
      * returns the current list of users, useful for creating buttons in the UserMenu
      * @return

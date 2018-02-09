@@ -137,7 +137,10 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     public void onAcceptDialog(View view, String name) {
         System.out.println("NAME IS ADDED IS -------> " + name);
-        User user = new User(users.getUserList().size(), name, false);
+        if(users.findCurrent() != null){
+            users.findCurrent().swapCurrent();
+        }
+        User user = new User(users.getUserList().size(), name, true);
         users.addUser(user, this);
         createUserDialog.dismiss();
         recreate();
@@ -160,5 +163,14 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         users.getUserList().get(view.getId()).swapCurrent();
         users.emptyUserList(getApplicationContext());
         users.writeUserList(getApplicationContext());
+    }
+
+    /**
+     * debugging method that makes it easy to delete the db without altering code
+     * @param v
+     */
+    public void killDB(View v){
+        new UserList(this).emptyUserList(this);
+        recreate();
     }
 }

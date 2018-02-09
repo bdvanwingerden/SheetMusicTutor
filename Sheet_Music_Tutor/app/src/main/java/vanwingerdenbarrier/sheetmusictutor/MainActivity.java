@@ -22,6 +22,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(new UserList(this).findCurrent() == null){
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Welcome To Sheet Music Tutor!");
+            alertDialog.setMessage("Please Create a user to get started!");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
+
+            alertDialog.show();
+        }
     }
 
     /**
