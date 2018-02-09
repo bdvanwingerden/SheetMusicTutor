@@ -36,10 +36,10 @@
         <activity
             android:name=".ResultsActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".Game.GameSelection"
-            android:screenOrientation="landscape" ></activity>
-
+        <activity
+            android:name=".Game.GameSelection"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>
