@@ -2,6 +2,7 @@ package vanwingerdenbarrier.sheetmusictutor;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int j) {
                             dialogInterface.dismiss();
                             Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(userMenu);
                         }
                     });
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int j) {
                             dialogInterface.dismiss();
                             Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(userMenu);
                         }
                     });
