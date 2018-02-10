@@ -21,7 +21,7 @@ import vanwingerdenbarrier.sheetmusictutor.R;
  * @author Bronson VanWingerden
  * @author Dorian Barrier
  */
-public class UserMenu extends AppCompatActivity implements View.OnClickListener {
+public class    UserMenu extends AppCompatActivity implements View.OnClickListener {
     /**
      * contains the current list of users
      */

@@ -18,11 +18,20 @@ public class GameSelection extends AppCompatActivity {
 
     public void staffGame(View v){
         Intent game = new Intent(this, GameActivity.class);
+        /* game type 1 represents the staff game mode */
+        game.putExtra("gameType", 1);
         this.startActivity(game);
     }
 
     public void quizGame(View v){
         Intent game = new Intent(this, QuizActivity.class);
+        this.startActivity(game);
+    }
+
+    public void comboGame(View v){
+        Intent game = new Intent(this, GameActivity.class);
+        /* game type 2 represents the combo game mode */
+        game.putExtra("gameType", 2);
         this.startActivity(game);
     }
 }

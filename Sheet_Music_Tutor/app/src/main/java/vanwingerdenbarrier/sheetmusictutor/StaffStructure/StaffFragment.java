@@ -81,7 +81,6 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         }
     }
 
-
     /** finds the first note matching the key pressed */
     public float[] getNoteLocation(Note noteToFind){
         return drawStaff.getCurrentStaff().findNoteLocation(noteToFind);
@@ -109,17 +108,19 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                     drawStaff.incrementPointer();
                     if(drawStaff.getCurrentBeat() >= 16){
 
-                        drawStaff = new DrawStaff(this.getContext());
                         drawStaff.lastClickX = 0;
                         drawStaff.lastClickY = 0;
-                        staff.removeAllViews();
-                        staff.addView(drawStaff);
+                        //drawStaff = new DrawStaff(this.getContext());
+                        callback.questionPressed(new Note(Tone.A,5, Duration.QUARTER));
+
                     }
                     return location;
 
 
             }
         }
+
+
         return location;
     }
 
