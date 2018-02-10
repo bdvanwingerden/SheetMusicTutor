@@ -1,7 +1,6 @@
 package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,16 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
-import java.util.Random;
-
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
-import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
-import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
 
 /**
  * @author Bronson VanWingerden
@@ -148,11 +142,7 @@ public class GameActivity extends FragmentActivity
 
         }else if (mode == 2){
 
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(currentQuestion);
-            fragmentTransaction.remove(currentAnswer);
-            fragmentTransaction.add(R.id.question_holder ,new QuizFragment());
-            fragmentTransaction.commit();
+
             rounds--;
 
 
