@@ -4,26 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple">
+    android:background="@color/purple"
+    android:orientation="vertical"
+    android:weightSum="2">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_weight="1">
 
-        android:text="Easy"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/difficulty_select"
+            android:textStyle="bold"
+            android:textColor="@color/gold"
+            android:textSize="27dp"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="medium"
-        />
+        android:layout_weight="1"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/easy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:text="@string/easy"
+            android:textColor="@color/gold"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/medium_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:text="@string/medium"
+            android:textColor="@color/gold"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/hard_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:textStyle="bold"
+            android:textColor="@color/gold"
+            android:text="@string/hard"
+            android:layout_weight="1"/>
 
 
+    </LinearLayout>
 
 
 </LinearLayout>

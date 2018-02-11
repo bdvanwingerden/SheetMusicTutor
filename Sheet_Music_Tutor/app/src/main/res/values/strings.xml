@@ -6,6 +6,10 @@
     <string name="user">User Menu</string>
     <string name="c">CS</string>
     <string name="app_title">Sheet Music Tutor</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="difficulty_select">Select Your Starting Difficulty!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -30,6 +30,7 @@ public class CreateUserDialog extends DialogFragment implements View.OnClickList
      */
     EditText nameToAdd;
 
+
     /** The system calls this to get the DialogFragment's layout, regardless
      of whether it's being displayed as a dialog or an embedded fragment. */
     @Override

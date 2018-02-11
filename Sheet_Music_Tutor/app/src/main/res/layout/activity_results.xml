@@ -31,6 +31,7 @@
                 android:gravity="center"
                 android:text="Quiz Results"
                 android:textColor="@color/gold"
+                android:textStyle="bold"
                 android:id="@+id/title"/>
 
             <TextView
@@ -41,6 +42,7 @@
                 android:gravity="center"
                 android:text="Try Studying More!"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:id="@+id/quote"/>
 
             <TextView
@@ -52,6 +54,7 @@
                 android:text="Correct: 4/5"
                 android:textColor="@color/gold"
                 android:id="@+id/correct"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -62,6 +65,7 @@
                 android:gravity="center"
                 android:text="Points: 6/10"
                 android:textColor="@color/gold"
+                android:textStyle="bold"
                 android:id="@+id/points"/>
 
             <TextView
@@ -72,6 +76,7 @@
                 android:gravity="center"
                 android:text="Score: 70%"
                 android:textColor="@color/gold"
+                android:textStyle="bold"
                 android:id="@+id/percent"/>
         </LinearLayout>
 
@@ -110,7 +115,8 @@
             android:layout_height="wrap_content"
             android:text="Try Again(Placeholder)"
             android:onClick="quizGame"
-            android:background="@color/black"
+            android:background="@drawable/round_button"
+            android:textStyle="bold"
             android:textColor="@color/gold"
             />
     </LinearLayout>

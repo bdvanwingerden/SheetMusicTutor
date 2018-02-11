@@ -32,6 +32,9 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      */
     DialogFragment createUserDialog;
 
+    /**Will contain the fragment that prompts the user to select a starting difficulty*/
+    DialogFragment setUserDifficultyDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,9 +150,47 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         User user = new User(users.getUserList().size(), name, true);
         users.addUser(user, this);
         createUserDialog.dismiss();
+
+        setUserDifficultyDialog = new SetUserDifficulty();
+        setUserDifficultyDialog.show(getFragmentManager(), "setUserDifficultyDialog");
+
+
         recreate();
-        finish();
+        //finish();
     }
+
+    /**
+     *
+     * Sets the users difficulty
+     *
+     * @param view
+     * @param dif - if 1 set to medium difficulty. 2 set to hard difficulty
+     */
+    public void onSelectDiffDialog(View view, int dif){
+
+        if(dif == 1){
+            for(int x = 0; x < 8; x++) {
+                users.addUserCorrect(this);
+                users.addUserAttempt(this);
+            }
+            users.levelUpUser(this);
+            users.addUserPointsNeeded(this);
+        }
+        else if(dif == 2){
+
+            for(int x = 0; x < 16; x++) {
+                users.addUserCorrect(this);
+                users.addUserAttempt(this);
+            }
+            for(int y = 0; y < 2; y++){
+                users.levelUpUser(this);
+                users.addUserPointsNeeded(this);
+            }//end for
+
+        }//end else if
+
+    }//end onSelectDiffDialog
+
 
     /**
      * onClick used for selecting the current user

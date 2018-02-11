@@ -157,15 +157,15 @@ public class ResultsActivity extends AppCompatActivity{
     public String quoteLevel(int level){
 
         if(level <= 1)
-            quote = "Novice";
+            quote = "Novice (LVL 1)";
         else if(level <= 2)
-            quote = "Apprentice";
+            quote = "Apprentice (LVL 2)";
         else if(level <= 3)
-            quote = "Adept";
+            quote = "Adept (LVL 3)";
         else if(level <= 4)
-            quote = "Expert";
+            quote = "Expert (LVL 4)";
         else
-            quote = "Master";
+            quote = "Master (LVL 5)";
 
         return quote;
     }
