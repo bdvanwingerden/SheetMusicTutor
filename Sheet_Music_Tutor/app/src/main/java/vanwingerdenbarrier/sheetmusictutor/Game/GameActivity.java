@@ -59,6 +59,11 @@ public class GameActivity extends FragmentActivity
 
     }
 
+    /**
+     * Allows us to pass info between fragments
+     * @param answer
+     * @param event
+     */
     public void answerPressed(Object answer, MotionEvent event) {
 
         if (currentQuestion instanceof StaffFragment && event != null) {
