@@ -44,10 +44,19 @@ public class GameActivity extends FragmentActivity
     int rounds;
 
     /**
-     * Observery method hopefully?
+     * Allows us to pass information between our fragments
      */
-    public void questionPressed() {
-        endQuestion();
+    public void questionPressed(Object correct) {
+
+        if(correct == null){
+            endQuestion();
+        }else if(currentAnswer instanceof QuizAnswerFragment){
+            ((QuizAnswerFragment) currentAnswer).setQuestion((int)correct);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.answer_holder, currentAnswer);
+            fragmentTransaction.commit();
+        }
+
     }
 
     public void answerPressed(Object answer, MotionEvent event) {

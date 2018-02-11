@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.DrawStaff;
@@ -22,6 +24,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
     ViewGroup view;
     QuestionStorage qS;
     String correctAnswer;
+    Random random;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,9 +37,14 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
                 container, false);
 
         TextView question = (TextView) view.findViewById(R.id.questionString);
-        question.setText(qS.getQuestion(0));
-        correctAnswer = qS.getCorrectAnswer(0);
 
+        random = new Random();
+        int questionIndex = random.nextInt(qS.getLength());
+
+        question.setText(qS.getQuestion(questionIndex));
+        correctAnswer = qS.getCorrectAnswer(questionIndex);
+
+        callback.questionPressed(questionIndex);
 
         return view;
     }
@@ -45,7 +53,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
 
         if(answer.equals(correctAnswer)){
             Toast.makeText(this.getContext(),"Correct", Toast.LENGTH_SHORT);
-            callback.questionPressed();
+            callback.questionPressed(null);
         }else{
             Toast.makeText(this.getContext(),"Incorrect, Try Again", Toast.LENGTH_SHORT);
         }

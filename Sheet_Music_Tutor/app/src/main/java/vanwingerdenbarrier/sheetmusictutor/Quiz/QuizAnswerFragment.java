@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,8 @@ public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
     Display callback;
     View view;
     QuestionStorage qS;
+    LinearLayout linearLayout;
+    static int currentQuestion = 0;
 
 
     @Override
@@ -30,14 +33,19 @@ public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
         qS = new QuestionStorage();
         qS.initialQuestions(this.getContext());
         view = inflater.inflate(R.layout.fragment_quiz_answer, container, false);
-
-        createAnswerButtons(view, 0);
+        linearLayout = view.findViewById(R.id.linearLayout);
+        linearLayout.setGravity(Gravity.CENTER);
+        createAnswerButtons(view, currentQuestion);
 
         return view;
     }
 
+    public void setQuestion(int questionNum){
+        currentQuestion = questionNum;
+    }
+
     public void createAnswerButtons(View view, int index){
-        LinearLayout linearLayout = view.findViewById(R.id.linearLayout);
+
         for(String answer : qS.getChoices(index)){
         Button tempButton = new Button(view.getContext());
         tempButton.setText(answer);
@@ -49,10 +57,9 @@ public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
             }
         });
         tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-                    , ViewGroup.LayoutParams.WRAP_CONTENT));
+                    , ViewGroup.LayoutParams.MATCH_PARENT));
             linearLayout.addView(tempButton);
         }
-
     }
 
     public void onAttach(Activity activity) {
