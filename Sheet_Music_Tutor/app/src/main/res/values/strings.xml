@@ -18,4 +18,7 @@
     <string name="accept">Accept</string>
     <string name="enter_a_name_to_add">Your name goes here</string>
     <string name="stats">Stats</string>
+    <string name="try_studying_more">Try Studying More!</string>
+    <string name="quiz_results">Quiz Results</string>
+    <string name="score_70">Score: 70%</string>
 </resources>
