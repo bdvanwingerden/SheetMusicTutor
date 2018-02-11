@@ -14,6 +14,9 @@ import vanwingerdenbarrier.sheetmusictutor.Quiz.DatabaseHelper;
  */
 public class QuestionStorage {
 
+    public QuestionStorage() {
+    }
+
     //Declare list of Question objects
     List<Question> list = new ArrayList<>();
     DatabaseHelper myDatabaseHelper;
@@ -40,6 +43,10 @@ public class QuestionStorage {
     public String getChoice(int index, int num){
         return list.get(index).getChoice(num-1);
     }//end get choice
+
+    public String[] getChoices(int index){
+        return list.get(index).getChoices();
+    }
 
     /**
      *

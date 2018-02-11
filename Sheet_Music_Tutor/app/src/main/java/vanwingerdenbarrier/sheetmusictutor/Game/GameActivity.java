@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
+import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
@@ -44,19 +46,23 @@ public class GameActivity extends FragmentActivity
     /**
      * Observery method hopefully?
      */
-    public void questionPressed(Note note) {
+    public void questionPressed() {
         endQuestion();
     }
 
-    public void answerPressed(Note note, MotionEvent event) {
+    public void answerPressed(Object answer, MotionEvent event) {
 
-        if (currentQuestion instanceof StaffFragment) {
+        if (currentQuestion instanceof StaffFragment && event != null) {
             ((StaffFragment) currentQuestion)
                     .colorNoteOnStaff(((StaffFragment) currentQuestion)
-                            .getNoteAtCurrentLocation(note), event);
+                            .getNoteAtCurrentLocation((Note) answer), event);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
             }
+        }else if(currentQuestion instanceof QuizQuestionFragment){
+
+            ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
+            new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
         }
     }
 
@@ -133,6 +139,13 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    public void replaceAnswer(Fragment fragment){
+        currentAnswer = fragment;
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.answer_holder, fragment);
+        fragmentTransaction.commit();
+    }
+
     public void makeNextQuestion(){
         System.out.println(mode);
         if (mode == 1) {
@@ -142,9 +155,17 @@ public class GameActivity extends FragmentActivity
 
         }else if (mode == 2){
 
+            if(currentQuestion instanceof QuizQuestionFragment && currentAnswer
+                    instanceof QuizAnswerFragment){
 
+                replaceQuestion(new StaffFragment());
+                replaceAnswer(new KeyFragment());
+            }else if(currentQuestion instanceof StaffFragment && currentAnswer instanceof KeyFragment){
+
+                replaceQuestion(new QuizQuestionFragment());
+                replaceAnswer(new QuizAnswerFragment());
+            }
             rounds--;
-
 
         }else if(mode == 0){
 

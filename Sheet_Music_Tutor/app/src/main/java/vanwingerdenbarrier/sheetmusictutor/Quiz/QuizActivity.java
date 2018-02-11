@@ -19,7 +19,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private final int MAX_ATTEMPTS = 1;
 
-    /**Attach these variable to XML Buttons*/
+    /**Attach these variables to XML Buttons*/
     private TextView scoreView;
     private TextView questionView;
     private Button buttonChoice1;

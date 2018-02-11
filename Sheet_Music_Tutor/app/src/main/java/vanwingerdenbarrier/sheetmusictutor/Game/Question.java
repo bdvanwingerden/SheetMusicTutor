@@ -32,6 +32,10 @@ public class Question {
         return choice[i];
     }//end getChoice
 
+    public String[] getChoices(){
+        return choice;
+    }
+
     public String getAnswer(){
         return answer;
     }

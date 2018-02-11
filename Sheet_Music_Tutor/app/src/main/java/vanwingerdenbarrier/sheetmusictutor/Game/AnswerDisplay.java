@@ -12,6 +12,6 @@ import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
  */
 public interface AnswerDisplay {
     interface Display{
-    void answerPressed(Note note, MotionEvent event);
+    void answerPressed(Object answer, MotionEvent event);
     }
 }
