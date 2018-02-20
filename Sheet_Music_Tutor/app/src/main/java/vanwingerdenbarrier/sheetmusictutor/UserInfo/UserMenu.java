@@ -203,11 +203,13 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
             currentUser.swapCurrent();
             Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
-            users.updateUser(currentUser, UserDB.IS_CURRENT, 1);
+            users.updateUser(currentUser, UserDB.IS_CURRENT, 0);
 
             User formerCurrent = users.getUserList().get(view.getId());
-            users.updateUser(formerCurrent, UserDB.IS_CURRENT, 0);
+            formerCurrent.swapCurrent();
+            users.updateUser(formerCurrent, UserDB.IS_CURRENT, 1);
         }
+        recreate();
     }
 
     /**
