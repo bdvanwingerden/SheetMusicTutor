@@ -38,7 +38,7 @@ public class UserDB extends SQLiteOpenHelper{
     // Question Table Create Query in this string
     private static final String CREATE_USER_TABLE = "CREATE TABLE "
             + USER_TABLE + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME +" TEXT," + ATTEMPTS + " INTEGER,"
+            + " INTEGER PRIMARY KEY," + NAME +" TEXT," + ATTEMPTS + " INTEGER,"
         + CORRECT + " INTEGER, " + CURRENT_LEVEL + " INTEGER, " + IS_CURRENT + " INTEGER, "
             + NUM_POINTS_NEEDED + " INTEGER);";
 

@@ -38,8 +38,6 @@ public class UserList {
 
     private SQLiteOpenHelper userDB;
 
-    private int id;
-
     /**
      * public constructor that initializes the linked list and then reads in the stored info in
      * the csv
@@ -47,7 +45,6 @@ public class UserList {
      */
     public UserList(Context context){
         userDB = new UserDB(context);
-        id = 0;
         this.userLinkedList = new ArrayList<>();
         readUserList(context);
 
@@ -91,7 +88,7 @@ public class UserList {
      * @param toRemove the user to remove
      */
     public void removeUser(User toRemove){
-        userLinkedList.remove(toRemove.getID());
+        userLinkedList.remove(toRemove);
         SQLiteDatabase db = userDB.getWritableDatabase();
         db.delete(USER_TABLE, KEY_ID + "=" + toRemove.getID(), null);
         db.close();
@@ -144,32 +141,22 @@ public class UserList {
                 tempUser = u;
             }
         }
+
         return tempUser;
     }
 
     public void addUserAttempt(){
         User user = findCurrent();
-
-        userLinkedList.remove(user.getID());
-        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
-                user.getNumQuestionsAttempted()+1,
-                user.getNumQuestionsCorrect(),
-                user.getCurrentLevel(),user.getNumPointsNeeded(), 1));
-        updateUser(user);
+        int newValue = user.getNumQuestionsAttempted()+1;
+        user.setNumQuestionsAttempted(newValue);
+        updateUser(user, ATTEMPTS, newValue);
     }
 
     public void addUserCorrect(){
         User user = findCurrent();
-
-        userLinkedList.remove(user.getID());
-        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
-                user.getNumQuestionsAttempted(),
-                user.getNumQuestionsCorrect()+1,
-                user.getCurrentLevel(), user.getNumPointsNeeded(), 1));
-
-        System.out.println("ADDING "  + (user.getNumQuestionsCorrect()+1));
-
-        updateUser(user);
+        int newValue = user.getNumQuestionsCorrect()+1;
+        user.setNumQuestionsCorrect(newValue);
+        updateUser(user, CORRECT, newValue);
     }
 
     /**
@@ -177,30 +164,23 @@ public class UserList {
      */
     public void addUserPointsNeeded(){
         User user = findCurrent();
-
-        userLinkedList.remove(user.getID());
-        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
-                user.getNumQuestionsAttempted(),
-                user.getNumQuestionsCorrect(),
-                user.getCurrentLevel(), user.getNumPointsNeeded()+8, 1));
-
-        updateUser(user);
+        int newValue = user.getNumPointsNeeded()+8;
+        user.setNumPointsNeeded(newValue);
+        updateUser(user, NUM_POINTS_NEEDED, newValue);
     }
 
     public void levelUpUser(){
         User user = findCurrent();
-        userLinkedList.remove(user.getID());
-        userLinkedList.add(user.getID(), new User(user.getID(),user.getName(),
-                user.getNumQuestionsAttempted(),
-                user.getNumQuestionsCorrect(),
-                user.getCurrentLevel()+1, user.getNumPointsNeeded(), 1));
-
-        updateUser(user);
+        int newValue = user.getCurrentLevel()+1;
+        user.setCurrentLevel(newValue);
+        updateUser(user, CURRENT_LEVEL, newValue);
     }
 
-    public void updateUser(User user){
-        removeUser(user);
-        addUser(user);
+    public void updateUser(User user, String field, int newValue){
+        SQLiteDatabase db = userDB.getWritableDatabase();
+        db.execSQL("UPDATE " + USER_TABLE +
+                " SET " + field + "="+ newValue +
+                " WHERE id=" + user.getID());
     }
 
 }

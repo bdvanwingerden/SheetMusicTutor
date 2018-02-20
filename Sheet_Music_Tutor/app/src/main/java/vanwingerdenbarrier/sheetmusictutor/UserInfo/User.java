@@ -142,14 +142,30 @@ public class User {
         }
     }
 
+    public void setNumQuestionsAttempted(int numQuestionsAttempted) {
+        this.numQuestionsAttempted = numQuestionsAttempted;
+    }
+
+    public void setNumQuestionsCorrect(int numQuestionsCorrect) {
+        this.numQuestionsCorrect = numQuestionsCorrect;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setNumPointsNeeded(int numPointsNeeded) {
+        this.numPointsNeeded = numPointsNeeded;
+    }
+
     /**
      * swaps the users current status to the opposite of what it was
      */
     public void swapCurrent(){
-        if(isCurrent == 1){
-            isCurrent = 0;
-        }else{
+        if(isCurrent == 0){
             isCurrent = 1;
+        }else{
+            isCurrent = 0;
         }
     }
 
