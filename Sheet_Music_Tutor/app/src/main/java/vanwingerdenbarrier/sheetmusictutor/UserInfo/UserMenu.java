@@ -4,10 +4,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,17 +23,15 @@ import vanwingerdenbarrier.sheetmusictutor.R;
  */
 public class    UserMenu extends AppCompatActivity implements View.OnClickListener {
     /**
-     * contains the current list of users
-     */
-    private UserList users;
-
-    /**
      * Will contain the fragment to prompt the user to enter their name
      */
     DialogFragment createUserDialog;
-
     /**Will contain the fragment that prompts the user to select a starting difficulty*/
     DialogFragment setUserDifficultyDialog;
+    /**
+     * contains the current list of users
+     */
+    private UserList users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * Buttons & corresponding dialogs to confirm deletion of a user
      */
     public void createButtons() {
-        final ViewGroup linearLayout = (ViewGroup) findViewById(R.id.UserListLayout);
+        final ViewGroup linearLayout = findViewById(R.id.UserListLayout);
         //
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
@@ -78,7 +76,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ViewGroup linearLayout2 = (ViewGroup) findViewById(R.id.AddRem);
+        ViewGroup linearLayout2 = findViewById(R.id.AddRem);
 
         addUser.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -198,11 +196,12 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      */
     public void onClick(View view) {
         Button bt = (Button) view;
+
         bt.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
         User currentUser = users.findCurrent();
         if (currentUser != null) {
             currentUser.swapCurrent();
-            Button currentButton = (Button) findViewById(currentUser.getID());
+            Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
             users.updateUser(currentUser, UserDB.IS_CURRENT, 1);
 
