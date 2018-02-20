@@ -71,12 +71,12 @@ public class GameActivity extends FragmentActivity
                     .colorNoteOnStaff(((StaffFragment) currentQuestion)
                             .getNoteAtCurrentLocation((Note) answer), event);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
+                new UserList(this.getApplicationContext()).addUserAttempt();
             }
         }else if(currentQuestion instanceof QuizQuestionFragment){
 
             ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
-            new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
+            new UserList(this.getApplicationContext()).addUserAttempt();
         }
     }
 
@@ -108,6 +108,10 @@ public class GameActivity extends FragmentActivity
         setContentView(R.layout.activity_game);
     }
 
+    /**
+     * adds the passed fragment to the current question holder
+     * @param fragment the fragment to add
+     */
     public void addQuestion(Fragment fragment) {
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -116,6 +120,10 @@ public class GameActivity extends FragmentActivity
 
     }
 
+    /**
+     * adds the passed fragment to the current answer holder
+     * @param fragment the fragment to add
+     */
     public void addAnswer(Fragment fragment) {
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -123,6 +131,9 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * ends the current question
+     */
     public void endQuestion() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -146,6 +157,10 @@ public class GameActivity extends FragmentActivity
         alertDialog.show();
     }
 
+    /**
+     * replaces the question with a new question fragment
+     * @param fragment
+     */
     public void replaceQuestion(Fragment fragment){
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -153,6 +168,10 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * replaces the answer witha new question fragment
+     * @param fragment
+     */
     public void replaceAnswer(Fragment fragment){
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -160,6 +179,9 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * creates the next question
+     */
     public void makeNextQuestion(){
         System.out.println(mode);
         if (mode == 1) {

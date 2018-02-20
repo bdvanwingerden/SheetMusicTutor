@@ -97,7 +97,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //Insert row in question table
         long insert = db.insert(QUESTION_TABLE, null, values);
         return insert;
-
     }
 
     public List<Question> getAllQuestionsList(){

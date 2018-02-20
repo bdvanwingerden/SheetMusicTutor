@@ -122,7 +122,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
                                 User u = tempUser;
 
                                 public void onClick(DialogInterface dialog, int i) {
-                                    users.removeUser(getApplicationContext(), u);
+                                    users.removeUser(u);
                                     recreate();
                                 }
                             });
@@ -147,8 +147,8 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         if(users.findCurrent() != null){
             users.findCurrent().swapCurrent();
         }
-        User user = new User(users.getUserList().size(), name, true);
-        users.addUser(user, this);
+        User user = new User(users.getUserList().size(), name, 1);
+        users.addUser(user);
         createUserDialog.dismiss();
 
         setUserDifficultyDialog = new SetUserDifficulty();
@@ -170,21 +170,21 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
 
         if(dif == 1){
             for(int x = 0; x < 8; x++) {
-                users.addUserCorrect(this);
-                users.addUserAttempt(this);
+                users.addUserCorrect();
+                users.addUserAttempt();
             }
-            users.levelUpUser(this);
-            users.addUserPointsNeeded(this);
+            users.levelUpUser();
+            users.addUserPointsNeeded();
         }
         else if(dif == 2){
 
             for(int x = 0; x < 16; x++) {
-                users.addUserCorrect(this);
-                users.addUserAttempt(this);
+                users.addUserCorrect();
+                users.addUserAttempt();
             }
             for(int y = 0; y < 2; y++){
-                users.levelUpUser(this);
-                users.addUserPointsNeeded(this);
+                users.levelUpUser();
+                users.addUserPointsNeeded();
             }//end for
 
         }//end else if
@@ -204,11 +204,12 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
             currentUser.swapCurrent();
             Button currentButton = (Button) findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
+            users.updateUser(currentUser);
         }
 
-        users.getUserList().get(view.getId()).swapCurrent();
-        users.emptyUserList(getApplicationContext());
-        users.writeUserList(getApplicationContext());
+        User tempUser = users.getUserList().get(view.getId());
+        tempUser.swapCurrent();
+        users.updateUser(tempUser);
     }
 
     /**
@@ -216,7 +217,6 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * @param v
      */
     public void killDB(View v){
-        new UserList(this).emptyUserList(this);
         recreate();
     }
 }
