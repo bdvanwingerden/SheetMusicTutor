@@ -17,11 +17,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Clef;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
 
 /**
  * @author Bronson VanWingerden
@@ -110,19 +105,24 @@ public class DrawStaff extends AppCompatImageView {
     LinkedList<Note> nextToPlay;
 
     /**
+     * the current difficulty of the staff
+     */
+    int currentDifficulty;
+
+    /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
      *
      * @param context
      */
-    public DrawStaff(final Context context) {
+    public DrawStaff(final Context context, int currentDifficulty) {
         super(context);
 
         nextToPlay = new LinkedList<>();
 
         noteClicked = false;
 
-
+        this.currentDifficulty = currentDifficulty;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -136,12 +136,18 @@ public class DrawStaff extends AppCompatImageView {
         horMargin = size.y/6;
         /*middle of screen vermarginATM*/
         verMargin = size.x/8;
-        System.out.println("AAA " + horMargin + " " + size.y);
+
 
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(horMargin/3);
-        populateStaff();
+        if (currentDifficulty == 1) {
+            populateStaff(false, false);
+        } else if (currentDifficulty == 2) {
+            populateStaff(true, false);
+        } else if (currentDifficulty >= 3) {
+            populateStaff(true, false);
+        }
     }
 
     @Override
@@ -150,8 +156,16 @@ public class DrawStaff extends AppCompatImageView {
         horMargin = size.y/6;
         drawStaff(canvas);
         drawClef(canvas);
-        //drawGuides(canvas, 8);
-        drawNotes(canvas);
+
+        if (currentDifficulty == 1) {
+            drawGuides(canvas, 8);
+            drawNotes(canvas, true);
+        } else if (currentDifficulty == 2) {
+            drawNotes(canvas, true);
+        } else if (currentDifficulty >= 3) {
+            drawNotes(canvas, false);
+        }
+
         drawPointer(canvas, currentBar, currentBeat);
         if(noteClicked){
             Note tempNote = getClickedNote(lastClickX, lastClickY);
@@ -216,6 +230,7 @@ public class DrawStaff extends AppCompatImageView {
      * @param canvas the current canvas to draw on
      */
     private void drawClef(Canvas canvas){
+
         Drawable clef =  getResources().getDrawable(R.drawable.t_clef);
         int numberOflines = 7;
         int left = 0;
@@ -223,10 +238,10 @@ public class DrawStaff extends AppCompatImageView {
         int top = verMargin - spaceBetween;
         int bottom = verMargin + (spaceBetween * 5);
 
-        if(currentStaff.getClef() == Clef.BASS){
-            clef = getResources().getDrawable(R.drawable.b_clef);
+        //if(currentStaff.getClef() == Clef.BASS){
+        //clef = getResources().getDrawable(R.drawable.b_clef);
             numberOflines = 5;
-        }
+        //}
 
         clef.setBounds(left, top ,right , bottom);
 
@@ -282,7 +297,7 @@ public class DrawStaff extends AppCompatImageView {
     /**
      * creates and populates a new staff object for the current staff
      */
-    private void populateStaff() {
+    private void populateStaff(boolean sharpsAllowed, boolean flatsAllowed) {
         // creates an empty staff consisting of 1 bar of 4/4 music
         int[] timeSig = new int[2];
         timeSig[0] = 4;
@@ -299,6 +314,7 @@ public class DrawStaff extends AppCompatImageView {
                  * gets us a random tone to draw temporary method for testing
                  */
                 Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+
                 int tempPitch = 5;
                 if (tempTone == Tone.E || tempTone == Tone.F) {
                     if (random.nextInt(2) == 0) {
@@ -308,10 +324,17 @@ public class DrawStaff extends AppCompatImageView {
                     tempPitch = 4;
                 }
 
+                boolean isSharp = false;
+                if (sharpsAllowed) {
+                    if (random.nextBoolean()) {
+                        isSharp = true;
+                    }
+                }
+
                 /**
                  * temporary random assignment of notes
                  */
-                Note tempNote = new Note(tempTone, tempPitch, Duration.QUARTER);
+                Note tempNote = new Note(tempTone, tempPitch, Duration.QUARTER, isSharp);
                 currentStaff.insertNote(tempNote, i);
 
                 // UNCOMMENT ME TO SHOW MULTIPLE NOTES PER BEAT
@@ -325,7 +348,7 @@ public class DrawStaff extends AppCompatImageView {
      *
      * @param canvas the canvas to draw onto
      */
-    private void drawNotes(Canvas canvas) {
+    private void drawNotes(Canvas canvas, boolean labels) {
 
         noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
         noteWidth = noteHeight + (noteHeight/3);
@@ -361,11 +384,22 @@ public class DrawStaff extends AppCompatImageView {
 
                     }
 
-                    paint.setColor(Color.WHITE);
-                    //TODO Change constant 40 to figure out the center of a note
-                    canvas.drawText(note.getTone().toString(), note.getX(), note.getY() + noteWidth/2, paint);
-                    paint.setColor(Color.BLACK);
+                    /**
+                     * drawing sharp if the note is sharp
+                     */
+                    if (note.isSharp) {
+                        Drawable sharpShape = getResources().getDrawable(R.drawable.sharp, null);
+                        sharpShape.setBounds(note.getX() - 3 * (noteWidth), note.getY() - noteHeight
+                                , note.getX() - noteWidth, note.getY() + noteHeight);
+                        sharpShape.draw(canvas);
+                    }
 
+                    if (labels) {
+                        paint.setColor(Color.WHITE);
+                        //TODO Change constant 40 to figure out the center of a note
+                        canvas.drawText(note.getTone().toString(), note.getX(), note.getY() + noteWidth / 2, paint);
+                        paint.setColor(Color.BLACK);
+                    }
                 }
             }
         }

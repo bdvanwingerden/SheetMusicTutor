@@ -7,13 +7,13 @@ package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
  *  @author Bronson VanWingerden
  */
 
-//TODO add sharps
+//TODO add flats
 public enum Tone {
-    G,//GSHARP,
+    G,
     F,
-    E,//ESHARP,
-    D,//DSHARP,
+    E,
+    D,
     C,
-    B,//BSHARP,
-    A,//ASHARP,
+    B,
+    A,
 }

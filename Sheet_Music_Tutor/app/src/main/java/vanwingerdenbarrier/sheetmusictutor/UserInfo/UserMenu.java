@@ -17,7 +17,7 @@ import vanwingerdenbarrier.sheetmusictutor.R;
 
 /**
  * Android Activity that builds a user menu then facilitates the addition and removal of users
- *
+ * TODO FIX INDEXING
  * @author Bronson VanWingerden
  * @author Dorian Barrier
  */
