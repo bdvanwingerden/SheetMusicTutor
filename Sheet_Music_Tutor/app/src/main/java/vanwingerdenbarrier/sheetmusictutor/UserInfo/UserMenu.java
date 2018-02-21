@@ -154,7 +154,6 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         setUserDifficultyDialog = new SetUserDifficulty();
         setUserDifficultyDialog.show(getFragmentManager(), "setUserDifficultyDialog");
 
-
         recreate();
         //finish();
     }
