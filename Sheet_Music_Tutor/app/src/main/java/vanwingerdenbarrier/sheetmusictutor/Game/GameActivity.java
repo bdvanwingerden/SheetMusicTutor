@@ -1,20 +1,21 @@
 package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteDefense.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -71,12 +72,12 @@ public class GameActivity extends FragmentActivity
                     .colorNoteOnStaff(((StaffFragment) currentQuestion)
                             .getNoteAtCurrentLocation((Note) answer), event);
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
+                new UserList(this.getApplicationContext()).addUserAttempt();
             }
         }else if(currentQuestion instanceof QuizQuestionFragment){
 
             ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
-            new UserList(this.getApplicationContext()).addUserAttempt(this.getApplicationContext());
+            new UserList(this.getApplicationContext()).addUserAttempt();
         }
     }
 
@@ -92,6 +93,8 @@ public class GameActivity extends FragmentActivity
             System.out.println("AAA GAMETYPE = STAFF" + gameType);
         } else if (gameType == 2) {
             System.out.println("AAA GAMETYPE = COMBO" + gameType);
+        } else if (gameType == 3) {
+            System.out.println("AAA GAMETYPE = NOTE DEFENSE");
         } else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
         }
@@ -108,6 +111,10 @@ public class GameActivity extends FragmentActivity
         setContentView(R.layout.activity_game);
     }
 
+    /**
+     * adds the passed fragment to the current question holder
+     * @param fragment the fragment to add
+     */
     public void addQuestion(Fragment fragment) {
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -116,6 +123,10 @@ public class GameActivity extends FragmentActivity
 
     }
 
+    /**
+     * adds the passed fragment to the current answer holder
+     * @param fragment the fragment to add
+     */
     public void addAnswer(Fragment fragment) {
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -123,6 +134,9 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * ends the current question
+     */
     public void endQuestion() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -146,6 +160,10 @@ public class GameActivity extends FragmentActivity
         alertDialog.show();
     }
 
+    /**
+     * replaces the question with a new question fragment
+     * @param fragment
+     */
     public void replaceQuestion(Fragment fragment){
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -153,6 +171,10 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * replaces the answer witha new question fragment
+     * @param fragment
+     */
     public void replaceAnswer(Fragment fragment){
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -160,6 +182,9 @@ public class GameActivity extends FragmentActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * creates the next question
+     */
     public void makeNextQuestion(){
         System.out.println(mode);
         if (mode == 1) {
@@ -181,8 +206,11 @@ public class GameActivity extends FragmentActivity
             }
             rounds--;
 
-        }else if(mode == 0){
+        } else if (mode == 3) {
+            replaceQuestion(new NoteDefense());
 
+        } else if (mode == 4) {
+            //TODO implement listening mode
         }
     }
 

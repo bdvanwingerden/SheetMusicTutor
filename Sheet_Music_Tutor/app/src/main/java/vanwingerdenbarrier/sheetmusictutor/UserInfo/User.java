@@ -48,7 +48,7 @@ public class User {
     /**
      * 0 if the user is not the current user & 1 if the user is a current user
      */
-    private boolean isCurrent;
+    private int isCurrent;
 
     /**
      *
@@ -61,7 +61,7 @@ public class User {
      * @param name
      * @param ID
      */
-    public User(int ID, String name, boolean isCurrent) {
+    public User(int ID, String name, int isCurrent) {
         this.name = name;
         this.ID = ID;
         this.numQuestionsAttempted = 0;
@@ -79,7 +79,7 @@ public class User {
      * @param isCurrent the boolean corresponding to whether or not the user is the current user
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                int currentLevel,int numPointsNeeded, boolean isCurrent) {
+                int currentLevel,int numPointsNeeded, int isCurrent) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
@@ -134,16 +134,39 @@ public class User {
      * returns true if this user is the currently selected user
      * @return
      */
-    public boolean isCurrent(){
-        return isCurrent;
+    public boolean isCurrent() {
+        if (isCurrent == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void setNumQuestionsAttempted(int numQuestionsAttempted) {
+        this.numQuestionsAttempted = numQuestionsAttempted;
+    }
+
+    public void setNumQuestionsCorrect(int numQuestionsCorrect) {
+        this.numQuestionsCorrect = numQuestionsCorrect;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setNumPointsNeeded(int numPointsNeeded) {
+        this.numPointsNeeded = numPointsNeeded;
     }
 
     /**
      * swaps the users current status to the opposite of what it was
      */
     public void swapCurrent(){
-        isCurrent = !isCurrent;
-        System.out.println(name + "is current =" + isCurrent);
+        if(isCurrent == 0){
+            isCurrent = 1;
+        }else{
+            isCurrent = 0;
+        }
     }
 
     public int getNumPointsNeeded() {

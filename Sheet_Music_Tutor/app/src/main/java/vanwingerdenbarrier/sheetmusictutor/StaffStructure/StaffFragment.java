@@ -1,6 +1,6 @@
 package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
@@ -30,7 +29,10 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
                 container, false);
 
-        drawStaff = new DrawStaff(this.getContext());
+        /** setting the difficulty level to the users current level */
+        drawStaff = new DrawStaff(this.getContext(),
+                new UserList(getContext()).findCurrent().getCurrentLevel());
+
         staff.addView(drawStaff);
 
         staff.setOnTouchListener(new View.OnTouchListener() {
@@ -49,16 +51,23 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         return staff;
     }
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         try {
-            callback = (Display) activity;
+            callback = (Display) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
 
     public void colorNoteOnStaff(final float[] location, MotionEvent event){
         Handler handler = new Handler();
@@ -93,12 +102,16 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         ArrayList<Note> noteList = drawStaff.getCurrentStaff()
                 .getNoteList(drawStaff.getCurrentBar(), drawStaff.getCurrentBeat());
         for(Note note : noteList){
-            if(note.getTone() == noteToFind.getTone()) {
-                userList.addUserCorrect(this.getContext());
+            if (((note.getTone() == noteToFind.getTone()) && note.isSharp == noteToFind.isSharp) ||
+                    ((noteToFind.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp) ||
+                    ((noteToFind.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp)) {
+
+                userList.addUserCorrect();
+                System.out.println("ADDING points " + userList.findCurrent().getNumQuestionsCorrect());
                 if(userList.findCurrent().getNumPointsNeeded()
                         == userList.findCurrent().getNumQuestionsCorrect()){
-                    userList.addUserPointsNeeded(this.getContext());
-                    userList.levelUpUser(this.getContext());
+                    userList.addUserPointsNeeded();
+                    userList.levelUpUser();
                 }
 
                     location = new float[2];

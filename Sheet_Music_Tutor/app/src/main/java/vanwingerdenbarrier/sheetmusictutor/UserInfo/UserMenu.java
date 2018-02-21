@@ -4,10 +4,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,23 +17,21 @@ import vanwingerdenbarrier.sheetmusictutor.R;
 
 /**
  * Android Activity that builds a user menu then facilitates the addition and removal of users
- *
+ * TODO FIX INDEXING
  * @author Bronson VanWingerden
  * @author Dorian Barrier
  */
 public class    UserMenu extends AppCompatActivity implements View.OnClickListener {
     /**
-     * contains the current list of users
-     */
-    private UserList users;
-
-    /**
      * Will contain the fragment to prompt the user to enter their name
      */
     DialogFragment createUserDialog;
-
     /**Will contain the fragment that prompts the user to select a starting difficulty*/
     DialogFragment setUserDifficultyDialog;
+    /**
+     * contains the current list of users
+     */
+    private UserList users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +50,15 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * Buttons & corresponding dialogs to confirm deletion of a user
      */
     public void createButtons() {
-        final ViewGroup linearLayout = (ViewGroup) findViewById(R.id.UserListLayout);
-        //
+        final ViewGroup linearLayout = findViewById(R.id.UserListLayout);
+        int i = 0;
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
             tempButton.setText(u.getName());
-            tempButton.setId(u.getID());
+            tempButton.setId(i);
+            u.setId(i);
+            users.updateUser(u, UserDB.KEY_ID, i);
+            i++;
             tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT));
             tempButton.setOnClickListener(this);
@@ -78,7 +79,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        ViewGroup linearLayout2 = (ViewGroup) findViewById(R.id.AddRem);
+        ViewGroup linearLayout2 = findViewById(R.id.AddRem);
 
         addUser.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -122,7 +123,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
                                 User u = tempUser;
 
                                 public void onClick(DialogInterface dialog, int i) {
-                                    users.removeUser(getApplicationContext(), u);
+                                    users.removeUser(u);
                                     recreate();
                                 }
                             });
@@ -147,8 +148,8 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         if(users.findCurrent() != null){
             users.findCurrent().swapCurrent();
         }
-        User user = new User(users.getUserList().size(), name, true);
-        users.addUser(user, this);
+        User user = new User(users.getUserList().size(), name, 1);
+        users.addUser(user);
         createUserDialog.dismiss();
 
         setUserDifficultyDialog = new SetUserDifficulty();
@@ -169,21 +170,21 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
 
         if(dif == 1){
             for(int x = 0; x < 8; x++) {
-                users.addUserCorrect(this);
-                users.addUserAttempt(this);
+                users.addUserCorrect();
+                users.addUserAttempt();
             }
-            users.levelUpUser(this);
-            users.addUserPointsNeeded(this);
+            users.levelUpUser();
+            users.addUserPointsNeeded();
         }
         else if(dif == 2){
 
             for(int x = 0; x < 16; x++) {
-                users.addUserCorrect(this);
-                users.addUserAttempt(this);
+                users.addUserCorrect();
+                users.addUserAttempt();
             }
             for(int y = 0; y < 2; y++){
-                users.levelUpUser(this);
-                users.addUserPointsNeeded(this);
+                users.levelUpUser();
+                users.addUserPointsNeeded();
             }//end for
 
         }//end else if
@@ -197,17 +198,21 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      */
     public void onClick(View view) {
         Button bt = (Button) view;
+
         bt.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
         User currentUser = users.findCurrent();
         if (currentUser != null) {
             currentUser.swapCurrent();
-            Button currentButton = (Button) findViewById(currentUser.getID());
+            Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
+            users.updateUser(currentUser, UserDB.IS_CURRENT, 0);
+            User formerCurrent = users.getUserList().get(view.getId());
+            if (!formerCurrent.equals(currentUser)) {
+                formerCurrent.swapCurrent();
+                users.updateUser(formerCurrent, UserDB.IS_CURRENT, 1);
+            }
         }
-
-        users.getUserList().get(view.getId()).swapCurrent();
-        users.emptyUserList(getApplicationContext());
-        users.writeUserList(getApplicationContext());
+        recreate();
     }
 
     /**
@@ -215,7 +220,6 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * @param v
      */
     public void killDB(View v){
-        new UserList(this).emptyUserList(this);
         recreate();
     }
 }

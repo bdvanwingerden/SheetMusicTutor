@@ -19,7 +19,10 @@ import android.widget.LinearLayout;
 import vanwingerdenbarrier.sheetmusictutor.Game.AnswerDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 
-
+/**
+ * fragment that displays the multiple choices for a question and sends the selected answer to be checked
+ * by the fragment holding the question
+ */
 public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
     Display callback;
     View view;
@@ -41,10 +44,19 @@ public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
         return view;
     }
 
+    /**
+     * sets the current question number to display the answer for
+     * @param questionNum
+     */
     public void setQuestion(int questionNum){
         currentQuestion = questionNum;
     }
 
+    /**
+     * creates buttons based on the currently asked question
+     * @param view the view containing the buttons
+     * @param index the index of the current question
+     */
     public void createAnswerButtons(View view, int index){
 
         for(String answer : qS.getChoices(index)){

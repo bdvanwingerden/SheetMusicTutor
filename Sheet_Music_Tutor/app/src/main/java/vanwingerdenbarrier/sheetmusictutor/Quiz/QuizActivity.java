@@ -75,14 +75,14 @@ public class QuizActivity extends AppCompatActivity {
                     score += difficulty;
                     updateScore(score);
                     correct++;
-                    userList.addUserCorrect(getBaseContext());
-                    userList.addUserAttempt(getBaseContext());
+                    userList.addUserCorrect();
+                    userList.addUserAttempt();
 
                     //This if levels up the user if they have reached the number of points needed
                     if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
                         levelUp = false;//So that we don't level up the user more than once by mistake
-                        userList.levelUpUser(getBaseContext());
-                        userList.addUserPointsNeeded(getBaseContext());//increment points needed to level up
+                        userList.levelUpUser();
+                        userList.addUserPointsNeeded();//increment points needed to level up
                     }
 
                     Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -119,7 +119,7 @@ public class QuizActivity extends AppCompatActivity {
                     else if(difficulty == MAX_ATTEMPTS){
                         Toast.makeText(QuizActivity.this, "No More Attempts!", Toast.LENGTH_SHORT).show();
                         if(questionNumber < numQuestions) {//if not the last question
-                            userList.addUserAttempt(getBaseContext());
+                            userList.addUserAttempt();
                             updateQuestion();
                         }
                         else{//if the last question pass the results to the stats screen

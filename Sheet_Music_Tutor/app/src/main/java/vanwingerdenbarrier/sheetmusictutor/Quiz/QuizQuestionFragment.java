@@ -18,6 +18,9 @@ import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.DrawStaff;
 
+/**
+ * Fragment that displays quiz questions and contains the correct answer
+ */
 public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
 
     Display callback;
@@ -49,6 +52,10 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
         return view;
     }
 
+    /**
+     * checks if a given String is the correct answer to the current problem
+     * @param answer the answer to check
+     */
     public void checkIfCorrect(String answer){
 
         if(answer.equals(correctAnswer)){

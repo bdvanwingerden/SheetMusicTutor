@@ -36,18 +36,21 @@ public class Note {
     /** whether or not the note is about to be redrawn*/
     boolean drawn;
 
+    boolean isSharp;
+
     /**
      * public constructor for note that sets the tone pitch and duration
      * @param tone the tone for the note
      * @param pitch the pitch for the note
      * @param duration the duration of the note
      */
-    public Note(Tone tone, int pitch, Duration duration){
+    public Note(Tone tone, int pitch, Duration duration, boolean isSharp) {
         this.tone = tone;
         this.pitch = pitch;
         this.duration = duration;
         this.x = 0;
         this.y = 0;
+        this.isSharp = isSharp;
         drawn = false;
     }
 

@@ -5,60 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.Game.GameSelection">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.Game.GameSelection"
+    tools:layout_editor_absoluteY="25dp">
+
+    <Button
+        android:id="@+id/noteDefGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/round_button"
+        android:onClick="noteDefenseGame"
+        android:text="Note \nDefense"
+        android:textColor="@color/gold"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/staffgame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="268dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/round_button"
-        android:textStyle="bold"
         android:elevation="0dp"
         android:onClick="staffGame"
         android:text="Staff Mode"
         android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintEnd_toStartOf="@+id/quizgame"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/combogame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/round_button"
-        android:textStyle="bold"
         android:elevation="0dp"
         android:onClick="comboGame"
         android:text="Combo Mode"
         android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/staffgame"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/quizgame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/round_button"
-        android:textStyle="bold"
         android:onClick="quizGame"
         android:text="Quiz Mode"
         android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toEndOf="@+id/staffgame"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintEnd_toStartOf="@+id/noteDefGame"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
