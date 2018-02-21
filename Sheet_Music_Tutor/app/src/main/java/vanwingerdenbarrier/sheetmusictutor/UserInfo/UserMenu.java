@@ -51,11 +51,14 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      */
     public void createButtons() {
         final ViewGroup linearLayout = findViewById(R.id.UserListLayout);
-        //
+        int i = 0;
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
             tempButton.setText(u.getName());
-            tempButton.setId(u.getID());
+            tempButton.setId(i);
+            u.setId(i);
+            users.updateUser(u, UserDB.KEY_ID, i);
+            i++;
             tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT));
             tempButton.setOnClickListener(this);
@@ -204,10 +207,11 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
             Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
             users.updateUser(currentUser, UserDB.IS_CURRENT, 0);
-
             User formerCurrent = users.getUserList().get(view.getId());
-            formerCurrent.swapCurrent();
-            users.updateUser(formerCurrent, UserDB.IS_CURRENT, 1);
+            if (!formerCurrent.equals(currentUser)) {
+                formerCurrent.swapCurrent();
+                users.updateUser(formerCurrent, UserDB.IS_CURRENT, 1);
+            }
         }
         recreate();
     }

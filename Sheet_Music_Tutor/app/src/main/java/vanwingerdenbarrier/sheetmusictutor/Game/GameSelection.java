@@ -1,8 +1,8 @@
 package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
@@ -32,6 +32,12 @@ public class GameSelection extends AppCompatActivity {
         Intent game = new Intent(this, GameActivity.class);
         /* game type 2 represents the combo game mode */
         game.putExtra("gameType", 2);
+        this.startActivity(game);
+    }
+
+    public void noteDefenseGame(View v) {
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 3);
         this.startActivity(game);
     }
 }

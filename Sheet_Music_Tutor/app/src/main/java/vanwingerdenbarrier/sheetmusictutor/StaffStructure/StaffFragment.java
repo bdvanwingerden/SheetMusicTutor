@@ -1,6 +1,6 @@
 package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -51,16 +51,23 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         return staff;
     }
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         try {
-            callback = (Display) activity;
+            callback = (Display) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
 
     public void colorNoteOnStaff(final float[] location, MotionEvent event){
         Handler handler = new Handler();

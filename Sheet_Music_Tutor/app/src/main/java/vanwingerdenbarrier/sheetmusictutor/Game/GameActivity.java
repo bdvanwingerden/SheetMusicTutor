@@ -1,20 +1,21 @@
 package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteDefense.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -92,6 +93,8 @@ public class GameActivity extends FragmentActivity
             System.out.println("AAA GAMETYPE = STAFF" + gameType);
         } else if (gameType == 2) {
             System.out.println("AAA GAMETYPE = COMBO" + gameType);
+        } else if (gameType == 3) {
+            System.out.println("AAA GAMETYPE = NOTE DEFENSE");
         } else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
         }
@@ -203,8 +206,11 @@ public class GameActivity extends FragmentActivity
             }
             rounds--;
 
-        }else if(mode == 0){
+        } else if (mode == 3) {
+            replaceQuestion(new NoteDefense());
 
+        } else if (mode == 4) {
+            //TODO implement listening mode
         }
     }
 
