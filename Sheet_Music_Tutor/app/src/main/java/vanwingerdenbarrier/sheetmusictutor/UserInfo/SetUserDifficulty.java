@@ -50,6 +50,9 @@ public class SetUserDifficulty extends DialogFragment implements View.OnClickLis
     }
 
     /**
+     *When medium or hard difficulty are selected redirect to userMenu
+     * Class where the method that actually sets the users stats given their difficulty
+     *
      *
      * @param view
      */
