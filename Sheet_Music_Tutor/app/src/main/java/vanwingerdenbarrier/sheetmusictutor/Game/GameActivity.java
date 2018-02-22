@@ -89,25 +89,21 @@ public class GameActivity extends FragmentActivity
 
         int gameType = getIntent().getIntExtra("gameType", -1);
 
-        if (gameType == 1) {
-            System.out.println("AAA GAMETYPE = STAFF" + gameType);
-        } else if (gameType == 2) {
-            System.out.println("AAA GAMETYPE = COMBO" + gameType);
-        } else if (gameType == 3) {
-            System.out.println("AAA GAMETYPE = NOTE DEFENSE");
-        } else {
-            System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
-        }
-
         mode = gameType;
 
         fragmentManager = getSupportFragmentManager();
 
-        Fragment staffFrag = new StaffFragment();
-        Fragment keyFrag = new KeyFragment();
+        if (gameType == 1 || gameType == 2) {
+            addQuestion(new StaffFragment());
+            addAnswer(new KeyFragment());
+        } else if (gameType == 3) {
+            addQuestion(new NoteDefense());
+            addAnswer(new KeyFragment());
+        } else {
+            System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
+        }
 
-        addQuestion(staffFrag);
-        addAnswer(keyFrag);
+
         setContentView(R.layout.activity_game);
     }
 
@@ -186,9 +182,7 @@ public class GameActivity extends FragmentActivity
      * creates the next question
      */
     public void makeNextQuestion(){
-        System.out.println(mode);
         if (mode == 1) {
-
             replaceQuestion(new StaffFragment());
             rounds--;
 
@@ -208,7 +202,6 @@ public class GameActivity extends FragmentActivity
 
         } else if (mode == 3) {
             replaceQuestion(new NoteDefense());
-
         } else if (mode == 4) {
             //TODO implement listening mode
         }

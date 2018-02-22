@@ -5,20 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Staff;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
 
 /**
@@ -54,50 +52,9 @@ public class DrawNoteDefense extends AppCompatImageView {
     float[] lineArray;
 
     /**
-     * the current staff structure that we are working with
-     */
-    Staff currentStaff;
-
-    /**
      * the space between the lines of the staff
      */
     int spaceBetween;
-
-    /**
-     * temporary variable to set the number of bars used for testing
-     * TODO generate bar length dynamically
-     */
-    int bars = 1;
-
-    /**
-     * temporary variable to set the number of beats used for testing
-     * TODO generate beat number dynamically
-     */
-    int beats = 4;
-
-    /**
-     * the subdivision of beats per bar representing the bottom number of the time signature
-     * for example if beats =4 and subdivision =4 then we are using 4/4 timing
-     */
-    int subdivision = 4;
-
-    /**
-     * current beat and bar that we have indexed to in the staff
-     */
-    int currentBar;
-    int currentBeat;
-
-
-    /**
-     * true if there is a currently clicked note
-     */
-    boolean noteClicked;
-
-    /**
-     * x & y of last clicked note
-     */
-    float lastClickY;
-    float lastClickX;
 
     /**
      * Dimension of the note
@@ -114,12 +71,16 @@ public class DrawNoteDefense extends AppCompatImageView {
     /**
      * a list containing all the next note to play  is a list so we can implement chords later
      */
-    LinkedList<Note> nextToPlay;
+    LinkedList<AnimatedNote> onFieldNotes;
 
     /**
      * the current difficulty of the staff
      */
     int currentDifficulty;
+
+    int currentScore;
+    int currentLives;
+    Canvas canvas;
 
     /**
      * public constructor to create a DrawStaff object
@@ -130,22 +91,21 @@ public class DrawNoteDefense extends AppCompatImageView {
     public DrawNoteDefense(final Context context, int currentDifficulty) {
         super(context);
 
-        nextToPlay = new LinkedList<>();
-
-        noteClicked = false;
+        onFieldNotes = new LinkedList<>();
 
         this.currentDifficulty = currentDifficulty;
+        currentScore = 0;
+        currentLives = 2;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         paint = new Paint();
         random = new Random();
         size = new Point();
-        /* hard coding the horizontal and vertical margins */
 
         display.getSize(size);
 
-        horMargin = size.y / 6;
+        horMargin = 0;
         /*middle of screen vermarginATM*/
         verMargin = size.x / 8;
 
@@ -153,14 +113,18 @@ public class DrawNoteDefense extends AppCompatImageView {
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(horMargin / 3);
-
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         /* ensures the horizontal margin is back at the start*/
-        horMargin = size.y / 6;
+        horMargin = 0;
+        this.canvas = canvas;
         drawStaff(canvas);
+        if (onFieldNotes.size() < 2) {
+            addNote(false, Tone.D);
+        }
+        updateNotesOnField();
     }
 
     /**
@@ -171,12 +135,12 @@ public class DrawNoteDefense extends AppCompatImageView {
     private void drawStaff(Canvas canvas) {
         lineArray = new float[20];
 
-        spaceBetween = ((verMargin / 3)) / bars;
+        spaceBetween = ((verMargin / 3));
         paint.setStrokeWidth(spaceBetween / 20);
 
         int position = verMargin;
-        int right = size.x - 40;
-        int left = 40;
+        int right = size.x;
+        int left = horMargin;
 
 
         for (int i = 0; i < 20; i += 4) {
@@ -202,9 +166,8 @@ public class DrawNoteDefense extends AppCompatImageView {
     /**
      * draws all notes in the currentStaff onto visualization of the staff
      *
-     * @param canvas the canvas to draw onto
      */
-    private void drawNotes(Canvas canvas, boolean labels) {
+    public void addNote(boolean labels, Tone t) {
 
         noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
         noteWidth = noteHeight + (noteHeight / 3);
@@ -213,50 +176,42 @@ public class DrawNoteDefense extends AppCompatImageView {
 
         horMargin += horMargin;
 
-        for (int i = 0; i < bars; i++) {
-            for (int j = 0; j < beats; j++) {
-                ArrayList<Note> tempList = currentStaff.getNoteList(i, j);
-                for (Note note : tempList) {
+        AnimatedNote note = new AnimatedNote(t, 5, true);
 
-                    note.setX((((size.x - horMargin) / beats) * j + horMargin));
-                    note.setY(locateNote(note));
 
-                    /**
-                     * drawing the note head
-                     */
-                    Drawable noteShape = getNoteShape(note);
-                    noteShape.setBounds(note.getX() - noteWidth, note.getY() - noteHeight
-                            , note.getX() + noteWidth, note.getY() + noteHeight);
-                    noteShape.draw(canvas);
+        note.setX(horMargin);
+        note.setY(locateNote(note));
 
-                    /**
-                     * drawing the stem
-                     */
-                    if (note.getDuration() != Duration.WHOLE) {
-                        canvas.drawLine(note.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2
-                                , note.getY() - 15
-                                , note.getX() + (noteWidth - paint.getStrokeWidth() / 2) - 2,
-                                note.getY() - spaceBetween * 2, paint);
+        /**
+         * drawing the note head
+         */
+        Drawable noteShape = getResources()
+                .getDrawable(R.drawable.q_note_head, null);
+        noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
+                , note.getX() + noteWidth, note.getY() + noteHeight);
 
-                    }
+        note.setNoteShape(noteShape);
+        onFieldNotes.add(note);
+        note.setSpeed(50);
+    }
 
-                    /**
-                     * drawing sharp if the note is sharp
-                     */
-                    if (note.isSharp()) {
-                        Drawable sharpShape = getResources().getDrawable(R.drawable.sharp, null);
-                        sharpShape.setBounds(note.getX() - 3 * (noteWidth), note.getY() - noteHeight
-                                , note.getX() - noteWidth, note.getY() + noteHeight);
-                        sharpShape.draw(canvas);
-                    }
+    public void updateNotesOnField() {
+        LinkedList<AnimatedNote> temp = (LinkedList<AnimatedNote>) onFieldNotes.clone();
 
-                    if (labels) {
-                        paint.setColor(Color.WHITE);
-                        //TODO Change constant 40 to figure out the center of a note
-                        canvas.drawText(note.getTone().toString(), note.getX(), note.getY() + noteWidth / 2, paint);
-                        paint.setColor(Color.BLACK);
-                    }
-                }
+        for (AnimatedNote note : temp) {
+            if (!note.isDestroyed) {
+                note.noteShape.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                note.noteShape.draw(canvas);
+
+                note.noteShape.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
+                note.setX(note.speed + note.getX());
+                note.noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
+                        , note.getX() + noteWidth, note.getY() + noteHeight);
+                note.noteShape.draw(canvas);
+            }
+            if (note.getX() >= size.x - 100) {
+                note.isDestroyed = true;
+                currentLives--;
             }
         }
     }
@@ -298,47 +253,6 @@ public class DrawNoteDefense extends AppCompatImageView {
 
         return (int) noteLocation;
     }
-
-    /**
-     * gets the note shape of the requested note
-     *
-     * @param note the note to find the shape of
-     * @return the drawable to draw for the given note
-     */
-    private Drawable getNoteShape(Note note) {
-        Drawable noteShape = null;
-
-        switch (note.getDuration()) {
-            case WHOLE:
-                noteShape = getResources()
-                        .getDrawable(R.drawable.whole, null);
-                break;
-
-            case HALF:
-                noteShape = getResources()
-                        .getDrawable(R.drawable.h_note_head, null);
-                break;
-
-            case QUARTER:
-                noteShape = getResources()
-                        .getDrawable(R.drawable.q_note_head, null);
-                break;
-
-            case EIGHTH:
-                noteShape = getResources()
-                        .getDrawable(R.drawable.q_note_head, null);
-                break;
-
-            case SIXTEENTH:
-                noteShape = getResources()
-                        .getDrawable(R.drawable.q_note_head, null);
-                break;
-        }
-
-
-        return noteShape;
-    }
-
 
 }
 
