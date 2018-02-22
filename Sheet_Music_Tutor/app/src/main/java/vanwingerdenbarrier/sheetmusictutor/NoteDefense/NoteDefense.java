@@ -9,27 +9,28 @@ import android.view.ViewGroup;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 
 public class NoteDefense extends Fragment {
-
+    DrawNoteDefense drawNoteDefense;
     QuestionDisplay.Display callback;
+    ViewGroup staff;
 
-    public NoteDefense() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity();
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note_defense, container, false);
+
+        staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
+                container, false);
+
+        /** setting the difficulty level to the users current level */
+        drawNoteDefense = new DrawNoteDefense(this.getContext(),
+                new UserList(getContext()).findCurrent().getCurrentLevel());
+
+        staff.addView(drawNoteDefense);
+
+        return staff;
     }
 
     @Override

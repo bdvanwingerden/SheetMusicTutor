@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
@@ -14,56 +15,57 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/round_button"
         android:onClick="startButton"
         android:text="@string/start"
+        android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/OptionsButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/OptionsButton"
         app:layout_constraintRight_toRightOf="@+id/OptionsButton"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:background="@drawable/round_button"
-        android:textStyle="bold"
-        android:textColor="@color/gold"/>
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/StatsButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
+        android:background="@drawable/round_button"
         android:onClick="statsButton"
         android:text="@string/stats"
+        android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:background="@drawable/round_button"
-        android:textColor="@color/gold"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/OptionsButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/round_button"
         android:onClick="optionsButton"
         android:text="@string/options"
+        android:textColor="@color/gold"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/StatsButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:background="@drawable/round_button"
-        android:textStyle="bold"
-        android:textColor="@color/gold"/>
+        tools:layout_constraintRight_creator="1" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/sheetlogo"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sheetlogo" />
 
 </android.support.constraint.ConstraintLayout>
