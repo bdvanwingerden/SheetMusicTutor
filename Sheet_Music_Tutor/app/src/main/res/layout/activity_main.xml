@@ -23,9 +23,7 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        android:background="@drawable/round_button"
-        android:textStyle="bold"
-        android:textColor="@color/gold"/>
+        style="@style/button_style"/>
 
     <Button
         android:id="@+id/StatsButton"
@@ -37,9 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:background="@drawable/round_button"
-        android:textColor="@color/gold"/>
+        style="@style/button_style"/>
 
     <Button
         android:id="@+id/OptionsButton"
@@ -54,9 +50,7 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        android:background="@drawable/round_button"
-        android:textStyle="bold"
-        android:textColor="@color/gold"/>
+        style="@style/button_style"/>
 
     <ImageView
         android:id="@+id/imageView"

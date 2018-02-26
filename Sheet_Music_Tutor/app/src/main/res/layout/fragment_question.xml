@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="A"
-            android:background="@color/black"
-            android:textColor="@color/gold"
+            style="@style/button_style"
             android:padding="8dp"
             android:layout_marginBottom="5dp"
             />
@@ -36,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="B"
-            android:background="@color/black"
-            android:textColor="@color/gold"
+            style="@style/button_style"
             android:padding="8dp"
             android:layout_marginBottom="5dp"
             />
@@ -53,8 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:text="C"
-            android:background="@color/black"
-            android:textColor="@color/gold"
+            style="@style/button_style"
             android:padding="8dp"
             android:layout_marginBottom="5dp"
             />

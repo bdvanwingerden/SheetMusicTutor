@@ -34,29 +34,23 @@
             android:id="@+id/easy_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_button"
+            style="@style/button_style"
             android:text="@string/easy"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
             android:layout_weight="1"/>
 
         <Button
             android:id="@+id/medium_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_button"
+            style="@style/button_style"
             android:text="@string/medium"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
             android:layout_weight="1"/>
 
         <Button
             android:id="@+id/hard_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_button"
-            android:textStyle="bold"
-            android:textColor="@color/gold"
+            style="@style/button_style"
             android:text="@string/hard"
             android:layout_weight="1"/>
 

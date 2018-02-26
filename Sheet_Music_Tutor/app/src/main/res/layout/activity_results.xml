@@ -115,9 +115,7 @@
             android:layout_height="wrap_content"
             android:text="Try Again(Placeholder)"
             android:onClick="quizGame"
-            android:background="@drawable/round_button"
-            android:textStyle="bold"
-            android:textColor="@color/gold"
+            style="@style/button_style"
             />
     </LinearLayout>
 
