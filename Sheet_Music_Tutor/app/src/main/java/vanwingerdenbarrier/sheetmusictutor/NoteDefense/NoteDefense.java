@@ -12,26 +12,36 @@ import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
-
+/**
+ * Fragment that contains the note Defense game and handles any logic for the game
+ */
 public class NoteDefense extends Fragment {
+    /*handler used for animation */
     final Handler handler = new Handler();
+    /*used to draw and track note positions */
     DrawNoteDefense drawNoteDefense;
+    /*callback to the gameactivity class */
     QuestionDisplay.Display callback;
+    /*the viewgroup where the drawnote defense is drawn*/
     ViewGroup staff;
+    /* allows us to create and animate any number of notes */
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
             staff.removeView(drawNoteDefense);
             staff.addView(drawNoteDefense);
-            handler.postDelayed(runnable, 33L);  // 1 second delay
+            handler.postDelayed(runnable, 15);
         }
     };
 
-    @Override
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-    }
-
+    /**
+     * inflates the view to fit its calling container
+     *
+     * @param inflater           inflates the view
+     * @param container          the size to inflate
+     * @param savedInstanceState
+     * @return the view created for the game
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,12 +60,10 @@ public class NoteDefense extends Fragment {
         return staff;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
+    /**
+     * initilizes the callback once it is attached
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -72,6 +80,6 @@ public class NoteDefense extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        handler.sendEmptyMessage(0);
     }
-
 }
