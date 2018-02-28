@@ -126,7 +126,7 @@ public class DrawNoteDefense extends AppCompatImageView {
         if (onFieldNotes.size() < random.nextInt(5) && currentLives > 0) {
             for (int i = random.nextInt(4); i > 0; i--) {
                 addNote(false, getRandomNote(false),
-                        random.nextInt(19) + 1);
+                        random.nextInt(15) + 1);
             }
         }
         updateNotesOnField();
@@ -206,14 +206,19 @@ public class DrawNoteDefense extends AppCompatImageView {
 
         for (AnimatedNote note : temp) {
 
-            if (!note.isDestroyed && currentLives > 0) {
+            if (currentLives > 0) {
 
                 note.setX(note.speed + note.getX());
                 note.noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                         , note.getX() + noteWidth, note.getY() + noteHeight);
+
+
+                if (note.isDestroyed) {
+                    note.setY(note.getY() + 9);
+                }
                 note.noteShape.draw(canvas);
             }
-            if (note.getX() >= size.x - 100) {
+            if (note.getX() >= size.x - 100 || note.getY() >= size.y - 100) {
                 note.isDestroyed = true;
                 onFieldNotes.remove(note);
             }
@@ -281,6 +286,22 @@ public class DrawNoteDefense extends AppCompatImageView {
         }
 
         return (new AnimatedNote(tempTone, tempPitch, isSharp));
+    }
+
+    /**
+     * handles a user firing at a note
+     *
+     * @param noteToFireAt
+     */
+    public int fire(Note noteToFireAt) {
+        int hit = 0;
+        for (AnimatedNote note : onFieldNotes) {
+            if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()) {
+                note.setDestroyed(this.getContext());
+                hit++;
+            }
+        }
+        return hit;
     }
 
 }

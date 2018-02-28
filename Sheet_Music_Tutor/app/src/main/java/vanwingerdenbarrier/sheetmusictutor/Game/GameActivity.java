@@ -78,6 +78,8 @@ public class GameActivity extends FragmentActivity
 
             ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
             new UserList(this.getApplicationContext()).addUserAttempt();
+        } else if (currentQuestion instanceof NoteDefense && event != null) {
+            ((NoteDefense) currentQuestion).fireNote((Note) answer);
         }
     }
 

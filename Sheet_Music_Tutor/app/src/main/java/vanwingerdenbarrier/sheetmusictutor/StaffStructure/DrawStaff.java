@@ -158,7 +158,6 @@ public class DrawStaff extends AppCompatImageView {
         drawClef(canvas);
 
         if (currentDifficulty == 1) {
-            drawGuides(canvas, 8);
             drawNotes(canvas, true);
         } else if (currentDifficulty == 2) {
             drawNotes(canvas, true);

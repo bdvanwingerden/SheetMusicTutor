@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -81,5 +83,17 @@ public class NoteDefense extends Fragment {
     public void onDetach() {
         super.onDetach();
         handler.sendEmptyMessage(0);
+    }
+
+    public void fireNote(Note noteToFireAt) {
+        int hit = drawNoteDefense.fire(noteToFireAt);
+        Toast fireResult;
+        if (hit == 0) {
+            fireResult = Toast.makeText(this.getContext(), "MISS", Toast.LENGTH_SHORT);
+            fireResult.show();
+        } else {
+            fireResult = Toast.makeText(this.getContext(), "HIT", Toast.LENGTH_SHORT);
+            fireResult.show();
+        }
     }
 }

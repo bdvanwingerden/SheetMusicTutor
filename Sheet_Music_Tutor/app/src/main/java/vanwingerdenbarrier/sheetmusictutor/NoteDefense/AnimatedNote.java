@@ -1,7 +1,12 @@
 package vanwingerdenbarrier.sheetmusictutor.NoteDefense;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 
+import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
@@ -31,6 +36,11 @@ public class AnimatedNote extends Note {
         isDestroyed = false;
     }
 
+    public AnimatedNote(Note note) {
+        super(note.getTone(), note.getPitch(), Duration.QUARTER, note.isSharp());
+        isDestroyed = false;
+    }
+
     /**
      * sets the drawable shape of this note
      * @param noteShape the drawable shape of this note
@@ -45,5 +55,11 @@ public class AnimatedNote extends Note {
      */
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void setDestroyed(Context context) {
+        isDestroyed = true;
+        noteShape = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_pow, null);
+        noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
     }
 }
