@@ -9,11 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
-import vanwingerdenbarrier.sheetmusictutor.NoteDefense.NoteDefense;
-import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;

@@ -47,7 +47,7 @@
             android:name=".Game.GameSelection"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".NoteDefense.NoteDefense"
+            android:name=".NoteGames.NoteDefense"
             android:label="@string/title_activity_note_defense"
             android:theme="@style/AppTheme" />
         <activity android:name=".Achievements"
