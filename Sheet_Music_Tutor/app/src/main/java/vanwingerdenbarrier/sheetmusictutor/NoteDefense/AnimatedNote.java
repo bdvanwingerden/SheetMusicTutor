@@ -20,8 +20,10 @@ public class AnimatedNote extends Note {
     Boolean isDestroyed;
     /*the shape of this note */
     Drawable noteShape;
-    /* the traversal speed of this note */
-    int speed;
+    /* the  horizontal traversal Speed of this note */
+    int horSpeed;
+    /* the  vertical traversal Speed of this note */
+    int verSpeed;
 
     /**
      * public constructor that calls super and simply sets Duration to quarter because it is not needed
@@ -50,11 +52,11 @@ public class AnimatedNote extends Note {
     }
 
     /**
-     * sets the speed of this note
-     * @param speed the speed of this note
+     * sets the horSpeed of this note
+     * @param horSpeed the horSpeed of this note
      */
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void sethorSpeed(int horSpeed) {
+        this.horSpeed = horSpeed;
     }
 
     public void setDestroyed(Context context) {

@@ -295,12 +295,29 @@ public class DrawNoteDefense extends AppCompatImageView {
      */
     public int fire(Note noteToFireAt) {
         int hit = 0;
-        for (AnimatedNote note : onFieldNotes) {
+        LinkedList<AnimatedNote> tempList = (LinkedList<AnimatedNote>) onFieldNotes.clone();
+        for (AnimatedNote note : tempList) {
             if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()) {
                 note.setDestroyed(this.getContext());
                 hit++;
+                AnimatedNote shot = new AnimatedNote(Tone.A, 0, false);
+                shot.setSpeed(30);
+                shot.setNoteShape(getResources().getDrawable(R.drawable.arrow));
+                shot.setX(0);
+                shot.setY(0);
+                onFieldNotes.add(shot);
             }
         }
+
+        if (hit == 0) {
+            AnimatedNote shot = new AnimatedNote(Tone.A, 0, false);
+            shot.setSpeed(30);
+            shot.setNoteShape(getResources().getDrawable(R.drawable.arrow));
+            shot.setX(0);
+            shot.setY(0);
+            onFieldNotes.add(shot);
+        }
+
         return hit;
     }
 
