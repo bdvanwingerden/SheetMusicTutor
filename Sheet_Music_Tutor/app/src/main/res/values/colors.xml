@@ -12,4 +12,6 @@
     <color name="purple">#592c88</color>
     <color name="gold">#c1a875</color>
     <color name="grey">#383735</color>
+    <color name="achievement_green">#39dc10</color>
+
 </resources>

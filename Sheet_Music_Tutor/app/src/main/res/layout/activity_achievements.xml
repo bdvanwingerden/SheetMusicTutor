@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.Achievements"
+    android:background="@color/purple"
+    android:weightSum="10"
+    android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/achievements"
+            android:textSize="30sp"
+            android:textColor="@color/gold"
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/buttonA1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/baby_steps"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+        <Button
+            android:id="@+id/buttonA2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/finding_balance"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:weightSum="2"
+        >
+
+        <Button
+            android:id="@+id/buttonA3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rookie_no_more"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+
+        <Button
+            android:id="@+id/buttonA4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hard_rocker"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/buttonA5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/blind_ninja"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+        <Button
+            android:id="@+id/buttonA6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/note_meister"
+            android:background="@drawable/round_button_red"
+            android:textStyle="bold"
+            android:onClick="achievementButton"/>
+    </LinearLayout>
+
+
+</LinearLayout>

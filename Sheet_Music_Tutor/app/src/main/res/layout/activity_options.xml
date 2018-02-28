@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.OptionsActivity">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.OptionsActivity"
+    android:weightSum="10"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/UserMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/user"
-        android:onClick="userMenu"
-        android:text="@string/user"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"
-        style="@style/button_style"/>
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/UserMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/user"
+            android:onClick="userMenu"
+            android:text="@string/user"
+            style="@style/button_style"/>
+
+        <Button
+            android:id="@+id/achieve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/user"
+            android:onClick="userAchievements"
+            android:text="@string/achievement"
+            style="@style/button_style"/>
+    </LinearLayout>
+
+</LinearLayout>

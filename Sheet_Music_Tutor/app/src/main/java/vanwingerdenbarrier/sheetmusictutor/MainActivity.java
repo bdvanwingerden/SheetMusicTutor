@@ -1,11 +1,12 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.media.MediaBrowserCompat;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
@@ -19,6 +20,9 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
  */
 public class MainActivity extends AppCompatActivity {
 
+    AnimationDrawable bg;
+
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
             alertDialog.show();
         }
+
+        View animatedBG = findViewById(R.id.mainlayout);
+        View root = animatedBG.getRootView();
+        root.setBackgroundColor(R.color.purple);
+        animatedBG.setBackgroundResource(R.drawable.animatedbackground);
+        bg = (AnimationDrawable) animatedBG.getBackground();
+        bg.start();
+
     }
 
     /**

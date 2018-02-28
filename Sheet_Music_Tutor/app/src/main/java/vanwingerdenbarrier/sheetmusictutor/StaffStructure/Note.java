@@ -109,5 +109,9 @@ public class Note {
     public void setY(int y) {
         this.y = y;
     }
+
+    public boolean isSharp() {
+        return isSharp;
+    }
 }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashSet;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
@@ -29,6 +30,12 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
     String correctAnswer;
     Random random;
 
+    /**This Hash Set will hold question numbers that have already been used to avoid duplicate questions*/
+    static HashSet<Integer> used = new HashSet<>();
+
+    /**Index of the current question*/
+    int questionIndex;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity();
@@ -42,7 +49,18 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
         TextView question = (TextView) view.findViewById(R.id.questionString);
 
         random = new Random();
-        int questionIndex = random.nextInt(qS.getLength());
+
+        if(used.size() == qS.getLength())//clear hash set if all questions have been used
+            used.clear();
+
+        //Add question index to used hashSet if already used question
+        questionIndex = random.nextInt(qS.getLength());
+        while(used.contains(questionIndex)){
+            questionIndex = random.nextInt(qS.getLength());
+        }
+        used.add(questionIndex);
+
+
 
         question.setText(qS.getQuestion(questionIndex));
         correctAnswer = qS.getCorrectAnswer(questionIndex);

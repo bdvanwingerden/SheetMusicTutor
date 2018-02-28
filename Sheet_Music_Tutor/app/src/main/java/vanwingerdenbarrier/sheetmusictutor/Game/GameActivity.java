@@ -1,6 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,14 +9,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteDefense.NoteDefense;
+import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.ResultsActivity;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -85,29 +90,25 @@ public class GameActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rounds = 10;
+        rounds = 6;
 
         int gameType = getIntent().getIntExtra("gameType", -1);
-
-        if (gameType == 1) {
-            System.out.println("AAA GAMETYPE = STAFF" + gameType);
-        } else if (gameType == 2) {
-            System.out.println("AAA GAMETYPE = COMBO" + gameType);
-        } else if (gameType == 3) {
-            System.out.println("AAA GAMETYPE = NOTE DEFENSE");
-        } else {
-            System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
-        }
 
         mode = gameType;
 
         fragmentManager = getSupportFragmentManager();
 
-        Fragment staffFrag = new StaffFragment();
-        Fragment keyFrag = new KeyFragment();
+        if (gameType == 1 || gameType == 2) {
+            addQuestion(new StaffFragment());
+            addAnswer(new KeyFragment());
+        } else if (gameType == 3) {
+            addQuestion(new NoteDefense());
+            addAnswer(new KeyFragment());
+        } else {
+            System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
+        }
 
-        addQuestion(staffFrag);
-        addAnswer(keyFrag);
+
         setContentView(R.layout.activity_game);
     }
 
@@ -148,7 +149,8 @@ public class GameActivity extends FragmentActivity
                     public void onClick(DialogInterface dialogInterface, int j) {
 
                         if(rounds  <= 1){
-                            finish();
+                            //finish();
+                            sendResults();
                         }else{
                             makeNextQuestion();
                         }
@@ -159,6 +161,29 @@ public class GameActivity extends FragmentActivity
 
         alertDialog.show();
     }
+
+    /**
+     * Once quiz completes send results to results screen
+     */
+    public void sendResults(){
+
+        User current = new UserList(getBaseContext()).findCurrent();
+
+        boolean isQuiz = true;
+
+        float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) current.getNumPointsNeeded())*100;
+
+        Intent stats = new Intent(this, ResultsActivity.class);
+
+        stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
+        stats.putExtra("correct",current.getNumQuestionsCorrect());
+        stats.putExtra("numQuestions",current.getNumQuestionsAttempted());
+        stats.putExtra("score",current.getCurrentLevel());//random number for now(Score)
+        stats.putExtra("points",current.getNumPointsNeeded());
+        stats.putExtra("isQuiz",isQuiz);
+
+        this.startActivity(stats);
+    }//end sendResults
 
     /**
      * replaces the question with a new question fragment
@@ -186,9 +211,7 @@ public class GameActivity extends FragmentActivity
      * creates the next question
      */
     public void makeNextQuestion(){
-        System.out.println(mode);
         if (mode == 1) {
-
             replaceQuestion(new StaffFragment());
             rounds--;
 
@@ -208,7 +231,6 @@ public class GameActivity extends FragmentActivity
 
         } else if (mode == 3) {
             replaceQuestion(new NoteDefense());
-
         } else if (mode == 4) {
             //TODO implement listening mode
         }
