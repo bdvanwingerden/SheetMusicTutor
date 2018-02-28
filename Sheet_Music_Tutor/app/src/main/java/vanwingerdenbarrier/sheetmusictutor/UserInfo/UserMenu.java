@@ -41,7 +41,14 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         createButtons();
         if(users.findCurrent() == null){
             createUserDialog = new CreateUserDialog();
-            createUserDialog.show(getFragmentManager(), "createUserDialog");
+            if (users.getUserList().size() > 0) {
+                users.getUserList().get(users.getUserList().size() - 1)
+                        .swapCurrent();
+                users.updateUser(users.findCurrent(), UserDB.IS_CURRENT, 1);
+                recreate();
+            } else {
+                createUserDialog.show(getFragmentManager(), "createUserDialog");
+            }
         }
     }
 
@@ -52,18 +59,24 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
     public void createButtons() {
         final ViewGroup linearLayout = findViewById(R.id.UserListLayout);
         int i = 0;
+        boolean currentSet = false;
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
             tempButton.setText(u.getName());
             tempButton.setId(i);
             u.setId(i);
             users.updateUser(u, UserDB.KEY_ID, i);
+            users.getUserList().get(i).setId(i);
             i++;
             tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT));
             tempButton.setOnClickListener(this);
-            if (u.isCurrent()) {
+
+            if (u.isCurrent() && !currentSet) {
+                currentSet = true;
                 tempButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
+            } else if (u.isCurrent() && currentSet) {
+                u.swapCurrent();
             }
             linearLayout.addView(tempButton);
         }
@@ -124,6 +137,10 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
 
                                 public void onClick(DialogInterface dialog, int i) {
                                     users.removeUser(u);
+
+                                    for (User u : users.getUserList()) {
+                                        System.out.println("BB " + u.getID() + " " + u.getName());
+                                    }
                                     recreate();
                                 }
                             });
@@ -144,7 +161,6 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * @param name
      */
     public void onAcceptDialog(View view, String name) {
-        System.out.println("NAME IS ADDED IS -------> " + name);
         if(users.findCurrent() != null){
             users.findCurrent().swapCurrent();
         }
@@ -217,17 +233,18 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
 
         bt.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
         User currentUser = users.findCurrent();
+
         if (currentUser != null) {
             currentUser.swapCurrent();
             Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
             users.updateUser(currentUser, UserDB.IS_CURRENT, 0);
-            User formerCurrent = users.getUserList().get(view.getId());
-            if (!formerCurrent.equals(currentUser)) {
-                formerCurrent.swapCurrent();
-                users.updateUser(formerCurrent, UserDB.IS_CURRENT, 1);
-            }
         }
+
+        User newCurrent = users.getUserList().get(view.getId());
+        newCurrent.swapCurrent();
+        users.updateUser(newCurrent, UserDB.IS_CURRENT, 1);
+
         recreate();
     }
 
@@ -236,6 +253,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      * @param v
      */
     public void killDB(View v){
+        users.emptyUserList();
         recreate();
     }
 }

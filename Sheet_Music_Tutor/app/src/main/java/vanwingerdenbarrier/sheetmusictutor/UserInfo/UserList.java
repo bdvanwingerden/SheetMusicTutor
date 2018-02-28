@@ -1,20 +1,12 @@
 package vanwingerdenbarrier.sheetmusictutor.UserInfo;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
-
-import vanwingerdenbarrier.sheetmusictutor.Game.Question;
 
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.ATTEMPTS;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CORRECT;
@@ -181,6 +173,11 @@ public class UserList {
         db.execSQL("UPDATE " + USER_TABLE +
                 " SET " + field + "="+ newValue +
                 " WHERE id=" + user.getID());
+    }
+
+    public void emptyUserList() {
+        SQLiteDatabase db = userDB.getWritableDatabase();
+        db.execSQL("DELETE FROM " + USER_TABLE);
     }
 
 }

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
@@ -20,9 +19,8 @@ import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
 
 /**
- * Created by bvanwingerden on 2/21/18.
+ * Public class that handles the drawing and position tracking of notes in NoteDefense
  */
-
 public class DrawNoteDefense extends AppCompatImageView {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -40,7 +38,6 @@ public class DrawNoteDefense extends AppCompatImageView {
 
     /**
      * a temporary random integer to allow testing of our other methods
-     * //TODO implement random based on users level/selected difficulty
      */
     Random random;
 
@@ -78,8 +75,13 @@ public class DrawNoteDefense extends AppCompatImageView {
      */
     int currentDifficulty;
 
+    /**
+     * the users current score & remaining lives
+     */
     int currentScore;
     int currentLives;
+
+    /** the canvas we are drawing onto */
     Canvas canvas;
 
     /**
@@ -95,7 +97,7 @@ public class DrawNoteDefense extends AppCompatImageView {
 
         this.currentDifficulty = currentDifficulty;
         currentScore = 0;
-        currentLives = 2;
+        currentLives = 4;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -121,8 +123,11 @@ public class DrawNoteDefense extends AppCompatImageView {
         horMargin = 0;
         this.canvas = canvas;
         drawStaff(canvas);
-        if (onFieldNotes.size() < 2) {
-            addNote(false, Tone.D);
+        if (onFieldNotes.size() < random.nextInt(5) && currentLives > 0) {
+            for (int i = random.nextInt(4); i > 0; i--) {
+                addNote(false, getRandomNote(false),
+                        random.nextInt(15) + 1);
+            }
         }
         updateNotesOnField();
     }
@@ -167,7 +172,7 @@ public class DrawNoteDefense extends AppCompatImageView {
      * draws all notes in the currentStaff onto visualization of the staff
      *
      */
-    public void addNote(boolean labels, Tone t) {
+    public void addNote(boolean labels, AnimatedNote note, int speed) {
 
         noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
         noteWidth = noteHeight + (noteHeight / 3);
@@ -175,8 +180,6 @@ public class DrawNoteDefense extends AppCompatImageView {
         paint.setStrokeWidth(noteHeight / 4);
 
         horMargin += horMargin;
-
-        AnimatedNote note = new AnimatedNote(t, 5, true);
 
 
         note.setX(horMargin);
@@ -192,26 +195,35 @@ public class DrawNoteDefense extends AppCompatImageView {
 
         note.setNoteShape(noteShape);
         onFieldNotes.add(note);
-        note.setSpeed(50);
+        note.setSpeed(speed);
     }
 
+    /**
+     * increments the notes based on their current speed
+     */
     public void updateNotesOnField() {
         LinkedList<AnimatedNote> temp = (LinkedList<AnimatedNote>) onFieldNotes.clone();
 
         for (AnimatedNote note : temp) {
-            if (!note.isDestroyed) {
-                note.noteShape.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-                note.noteShape.draw(canvas);
 
-                note.noteShape.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
+            if (currentLives > 0) {
+
                 note.setX(note.speed + note.getX());
                 note.noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                         , note.getX() + noteWidth, note.getY() + noteHeight);
+
+
+                if (note.isDestroyed) {
+                    note.setY(note.getY() + 9);
+                }
                 note.noteShape.draw(canvas);
             }
-            if (note.getX() >= size.x - 100) {
+            if (note.getX() >= size.x - 100 || note.getY() >= size.y - 100) {
                 note.isDestroyed = true;
-                currentLives--;
+                onFieldNotes.remove(note);
+            }
+            if (currentLives == 0) {
+                temp.clear();
             }
         }
     }
@@ -252,6 +264,44 @@ public class DrawNoteDefense extends AppCompatImageView {
         }
 
         return (int) noteLocation;
+    }
+
+    public AnimatedNote getRandomNote(boolean sharpsAllowed) {
+        Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+
+        int tempPitch = 5;
+        if (tempTone == Tone.E || tempTone == Tone.F) {
+            if (random.nextInt(2) == 0) {
+                tempPitch = 4;
+            }
+        } else if (tempTone == Tone.G) {
+            tempPitch = 4;
+        }
+
+        boolean isSharp = false;
+        if (sharpsAllowed) {
+            if (random.nextBoolean()) {
+                isSharp = true;
+            }
+        }
+
+        return (new AnimatedNote(tempTone, tempPitch, isSharp));
+    }
+
+    /**
+     * handles a user firing at a note
+     *
+     * @param noteToFireAt
+     */
+    public int fire(Note noteToFireAt) {
+        int hit = 0;
+        for (AnimatedNote note : onFieldNotes) {
+            if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()) {
+                note.setDestroyed(this.getContext());
+                hit++;
+            }
+        }
+        return hit;
     }
 
 }
