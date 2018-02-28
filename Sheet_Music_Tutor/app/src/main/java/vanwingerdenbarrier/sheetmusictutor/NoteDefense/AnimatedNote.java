@@ -25,6 +25,7 @@ public class AnimatedNote extends Note {
     /* the  vertical traversal Speed of this note */
     int verSpeed;
 
+
     /**
      * public constructor that calls super and simply sets Duration to quarter because it is not needed
      * in Note defense
