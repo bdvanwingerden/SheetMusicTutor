@@ -184,15 +184,30 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
      */
     public void onSelectDiffDialog(View view, int dif){
 
+        //User current = new UserList(getBaseContext()).findCurrent();
+
         if(dif == 1){
+            /*
+            current.setNumQuestionsAttempted(8);
+            current.setNumQuestionsCorrect(8);
+            current.setCurrentLevel(2);
+            current.setNumPointsNeeded(8);
+            */
             for(int x = 0; x < 8; x++) {
                 users.addUserCorrect();
                 users.addUserAttempt();
             }
             users.levelUpUser();
             users.addUserPointsNeeded();
+
         }
         else if(dif == 2){
+            /*
+            current.setNumQuestionsAttempted(16);
+            current.setNumQuestionsCorrect(16);
+            current.setCurrentLevel(3);
+            current.setNumPointsNeeded(8);
+            */
 
             for(int x = 0; x < 16; x++) {
                 users.addUserCorrect();
@@ -202,6 +217,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
                 users.levelUpUser();
                 users.addUserPointsNeeded();
             }//end for
+
 
         }//end else if
 

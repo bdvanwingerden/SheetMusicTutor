@@ -26,7 +26,8 @@
         app:layout_constraintRight_toRightOf="@+id/OptionsButton"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        style="@style/button_style"/>
 
     <Button
         android:id="@+id/StatsButton"
@@ -40,7 +41,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/button_style"/>
 
     <Button
         android:id="@+id/OptionsButton"
@@ -57,7 +59,9 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+
+        tools:layout_constraintRight_creator="1"
+        style="@style/button_style"/>
 
     <ImageView
         android:id="@+id/imageView"

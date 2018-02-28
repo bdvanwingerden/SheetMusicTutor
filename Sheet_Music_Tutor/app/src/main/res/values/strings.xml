@@ -10,6 +10,14 @@
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
     <string name="difficulty_select">Select Your Starting Difficulty!</string>
+    <string name="achievements">Users Achievements</string>
+    <string name="achievement">Achievements</string>
+    <string name="baby_steps">Baby Steps 0/1</string>
+    <string name="finding_balance">Finding Balance 0/4</string>
+    <string name="rookie_no_more">Rookie No More 0/8</string>
+    <string name="hard_rocker">Hard Rocker 0/16</string>
+    <string name="blind_ninja">Blind Ninja 0/8</string>
+    <string name="note_meister">Note-Meister 0/5</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

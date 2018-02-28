@@ -20,5 +20,14 @@ public class OptionsActivity extends AppCompatActivity {
         this.startActivity(userMenu);
     }
 
+    /**
+     * Creates intent that goes to Achievments activity
+     * @param v
+     */
+    public void userAchievements(View v){
+        Intent userAchievments = new Intent(this,Achievements.class);
+        this.startActivity(userAchievments);
+    }//end
+
 
 }

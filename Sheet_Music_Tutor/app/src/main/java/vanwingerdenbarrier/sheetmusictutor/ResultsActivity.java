@@ -91,6 +91,7 @@ public class ResultsActivity extends AppCompatActivity{
 
         writeResults(isQuiz);
 
+
     }
 
     /**
