@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
+import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -82,6 +83,15 @@ public class NoteHero extends Fragment {
     public void onDetach() {
         super.onDetach();
         handler.sendEmptyMessage(0);
+    }
+
+    /**
+     * handles playing notes
+     *
+     * @param note the note that is played
+     */
+    public void playNote(Note note) {
+        drawNoteGame.playNote(note);
     }
 
 }

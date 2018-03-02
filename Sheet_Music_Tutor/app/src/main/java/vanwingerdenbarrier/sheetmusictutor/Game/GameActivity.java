@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
@@ -83,6 +84,8 @@ public class GameActivity extends FragmentActivity
             new UserList(this.getApplicationContext()).addUserAttempt();
         } else if (currentQuestion instanceof NoteDefense && event != null) {
             ((NoteDefense) currentQuestion).fireNote((Note) answer);
+        } else if (currentQuestion instanceof NoteHero && event != null) {
+            ((NoteHero) currentQuestion).playNote((Note) answer);
         }
     }
 
@@ -103,6 +106,9 @@ public class GameActivity extends FragmentActivity
             addAnswer(new KeyFragment());
         } else if (gameType == 3) {
             addQuestion(new NoteDefense());
+            addAnswer(new KeyFragment());
+        } else if (gameType == 4) {
+            addQuestion(new NoteHero());
             addAnswer(new KeyFragment());
         } else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
@@ -232,7 +238,7 @@ public class GameActivity extends FragmentActivity
         } else if (mode == 3) {
             replaceQuestion(new NoteDefense());
         } else if (mode == 4) {
-            //TODO implement listening mode
+            replaceQuestion(new NoteHero());
         }
     }
 

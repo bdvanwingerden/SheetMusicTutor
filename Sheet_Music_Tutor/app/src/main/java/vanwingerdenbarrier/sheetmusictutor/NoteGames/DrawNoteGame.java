@@ -26,65 +26,59 @@ public class DrawNoteGame extends AppCompatImageView {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
+    final int shotSpeedDivision = 10;
     /**
      * stores the dimension of the current display
      */
     Point size;
-
     /**
      * the paint to use throughout DrawStaff, what fills objects
      */
     Paint paint;
-
     /**
      * a temporary random integer to allow testing of our other methods
      */
     Random random;
-
     /**
      * creates an array to contain the x and y coordinates for the line since each line only has
      * a pair of x,y coordinates corresponding to the start point and end point in the form
      * [xn, yn, xn+1, yn+1]
      */
     float[] lineArray;
-
     /**
      * the space between the lines of the staff
      */
     int spaceBetween;
-
     /**
      * Dimension of the note
      */
     int noteHeight;
     int noteWidth;
-
     /**
      * the horizontal and vertical margins
      */
     int horMargin;
     int verMargin;
-
     /**
      * a list containing all the next note to play  is a list so we can implement chords later
      */
     LinkedList<AnimatedNote> onFieldNotes;
-
     /**
      * the current difficulty of the staff
      */
     int currentDifficulty;
-
     /**
      * the users current score & remaining lives
      */
     int currentScore;
     int currentLives;
-
     /**
      * the canvas we are drawing onto
      */
     Canvas canvas;
+    int gameMode;
+
+    int goalPos;
 
     /**
      * public constructor to create a DrawStaff object
@@ -102,6 +96,7 @@ public class DrawNoteGame extends AppCompatImageView {
         this.currentDifficulty = currentDifficulty;
         currentScore = 0;
         currentLives = 4;
+        this.gameMode = gameMode;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -127,12 +122,26 @@ public class DrawNoteGame extends AppCompatImageView {
         horMargin = 0;
         this.canvas = canvas;
         drawStaff(canvas);
-        if (onFieldNotes.size() < random.nextInt(5) && currentLives > 0) {
-            for (int i = random.nextInt(4); i > 0; i--) {
-                addNote(false, getRandomNote(false),
-                        random.nextInt(15) + 1);
+
+        if (gameMode == 0) {
+            if (onFieldNotes.size() < random.nextInt(5) && currentLives > 0) {
+                for (int i = random.nextInt(4); i > 0; i--) {
+                    addNote(false, getRandomNote(false),
+                            random.nextInt(15) + 1);
+                }
+            }
+        } else if (gameMode == 1) {
+            int tempo = 10;
+
+            if (onFieldNotes.size() < 5) {
+                if (onFieldNotes.isEmpty()) {
+                    addNote(false, getRandomNote(false), tempo);
+                } else if (onFieldNotes.peekLast().getX() == ((size.x / 4) - ((size.x / 4) % tempo))) {
+                    addNote(false, getRandomNote(false), tempo);
+                }
             }
         }
+
         updateNotesOnField();
     }
 
@@ -170,6 +179,11 @@ public class DrawNoteGame extends AppCompatImageView {
         }
 
         canvas.drawLines(lineArray, paint);
+
+        if (gameMode == 1) {
+            goalPos = ((size.x / 4) * 3);
+            canvas.drawLine(goalPos, lineArray[1], goalPos, lineArray[19], paint);
+        }
     }
 
     /**
@@ -210,6 +224,10 @@ public class DrawNoteGame extends AppCompatImageView {
         for (AnimatedNote note : temp) {
 
             if (currentLives > 0) {
+
+                if (note.turnsSinceHit == shotSpeedDivision) {
+                    note.setVerSpeed(9);
+                }
 
                 note.setX(note.horSpeed + note.getX());
                 note.setY(note.verSpeed + note.getY());
@@ -297,22 +315,28 @@ public class DrawNoteGame extends AppCompatImageView {
         int hit = 0;
         LinkedList<AnimatedNote> tempList = (LinkedList<AnimatedNote>) onFieldNotes.clone();
         for (AnimatedNote note : tempList) {
-            if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()) {
+            if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()
+                    && !note.isDestroyed) {
                 note.setDestroyed(this.getContext());
-                note.setVerSpeed(9);
                 hit++;
 
-
                 AnimatedNote shot = new AnimatedNote(Tone.A, 0, false);
-                shot.setVerSpeed(-30);
-                if (note.getX() < size.x) {
-                    shot.setHorSpeed(-30);
-                } else {
-                    shot.setHorSpeed(30);
-                }
-                shot.setNoteShape(getResources().getDrawable(R.drawable.arrow));
+                shot.setNoteShape(getResources().getDrawable(R.drawable.arrowgreen));
                 shot.setX(size.x / 2);
-                shot.setY((size.y / 2) + 40);
+                shot.setY(0);
+
+                int verSpeed = (note.getY() / shotSpeedDivision);
+                shot.setVerSpeed(verSpeed);
+                int horSpeed = ((note.horSpeed) + (shotSpeedDivision * note.horSpeed)) / shotSpeedDivision;
+
+                if (note.getX() < shot.getX()) {
+                    shot.setHorSpeed(-horSpeed);
+                } else {
+                    shot.setHorSpeed(horSpeed);
+                }
+
+                System.out.println("Shot " + shot.verSpeed + " " + horSpeed);
+
                 onFieldNotes.add(shot);
             }
         }
@@ -328,6 +352,21 @@ public class DrawNoteGame extends AppCompatImageView {
         }
 
         return hit;
+    }
+
+    public void playNote(Note note) {
+        if (onFieldNotes.peekFirst().getTone().equals(note.getTone())) {
+            int noteDist = goalPos - onFieldNotes.peekFirst().getX();
+            if (noteDist < noteWidth * 2 && noteDist > -noteWidth) {
+                System.out.println("AA Perfect!");
+                onFieldNotes.removeFirst();
+            } else if (noteDist < noteWidth && noteDist > -(noteWidth * 2)) {
+                System.out.println("AA Too slow");
+                onFieldNotes.removeFirst();
+            }
+        } else {
+            System.out.println("AA MISS " + onFieldNotes.peekFirst().getTone());
+        }
     }
 
 }

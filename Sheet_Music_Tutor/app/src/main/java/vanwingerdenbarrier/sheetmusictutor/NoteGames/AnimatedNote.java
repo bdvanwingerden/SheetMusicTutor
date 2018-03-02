@@ -27,6 +27,8 @@ public class AnimatedNote extends Note {
     /* the  vertical traversal Speed of this note */
     int verSpeed;
 
+    int turnsSinceHit;
+
 
     /**
      * public constructor that calls super and simply sets Duration to quarter because it is not needed
@@ -40,6 +42,7 @@ public class AnimatedNote extends Note {
         super(tone, pitch, Duration.QUARTER, isSharp);
         isDestroyed = false;
         verSpeed = 0;
+        turnsSinceHit = 0;
     }
 
     public AnimatedNote(Note note) {
@@ -64,6 +67,14 @@ public class AnimatedNote extends Note {
      */
     public void setHorSpeed(int horSpeed) {
         this.horSpeed = horSpeed;
+    }
+
+    @Override
+    public void setX(int x) {
+        if (isDestroyed) {
+            turnsSinceHit++;
+        }
+        super.setX(x);
     }
 
     public void setVerSpeed(int verSpeed) {

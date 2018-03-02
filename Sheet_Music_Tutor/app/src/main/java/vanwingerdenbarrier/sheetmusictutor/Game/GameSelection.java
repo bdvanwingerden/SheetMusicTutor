@@ -40,4 +40,10 @@ public class GameSelection extends AppCompatActivity {
         game.putExtra("gameType", 3);
         this.startActivity(game);
     }
+
+    public void noteHeroGame(View v) {
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 4);
+        this.startActivity(game);
+    }
 }

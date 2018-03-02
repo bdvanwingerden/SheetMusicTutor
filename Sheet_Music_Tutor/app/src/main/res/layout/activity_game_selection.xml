@@ -9,11 +9,24 @@
     tools:layout_editor_absoluteY="25dp">
 
     <Button
-        android:id="@+id/noteDefGame"
+        android:id="@+id/noteHero"
+        style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="44dp"
+        android:onClick="noteHeroGame"
+        android:text="Note \nHero"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.742" />
+
+    <Button
+        android:id="@+id/noteDefGame"
         style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
         android:onClick="noteDefenseGame"
         android:text="Note \nDefense"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,10 +35,10 @@
 
     <Button
         android:id="@+id/staffgame"
+        style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
-        style="@style/button_style"
         android:elevation="0dp"
         android:onClick="staffGame"
         android:text="Staff Mode"
@@ -35,10 +48,10 @@
 
     <Button
         android:id="@+id/combogame"
+        style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
-        style="@style/button_style"
         android:elevation="0dp"
         android:onClick="comboGame"
         android:text="Combo Mode"
