@@ -41,6 +41,7 @@ public class AnimatedNote extends Note {
     public AnimatedNote(Tone tone, int pitch, boolean isSharp) {
         super(tone, pitch, Duration.QUARTER, isSharp);
         isDestroyed = false;
+        isPlayed = false;
         verSpeed = 0;
         turnsSinceHit = 0;
     }
@@ -86,4 +87,9 @@ public class AnimatedNote extends Note {
         noteShape = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_pow, null);
         noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
     }
+
+    public void setIsPlayed(){
+        isPlayed = true;
+    }
+
 }

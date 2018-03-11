@@ -5,14 +5,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.zip.CheckedOutputStream;
 
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
@@ -80,6 +85,12 @@ public class DrawNoteGame extends AppCompatImageView {
 
     int goalPos;
 
+
+    /**
+     * handles all our toasty toasts
+     */
+    Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -131,13 +142,13 @@ public class DrawNoteGame extends AppCompatImageView {
                 }
             }
         } else if (gameMode == 1) {
-            int tempo = 10;
+            int tempo = 3;
 
             if (onFieldNotes.size() < 5) {
                 if (onFieldNotes.isEmpty()) {
-                    addNote(false, getRandomNote(false), tempo);
+                    addNote(false, getRandomNote(true), tempo);
                 } else if (onFieldNotes.peekLast().getX() == ((size.x / 4) - ((size.x / 4) % tempo))) {
-                    addNote(false, getRandomNote(false), tempo);
+                    addNote(false, getRandomNote(true), tempo);
                 }
             }
         }
@@ -210,6 +221,18 @@ public class DrawNoteGame extends AppCompatImageView {
         noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                 , note.getX() + noteWidth, note.getY() + noteHeight);
 
+        if (note.isSharp()) {
+            Drawable sharpShape = getResources().getDrawable(R.drawable.sharp, null);
+
+            Drawable[] layers = new Drawable[2];
+            layers[0] = noteShape;
+            layers[1] = sharpShape;
+            LayerDrawable tempShape = new LayerDrawable(layers);
+            tempShape.setLayerInset(0, noteWidth,0,-noteWidth,0);
+            tempShape.setLayerInset(1,-noteWidth,0, noteWidth,0);
+            noteShape = tempShape;
+        }
+
         note.setNoteShape(noteShape);
         onFieldNotes.add(note);
         note.setHorSpeed(speed);
@@ -238,6 +261,7 @@ public class DrawNoteGame extends AppCompatImageView {
             }
             if (note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0) {
                 note.isDestroyed = true;
+                note.setIsPlayed();
                 onFieldNotes.remove(note);
             }
             if (currentLives == 0) {
@@ -354,20 +378,58 @@ public class DrawNoteGame extends AppCompatImageView {
         return hit;
     }
 
+    /**
+     * handles note hero note timing functionality
+     * @param note the note that the user played
+     */
     public void playNote(Note note) {
-        if (onFieldNotes.peekFirst().getTone().equals(note.getTone())) {
-            int noteDist = goalPos - onFieldNotes.peekFirst().getX();
+        AnimatedNote played;
+
+        if (getFirstUnplayed().getTone().equals(note.getTone())
+                && getFirstUnplayed().isSharp() == note.isSharp()) {
+
+
+            int noteDist = goalPos - getFirstUnplayed().getX();
+
             if (noteDist < noteWidth * 2 && noteDist > -noteWidth) {
-                System.out.println("AA Perfect!");
-                onFieldNotes.removeFirst();
+                toasty.setText("Perfect!");
+                played = getFirstUnplayed();
+                played.setNoteShape(getResources().getDrawable(R.drawable.ic_perfect));
+                played.setIsPlayed();
+
             } else if (noteDist < noteWidth && noteDist > -(noteWidth * 2)) {
-                System.out.println("AA Too slow");
-                onFieldNotes.removeFirst();
+                toasty.setText("A Little Slow!");
+                played = getFirstUnplayed();
+                played.setNoteShape(getResources().getDrawable(R.drawable.ic_slow));
+                played.setIsPlayed();
+            }
+            else if (noteDist > noteWidth && noteDist < -(noteWidth * 2)) {
+                toasty.setText("A Little Fast!");
+                played = getFirstUnplayed();
+                played.setNoteShape(getResources().getDrawable(R.drawable.ic_slow));
+                played.setIsPlayed();
+            }else{
+                toasty.setText("Too Soon!");
             }
         } else {
-            System.out.println("AA MISS " + onFieldNotes.peekFirst().getTone());
+            toasty.setText("MISS!");
+            if(getFirstUnplayed().getX() > goalPos && getFirstUnplayed() != null){
+                played = getFirstUnplayed();
+                played.setNoteShape(getResources().getDrawable(R.drawable.ic_miss));
+                played.setIsPlayed();
+            }
         }
+        toasty.setGravity(Gravity.RIGHT, 0, 0);
+        toasty.show();
     }
 
+    public AnimatedNote getFirstUnplayed(){
+       for(AnimatedNote note : onFieldNotes){
+           if(!note.isPlayed){
+               return note;
+           }
+       }
+       return new AnimatedNote(Tone.A, 5, false);
+    }
 }
 
