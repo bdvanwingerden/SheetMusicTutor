@@ -25,7 +25,7 @@ public class OptionsActivity extends AppCompatActivity {
      * @param v
      */
     public void userAchievements(View v){
-        Intent userAchievments = new Intent(this,Achievements.class);
+        Intent userAchievments = new Intent(this,AchievementsListView.class);
         this.startActivity(userAchievments);
     }//end
 
