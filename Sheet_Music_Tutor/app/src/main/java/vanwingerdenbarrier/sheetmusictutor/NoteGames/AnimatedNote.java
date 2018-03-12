@@ -26,7 +26,7 @@ public class AnimatedNote extends Note {
     int horSpeed;
     /* the  vertical traversal Speed of this note */
     int verSpeed;
-
+    /* Keeps track of the number of turns since the note was hit */
     int turnsSinceHit;
 
 
@@ -46,6 +46,10 @@ public class AnimatedNote extends Note {
         turnsSinceHit = 0;
     }
 
+    /**
+     * public constructor that accepts a Note and creates an animated note
+     * @param note the note to create an animated note based off of
+     */
     public AnimatedNote(Note note) {
         super(note.getTone(), note.getPitch(), Duration.QUARTER, note.isSharp());
         isDestroyed = false;
@@ -70,6 +74,11 @@ public class AnimatedNote extends Note {
         this.horSpeed = horSpeed;
     }
 
+    /**
+     * sets x to the desired location and if the AnimatedNote is destroyed keeps track of how many
+     * times the note is updated after the note is destroyed
+     * @param x the location to set x to
+     */
     @Override
     public void setX(int x) {
         if (isDestroyed) {
@@ -78,20 +87,35 @@ public class AnimatedNote extends Note {
         super.setX(x);
     }
 
+    /**
+     * sets the vertical speed of this note which is zero by default
+     * @param verSpeed the vertical speed to set this Animated notes vertical speed to
+     */
     public void setVerSpeed(int verSpeed) {
         this.verSpeed = verSpeed;
     }
 
+    /**
+     * sets the note as destroyed by changing its drawable to an exploded note
+     * @param context the context to set the drawable in
+     */
     public void setDestroyed(Context context) {
         isDestroyed = true;
         noteShape = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_pow, null);
         noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
     }
 
+    /**
+     * sets the note as played
+     */
     public void setIsPlayed(){
         isPlayed = true;
     }
 
+    /**
+     * returns the drawable shape of the note
+     * @return
+     */
     public Drawable getNoteShape(){
         return  noteShape;
     }

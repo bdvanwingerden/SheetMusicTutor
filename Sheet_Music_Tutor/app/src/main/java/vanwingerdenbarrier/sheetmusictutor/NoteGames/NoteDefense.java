@@ -26,6 +26,8 @@ public class NoteDefense extends Fragment {
     QuestionDisplay.Display callback;
     /*the viewgroup where the drawnote defense is drawn*/
     ViewGroup staff;
+    /* handles any toasts*/
+    Toast toasty =  Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
     /* allows us to create and animate any number of notes */
     final Runnable runnable = new Runnable() {
         @Override
@@ -80,21 +82,26 @@ public class NoteDefense extends Fragment {
 
     }
 
+    /**
+     * ensures that the handlers loop is stopped when the screen is exited
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         handler.sendEmptyMessage(0);
     }
 
+    /**
+     * Accepts a note and creates a toast
+     * @param noteToFireAt
+     */
     public void fireNote(Note noteToFireAt) {
         int hit = drawNoteGame.fire(noteToFireAt);
-        Toast fireResult;
         if (hit == 0) {
-            fireResult = Toast.makeText(this.getContext(), "MISS", Toast.LENGTH_SHORT);
-            fireResult.show();
+            toasty.setText("MISS");
         } else {
-            fireResult = Toast.makeText(this.getContext(), "HIT", Toast.LENGTH_SHORT);
-            fireResult.show();
+            toasty.setText("HIT");
         }
+        toasty.show();
     }
 }

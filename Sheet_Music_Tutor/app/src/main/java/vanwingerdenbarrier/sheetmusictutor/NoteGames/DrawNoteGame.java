@@ -81,10 +81,15 @@ public class DrawNoteGame extends AppCompatImageView {
      * the canvas we are drawing onto
      */
     Canvas canvas;
+    /**
+     * the gamemode to draw 0 for note defense & 1 for note hero
+     */
     int gameMode;
 
+    /**
+     * the position of the goal (if drawn) in Note Hero
+     */
     int goalPos;
-
 
     /**
      * handles all our toasty toasts
@@ -127,6 +132,10 @@ public class DrawNoteGame extends AppCompatImageView {
         paint.setTextSize(horMargin / 3);
     }
 
+    /**
+     * initializes and handles the drawing of the specified game mode on the given canvas
+     * @param canvas the canvas to draw on
+     */
     @Override
     protected void onDraw(final Canvas canvas) {
         /* ensures the horizontal margin is back at the start*/
@@ -308,6 +317,11 @@ public class DrawNoteGame extends AppCompatImageView {
         return (int) noteLocation;
     }
 
+    /**
+     * returns a random note with or without sharps
+     * @param sharpsAllowed allows for sharps to be randomly selected
+     * @return the note that was randomly selected
+     */
     public AnimatedNote getRandomNote(boolean sharpsAllowed) {
         Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
 
@@ -419,6 +433,11 @@ public class DrawNoteGame extends AppCompatImageView {
         }
     }
 
+    /**
+     * returns the first unplayed note in the onFieldNotes list
+     * @return returns the first unplayed note or a note that is not part of the list if there is no
+     * unplayed note found
+     */
     public AnimatedNote getFirstUnplayed(){
        for(AnimatedNote note : onFieldNotes){
            if(!note.isPlayed){
@@ -428,6 +447,11 @@ public class DrawNoteGame extends AppCompatImageView {
        return new AnimatedNote(Tone.A, 20, false);
     }
 
+    /**
+     * changes the drawable of an animated note and attempts to grow it
+     * @param drawable the drawable to change the ntoe to
+     * @param note the note to change the drawable of
+     */
     public void drawResult(Drawable drawable, AnimatedNote note){
         drawable.setBounds(note.getX() - noteWidth, (note.getY() -  10 * noteHeight)
                 , note.getX() + 20 * noteWidth, note.getY() +  10 *noteHeight);

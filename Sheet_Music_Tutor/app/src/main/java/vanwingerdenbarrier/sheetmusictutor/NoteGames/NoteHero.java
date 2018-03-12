@@ -14,7 +14,7 @@ import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
- * Fragment that contains the note Defense game and handles any logic for the game
+ * Fragment that contains the note Hero game and handles any logic for the game
  */
 public class NoteHero extends Fragment {
     /*handler used for animation */
@@ -79,6 +79,9 @@ public class NoteHero extends Fragment {
 
     }
 
+    /**
+     * executes onDetach ending the handlers loop
+     */
     @Override
     public void onDetach() {
         super.onDetach();
