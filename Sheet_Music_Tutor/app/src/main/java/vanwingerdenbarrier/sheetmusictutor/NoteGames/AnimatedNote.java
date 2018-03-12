@@ -92,4 +92,8 @@ public class AnimatedNote extends Note {
         isPlayed = true;
     }
 
+    public Drawable getNoteShape(){
+        return  noteShape;
+    }
+
 }

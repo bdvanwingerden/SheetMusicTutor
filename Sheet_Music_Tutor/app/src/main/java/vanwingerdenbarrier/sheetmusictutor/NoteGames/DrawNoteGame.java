@@ -384,6 +384,7 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void playNote(Note note) {
         AnimatedNote played;
+        toasty.setGravity(Gravity.RIGHT, 0, 0);
 
         if (getFirstUnplayed().getTone().equals(note.getTone())
                 && getFirstUnplayed().isSharp() == note.isSharp()) {
@@ -392,35 +393,30 @@ public class DrawNoteGame extends AppCompatImageView {
             int noteDist = goalPos - getFirstUnplayed().getX();
 
             if (noteDist < noteWidth * 2 && noteDist > -noteWidth) {
-                toasty.setText("Perfect!");
                 played = getFirstUnplayed();
-                played.setNoteShape(getResources().getDrawable(R.drawable.ic_perfect));
+                drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
                 played.setIsPlayed();
 
             } else if (noteDist < noteWidth && noteDist > -(noteWidth * 2)) {
-                toasty.setText("A Little Slow!");
                 played = getFirstUnplayed();
-                played.setNoteShape(getResources().getDrawable(R.drawable.ic_slow));
+                drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
             }
             else if (noteDist > noteWidth && noteDist < -(noteWidth * 2)) {
-                toasty.setText("A Little Fast!");
                 played = getFirstUnplayed();
-                played.setNoteShape(getResources().getDrawable(R.drawable.ic_slow));
+                drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
             }else{
                 toasty.setText("Too Soon!");
+                toasty.show();
             }
         } else {
-            toasty.setText("MISS!");
             if(getFirstUnplayed().getX() > goalPos && getFirstUnplayed() != null){
                 played = getFirstUnplayed();
-                played.setNoteShape(getResources().getDrawable(R.drawable.ic_miss));
+                drawResult(getResources().getDrawable(R.drawable.ic_miss, null), played);
                 played.setIsPlayed();
             }
         }
-        toasty.setGravity(Gravity.RIGHT, 0, 0);
-        toasty.show();
     }
 
     public AnimatedNote getFirstUnplayed(){
@@ -429,7 +425,13 @@ public class DrawNoteGame extends AppCompatImageView {
                return note;
            }
        }
-       return new AnimatedNote(Tone.A, 5, false);
+       return new AnimatedNote(Tone.A, 20, false);
+    }
+
+    public void drawResult(Drawable drawable, AnimatedNote note){
+        drawable.setBounds(note.getX() - noteWidth, (note.getY() -  10 * noteHeight)
+                , note.getX() + 20 * noteWidth, note.getY() +  10 *noteHeight);
+        note.setNoteShape(drawable);
     }
 }
 
