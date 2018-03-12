@@ -52,6 +52,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Achievements"
             android:screenOrientation="landscape"></activity>
+        <activity android:name=".AchievementsListView"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

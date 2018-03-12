@@ -85,7 +85,7 @@ public class Achievements extends AppCompatActivity {
 
     /**
      * Will change the button to reflect the user having reached the goal need to
-     * Obtain the babySteps achievement
+     * Obtain the baby achievement
      */
     public void babySteps(){
         if(current.getNumQuestionsCorrect() >= BABY) {
@@ -93,7 +93,7 @@ public class Achievements extends AppCompatActivity {
             a1.setBackground(getResources().getDrawable(R.drawable.round_button_achievement));
             achievementCount++;
         }
-    }//end babySteps()
+    }//end baby()
 
     /**
      * Will change the button to reflect the user having reached the goal need to
