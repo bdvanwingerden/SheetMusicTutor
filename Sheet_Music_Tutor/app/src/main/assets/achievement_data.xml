@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<achievements>
+    <achievement>
+        <name>Baby Steps</name>
+        <points>1</points>
+    </achievement>
+
+    <achievement>
+        <name>Finding Balance</name>
+        <points>4</points>
+    </achievement>
+
+    <achievement>
+        <name>Rookie No More</name>
+        <points>8</points>
+    </achievement>
+
+    <achievement>
+        <name>Blind Ninja</name>
+        <points>8</points>
+    </achievement>
+
+    <achievement>
+        <name>Hard Rocker</name>
+        <points>16</points>
+    </achievement>
+
+    <achievement>
+        <name>Note-Meister</name>
+        <points>5</points>
+    </achievement>
+</achievements>
