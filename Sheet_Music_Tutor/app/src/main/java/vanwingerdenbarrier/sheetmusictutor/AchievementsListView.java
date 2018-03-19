@@ -31,6 +31,8 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
  * Created by Doriangh4 on 3/11/2018.
+ *
+ * Class to that implements the list view associated with achievements.
  */
 public class AchievementsListView extends AppCompatActivity{
 
@@ -70,16 +72,29 @@ public class AchievementsListView extends AppCompatActivity{
     /**List of achievement objects parsed from xml*/
     ArrayList<Achievement> achievements;
 
+    boolean[] achieved = {false,false,false,false,false,false};
+
+    /**Names of the image files being used in the achievements list view*/
     int[] IMAGES = {R.drawable.baby,R.drawable.balance,R.drawable.rookie,R.drawable.ninja,
             R.drawable.rocker,R.drawable.notem};
 
-    String[] NAMES = {"BABY STEPS 0/1","FINDING BALANCE 0/4","ROOKIE NO MORE 0/8","HARD ROCKER 0/16",
-            "BLIND NINJA 0/8","NOTE-MEISTER 0/5"};
+    int lockIcon = R.drawable.lock;
 
-    String[] DESCRIPTIONS = {"BABY","BALANCE","ROOKIE","ROCKER","NINJA","NOTE"};
+    /**Names of each particular achievement. Get From XML!!!!*/
+    String[] NAMES = {"Baby Steps 0/1","Finding Balance 0/4",
+            "Rookie No More 0/8","Hard Rocker 0/16",
+            "Blind Ninja 0/8","Note-Meister 0/5"};
 
+    /**Starting progress for each achievement*/
     int[] PROGRESS = {0,0,0,0,0,0};
 
+    /**
+     * Sets the state of the achievements screen
+     *
+     * initilizes the onClickListener for each list view item that displays the alert dialog when
+     * pressed
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -91,22 +106,23 @@ public class AchievementsListView extends AppCompatActivity{
 
         listView.setAdapter(customAdapter);
 
+        //Current user being evaluated
         current = new UserList(getBaseContext()).findCurrent();
-
 
         achievementCount = 0;//save this in database later, rather than resetting every time
         attempted = current.getNumQuestionsAttempted();
         totalPoints = current.getNumQuestionsCorrect();
 
-        parseXML();
+        parseXML();//step 1 of parsing
 
+        //OnItemClickListener to invoke alert dialog for each item in listView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //final TextView mTextView = (TextView)view;
 
                 AlertDialog alertDialog = new AlertDialog.Builder(AchievementsListView.this).create();
 
+                //Take these strings from the XML in future versions
                 switch (position) {
                     case 0:
                         alertDialog.setTitle("Achievement Description (Baby Steps)");
@@ -136,7 +152,6 @@ public class AchievementsListView extends AppCompatActivity{
                     case 6:
                         break;
                     default:
-                        // Nothing do!
                 }
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                         new DialogInterface.OnClickListener() {
@@ -153,7 +168,12 @@ public class AchievementsListView extends AppCompatActivity{
 
     }//end onCreate
 
+    /**
+     * Obtains the xml file that will be parsed
+     *
+     * */
     private void parseXML(){
+
         XmlPullParserFactory parserFactory;
 
         try {
@@ -163,7 +183,7 @@ public class AchievementsListView extends AppCompatActivity{
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(is, null);
 
-            processParsing(parser);
+            processParsing(parser);//step 1 of parsing
 
         }
         catch(XmlPullParserException e){
@@ -173,9 +193,17 @@ public class AchievementsListView extends AppCompatActivity{
         }
     }//end parseXML()
 
+    /**
+     * Process the XML file
+     * @param parser
+     * @throws IOException
+     * @throws XmlPullParserException
+     */
     private void processParsing(XmlPullParser parser) throws IOException, XmlPullParserException{
 
+        //Initialize the array that will hold the objects created from the parsed achievemement_data.xml
         achievements = new ArrayList<>();
+
         int eventType = parser.getEventType();
         Achievement currentAchievement = null;
 
@@ -202,25 +230,20 @@ public class AchievementsListView extends AppCompatActivity{
             eventType = parser.next();
         }
 
-        printAchievements(achievements);
-
     }//end processParsing()
 
-    private void printAchievements(ArrayList<Achievement> achievements){
-        StringBuilder builder = new StringBuilder();
-
-        for(Achievement achievement: achievements){
-            builder.append(achievement.name).append("\n").append(achievement.points);
-        }
-
-        Log.i("mytag",achievements.get(0).name);
-    }//end printAchievements()
-
+    /**
+     * Class that provide the imlementation for the CustomAdapter that is used with the listView
+     */
     class CustomAdapter extends BaseAdapter {
 
         ProgressBar progressBar;
         TextView textView_name;
 
+        /**
+         * Return the number of items to be displayed in the list view
+         * @return
+         */
         @Override
         public int getCount() {
             return IMAGES.length;
@@ -236,38 +259,45 @@ public class AchievementsListView extends AppCompatActivity{
             return 0;
         }
 
+        /**
+         * Inflates the actual view and assigns values to all of the appropriate attributes
+         * @param i - index of listView or Count
+         * @param view - current view
+         * @param viewGroup
+         * @return
+         */
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.acivity_cutsom_list_view,null);
 
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView3);
             textView_name = (TextView) view.findViewById(R.id.textView_name);
-            //TextView textView_description = (TextView) view.findViewById(R.id.textView_description);
 
-            Resources res = getResources();
-            Drawable drawable = res.getDrawable(R.drawable.achievement_progress);
+            Resources res = getResources();//Create a new resource
+            Drawable drawable = res.getDrawable(R.drawable.achievement_progress);//obtain the appropriate drawable
             Drawable drawableGreen = res.getDrawable(R.drawable.achievement_drawable_green);
+
             progressBar = (ProgressBar) view.findViewById(R.id.progressBarA);
             progressBar.setProgress(PROGRESS[i]);
             progressBar.setMax(100);
             progressBar.setProgressDrawable(drawable);
 
-            imageView.setImageResource(IMAGES[i]);
+            imageView.setImageResource(lockIcon);
             textView_name.setText(NAMES[i]);
-            //textView_description.setText(DESCRIPTIONS[i]);
+
             //When to call each method at a given position
             if(i == 0)
-                babySteps(drawableGreen);
+                babySteps(drawableGreen,imageView, i);
             else if(i == 1)
-                findingBalance(drawableGreen);
+                findingBalance(drawableGreen,imageView, i);
             else if(i == 2)
-                rookieNoMore(drawableGreen);
+                rookieNoMore(drawableGreen,imageView, i);
             else if(i == 3)
-                blindNinja(drawableGreen);
+                blindNinja(drawableGreen,imageView, i);
             else if(i == 4)
-                hardRocker(drawableGreen);
+                hardRocker(drawableGreen,imageView, i);
             else if(i == 5)
-                noteMeister(drawableGreen);
+                noteMeister(drawableGreen,imageView, i);
 
             return view;
         }
@@ -275,14 +305,22 @@ public class AchievementsListView extends AppCompatActivity{
         /**
          * Will change the button to reflect the user having reached the goal needed to
          * Obtain the baby achievement
+         * @param drawable - passes the drawable for a green progress bar
+         * @param imageView - the list views ImageView
+         * @param position - position of the list view
          */
-        public void babySteps(Drawable drawable){
+        public void babySteps(Drawable drawable,ImageView imageView,int position){
+
             int baby = Integer.parseInt(achievements.get(0).points);
+
             if(current.getNumQuestionsCorrect() >= baby) {
                 progressBar.setProgress(ACHIEVED);
                 textView_name.setText("Baby Steps 1/1");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
+                if(achieved[position] == false)
+                    achievementCount++;
+                achieved[position] = true;
             }
         }//end baby()
 
@@ -290,7 +328,7 @@ public class AchievementsListView extends AppCompatActivity{
          * Will change the button to reflect the user having reached the goal need to
          * Obtain the findingBalance achievement
          */
-        public void findingBalance(Drawable drawable){
+        public void findingBalance(Drawable drawable,ImageView imageView,int position){
 
             int balance = Integer.parseInt(achievements.get(1).points);
 
@@ -301,7 +339,10 @@ public class AchievementsListView extends AppCompatActivity{
                 //progressBar.setProgress(ACHIEVED);
                 textView_name.setText("FINDING BALANCE 4/4");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
+                if(achieved[position] == false)
+                    achievementCount++;
+                achieved[position] = true;
             }
             else{
                 textView_name.setText("FINDING BALANCE "+attempted+"/4");
@@ -316,7 +357,7 @@ public class AchievementsListView extends AppCompatActivity{
          * Could add blind ninja 2 where he has to answer at least 16(Lvl 3) questions without misses
          *
          */
-        public void rookieNoMore(Drawable drawable){
+        public void rookieNoMore(Drawable drawable,ImageView imageView,int position){
 
             int rookie = Integer.parseInt(achievements.get(2).points);
 
@@ -328,7 +369,10 @@ public class AchievementsListView extends AppCompatActivity{
 
                 textView_name.setText("ROOKIE NO MORE 8/8");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
+                if(achieved[position] == false)
+                    achievementCount++;
+                achieved[position] = true;
             }
             else{
                 textView_name.setText("ROOKIE NO MORE "+attempted+"/8");
@@ -339,7 +383,7 @@ public class AchievementsListView extends AppCompatActivity{
          * Will change the button to reflect the user having reached the goal need to
          * Obtain the blind ninja achievement
          */
-        public void blindNinja(Drawable drawable){
+        public void blindNinja(Drawable drawable,ImageView imageView,int position){
             //!!!!Will Change to Reflect Missed Questions!!!!\\
             int ninja = Integer.parseInt(achievements.get(3).points);
 
@@ -349,7 +393,10 @@ public class AchievementsListView extends AppCompatActivity{
             if(current.getNumQuestionsCorrect() >= ninja) {
                 textView_name.setText("BLIND NINJA 8/8");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
+                if(achieved[position] == false)
+                    achievementCount++;
+                achieved[position] = true;
             }
             else{
                 textView_name.setText("BLIND NINJA "+attempted+"/8");
@@ -360,7 +407,7 @@ public class AchievementsListView extends AppCompatActivity{
          * Will change the button to reflect the user having reached the goal need to
          * Obtain the hard rocker achievement
          */
-        public void hardRocker(Drawable drawable){
+        public void hardRocker(Drawable drawable,ImageView imageView,int position){
 
             int rocker = Integer.parseInt(achievements.get(4).points);
 
@@ -370,7 +417,10 @@ public class AchievementsListView extends AppCompatActivity{
             if(current.getNumQuestionsCorrect() >= rocker) {
                 textView_name.setText("HARD ROCKER 16/16");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
+                if(achieved[position] == false)
+                    achievementCount++;
+                achieved[position] = true;
             }
             else{
                 textView_name.setText("HARD ROCKER "+attempted+"/16");
@@ -381,7 +431,7 @@ public class AchievementsListView extends AppCompatActivity{
          * Will change the button to reflect the user having reached the goal need to
          * Obtain the note-meister achievement
          */
-        public void noteMeister(Drawable drawable){
+        public void noteMeister(Drawable drawable,ImageView imageView,int position){
 
             int note = Integer.parseInt(achievements.get(5).points);
 
@@ -391,7 +441,7 @@ public class AchievementsListView extends AppCompatActivity{
             if(achievementCount == note) {
                 textView_name.setText("NOTE-MEISTER 5/5");
                 progressBar.setProgressDrawable(drawable);
-                achievementCount++;
+                imageView.setImageResource(IMAGES[position]);
             }
             else{
                 textView_name.setText("NOTE-MEISTER "+achievementCount+"/5");
