@@ -27,7 +27,7 @@ public class NoteDefense extends Fragment {
     /*the viewgroup where the drawnote defense is drawn*/
     ViewGroup staff;
     /* handles any toasts*/
-    Toast toasty =  Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
+    Toast toasty;
     /* allows us to create and animate any number of notes */
     final Runnable runnable = new Runnable() {
         @Override
@@ -75,6 +75,7 @@ public class NoteDefense extends Fragment {
 
         try {
             callback = (QuestionDisplay.Display) context;
+            toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
@@ -96,12 +97,7 @@ public class NoteDefense extends Fragment {
      * @param noteToFireAt
      */
     public void fireNote(Note noteToFireAt) {
-        int hit = drawNoteGame.fire(noteToFireAt);
-        if (hit == 0) {
-            toasty.setText("MISS");
-        } else {
-            toasty.setText("HIT");
-        }
-        toasty.show();
+        drawNoteGame.fire(noteToFireAt);
+        //toasty.show();
     }
 }

@@ -7,7 +7,7 @@ package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
  *  @author Bronson VanWingerden
  */
 
-//TODO add flats
+
 public enum Tone {
     G,
     F,
@@ -16,4 +16,5 @@ public enum Tone {
     C,
     B,
     A,
+    NOTONE,
 }

@@ -39,6 +39,7 @@ public class GameActivity extends FragmentActivity
      * 0 = quiz,
      * 1 = staff,
      * 2 = combo
+     * etc
      */
     int mode;
 
