@@ -106,6 +106,10 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
 
+    public boolean isDone;
+
+    public Drawable[] lives;
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -117,11 +121,15 @@ public class DrawNoteGame extends AppCompatImageView {
     public DrawNoteGame(final Context context, int currentDifficulty, int gameMode) {
         super(context);
 
+        isDone = false;
+
         onFieldNotes = new LinkedList<>();
 
         this.currentDifficulty = currentDifficulty;
         currentScore = 0;
         currentLives = 4;
+        lives = new Drawable[currentLives-1];
+
         this.gameMode = gameMode;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -157,7 +165,6 @@ public class DrawNoteGame extends AppCompatImageView {
         if (gameMode == 0) {
             if(onFieldNotes.size() < 1) {
                 drawShip(canvas);
-                System.out.println("HELLO");
             }
             if (onFieldNotes.size() < random.nextInt(4) + 1 && currentLives > 0) {
                 for (int i = random.nextInt(3); i > 0; i--) {
@@ -178,6 +185,7 @@ public class DrawNoteGame extends AppCompatImageView {
         }
 
         updateNotesOnField();
+        updateLives();
     }
 
     /**
@@ -292,14 +300,22 @@ public class DrawNoteGame extends AppCompatImageView {
                 if(spaceship.getTarget() == note && (spaceship.getY() >= (note.getY() - noteHeight/4))
                         &&  (spaceship.getY() <= (note.getY() + noteHeight/4))){
                     note.setDestroyed(getContext());
+                    currentScore++;
+                    System.out.println("AAA CURRENT SCORE"  + currentScore);
                     spaceship.setVerSpeed(0);
+                    spaceship.setTarget(new AnimatedNote(Tone.NOTONE, 0, false));
                 }
 
                 note.noteShape.draw(canvas);
             }
             if ((note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0)
                     && note != spaceship) {
-                note.isDestroyed = true;
+                if(note.isDestroyed){
+                    note.isDestroyed = true;
+                }else{
+                    currentLives--;
+                }
+
                 note.setIsPlayed();
                 onFieldNotes.remove(note);
             }
@@ -309,6 +325,11 @@ public class DrawNoteGame extends AppCompatImageView {
             }
             if (currentLives == 0) {
                 temp.clear();
+                isDone = true;
+            }else if(currentScore >= 10){
+                temp.clear();
+                System.out.println("AAA EXIT");
+                isDone = true;
             }
         }
     }
@@ -429,16 +450,19 @@ public class DrawNoteGame extends AppCompatImageView {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
                 played.setIsPlayed();
+                currentScore++;
 
             } else if (noteDist < noteWidth && noteDist > -(noteWidth * 2)) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }
             else if (noteDist > noteWidth && noteDist < -(noteWidth * 2)) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }else{
                 toasty.setText("Too Soon!");
                 toasty.show();
@@ -448,6 +472,7 @@ public class DrawNoteGame extends AppCompatImageView {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_miss, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }
         }
     }
@@ -490,5 +515,33 @@ public class DrawNoteGame extends AppCompatImageView {
         spaceship.getNoteShape().draw(canvas);
         onFieldNotes.add(spaceship);
     }
+
+
+    public void updateLives(){
+
+        for(int i = 0; i < lives.length; i++){
+            if(i < currentLives-1) {
+                lives[i] = getResources().getDrawable(R.drawable.ic_life);
+            }else{
+                lives[i] = getResources().getDrawable(R.drawable.ic_lost_life);
+            }
+        }
+
+        int x = size.x;
+        int y = 0;
+
+        for(Drawable life : lives){
+            System.out.println("LIVES");
+            life.setBounds(x - 2*noteWidth, y, x, y + 2* noteWidth);
+            life.draw(canvas);
+            x -= 3*noteWidth;
+        }
+
+    }
+
+    public void updateScore(){
+
+    }
+
 }
 

@@ -314,6 +314,10 @@ public class DrawStaff extends AppCompatImageView {
                  */
                 Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
 
+                while(tempTone == Tone.NOTONE){
+                    tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+                }
+
                 int tempPitch = 5;
                 if (tempTone == Tone.E || tempTone == Tone.F) {
                     if (random.nextInt(2) == 0) {

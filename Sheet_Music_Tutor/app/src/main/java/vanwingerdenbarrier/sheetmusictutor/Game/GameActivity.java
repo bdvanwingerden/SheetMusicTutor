@@ -2,6 +2,7 @@ package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
+
+import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
@@ -224,22 +227,30 @@ public class GameActivity extends FragmentActivity
 
         }else if (mode == 2){
 
-            if(currentQuestion instanceof QuizQuestionFragment && currentAnswer
-                    instanceof QuizAnswerFragment){
+            Random rand = new Random();
+            int next = rand.nextInt(4);
 
+            if(next == 0){
                 replaceQuestion(new StaffFragment());
                 replaceAnswer(new KeyFragment());
-            }else if(currentQuestion instanceof StaffFragment && currentAnswer instanceof KeyFragment){
-
+            }else if(next == 1){
                 replaceQuestion(new QuizQuestionFragment());
                 replaceAnswer(new QuizAnswerFragment());
+            }else if(next == 2){
+                replaceQuestion(new NoteDefense());
+                replaceAnswer(new KeyFragment());
+            }else if(next == 3){
+                replaceQuestion(new NoteHero());
+                replaceAnswer(new KeyFragment());
             }
             rounds--;
 
         } else if (mode == 3) {
             replaceQuestion(new NoteDefense());
+            rounds--;
         } else if (mode == 4) {
             replaceQuestion(new NoteHero());
+            rounds--;
         }
     }
 

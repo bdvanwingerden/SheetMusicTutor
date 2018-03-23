@@ -32,11 +32,16 @@ public class NoteDefense extends Fragment {
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            staff.removeView(drawNoteGame);
-            staff.addView(drawNoteGame);
-            handler.postDelayed(runnable, 15);
+            if(drawNoteGame.isDone){
+                callback.questionPressed(null);
+            }else {
+                staff.removeView(drawNoteGame);
+                staff.addView(drawNoteGame);
+                handler.postDelayed(runnable, 15);
+            }
         }
     };
+
 
     /**
      * inflates the view to fit its calling container
