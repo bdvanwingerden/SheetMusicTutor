@@ -96,6 +96,8 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     AnimatedNote spaceship;
 
+    LinkedList<AnimatedNote> shot;
+
     /**
      * how many frames the spaceship is given to travel between destinations
      */
@@ -145,6 +147,7 @@ public class DrawNoteGame extends AppCompatImageView {
         verMargin = size.x / 8;
 
         spaceship = new AnimatedNote(Tone.NOTONE, 0, false);
+        shot = new LinkedList<AnimatedNote>();
 
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -186,6 +189,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
         updateNotesOnField();
         updateLives();
+        updateScore();
     }
 
     /**
@@ -244,12 +248,17 @@ public class DrawNoteGame extends AppCompatImageView {
 
         note.setX(horMargin);
         note.setY(locateNote(note));
+        Drawable noteShape;
 
         /**
          * drawing the note head
          */
-        Drawable noteShape = getResources()
-                .getDrawable(R.drawable.q_note_head, null);
+        if(gameMode == 1) {
+            noteShape = getResources()
+                    .getDrawable(R.drawable.q_note_head, null);
+        }else{
+            noteShape = getResources().getDrawable(R.drawable.ic_001_ufo, null);
+        }
         noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                 , note.getX() + noteWidth, note.getY() + noteHeight);
 
@@ -276,12 +285,22 @@ public class DrawNoteGame extends AppCompatImageView {
     public void updateNotesOnField() {
         LinkedList<AnimatedNote> temp = (LinkedList<AnimatedNote>) onFieldNotes.clone();
 
+
         for (AnimatedNote note : temp) {
 
             if (currentLives > 0) {
 
-                if (note.turnsSinceHit == travelFrames) {
+                if (note.turnsSinceHit >= travelFrames && (note.getY() < spaceship.getY() + noteWidth
+               && note.getY() > spaceship.getY() - noteWidth)) {
+
+                    paint.setColor(Color.RED);
+                    float temp1 = paint.getStrokeWidth();
+                    paint.setStrokeWidth(noteWidth/4);
+                    canvas.drawLine(spaceship.getX(), spaceship.getY(),
+                            note.getX(),note.getY(), paint);
                     note.setVerSpeed(9);
+                    paint.setStrokeWidth(temp1);
+                    paint.setColor(Color.BLACK);
                 }
 
                 note.setX(note.horSpeed + note.getX());
@@ -415,14 +434,12 @@ public class DrawNoteGame extends AppCompatImageView {
             if (note.getTone().equals(noteToFireAt.getTone())
                     && !note.isDestroyed) {
 
-                spaceship.setTarget(note);
+                spaceship.setTarget(getClosestUnplayedTone(note.getTone()));
 
                 if(spaceship.getY() > note.getY()) {
                     spaceship.setVerSpeed((note.getY()-spaceship.getY())/travelFrames);
-                    System.out.println("VERSPEED UP"+spaceship.verSpeed);
                 }else if(spaceship.getY() < note.getY()){
                     spaceship.setVerSpeed(-(spaceship.getY()-note.getY())/travelFrames);
-                    System.out.println("VERSPEED DOWN"+spaceship.verSpeed);
                 }else{
 
                 }
@@ -491,6 +508,22 @@ public class DrawNoteGame extends AppCompatImageView {
        return new AnimatedNote(Tone.NOTONE, 0, false);
     }
 
+    public AnimatedNote getClosestUnplayedTone(Tone tone){
+        AnimatedNote closest = null;
+        for(AnimatedNote note: onFieldNotes) {
+            if (note.getTone() == tone && !note.isDestroyed) {
+                if(closest == null){
+                    closest = note;
+                }else{
+                    if(closest.getX() < note.getX()){
+                        closest = note;
+                    }
+                }
+            }
+        }
+        return  closest;
+    }
+
     /**
      * changes the drawable of an animated note and attempts to grow it
      * @param drawable the drawable to change the ntoe to
@@ -531,7 +564,6 @@ public class DrawNoteGame extends AppCompatImageView {
         int y = 0;
 
         for(Drawable life : lives){
-            System.out.println("LIVES");
             life.setBounds(x - 2*noteWidth, y, x, y + 2* noteWidth);
             life.draw(canvas);
             x -= 3*noteWidth;
@@ -540,7 +572,9 @@ public class DrawNoteGame extends AppCompatImageView {
     }
 
     public void updateScore(){
-
+        paint.setTextSize(2*noteWidth);
+        canvas.drawText("Score : " + currentScore, size.x- 12*noteWidth,
+                paint.getTextSize(), paint);
     }
 
 }
