@@ -124,8 +124,8 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                         drawStaff.lastClickX = 0;
                         drawStaff.lastClickY = 0;
                         //drawStaff = new DrawStaff(this.getContext());
-                        callback.questionPressed(null); // ENDS this question
-
+                        callback.questionPressed(null, 1, 1); // ENDS this question
+                        //TODO Count score for staff mode
                     }
                     return location;
 

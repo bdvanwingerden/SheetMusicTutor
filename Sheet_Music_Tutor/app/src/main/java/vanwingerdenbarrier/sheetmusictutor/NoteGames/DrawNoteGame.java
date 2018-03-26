@@ -329,9 +329,12 @@ public class DrawNoteGame extends AppCompatImageView {
             }
             if ((note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0)
                     && note != spaceship) {
-                if(note.isDestroyed){
-                    note.isDestroyed = true;
-                }else{
+
+                if(!note.isDestroyed && gameMode == 0){
+                    note.setDestroyed(this.getContext());
+                    currentLives--;
+                }else if(!note.isPlayed && gameMode == 1){
+                    note.setIsPlayed();
                     currentLives--;
                 }
 
@@ -347,7 +350,6 @@ public class DrawNoteGame extends AppCompatImageView {
                 isDone = true;
             }else if(currentScore >= 10){
                 temp.clear();
-                System.out.println("AAA EXIT");
                 isDone = true;
             }
         }
@@ -508,6 +510,11 @@ public class DrawNoteGame extends AppCompatImageView {
        return new AnimatedNote(Tone.NOTONE, 0, false);
     }
 
+    /**
+     * gets the unplayed note of a given tone closest to the ege of the screen
+     * @param tone the tone to search for
+     * @return the AnimatedNote that was found
+     */
     public AnimatedNote getClosestUnplayedTone(Tone tone){
         AnimatedNote closest = null;
         for(AnimatedNote note: onFieldNotes) {

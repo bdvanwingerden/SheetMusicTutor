@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
+import java.time.Instant;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
@@ -55,10 +56,10 @@ public class GameActivity extends FragmentActivity
     /**
      * Allows us to pass information between our fragments
      */
-    public void questionPressed(Object correct) {
+    public void questionPressed(Object correct, int score, int lives) {
 
         if(correct == null){
-            endQuestion();
+            endQuestion(score, lives);
         }else if(currentAnswer instanceof QuizAnswerFragment){
             ((QuizAnswerFragment) currentAnswer).setQuestion((int)correct);
             fragmentTransaction = fragmentManager.beginTransaction();
@@ -148,27 +149,35 @@ public class GameActivity extends FragmentActivity
     /**
      * ends the current question
      */
-    public void endQuestion() {
+    public void endQuestion(int score, int lives) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Good Job!");
-        alertDialog.setMessage("you scored xx!");
+
+        if(lives > 0) {
+            alertDialog.setTitle("Good Job!");
+            alertDialog.setMessage("You scored:" + score + "!");
+
+        }else{
+            alertDialog.setTitle("Too Bad!");
+            alertDialog.setMessage("You ran out of lives!!");
+            alertDialog.setMessage("You scored:" + score + "!");
+        }
+
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {
 
-                        if(rounds  <= 1){
+                        if (rounds <= 1) {
                             //finish();
                             sendResults();
-                        }else{
+                        } else {
                             makeNextQuestion();
                         }
 
                         dialogInterface.dismiss();
                     }
                 });
-
         alertDialog.show();
     }
 

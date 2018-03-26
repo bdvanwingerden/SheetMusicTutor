@@ -33,7 +33,7 @@ public class NoteDefense extends Fragment {
         @Override
         public void run() {
             if(drawNoteGame.isDone){
-                callback.questionPressed(null);
+                callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
             }else {
                 staff.removeView(drawNoteGame);
                 staff.addView(drawNoteGame);

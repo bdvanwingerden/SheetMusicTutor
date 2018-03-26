@@ -30,7 +30,7 @@ public class NoteHero extends Fragment {
         @Override
         public void run() {
             if(drawNoteGame.isDone){
-                callback.questionPressed(null);
+                callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentScore);
             }else {
                 staff.removeView(drawNoteGame);
                 staff.addView(drawNoteGame);

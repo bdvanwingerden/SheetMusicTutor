@@ -8,6 +8,6 @@ import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 
 public interface QuestionDisplay{
     interface Display{
-        void questionPressed(Object question);
+        void questionPressed(Object question, int score, int lives);
     }
 }

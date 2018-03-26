@@ -65,7 +65,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
         question.setText(qS.getQuestion(questionIndex));
         correctAnswer = qS.getCorrectAnswer(questionIndex);
 
-        callback.questionPressed(questionIndex);
+        callback.questionPressed(questionIndex, 0, 0);
 
         return view;
     }
@@ -78,7 +78,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
 
         if(answer.equals(correctAnswer)){
             Toast.makeText(this.getContext(),"Correct", Toast.LENGTH_SHORT);
-            callback.questionPressed(null);
+            callback.questionPressed(null, 1, 1);
         }else{
             Toast.makeText(this.getContext(),"Incorrect, Try Again", Toast.LENGTH_SHORT);
         }
