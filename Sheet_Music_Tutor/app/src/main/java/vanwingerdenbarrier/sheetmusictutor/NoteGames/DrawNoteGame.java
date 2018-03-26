@@ -96,6 +96,9 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     AnimatedNote spaceship;
 
+    /**
+     * contains any shots made from the spaceship
+     */
     LinkedList<AnimatedNote> shot;
 
     /**
@@ -108,8 +111,14 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
 
+    /**
+     * set to true when the game is over
+     */
     public boolean isDone;
 
+    /**
+     * contains all the drawables indicating the number of lives remaining
+     */
     public Drawable[] lives;
 
     /**
@@ -542,6 +551,11 @@ public class DrawNoteGame extends AppCompatImageView {
         note.setNoteShape(drawable);
     }
 
+    /**
+     * creates an AnimatedNote and sets its drawable shape to a spaceship then initiates any other
+     * variables for the spaceship
+     * @param canvas the canvas to draw the ship onto
+     */
     public void drawShip(Canvas canvas){
         Drawable ship = getResources().getDrawable(R.drawable.ic_002_spaceship, null);
         spaceship.setNoteShape(ship);
@@ -556,7 +570,9 @@ public class DrawNoteGame extends AppCompatImageView {
         onFieldNotes.add(spaceship);
     }
 
-
+    /**
+     * draws the number of remaining lives that the player has
+     */
     public void updateLives(){
 
         for(int i = 0; i < lives.length; i++){
@@ -578,6 +594,9 @@ public class DrawNoteGame extends AppCompatImageView {
 
     }
 
+    /**
+     * draws the current score of the user that is playing
+     */
     public void updateScore(){
         paint.setTextSize(2*noteWidth);
         canvas.drawText("Score : " + currentScore, size.x- 12*noteWidth,

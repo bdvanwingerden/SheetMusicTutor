@@ -124,10 +124,18 @@ public class AnimatedNote extends Note {
         return  noteShape;
     }
 
+    /**
+     * sets the target of this note if it is a spaceship
+     * @param target the target to shoot at
+     */
     public void setTarget(AnimatedNote target){
         this.target = target;
     }
 
+    /**
+     * stores and returns the target of this note if it is a spaceship object
+     * @return the target note
+     */
     public AnimatedNote getTarget(){
         return target;
     }

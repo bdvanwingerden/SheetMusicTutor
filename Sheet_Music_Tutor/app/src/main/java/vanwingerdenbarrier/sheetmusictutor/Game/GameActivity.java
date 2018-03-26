@@ -54,7 +54,8 @@ public class GameActivity extends FragmentActivity
     int rounds;
 
     /**
-     * Allows us to pass information between our fragments
+     * Allows us to pass information between our fragments if object is null then the question is done
+     * and the score and remaining lives are passed via score and lives if applicable
      */
     public void questionPressed(Object correct, int score, int lives) {
 
