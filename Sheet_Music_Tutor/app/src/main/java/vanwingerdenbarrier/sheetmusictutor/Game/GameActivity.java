@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
@@ -110,6 +112,9 @@ public class GameActivity extends FragmentActivity
         } else if (gameType == 4) {
             addQuestion(new NoteHero());
             addAnswer(new KeyFragment());
+        } else if (gameType == 5) {
+            addQuestion(new GuessNote());
+            addAnswer(new GuessNoteText());
         } else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
         }
