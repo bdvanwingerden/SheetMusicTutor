@@ -92,9 +92,34 @@ public class DrawNoteGame extends AppCompatImageView {
     int goalPos;
 
     /**
+     *
+     */
+    AnimatedNote spaceship;
+
+    /**
+     * contains any shots made from the spaceship
+     */
+    LinkedList<AnimatedNote> shot;
+
+    /**
+     * how many frames the spaceship is given to travel between destinations
+     */
+    static final int travelFrames = 10;
+
+    /**
      * handles all our toasty toasts
      */
     Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
+
+    /**
+     * set to true when the game is over
+     */
+    public boolean isDone;
+
+    /**
+     * contains all the drawables indicating the number of lives remaining
+     */
+    public Drawable[] lives;
 
     /**
      * public constructor to create a DrawStaff object
@@ -107,11 +132,15 @@ public class DrawNoteGame extends AppCompatImageView {
     public DrawNoteGame(final Context context, int currentDifficulty, int gameMode) {
         super(context);
 
+        isDone = false;
+
         onFieldNotes = new LinkedList<>();
 
         this.currentDifficulty = currentDifficulty;
         currentScore = 0;
         currentLives = 4;
+        lives = new Drawable[currentLives-1];
+
         this.gameMode = gameMode;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -126,6 +155,8 @@ public class DrawNoteGame extends AppCompatImageView {
         /*middle of screen vermarginATM*/
         verMargin = size.x / 8;
 
+        spaceship = new AnimatedNote(Tone.NOTONE, 0, false);
+        shot = new LinkedList<AnimatedNote>();
 
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -144,10 +175,13 @@ public class DrawNoteGame extends AppCompatImageView {
         drawStaff(canvas);
 
         if (gameMode == 0) {
-            if (onFieldNotes.size() < random.nextInt(5) && currentLives > 0) {
-                for (int i = random.nextInt(4); i > 0; i--) {
+            if(onFieldNotes.size() < 1) {
+                drawShip(canvas);
+            }
+            if (onFieldNotes.size() < random.nextInt(4) + 1 && currentLives > 0) {
+                for (int i = random.nextInt(3); i > 0; i--) {
                     addNote(false, getRandomNote(false),
-                            random.nextInt(15) + 1);
+                            random.nextInt(8) + 1);
                 }
             }
         } else if (gameMode == 1) {
@@ -163,6 +197,8 @@ public class DrawNoteGame extends AppCompatImageView {
         }
 
         updateNotesOnField();
+        updateLives();
+        updateScore();
     }
 
     /**
@@ -221,12 +257,17 @@ public class DrawNoteGame extends AppCompatImageView {
 
         note.setX(horMargin);
         note.setY(locateNote(note));
+        Drawable noteShape;
 
         /**
          * drawing the note head
          */
-        Drawable noteShape = getResources()
-                .getDrawable(R.drawable.q_note_head, null);
+        if(gameMode == 1) {
+            noteShape = getResources()
+                    .getDrawable(R.drawable.q_note_head, null);
+        }else{
+            noteShape = getResources().getDrawable(R.drawable.ic_001_ufo, null);
+        }
         noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                 , note.getX() + noteWidth, note.getY() + noteHeight);
 
@@ -253,28 +294,72 @@ public class DrawNoteGame extends AppCompatImageView {
     public void updateNotesOnField() {
         LinkedList<AnimatedNote> temp = (LinkedList<AnimatedNote>) onFieldNotes.clone();
 
+
         for (AnimatedNote note : temp) {
 
             if (currentLives > 0) {
 
-                if (note.turnsSinceHit == shotSpeedDivision) {
+                if (note.turnsSinceHit >= travelFrames && (note.getY() < spaceship.getY() + noteWidth
+               && note.getY() > spaceship.getY() - noteWidth)) {
+
+                    paint.setColor(Color.RED);
+                    float temp1 = paint.getStrokeWidth();
+                    paint.setStrokeWidth(noteWidth/4);
+                    canvas.drawLine(spaceship.getX(), spaceship.getY(),
+                            note.getX(),note.getY(), paint);
                     note.setVerSpeed(9);
+                    paint.setStrokeWidth(temp1);
+                    paint.setColor(Color.BLACK);
                 }
 
                 note.setX(note.horSpeed + note.getX());
                 note.setY(note.verSpeed + note.getY());
-                note.noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
-                        , note.getX() + noteWidth, note.getY() + noteHeight);
+
+                if(note != spaceship){
+                    note.noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
+                            , note.getX() + noteWidth, note.getY() + noteHeight);
+                }else{
+                    spaceship.noteShape.setBounds(spaceship.getX() - 3*noteWidth,
+                            spaceship.getY() - 2*noteHeight,
+                            spaceship.getX(),
+                            (int) spaceship.getY() + 2*noteHeight);
+                }
+
+                if(spaceship.getTarget() == note && (spaceship.getY() >= (note.getY() - noteHeight/4))
+                        &&  (spaceship.getY() <= (note.getY() + noteHeight/4))){
+                    note.setDestroyed(getContext());
+                    currentScore++;
+                    System.out.println("AAA CURRENT SCORE"  + currentScore);
+                    spaceship.setVerSpeed(0);
+                    spaceship.setTarget(new AnimatedNote(Tone.NOTONE, 0, false));
+                }
 
                 note.noteShape.draw(canvas);
             }
-            if (note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0) {
-                note.isDestroyed = true;
+            if ((note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0)
+                    && note != spaceship) {
+
+                if(!note.isDestroyed && gameMode == 0){
+                    note.setDestroyed(this.getContext());
+                    currentLives--;
+                }else if(!note.isPlayed && gameMode == 1){
+                    note.setIsPlayed();
+                    currentLives--;
+                }
+
                 note.setIsPlayed();
                 onFieldNotes.remove(note);
             }
+            if((note.getY() > size.y - size.y/2 || note.getY() < 0)
+                    && note == spaceship){
+                spaceship.verSpeed = 0;
+            }
             if (currentLives == 0) {
                 temp.clear();
+                isDone = true;
+            }else if(currentScore >= 10){
+                temp.clear();
+                isDone = true;
             }
         }
     }
@@ -324,6 +409,9 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public AnimatedNote getRandomNote(boolean sharpsAllowed) {
         Tone tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+        while(tempTone == Tone.NOTONE){
+            tempTone = Tone.values()[random.nextInt(Tone.values().length)];
+        }
 
         int tempPitch = 5;
         if (tempTone == Tone.E || tempTone == Tone.F) {
@@ -349,47 +437,27 @@ public class DrawNoteGame extends AppCompatImageView {
      *
      * @param noteToFireAt
      */
-    public int fire(Note noteToFireAt) {
-        int hit = 0;
+    public void fire(Note noteToFireAt) {
+
         LinkedList<AnimatedNote> tempList = (LinkedList<AnimatedNote>) onFieldNotes.clone();
+
         for (AnimatedNote note : tempList) {
-            if (note.getTone().equals(noteToFireAt.getTone()) && note.getPitch() == noteToFireAt.getPitch()
+            if (note.getTone().equals(noteToFireAt.getTone())
                     && !note.isDestroyed) {
-                note.setDestroyed(this.getContext());
-                hit++;
 
-                AnimatedNote shot = new AnimatedNote(Tone.A, 0, false);
-                shot.setNoteShape(getResources().getDrawable(R.drawable.arrowgreen));
-                shot.setX(size.x / 2);
-                shot.setY(0);
+                spaceship.setTarget(getClosestUnplayedTone(note.getTone()));
 
-                int verSpeed = (note.getY() / shotSpeedDivision);
-                shot.setVerSpeed(verSpeed);
-                int horSpeed = ((note.horSpeed) + (shotSpeedDivision * note.horSpeed)) / shotSpeedDivision;
+                if(spaceship.getY() > note.getY()) {
+                    spaceship.setVerSpeed((note.getY()-spaceship.getY())/travelFrames);
+                }else if(spaceship.getY() < note.getY()){
+                    spaceship.setVerSpeed(-(spaceship.getY()-note.getY())/travelFrames);
+                }else{
 
-                if (note.getX() < shot.getX()) {
-                    shot.setHorSpeed(-horSpeed);
-                } else {
-                    shot.setHorSpeed(horSpeed);
                 }
 
-                System.out.println("Shot " + shot.verSpeed + " " + horSpeed);
-
-                onFieldNotes.add(shot);
             }
         }
 
-        if (hit == 0) {
-            AnimatedNote shot = new AnimatedNote(Tone.A, 0, false);
-            shot.setHorSpeed(30);
-            shot.setVerSpeed(-random.nextInt(30));
-            shot.setNoteShape(getResources().getDrawable(R.drawable.arrowgreen));
-            shot.setX(size.x / 2);
-            shot.setY((size.y / 2) + 40);
-            onFieldNotes.add(shot);
-        }
-
-        return hit;
     }
 
     /**
@@ -410,16 +478,19 @@ public class DrawNoteGame extends AppCompatImageView {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
                 played.setIsPlayed();
+                currentScore++;
 
             } else if (noteDist < noteWidth && noteDist > -(noteWidth * 2)) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }
             else if (noteDist > noteWidth && noteDist < -(noteWidth * 2)) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }else{
                 toasty.setText("Too Soon!");
                 toasty.show();
@@ -429,6 +500,7 @@ public class DrawNoteGame extends AppCompatImageView {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_miss, null), played);
                 played.setIsPlayed();
+                currentLives--;
             }
         }
     }
@@ -444,7 +516,28 @@ public class DrawNoteGame extends AppCompatImageView {
                return note;
            }
        }
-       return new AnimatedNote(Tone.A, 20, false);
+       return new AnimatedNote(Tone.NOTONE, 0, false);
+    }
+
+    /**
+     * gets the unplayed note of a given tone closest to the ege of the screen
+     * @param tone the tone to search for
+     * @return the AnimatedNote that was found
+     */
+    public AnimatedNote getClosestUnplayedTone(Tone tone){
+        AnimatedNote closest = null;
+        for(AnimatedNote note: onFieldNotes) {
+            if (note.getTone() == tone && !note.isDestroyed) {
+                if(closest == null){
+                    closest = note;
+                }else{
+                    if(closest.getX() < note.getX()){
+                        closest = note;
+                    }
+                }
+            }
+        }
+        return  closest;
     }
 
     /**
@@ -457,5 +550,58 @@ public class DrawNoteGame extends AppCompatImageView {
                 , note.getX() + 20 * noteWidth, note.getY() +  10 *noteHeight);
         note.setNoteShape(drawable);
     }
+
+    /**
+     * creates an AnimatedNote and sets its drawable shape to a spaceship then initiates any other
+     * variables for the spaceship
+     * @param canvas the canvas to draw the ship onto
+     */
+    public void drawShip(Canvas canvas){
+        Drawable ship = getResources().getDrawable(R.drawable.ic_002_spaceship, null);
+        spaceship.setNoteShape(ship);
+        spaceship.setIsPlayed();
+        spaceship.setHorSpeed(0);
+        spaceship.setVerSpeed(0);
+        spaceship.setX(size.x);
+        spaceship.setY((int) lineArray[9]);
+        spaceship.noteShape.setBounds(spaceship.getX() - 3*noteWidth, spaceship.getY() - 2*noteHeight,
+                spaceship.getX(),(int) spaceship.getY() + 2*noteHeight);
+        spaceship.getNoteShape().draw(canvas);
+        onFieldNotes.add(spaceship);
+    }
+
+    /**
+     * draws the number of remaining lives that the player has
+     */
+    public void updateLives(){
+
+        for(int i = 0; i < lives.length; i++){
+            if(i < currentLives-1) {
+                lives[i] = getResources().getDrawable(R.drawable.ic_life);
+            }else{
+                lives[i] = getResources().getDrawable(R.drawable.ic_lost_life);
+            }
+        }
+
+        int x = size.x;
+        int y = 0;
+
+        for(Drawable life : lives){
+            life.setBounds(x - 2*noteWidth, y, x, y + 2* noteWidth);
+            life.draw(canvas);
+            x -= 3*noteWidth;
+        }
+
+    }
+
+    /**
+     * draws the current score of the user that is playing
+     */
+    public void updateScore(){
+        paint.setTextSize(2*noteWidth);
+        canvas.drawText("Score : " + currentScore, size.x- 12*noteWidth,
+                paint.getTextSize(), paint);
+    }
+
 }
 

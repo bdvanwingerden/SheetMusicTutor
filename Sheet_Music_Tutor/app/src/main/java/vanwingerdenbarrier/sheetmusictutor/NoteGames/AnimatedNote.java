@@ -28,6 +28,8 @@ public class AnimatedNote extends Note {
     int verSpeed;
     /* Keeps track of the number of turns since the note was hit */
     int turnsSinceHit;
+    /*target used for spaceship*/
+    AnimatedNote target;
 
 
     /**
@@ -44,6 +46,7 @@ public class AnimatedNote extends Note {
         isPlayed = false;
         verSpeed = 0;
         turnsSinceHit = 0;
+        target = null;
     }
 
     /**
@@ -54,6 +57,7 @@ public class AnimatedNote extends Note {
         super(note.getTone(), note.getPitch(), Duration.QUARTER, note.isSharp());
         isDestroyed = false;
         verSpeed = 0;
+        target = null;
     }
 
     /**
@@ -118,6 +122,22 @@ public class AnimatedNote extends Note {
      */
     public Drawable getNoteShape(){
         return  noteShape;
+    }
+
+    /**
+     * sets the target of this note if it is a spaceship
+     * @param target the target to shoot at
+     */
+    public void setTarget(AnimatedNote target){
+        this.target = target;
+    }
+
+    /**
+     * stores and returns the target of this note if it is a spaceship object
+     * @return the target note
+     */
+    public AnimatedNote getTarget(){
+        return target;
     }
 
 }

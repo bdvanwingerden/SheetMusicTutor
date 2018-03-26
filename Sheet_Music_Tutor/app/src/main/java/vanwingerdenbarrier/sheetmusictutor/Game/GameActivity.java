@@ -2,6 +2,7 @@ package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
+
+import java.time.Instant;
+import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
@@ -41,6 +45,7 @@ public class GameActivity extends FragmentActivity
      * 0 = quiz,
      * 1 = staff,
      * 2 = combo
+     * etc
      */
     int mode;
 
@@ -51,12 +56,13 @@ public class GameActivity extends FragmentActivity
     int rounds;
 
     /**
-     * Allows us to pass information between our fragments
+     * Allows us to pass information between our fragments if object is null then the question is done
+     * and the score and remaining lives are passed via score and lives if applicable
      */
-    public void questionPressed(Object correct) {
+    public void questionPressed(Object correct, int score, int lives) {
 
         if(correct == null){
-            endQuestion();
+            endQuestion(score, lives);
         }else if(currentAnswer instanceof QuizAnswerFragment){
             ((QuizAnswerFragment) currentAnswer).setQuestion((int)correct);
             fragmentTransaction = fragmentManager.beginTransaction();
@@ -149,27 +155,35 @@ public class GameActivity extends FragmentActivity
     /**
      * ends the current question
      */
-    public void endQuestion() {
+    public void endQuestion(int score, int lives) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Good Job!");
-        alertDialog.setMessage("you scored xx!");
+
+        if(lives > 0) {
+            alertDialog.setTitle("Good Job!");
+            alertDialog.setMessage("You scored:" + score + "!");
+
+        }else{
+            alertDialog.setTitle("Too Bad!");
+            alertDialog.setMessage("You ran out of lives!!");
+            alertDialog.setMessage("You scored:" + score + "!");
+        }
+
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {
 
-                        if(rounds  <= 1){
+                        if (rounds <= 1) {
                             //finish();
                             sendResults();
-                        }else{
+                        } else {
                             makeNextQuestion();
                         }
 
                         dialogInterface.dismiss();
                     }
                 });
-
         alertDialog.show();
     }
 
@@ -228,22 +242,30 @@ public class GameActivity extends FragmentActivity
 
         }else if (mode == 2){
 
-            if(currentQuestion instanceof QuizQuestionFragment && currentAnswer
-                    instanceof QuizAnswerFragment){
+            Random rand = new Random();
+            int next = rand.nextInt(4);
 
+            if(next == 0){
                 replaceQuestion(new StaffFragment());
                 replaceAnswer(new KeyFragment());
-            }else if(currentQuestion instanceof StaffFragment && currentAnswer instanceof KeyFragment){
-
+            }else if(next == 1){
                 replaceQuestion(new QuizQuestionFragment());
                 replaceAnswer(new QuizAnswerFragment());
+            }else if(next == 2){
+                replaceQuestion(new NoteDefense());
+                replaceAnswer(new KeyFragment());
+            }else if(next == 3){
+                replaceQuestion(new NoteHero());
+                replaceAnswer(new KeyFragment());
             }
             rounds--;
 
         } else if (mode == 3) {
             replaceQuestion(new NoteDefense());
+            rounds--;
         } else if (mode == 4) {
             replaceQuestion(new NoteHero());
+            rounds--;
         }
     }
 

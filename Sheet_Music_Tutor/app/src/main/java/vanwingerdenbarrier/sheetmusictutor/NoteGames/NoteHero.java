@@ -29,9 +29,13 @@ public class NoteHero extends Fragment {
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            staff.removeView(drawNoteGame);
-            staff.addView(drawNoteGame);
-            handler.postDelayed(runnable, 15);
+            if(drawNoteGame.isDone){
+                callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentScore);
+            }else {
+                staff.removeView(drawNoteGame);
+                staff.addView(drawNoteGame);
+                handler.postDelayed(runnable, 15);
+            }
         }
     };
 
