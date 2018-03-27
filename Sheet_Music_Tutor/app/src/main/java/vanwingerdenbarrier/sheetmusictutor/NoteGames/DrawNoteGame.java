@@ -250,8 +250,6 @@ public class DrawNoteGame extends AppCompatImageView {
         noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
         noteWidth = noteHeight + (noteHeight / 3);
 
-        paint.setStrokeWidth(noteHeight / 4);
-
         horMargin += horMargin;
 
 
@@ -303,13 +301,14 @@ public class DrawNoteGame extends AppCompatImageView {
                && note.getY() > spaceship.getY() - noteWidth)) {
 
                     paint.setColor(Color.RED);
-                    float temp1 = paint.getStrokeWidth();
-                    paint.setStrokeWidth(noteWidth/4);
+                    Paint temp1 = new Paint();
+                    temp1.setColor(Color.RED);
+                    temp1.setStrokeWidth(noteWidth/4);
                     canvas.drawLine(spaceship.getX(), spaceship.getY(),
-                            note.getX(),note.getY(), paint);
+                            note.getX(),note.getY(), temp1);
                     note.setVerSpeed(9);
-                    paint.setStrokeWidth(temp1);
                     paint.setColor(Color.BLACK);
+                    spaceship.getNoteShape().draw(canvas);
                 }
 
                 note.setX(note.horSpeed + note.getX());
@@ -329,7 +328,6 @@ public class DrawNoteGame extends AppCompatImageView {
                         &&  (spaceship.getY() <= (note.getY() + noteHeight/4))){
                     note.setDestroyed(getContext());
                     currentScore++;
-                    System.out.println("AAA CURRENT SCORE"  + currentScore);
                     spaceship.setVerSpeed(0);
                     spaceship.setTarget(new AnimatedNote(Tone.NOTONE, 0, false));
                 }
@@ -357,7 +355,7 @@ public class DrawNoteGame extends AppCompatImageView {
             if (currentLives == 0) {
                 temp.clear();
                 isDone = true;
-            }else if(currentScore >= 10){
+            }else if(currentScore >= 20){
                 temp.clear();
                 isDone = true;
             }
@@ -599,7 +597,7 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void updateScore(){
         paint.setTextSize(2*noteWidth);
-        canvas.drawText("Score : " + currentScore, size.x- 12*noteWidth,
+        canvas.drawText("Score : " + currentScore, size.x- 14*noteWidth,
                 paint.getTextSize(), paint);
     }
 
