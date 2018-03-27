@@ -81,9 +81,9 @@ public class AchievementsListView extends AppCompatActivity{
     int lockIcon = R.drawable.lock;
 
     /**Names of each particular achievement. Get From XML!!!!*/
-    String[] NAMES = {"Baby Steps 0/1","Finding Balance 0/4",
-            "Rookie No More 0/8","Hard Rocker 0/16",
-            "Blind Ninja 0/8","Note-Meister 0/5"};
+    String[] NAMES = {"Achievement 1) 0/1","Achievement 2) 0/4",
+            "Achievement 3) 0/8","Achievement 4) 0/16",
+            "Achievement 5) 0/8","Achievement 6) 0/5"};
 
     /**Starting progress for each achievement*/
     int[] PROGRESS = {0,0,0,0,0,0};

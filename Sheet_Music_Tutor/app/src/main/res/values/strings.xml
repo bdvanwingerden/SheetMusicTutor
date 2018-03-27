@@ -18,6 +18,8 @@
     <string name="hard_rocker">Hard Rocker 0/16</string>
     <string name="blind_ninja">Blind Ninja 0/8</string>
     <string name="note_meister">Note-Meister 0/5</string>
+    <string name="guess_note">Guess the Note!</string>
+    <string name="score">Score 0</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
