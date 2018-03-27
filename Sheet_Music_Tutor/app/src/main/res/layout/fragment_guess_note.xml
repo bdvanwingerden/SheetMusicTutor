@@ -22,56 +22,56 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:text="cs"
-            android:id="@+id/cs"/>
+            android:text="@string/question_mark"
+            android:id="@+id/cs2"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="ds"
+            android:text="@string/question_mark"
             android:background="@color/black"
             android:textColor="@color/gold"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/ds"/>
+            android:id="@+id/ds2"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="fs"
+            android:text="@string/question_mark"
             android:background="@color/black"
             android:textColor="@color/gold"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/fs"/>
+            android:id="@+id/fs2"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="gs"
+            android:text="@string/question_mark"
             android:background="@color/black"
             android:textColor="@color/gold"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/gs"/>
+            android:id="@+id/gs2"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="as"
+            android:text="@string/question_mark"
             android:background="@color/black"
             android:textColor="@color/gold"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/as"/>
+            android:id="@+id/as2"/>
 
     </LinearLayout>
 
@@ -91,7 +91,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:text="c"
-            android:id="@+id/c"/>
+            android:id="@+id/c1"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/d"/>
+            android:id="@+id/d1"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -115,7 +115,7 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/e"/>
+            android:id="@+id/e1"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -127,7 +127,7 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/f"/>
+            android:id="@+id/f1"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -139,7 +139,7 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/g"/>
+            android:id="@+id/g1"/>
         <Button
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -151,10 +151,10 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:id="@+id/a"/>
+            android:id="@+id/a1"/>
 
         <Button
-            android:id="@+id/b"
+            android:id="@+id/b1"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"

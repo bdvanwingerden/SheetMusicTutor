@@ -10,24 +10,86 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/gold"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:id="@+id/option1"/>
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/gold"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            style="@style/button_style"
+            android:id="@+id/option2"/>
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/gold"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            style="@style/button_style"
+            android:id="@+id/option3"/>
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/gold"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            style="@style/button_style"
+            android:id="@+id/option4"/>
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/gold"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            style="@style/button_style"
+            android:id="@+id/option5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
         <TextView
+            android:id="@+id/scoreGuess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/guess_note"
+            android:text="@string/score"
             android:textColor="@color/gold"
             android:textStyle="bold"
             android:textSize="24dp"
             android:layout_gravity="center_horizontal"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
         <TextView
+            android:id="@+id/tryGuess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/score"
+            android:text="Tries 0/3"
             android:textColor="@color/gold"
             android:textStyle="bold"
             android:textSize="24dp"

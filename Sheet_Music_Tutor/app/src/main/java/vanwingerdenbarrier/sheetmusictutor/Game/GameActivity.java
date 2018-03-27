@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.time.Instant;
@@ -78,7 +79,6 @@ public class GameActivity extends FragmentActivity
      * @param event
      */
     public void answerPressed(Object answer, MotionEvent event) {
-
         if (currentQuestion instanceof StaffFragment && event != null) {
             ((StaffFragment) currentQuestion)
                     .colorNoteOnStaff(((StaffFragment) currentQuestion)
@@ -94,6 +94,10 @@ public class GameActivity extends FragmentActivity
             ((NoteDefense) currentQuestion).fireNote((Note) answer);
         } else if (currentQuestion instanceof NoteHero && event != null) {
             ((NoteHero) currentQuestion).playNote((Note) answer);
+        }else if (currentQuestion instanceof GuessNote){
+
+            ((GuessNote) currentQuestion).checkIfCorrect((String)answer);
+            new UserList(this.getApplicationContext()).addUserAttempt();
         }
     }
 

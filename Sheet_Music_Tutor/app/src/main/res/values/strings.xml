@@ -20,6 +20,7 @@
     <string name="note_meister">Note-Meister 0/5</string>
     <string name="guess_note">Guess the Note!</string>
     <string name="score">Score 0</string>
+    <string name="question_mark">\?</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

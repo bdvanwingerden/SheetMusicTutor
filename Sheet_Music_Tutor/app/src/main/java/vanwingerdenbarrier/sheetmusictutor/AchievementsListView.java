@@ -345,7 +345,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("FINDING BALANCE "+attempted+"/4");
+                textView_name.setText("Achievement 2) "+attempted+"/4");
             }
         }//end findingBalance()
 
@@ -375,7 +375,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("ROOKIE NO MORE "+attempted+"/8");
+                textView_name.setText("Achievement 3) "+attempted+"/8");
             }
         }//end rookieNoMore()
 
@@ -399,7 +399,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("BLIND NINJA "+attempted+"/8");
+                textView_name.setText("Achievement 4) "+attempted+"/8");
             }
         }//end blindNinja()
 
@@ -423,7 +423,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("HARD ROCKER "+attempted+"/16");
+                textView_name.setText("Achievement 5) "+attempted+"/16");
             }
         }//end hardRocker()
 
@@ -444,7 +444,7 @@ public class AchievementsListView extends AppCompatActivity{
                 imageView.setImageResource(IMAGES[position]);
             }
             else{
-                textView_name.setText("NOTE-MEISTER "+achievementCount+"/5");
+                textView_name.setText("Achievement 6) "+achievementCount+"/5");
             }
         }//end noteMeister()
 
