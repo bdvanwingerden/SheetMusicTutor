@@ -8,10 +8,12 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.HapticFeedbackConstants;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -339,6 +341,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
                 if(!note.isDestroyed && gameMode == 0){
                     note.setDestroyed(this.getContext());
+                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                     currentLives--;
                 }else if(!note.isPlayed && gameMode == 1){
                     note.setIsPlayed();
@@ -439,6 +442,9 @@ public class DrawNoteGame extends AppCompatImageView {
 
         LinkedList<AnimatedNote> tempList = (LinkedList<AnimatedNote>) onFieldNotes.clone();
 
+        performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+//        System.out.println("FIRE");
+
         for (AnimatedNote note : tempList) {
             if (note.getTone().equals(noteToFireAt.getTone())
                     && !note.isDestroyed) {
@@ -482,12 +488,15 @@ public class DrawNoteGame extends AppCompatImageView {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
                 currentLives--;
             }
             else if (noteDist > noteWidth && noteDist < -(noteWidth * 2)) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_slow, null), played);
                 played.setIsPlayed();
+                performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+
                 currentLives--;
             }else{
                 toasty.setText("Too Soon!");
@@ -496,6 +505,7 @@ public class DrawNoteGame extends AppCompatImageView {
         } else {
             if(getFirstUnplayed().getX() > goalPos && getFirstUnplayed() != null){
                 played = getFirstUnplayed();
+                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                 drawResult(getResources().getDrawable(R.drawable.ic_miss, null), played);
                 played.setIsPlayed();
                 currentLives--;
