@@ -2,10 +2,12 @@ package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import vanwingerdenbarrier.sheetmusictutor.AchievementsListView;
 import vanwingerdenbarrier.sheetmusictutor.Game.AnswerDisplay;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
@@ -57,6 +60,7 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getActivity();
 
         view = (ViewGroup) inflater.inflate(R.layout.fragment_guess_note,
@@ -88,6 +92,19 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
         fs.setOnClickListener(this);
         g.setOnClickListener(this);
         gs.setOnClickListener(this);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Ear Trainer!");
+        alertDialog.setMessage("Correctly guess the note and you get a point!");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        alertDialog.show();
 
         createPool();
 
