@@ -8,6 +8,8 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.MediaPlayer;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
@@ -42,6 +44,7 @@ public class DrawNoteGame extends AppCompatImageView {
      * the paint to use throughout DrawStaff, what fills objects
      */
     Paint paint;
+    Paint paint2;
     /**
      * a temporary random integer to allow testing of our other methods
      */
@@ -123,6 +126,8 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public Drawable[] lives;
 
+    MediaPlayer mp;
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -163,6 +168,8 @@ public class DrawNoteGame extends AppCompatImageView {
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(horMargin / 3);
+        paint2 = new Paint();
+        paint2.setColor(Color.RED);
     }
 
     /**
@@ -197,6 +204,8 @@ public class DrawNoteGame extends AppCompatImageView {
                 }
             }
         }
+
+        paint2.setStrokeWidth(noteWidth/4);
 
         updateNotesOnField();
         updateLives();
@@ -299,18 +308,28 @@ public class DrawNoteGame extends AppCompatImageView {
 
             if (currentLives > 0) {
 
-                if (note.turnsSinceHit >= travelFrames && (note.getY() < spaceship.getY() + noteWidth
+                if(note == spaceship.getTarget()){
+                    canvas.drawLine(spaceship.getX(), spaceship.getY(),
+                            note.getX(),note.getY(), paint2);
+                    spaceship.getNoteShape().draw(canvas);
+                    if((spaceship.getY() >= (note.getY() - noteHeight/4))
+                            &&  (spaceship.getY() <= (note.getY() + noteHeight/4))){
+                        note.setDestroyed(getContext());
+                        spaceship.setVerSpeed(0);
+                    }
+                }
+
+                if (note.turnsSinceHit == 3 && (note.getY() < spaceship.getY() + noteWidth
                && note.getY() > spaceship.getY() - noteWidth)) {
 
-                    paint.setColor(Color.RED);
-                    Paint temp1 = new Paint();
-                    temp1.setColor(Color.RED);
-                    temp1.setStrokeWidth(noteWidth/4);
-                    canvas.drawLine(spaceship.getX(), spaceship.getY(),
-                            note.getX(),note.getY(), temp1);
+                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                    note.setNoteShape(getResources().getDrawable(R.drawable.ic_pow));
+                    note.getNoteShape().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                    playTone(Tone.NOTONE, false);
                     note.setVerSpeed(9);
-                    paint.setColor(Color.BLACK);
-                    spaceship.getNoteShape().draw(canvas);
+                    currentScore++;
+                    spaceship.setTarget(new AnimatedNote(Tone.NOTONE, 0, false));
+
                 }
 
                 note.setX(note.horSpeed + note.getX());
@@ -324,14 +343,6 @@ public class DrawNoteGame extends AppCompatImageView {
                             spaceship.getY() - 2*noteHeight,
                             spaceship.getX(),
                             (int) spaceship.getY() + 2*noteHeight);
-                }
-
-                if(spaceship.getTarget() == note && (spaceship.getY() >= (note.getY() - noteHeight/4))
-                        &&  (spaceship.getY() <= (note.getY() + noteHeight/4))){
-                    note.setDestroyed(getContext());
-                    currentScore++;
-                    spaceship.setVerSpeed(0);
-                    spaceship.setTarget(new AnimatedNote(Tone.NOTONE, 0, false));
                 }
 
                 note.noteShape.draw(canvas);
@@ -440,25 +451,33 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void fire(Note noteToFireAt) {
 
-        LinkedList<AnimatedNote> tempList = (LinkedList<AnimatedNote>) onFieldNotes.clone();
-
         performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-//        System.out.println("FIRE");
 
-        for (AnimatedNote note : tempList) {
-            if (note.getTone().equals(noteToFireAt.getTone())
-                    && !note.isDestroyed) {
+        AnimatedNote closest = null;
 
-                spaceship.setTarget(getClosestUnplayedTone(note.getTone()));
+        for (AnimatedNote note : onFieldNotes) {
+            if (!note.isDestroyed && note.getTone() == noteToFireAt.getTone()) {
 
-                if(spaceship.getY() > note.getY()) {
-                    spaceship.setVerSpeed((note.getY()-spaceship.getY())/travelFrames);
-                }else if(spaceship.getY() < note.getY()){
-                    spaceship.setVerSpeed(-(spaceship.getY()-note.getY())/travelFrames);
-                }else{
-
+                if(closest == null){
+                    closest = note;
+                }else if(closest.getX() < note.getX()){
+                        closest = note;
                 }
 
+            }
+
+        }
+
+        if(closest != null) {
+
+            spaceship.setTarget(closest);
+
+            if (spaceship.getY() > spaceship.getTarget().getY()) {
+                spaceship.setVerSpeed((spaceship.getTarget().getY() - spaceship.getY()) / travelFrames);
+            } else if (spaceship.getY() < spaceship.getTarget().getY()) {
+                spaceship.setVerSpeed(-(spaceship.getY() - spaceship.getTarget().getY()) / travelFrames);
+            } else {
+                spaceship.setVerSpeed(0);
             }
         }
 
@@ -527,26 +546,6 @@ public class DrawNoteGame extends AppCompatImageView {
        return new AnimatedNote(Tone.NOTONE, 0, false);
     }
 
-    /**
-     * gets the unplayed note of a given tone closest to the ege of the screen
-     * @param tone the tone to search for
-     * @return the AnimatedNote that was found
-     */
-    public AnimatedNote getClosestUnplayedTone(Tone tone){
-        AnimatedNote closest = null;
-        for(AnimatedNote note: onFieldNotes) {
-            if (note.getTone() == tone && !note.isDestroyed) {
-                if(closest == null){
-                    closest = note;
-                }else{
-                    if(closest.getX() < note.getX()){
-                        closest = note;
-                    }
-                }
-            }
-        }
-        return  closest;
-    }
 
     /**
      * changes the drawable of an animated note and attempts to grow it
@@ -609,6 +608,14 @@ public class DrawNoteGame extends AppCompatImageView {
         paint.setTextSize(2*noteWidth);
         canvas.drawText("Score : " + currentScore, size.x- 14*noteWidth,
                 paint.getTextSize(), paint);
+    }
+
+    public void playTone(Tone tone, Boolean isSharp){
+
+        mp = MediaPlayer.create(getContext(), R.raw.explosion);
+
+
+        mp.start();
     }
 
 }

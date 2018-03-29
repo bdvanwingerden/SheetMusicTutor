@@ -115,13 +115,13 @@ public class GameActivity extends FragmentActivity
 
         if (gameType == 1 || gameType == 2) {
             addQuestion(new StaffFragment());
-            addAnswer(new KeyFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
         } else if (gameType == 3) {
             addQuestion(new NoteDefense());
-            addAnswer(new KeyFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 1));
         } else if (gameType == 4) {
             addQuestion(new NoteHero());
-            addAnswer(new KeyFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
         } else if (gameType == 5) {
             addQuestion(new GuessNote());
             addAnswer(new GuessNoteText());
@@ -251,16 +251,16 @@ public class GameActivity extends FragmentActivity
 
             if(next == 0){
                 replaceQuestion(new StaffFragment());
-                replaceAnswer(new KeyFragment());
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
             }else if(next == 1){
                 replaceQuestion(new QuizQuestionFragment());
                 replaceAnswer(new QuizAnswerFragment());
             }else if(next == 2){
                 replaceQuestion(new NoteDefense());
-                replaceAnswer(new KeyFragment());
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 1));
             }else if(next == 3){
                 replaceQuestion(new NoteHero());
-                replaceAnswer(new KeyFragment());
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
             }
             rounds--;
 
@@ -271,6 +271,13 @@ public class GameActivity extends FragmentActivity
             replaceQuestion(new NoteHero());
             rounds--;
         }
+    }
+
+    public Fragment setFragmentArgs(Fragment fragment, int mode){
+        Bundle args = new Bundle();
+        args.putInt("mode", mode);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }

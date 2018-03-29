@@ -105,8 +105,6 @@ public class AnimatedNote extends Note {
      */
     public void setDestroyed(Context context) {
         isDestroyed = true;
-        noteShape = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_pow, null);
-        noteShape.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
     }
 
     /**

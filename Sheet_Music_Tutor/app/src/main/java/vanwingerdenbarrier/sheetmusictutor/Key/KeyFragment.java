@@ -42,6 +42,8 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     /**Button corresponding to notes*/
     private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2;
 
+    Bundle args;
+
     /**
      * Finds the reference to the buttons
      * calls keysound2 to implement sound
@@ -51,26 +53,29 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        args = getArguments();
+
         view = inflater.inflate(R.layout.keyboard_fragment, container, false);
 
         context = this.getContext();
-        a  = view.findViewById(R.id.a);
+
+        a = view.findViewById(R.id.a);
         a2 = view.findViewById(R.id.a2);
         as = view.findViewById(R.id.as);
-        b  = view.findViewById(R.id.b);
+        b = view.findViewById(R.id.b);
         b2 = view.findViewById(R.id.b2);
-        c  = view.findViewById(R.id.c);
+        c = view.findViewById(R.id.c);
         cs = view.findViewById(R.id.cs);
         c2 = view.findViewById(R.id.c2);
-        d  = view.findViewById(R.id.d);
+        d = view.findViewById(R.id.d);
         ds = view.findViewById(R.id.ds);
         d2 = view.findViewById(R.id.d2);
-        e  = view.findViewById(R.id.e);
+        e = view.findViewById(R.id.e);
         e2 = view.findViewById(R.id.e2);
-        f  = view.findViewById(R.id.f);
+        f = view.findViewById(R.id.f);
         fs = view.findViewById(R.id.fs);
         f2 = view.findViewById(R.id.f2);
-        g  = view.findViewById(R.id.g);
+        g = view.findViewById(R.id.g);
         gs = view.findViewById(R.id.gs);
         g2 = view.findViewById(R.id.g2);
 
@@ -91,19 +96,33 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
         }
 
         /*Load in sound files*/
-        sa = soundPool.load(context, R.raw.a, 1);
-        sb = soundPool.load(context, R.raw.b, 1);
-        sc = soundPool.load(context, R.raw.c, 1);
-        sd = soundPool.load(context, R.raw.d, 1);
-        se = soundPool.load(context, R.raw.e, 1);
-        sf = soundPool.load(context, R.raw.f, 1);
-        sg = soundPool.load(context, R.raw.g, 1);
-        scs = soundPool.load(context, R.raw.cs, 1);
-        sds = soundPool.load(context, R.raw.eb, 1);
-        sfs = soundPool.load(context, R.raw.fs, 1);
-        sgs = soundPool.load(context, R.raw.gs, 1);
-        sas = soundPool.load(context, R.raw.bb, 1);
-
+        if(args.getInt("mode") == 0) {
+            sa = soundPool.load(context, R.raw.a, 1);
+            sb = soundPool.load(context, R.raw.b, 1);
+            sc = soundPool.load(context, R.raw.c, 1);
+            sd = soundPool.load(context, R.raw.d, 1);
+            se = soundPool.load(context, R.raw.e, 1);
+            sf = soundPool.load(context, R.raw.f, 1);
+            sg = soundPool.load(context, R.raw.g, 1);
+            scs = soundPool.load(context, R.raw.cs, 1);
+            sds = soundPool.load(context, R.raw.eb, 1);
+            sfs = soundPool.load(context, R.raw.fs, 1);
+            sgs = soundPool.load(context, R.raw.gs, 1);
+            sas = soundPool.load(context, R.raw.bb, 1);
+        }else{
+            sa = soundPool.load(context, R.raw.laser_a, 1);
+            sas = soundPool.load(context, R.raw.laser_as, 1);
+            sb = soundPool.load(context, R.raw.laser_b, 1);
+            sc = soundPool.load(context, R.raw.laser_c, 1);
+            scs = soundPool.load(context, R.raw.laser_cs, 1);
+            sd = soundPool.load(context, R.raw.laser_d, 1);
+            sds = soundPool.load(context, R.raw.laser_ds, 1);
+            se = soundPool.load(context, R.raw.laser_e, 1);
+            sf = soundPool.load(context, R.raw.laser_f, 1);
+            sfs = soundPool.load(context, R.raw.laser_fs, 1);
+            sg = soundPool.load(context, R.raw.laser_g, 1);
+            sgs = soundPool.load(context, R.raw.laser_gs, 1);
+        }
         /**
          * Implements the action for the specified button.
          * Will Change red and play a sound if pressed
