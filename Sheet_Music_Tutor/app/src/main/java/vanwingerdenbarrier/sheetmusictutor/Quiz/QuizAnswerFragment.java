@@ -59,8 +59,10 @@ public class QuizAnswerFragment extends Fragment implements AnswerDisplay{
      */
     public void createAnswerButtons(View view, int index){
 
+        int buttonStyle = R.style.button_style;
+
         for(String answer : qS.getChoices(index)){
-        Button tempButton = new Button(view.getContext());
+        Button tempButton = new Button(new ContextThemeWrapper(this.getContext(), buttonStyle), null, buttonStyle);
         tempButton.setText(answer);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
