@@ -21,7 +21,7 @@ import vanwingerdenbarrier.sheetmusictutor.R;
  * @author Bronson VanWingerden
  * @author Dorian Barrier
  */
-public class    UserMenu extends AppCompatActivity implements View.OnClickListener {
+public class UserMenu extends AppCompatActivity implements View.OnClickListener {
     /**
      * Will contain the fragment to prompt the user to enter their name
      */
@@ -38,6 +38,7 @@ public class    UserMenu extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_menu);
         users = new UserList(this);
+
         createButtons();
         if(users.findCurrent() == null){
             createUserDialog = new CreateUserDialog();

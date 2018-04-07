@@ -1,98 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
     tools:context="vanwingerdenbarrier.sheetmusictutor.Game.GameSelection"
-    tools:layout_editor_absoluteY="25dp"
-    android:weightSum="2"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="3">
-        <Button
-            android:id="@+id/noteHero"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="44dp"
-            android:onClick="noteHeroGame"
-            android:text="Note \nHero"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/noteDefGame"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="44dp"
-            android:onClick="noteDefenseGame"
-            android:text="Note \nDefense"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/staffgame"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:elevation="0dp"
-            android:onClick="staffGame"
-            android:text="Staff Mode"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="3">
-        <Button
-            android:id="@+id/combogame"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:elevation="0dp"
-            android:onClick="comboGame"
-            android:text="Combo Mode"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/quizgame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/round_button"
-            android:onClick="quizGame"
-            android:text="Quiz Mode"
-            android:textColor="@color/gold"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/GuessNote"
-            style="@style/button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GUESS NOTE"
-            android:onClick="guessNoteGame"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
+    android:id="@+id/relativeLayout">
 
 
+    <Button
+        android:id="@+id/button9"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:onClick="staffGame"
+        android:text="Staff"
+        app:layout_constraintTop_toTopOf="@+id/button10"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button10"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="quizGame"
+        android:text="QUIZ"
+        app:layout_constraintTop_toTopOf="@+id/button11"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button11"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="95dp"
+        android:layout_marginTop="80dp"
+        android:onClick="comboGame"
+        android:text="COMBO"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button12"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="85dp"
+        android:onClick="noteHeroGame"
+        android:text="HERO"
+        app:layout_constraintStart_toStartOf="@+id/button9"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/button13"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="noteDefenseGame"
+        android:text="DEFENSE"
+        app:layout_constraintTop_toTopOf="@+id/button12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button14"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="guessNoteGame"
+        android:text="GUESS"
+        app:layout_constraintTop_toTopOf="@+id/button12"
+        app:layout_constraintStart_toStartOf="@+id/button11" />
+</android.support.constraint.ConstraintLayout>

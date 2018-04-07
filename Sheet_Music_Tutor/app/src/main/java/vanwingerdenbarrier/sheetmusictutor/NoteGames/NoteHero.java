@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -30,7 +31,11 @@ public class NoteHero extends Fragment {
         @Override
         public void run() {
             if(drawNoteGame.isDone){
-                callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentScore);
+                UserList userList = new UserList(getContext());
+                User current = userList.findCurrent();
+                current.setDefense_level(current.getHero_level() + drawNoteGame.currentLives - 2);
+                userList.updateUser(current, "hero_level", current.getHero_level());
+                callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
             }else {
                 staff.removeView(drawNoteGame);
                 staff.addView(drawNoteGame);
@@ -56,7 +61,7 @@ public class NoteHero extends Fragment {
                 container, false);
 
         drawNoteGame = new DrawNoteGame(this.getContext(),
-                new UserList(getContext()).findCurrent().getCurrentLevel(), 1);
+                new UserList(getContext()).findCurrent().getHero_level(), 1);
 
         staff.addView(drawNoteGame);
 

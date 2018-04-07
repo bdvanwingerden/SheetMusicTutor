@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,11 +21,14 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
     DrawStaff drawStaff;
     Display callback;
     ViewGroup staff;
+    int score;
     long illumDelay = 200; /* delay in milliseconds?*/
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity();
+
+        score = 0;
 
         staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
                 container, false);
@@ -106,10 +110,11 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                     ((noteToFind.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp) ||
                     ((noteToFind.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp)) {
 
-                userList.addUserCorrect();
+                //userList.addUserCorrect();
+                score++;
                 System.out.println("ADDING points " + userList.findCurrent().getNumQuestionsCorrect());
                 if(userList.findCurrent().getNumPointsNeeded()
-                        == userList.findCurrent().getNumQuestionsCorrect()){
+                        >= userList.findCurrent().getNumQuestionsCorrect()){
                     userList.addUserPointsNeeded();
                     userList.levelUpUser();
                 }
@@ -124,12 +129,14 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                         drawStaff.lastClickX = 0;
                         drawStaff.lastClickY = 0;
                         //drawStaff = new DrawStaff(this.getContext());
-                        callback.questionPressed(null, 1, 1); // ENDS this question
+                        callback.questionPressed(null, score, 1); // ENDS this question
                         //TODO Count score for staff mode
                     }
                     return location;
 
 
+            }else{
+                drawStaff.wrong();
             }
         }
 

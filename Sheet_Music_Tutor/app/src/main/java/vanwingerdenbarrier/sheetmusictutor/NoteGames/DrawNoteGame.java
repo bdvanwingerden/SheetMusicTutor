@@ -144,6 +144,11 @@ public class DrawNoteGame extends AppCompatImageView {
         onFieldNotes = new LinkedList<>();
 
         this.currentDifficulty = currentDifficulty;
+
+        if(currentDifficulty < 1){
+            this.currentDifficulty = 1;
+        }
+
         currentScore = 0;
         currentLives = 4;
         lives = new Drawable[currentLives-1];
@@ -183,6 +188,8 @@ public class DrawNoteGame extends AppCompatImageView {
         this.canvas = canvas;
         drawStaff(canvas);
 
+        System.out.println("DIFF " + currentDifficulty);
+
         if (gameMode == 0) {
             if(onFieldNotes.size() < 1) {
                 drawShip(canvas);
@@ -190,11 +197,11 @@ public class DrawNoteGame extends AppCompatImageView {
             if (onFieldNotes.size() < random.nextInt(4) + 1 && currentLives > 0) {
                 for (int i = random.nextInt(3); i > 0; i--) {
                     addNote(false, getRandomNote(false),
-                            random.nextInt(8) + 1);
+                            random.nextInt(2+currentDifficulty) + 1);
                 }
             }
         } else if (gameMode == 1) {
-            int tempo = 3;
+            int tempo = 3 + currentDifficulty;
 
             if (onFieldNotes.size() < 5) {
                 if (onFieldNotes.isEmpty()) {
@@ -369,7 +376,7 @@ public class DrawNoteGame extends AppCompatImageView {
             if (currentLives == 0) {
                 temp.clear();
                 isDone = true;
-            }else if(currentScore >= 20){
+            }else if(currentScore >= currentDifficulty + 4){
                 temp.clear();
                 isDone = true;
             }

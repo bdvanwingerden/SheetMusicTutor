@@ -10,7 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
+import android.view.HapticFeedbackConstants;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -109,6 +111,10 @@ public class DrawStaff extends AppCompatImageView {
      */
     int currentDifficulty;
 
+    Canvas canvas;
+
+    Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -156,12 +162,13 @@ public class DrawStaff extends AppCompatImageView {
         horMargin = size.y/6;
         drawStaff(canvas);
         drawClef(canvas);
+        this.canvas = canvas;
 
-        if (currentDifficulty == 1) {
+        if (currentDifficulty < 4) {
             drawNotes(canvas, true);
-        } else if (currentDifficulty == 2) {
+        } else if (currentDifficulty < 8) {
             drawNotes(canvas, true);
-        } else if (currentDifficulty >= 3) {
+        } else if (currentDifficulty < 12) {
             drawNotes(canvas, false);
         }
 
@@ -586,6 +593,15 @@ public class DrawStaff extends AppCompatImageView {
     public int getCurrentBeat(){
         return currentBeat;
     }
+
+    public void wrong(){
+        performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+
+        ArrayList<Note> noteList = getCurrentStaff().getNoteList(getCurrentBar(), getCurrentBeat());
+
+        toasty.setText("Try Again");
+        toasty.show();
+        }
 
 }
 
