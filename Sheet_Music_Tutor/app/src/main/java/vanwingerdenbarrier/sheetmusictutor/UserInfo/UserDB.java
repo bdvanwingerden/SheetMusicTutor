@@ -34,12 +34,21 @@ public class UserDB extends SQLiteOpenHelper{
     public static final String CURRENT_LEVEL = "current_level";
     public static final String IS_CURRENT = "is_current";
     public static final String NUM_POINTS_NEEDED = "num_points_needed";
+    public static final String HERO_LEVEL = "hero_level";
+    public static final String DEFENSE_LEVEL = "defense_level";
+    public static final String QUIZ_LEVEL = "quiz_level";
 
     // Question Table Create Query in this string
     private static final String CREATE_USER_TABLE = "CREATE TABLE "
-            + USER_TABLE + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY," + NAME +" TEXT," + ATTEMPTS + " INTEGER,"
-        + CORRECT + " INTEGER, " + CURRENT_LEVEL + " INTEGER, " + IS_CURRENT + " INTEGER, "
+            + USER_TABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + NAME +" TEXT,"
+            + ATTEMPTS + " INTEGER,"
+            + CORRECT + " INTEGER, "
+            + CURRENT_LEVEL + " INTEGER, "
+            + IS_CURRENT + " INTEGER, "
+            + HERO_LEVEL + "INTEGER, "
+            + DEFENSE_LEVEL + "INTEGER, "
+            + QUIZ_LEVEL + "INTEGER, "
             + NUM_POINTS_NEEDED + " INTEGER);";
 
 
