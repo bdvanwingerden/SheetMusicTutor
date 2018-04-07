@@ -164,11 +164,11 @@ public class DrawStaff extends AppCompatImageView {
         drawClef(canvas);
         this.canvas = canvas;
 
-        if (currentDifficulty == 1) {
+        if (currentDifficulty < 4) {
             drawNotes(canvas, true);
-        } else if (currentDifficulty == 2) {
+        } else if (currentDifficulty < 8) {
             drawNotes(canvas, true);
-        } else if (currentDifficulty >= 3) {
+        } else if (currentDifficulty < 12) {
             drawNotes(canvas, false);
         }
 
