@@ -78,13 +78,13 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
     public void checkIfCorrect(String answer){
 
         if(answer.equals(correctAnswer)){
-            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
             Toast.makeText(this.getContext(),"Correct", Toast.LENGTH_SHORT).show();
             callback.questionPressed(null, 1, 1);
 
         }else{
-            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+            getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
             Toast.makeText(this.getContext(),"Incorrect, Try Again", Toast.LENGTH_SHORT).show();
         }
 

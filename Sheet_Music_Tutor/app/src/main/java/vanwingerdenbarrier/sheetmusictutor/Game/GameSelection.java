@@ -31,7 +31,7 @@ public class GameSelection extends AppCompatActivity {
     public void comboGame(View v){
         Intent game = new Intent(this, GameActivity.class);
         /* game type 2 represents the combo game mode */
-
+        game.putExtra("gameType", 2);
         this.startActivity(game);
     }
 
