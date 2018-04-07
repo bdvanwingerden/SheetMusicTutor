@@ -21,7 +21,7 @@ public class UserDB extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "user.db";
 
     // Current version of database
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     // Database table name
     public static final String USER_TABLE = "UserTable";
@@ -46,9 +46,9 @@ public class UserDB extends SQLiteOpenHelper{
             + CORRECT + " INTEGER, "
             + CURRENT_LEVEL + " INTEGER, "
             + IS_CURRENT + " INTEGER, "
-            + HERO_LEVEL + "INTEGER, "
-            + DEFENSE_LEVEL + "INTEGER, "
-            + QUIZ_LEVEL + "INTEGER, "
+            + HERO_LEVEL + " INTEGER, "
+            + DEFENSE_LEVEL + " INTEGER, "
+            + QUIZ_LEVEL + " INTEGER, "
             + NUM_POINTS_NEEDED + " INTEGER);";
 
 

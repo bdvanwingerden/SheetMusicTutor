@@ -56,6 +56,10 @@ public class User {
 
     private int numPointsNeeded;
 
+    private int hero_level;
+    private int defense_level;
+    private int quiz_level;
+
     /**
      * default constructor for a new user
      * @param name
@@ -69,6 +73,33 @@ public class User {
         this.numPointsNeeded = 8;
         this.currentLevel = STARTING_LEVEL;
         this.isCurrent = isCurrent;
+        this.hero_level = 1;
+        this.defense_level = 1;
+        this.quiz_level = 1;
+    }
+
+    public int getHero_level() {
+        return hero_level;
+    }
+
+    public void setHero_level(int hero_level) {
+        this.hero_level = hero_level;
+    }
+
+    public int getDefense_level() {
+        return defense_level;
+    }
+
+    public void setDefense_level(int defense_level) {
+        this.defense_level = defense_level;
+    }
+
+    public int getQuiz_level() {
+        return quiz_level;
+    }
+
+    public void setQuiz_level(int quiz_level) {
+        this.quiz_level = quiz_level;
     }
 
     /**
@@ -79,7 +110,8 @@ public class User {
      * @param isCurrent the boolean corresponding to whether or not the user is the current user
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                int currentLevel,int numPointsNeeded, int isCurrent) {
+                int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
+                int defense_level, int quiz_level) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
@@ -87,6 +119,9 @@ public class User {
         this.currentLevel = currentLevel;
         this.numPointsNeeded = numPointsNeeded;
         this.isCurrent = isCurrent;
+        this.hero_level = hero_level;
+        this.defense_level = defense_level;
+        this.quiz_level = quiz_level;
     }
 
     /**

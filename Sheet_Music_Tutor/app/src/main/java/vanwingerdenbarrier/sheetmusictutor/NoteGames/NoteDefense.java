@@ -13,6 +13,7 @@ import android.widget.Toast;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 /**
@@ -34,6 +35,10 @@ public class NoteDefense extends Fragment {
         @Override
         public void run() {
             if(drawNoteGame.isDone){
+                UserList userList = new UserList(getContext());
+                User current = userList.findCurrent();
+                current.setDefense_level(current.getDefense_level() + drawNoteGame.currentLives - 2);
+                userList.updateUser(current, "defense_level", current.getDefense_level());
                 callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
             }else {
                 staff.removeView(drawNoteGame);
@@ -61,7 +66,7 @@ public class NoteDefense extends Fragment {
                 container, false);
 
         drawNoteGame = new DrawNoteGame(this.getContext(),
-                new UserList(getContext()).findCurrent().getCurrentLevel(), 0);
+                new UserList(getContext()).findCurrent().getDefense_level(), 0);
 
         staff.addView(drawNoteGame);
 

@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.ATTEMPTS;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CORRECT;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CURRENT_LEVEL;
+import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.DEFENSE_LEVEL;
+import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.HERO_LEVEL;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.IS_CURRENT;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.KEY_ID;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.NAME;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.NUM_POINTS_NEEDED;
+import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.QUIZ_LEVEL;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.USER_TABLE;
 
 /**
@@ -38,8 +41,8 @@ public class UserList {
     public UserList(Context context){
         userDB = new UserDB(context);
         this.userLinkedList = new ArrayList<>();
+        //emptyUserList();
         readUserList(context);
-
     }
 
     /**
@@ -48,9 +51,10 @@ public class UserList {
      * @param name the users name
      */
     public void addUser(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                        int currentLevel, int numPointsNeeded, int isCurrent){
+                        int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
+                        int defense_level, int quiz_level){
         userLinkedList.add(new User(ID, name, numQuestionsAttempted, numQuestionsCorrect,
-                currentLevel, numPointsNeeded, isCurrent));
+                currentLevel, numPointsNeeded, isCurrent, hero_level, defense_level, quiz_level));
     }
 
     /**
@@ -67,8 +71,11 @@ public class UserList {
         cv.put(ATTEMPTS, u.getNumQuestionsAttempted());
         cv.put(CORRECT, u.getNumQuestionsCorrect());
         cv.put(CURRENT_LEVEL, u.getCurrentLevel());
-        cv.put(NUM_POINTS_NEEDED, u.getNumPointsNeeded());
         cv.put(IS_CURRENT, u.isCurrent());
+        cv.put(HERO_LEVEL, u.getHero_level());
+        cv.put(DEFENSE_LEVEL, u.getDefense_level());
+        cv.put(QUIZ_LEVEL, u.getQuiz_level());
+        cv.put(NUM_POINTS_NEEDED, u.getNumPointsNeeded());
 
         db.insert(USER_TABLE, null, cv);
         db.close();
@@ -114,7 +121,10 @@ public class UserList {
                         c.getInt(c.getColumnIndex(UserDB.CORRECT)),
                         c.getInt(c.getColumnIndex(UserDB.CURRENT_LEVEL)),
                         c.getInt(c.getColumnIndex(UserDB.NUM_POINTS_NEEDED)),
-                        c.getInt(c.getColumnIndex(UserDB.IS_CURRENT))));
+                        c.getInt(c.getColumnIndex(UserDB.IS_CURRENT)),
+                        c.getInt(c.getColumnIndex(UserDB.HERO_LEVEL)),
+                        c.getInt(c.getColumnIndex(UserDB.DEFENSE_LEVEL)),
+                        c.getInt(c.getColumnIndex(UserDB.QUIZ_LEVEL))));
             }while (c.moveToNext());
         }
 

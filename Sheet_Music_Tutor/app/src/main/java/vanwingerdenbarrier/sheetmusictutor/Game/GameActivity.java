@@ -188,6 +188,7 @@ public class GameActivity extends FragmentActivity
                         dialogInterface.dismiss();
                     }
                 });
+        alertDialog.setCancelable(false);
         alertDialog.show();
     }
 
