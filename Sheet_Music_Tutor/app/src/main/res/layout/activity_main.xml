@@ -1,75 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    android:orientation="horizontal"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.MainActivity">
+    android:orientation="vertical"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.MainActivity"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sheetlogo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".9"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/StartButton"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:onClick="startButton"
+                android:text="@string/start"
+                android:layout_marginHorizontal="25dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/StatsButton"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="statsButton"
+                android:text="@string/stats"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/OptionsButton"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="optionsButton"
+                android:text="@string/options"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/AchievementsButton"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="userAchievements"
+                android:text="@string/achievement"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 
-    <Button
-        android:id="@+id/StartButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/round_button"
-        android:onClick="startButton"
-        android:text="@string/start"
-        android:textColor="@color/gold"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/OptionsButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/OptionsButton"
-        app:layout_constraintRight_toRightOf="@+id/OptionsButton"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        style="@style/button_style"/>
 
-    <Button
-        android:id="@+id/StatsButton"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
-        android:background="@drawable/round_button"
-        android:onClick="statsButton"
-        android:text="@string/stats"
-        android:textColor="@color/gold"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/button_style"/>
-
-    <Button
-        android:id="@+id/OptionsButton"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/round_button"
-        android:onClick="optionsButton"
-        android:text="@string/options"
-        android:textColor="@color/gold"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/StatsButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-
-        tools:layout_constraintRight_creator="1"
-        style="@style/button_style"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sheetlogo" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

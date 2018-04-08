@@ -13,5 +13,6 @@
     <color name="gold">#c1a875</color>
     <color name="grey">#383735</color>
     <color name="achievement_green">#39dc10</color>
+    <color name="shadow_gray">#1e1d1d</color>
 
 </resources>

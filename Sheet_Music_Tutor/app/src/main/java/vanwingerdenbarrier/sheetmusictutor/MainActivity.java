@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         if(new UserList(this).findCurrent() == null){
 
@@ -83,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
             this.startActivity(game);
         }
-
-
-    }
+    }//end startButton()
 
     public void optionsButton(View v){
         Intent optionsMenu = new Intent(this, OptionsActivity.class);
@@ -130,7 +131,37 @@ public class MainActivity extends AppCompatActivity {
 
             this.startActivity(stats);
         }
+    }//end method()
 
+    /**
+     * Creates intent that goes to Achievments activity
+     * @param v
+     */
+    public void userAchievements(View v){
 
-    }
+        Intent userAchievements = new Intent(this,AchievementsListView.class);
+
+        if(new UserList(this).findCurrent() == null){
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("No Current User found");
+            alertDialog.setMessage("Please Select a User");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
+
+            alertDialog.show();
+        }else {
+            this.startActivity(userAchievements);
+        }
+
+    }//end
+
 }

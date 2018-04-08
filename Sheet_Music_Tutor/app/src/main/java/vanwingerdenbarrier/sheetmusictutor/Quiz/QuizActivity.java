@@ -1,6 +1,7 @@
 package vanwingerdenbarrier.sheetmusictutor.Quiz;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -153,6 +154,9 @@ public class QuizActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);//set media volume control
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 

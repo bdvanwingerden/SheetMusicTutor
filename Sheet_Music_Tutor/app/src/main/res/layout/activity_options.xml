@@ -24,17 +24,6 @@
             android:onClick="userMenu"
             android:text="@string/user"
             style="@style/button_style"/>
-
-        <Button
-            android:id="@+id/achieve"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/user"
-            android:onClick="userAchievements"
-            android:text="@string/achievement"
-            style="@style/button_style"/>
     </LinearLayout>
 
 </LinearLayout>
