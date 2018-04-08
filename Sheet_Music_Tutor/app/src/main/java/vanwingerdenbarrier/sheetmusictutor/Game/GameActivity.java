@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.KnowYourKeyboardFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
@@ -128,7 +129,12 @@ public class GameActivity extends FragmentActivity
         } else if (gameType == 5) {
             addQuestion(new GuessNote());
             addAnswer(new GuessNoteText());
-        } else {
+        }
+        else if (gameType == 6) {
+            addQuestion(new KnowYourKeyboardFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+        }
+        else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
         }
 

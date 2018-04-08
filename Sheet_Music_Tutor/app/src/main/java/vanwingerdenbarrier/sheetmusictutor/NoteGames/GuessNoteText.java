@@ -34,6 +34,7 @@ public class GuessNoteText extends Fragment implements View.OnClickListener, Ans
 
     /*callback to the gameactivity class */
 
+    /**Options buttons*/
     Button o1,o2,o3,o4,o5;
 
     TextView attemptsText;
@@ -209,7 +210,7 @@ public class GuessNoteText extends Fragment implements View.OnClickListener, Ans
     }//end getAnswer
 
     /**
-     * Combine this with getAnswer later
+     * Combine this with getAnswer later. Nvm Doesnt work the same
      * @param answer
      */
     public void answerHelper(int answer){

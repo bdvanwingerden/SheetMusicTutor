@@ -74,4 +74,12 @@
         android:text="GUESS"
         app:layout_constraintTop_toTopOf="@+id/button12"
         app:layout_constraintStart_toStartOf="@+id/button11" />
+
+    <Button
+        android:id="@+id/button15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/know_keyboard"
+        android:onClick="knowKeyboardGame"
+        style="@style/button_style"/>
 </android.support.constraint.ConstraintLayout>

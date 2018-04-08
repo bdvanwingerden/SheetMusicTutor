@@ -47,9 +47,23 @@ public class GameSelection extends AppCompatActivity {
         this.startActivity(game);
     }
 
+    /**
+     * on click method to take user to guess note game mode
+     * @param v - instance of the button
+     */
     public void guessNoteGame(View v){
         Intent game = new Intent(this, GameActivity.class);
         game.putExtra("gameType", 5);
         this.startActivity(game);
-    }
-}
+    }//end guessNoteGame()
+
+    /**
+     * on click method to take user to know your keyboard game mode
+     * @param v - instance of the button
+     */
+    public void knowKeyboardGame(View v){
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 6);
+        this.startActivity(game);
+    }//end knowKeyboardGame()
+}//end Class GameSelection

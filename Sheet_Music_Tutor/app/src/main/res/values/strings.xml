@@ -19,8 +19,12 @@
     <string name="blind_ninja">Blind Ninja 0/8</string>
     <string name="note_meister">Note-Meister 0/5</string>
     <string name="guess_note">Guess the Note!</string>
-    <string name="score">Score 0</string>
+    <string name="score">Score: 0</string>
     <string name="question_mark">\?</string>
+    <string name="three_tries">Tries 0/3</string>
+    <string name="guess_the_note">Identify The Note: A</string>
+    <string name="know_keyboard">Know</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
