@@ -88,7 +88,7 @@ public class GameActivity extends FragmentActivity
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 new UserList(this.getApplicationContext()).addUserAttempt();
             }
-        }else if(currentQuestion instanceof QuizQuestionFragment){
+        } else if(currentQuestion instanceof QuizQuestionFragment){
 
             ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
             new UserList(this.getApplicationContext()).addUserAttempt();
@@ -96,10 +96,12 @@ public class GameActivity extends FragmentActivity
             ((NoteDefense) currentQuestion).fireNote((Note) answer);
         } else if (currentQuestion instanceof NoteHero && event != null) {
             ((NoteHero) currentQuestion).playNote((Note) answer);
-        }else if (currentQuestion instanceof GuessNote){
+        } else if (currentQuestion instanceof GuessNote){
 
             ((GuessNote) currentQuestion).checkIfCorrect((String)answer);
             new UserList(this.getApplicationContext()).addUserAttempt();
+        } else if (currentQuestion instanceof KnowYourKeyboardFragment && event != null) {
+            ((KnowYourKeyboardFragment) currentQuestion).checkIfCorrect((Note) answer);
         }
     }
 
