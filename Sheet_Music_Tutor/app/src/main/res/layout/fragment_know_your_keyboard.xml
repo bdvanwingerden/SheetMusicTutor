@@ -74,18 +74,19 @@
                 android:src="@drawable/pointing_dave_2" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="110dp"
+                android:layout_marginEnd="114dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/speech_bubble"
-                android:text="      Identify the note: A  "
+                android:text="     Identify The Note: A  "
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                android:textStyle="" />
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 
