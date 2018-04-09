@@ -203,6 +203,13 @@ public class DrawNoteGame extends AppCompatImageView {
         drawStaff(canvas);
 
         if (gameMode == 0) {
+            int speed;
+            if(currentDifficulty > 15){
+                speed = currentDifficulty - 10;
+            }else{
+                speed = currentDifficulty + 2;
+            }
+
             if(onFieldNotes.size() < 1) {
                 drawShip(canvas);
             }
@@ -211,10 +218,10 @@ public class DrawNoteGame extends AppCompatImageView {
 
                     if(currentDifficulty > 5){
                         addNote(false, getRandomNote(true),
-                                random.nextInt(2+currentDifficulty) + 1);
+                                random.nextInt(speed) + 1);
                     }else{
                         addNote(false, getRandomNote(false),
-                                random.nextInt(2+currentDifficulty) + 1);                    }
+                                random.nextInt(speed) + 1);                    }
                 }
             }
         } else if (gameMode == 1) {
@@ -540,7 +547,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
     /**
      * handles note hero note timing functionality
-     * @param note the note that the user played
+     * @param noteToPlay the note that the user played
      */
     public void playNote(Note noteToPlay) {
         AnimatedNote played;
@@ -552,9 +559,6 @@ public class DrawNoteGame extends AppCompatImageView {
                 && note.isSharp() == noteToPlay.isSharp()) ||
                 ((noteToPlay.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp()) ||
                 ((noteToPlay.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp())) {
-
-            System.out.println("DIFF COOL");
-
 
             int noteDist = goalPos - getFirstUnplayed().getX();
 
