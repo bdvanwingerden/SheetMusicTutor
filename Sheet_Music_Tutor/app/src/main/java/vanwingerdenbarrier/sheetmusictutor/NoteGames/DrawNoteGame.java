@@ -285,8 +285,10 @@ public class DrawNoteGame extends AppCompatImageView {
         canvas.drawLines(lineArray, paint);
 
         if (gameMode == 1) {
+            paint.setColor(Color.GREEN);
             goalPos = ((size.x / 4) * 3);
             canvas.drawLine(goalPos, lineArray[1], goalPos, lineArray[19], paint);
+            paint.setColor(Color.BLACK);
         }
     }
 

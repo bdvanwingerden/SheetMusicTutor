@@ -120,6 +120,9 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
                     }
                 });
 
+        alertDialog.setCancelable(false);
+
+
         alertDialog.show();
 
         // Inflate the layout for this fragment

@@ -1,9 +1,11 @@
 package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +87,25 @@ public class NoteDefense extends Fragment {
 
         staff.addView(drawNoteGame);
 
-        runnable.run();
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();
+        alertDialog.setTitle("Note Defense");
+        alertDialog.setMessage("Defend against the invading notes for as long as possible!");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        dialogInterface.dismiss();
+                        runnable.run();
+                    }
+                });
+        alertDialog.setCancelable(false);
+
+
+        if(new UserList(this.getContext()).findCurrent().getDefense_level() <= 1){
+            alertDialog.show();
+        }else{
+            runnable.run();
+        }
 
         return staff;
     }

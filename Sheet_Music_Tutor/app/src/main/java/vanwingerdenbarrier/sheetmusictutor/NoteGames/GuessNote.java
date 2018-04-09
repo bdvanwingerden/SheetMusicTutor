@@ -104,6 +104,8 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
                     }
                 });
 
+        alertDialog.setCancelable(false);
+
         alertDialog.show();
 
         createPool();

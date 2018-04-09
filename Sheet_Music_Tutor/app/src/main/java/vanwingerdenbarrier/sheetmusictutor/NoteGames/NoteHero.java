@@ -1,9 +1,11 @@
 package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +83,25 @@ public class NoteHero extends Fragment {
 
         staff.addView(drawNoteGame);
 
-        runnable.run();
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();
+        alertDialog.setTitle("Note Hero");
+        alertDialog.setMessage("Play the notes when they are lined up with the Green line!");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        dialogInterface.dismiss();
+                        runnable.run();
+                    }
+                });
+        alertDialog.setCancelable(false);
+
+
+        if(new UserList(this.getContext()).findCurrent().getHero_level() <= 1){
+            alertDialog.show();
+        }else{
+            runnable.run();
+        }
 
         return staff;
     }
