@@ -40,6 +40,21 @@ public class NoteDefense extends Fragment {
                 current.setDefense_level(current.getDefense_level() + drawNoteGame.currentLives - 2);
                 userList.updateUser(current, "defense_level", current.getDefense_level());
                 callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
+
+                current.setNumQuestionsCorrect(current.getNumQuestionsCorrect()
+                        + drawNoteGame.currentScore);
+
+                current.setNumQuestionsAttempted(current.getNumQuestionsAttempted()
+                        + drawNoteGame.attempts);
+
+                if(current.getNumQuestionsCorrect()
+                        >= current.getNumPointsNeeded()){
+                    userList.levelUpUser();
+                    userList.addUserPointsNeeded();
+                }
+
+                userList.updateUser(current, "attempts", current.getNumQuestionsAttempted());
+                userList.updateUser(current, "correct", current.getNumQuestionsCorrect());
             }else {
                 staff.removeView(drawNoteGame);
                 staff.addView(drawNoteGame);

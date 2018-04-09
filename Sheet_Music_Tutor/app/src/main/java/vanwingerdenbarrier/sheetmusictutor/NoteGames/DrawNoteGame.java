@@ -84,6 +84,7 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     int currentScore;
     int currentLives;
+    int attempts;
     /**
      * the canvas we are drawing onto
      */
@@ -151,6 +152,7 @@ public class DrawNoteGame extends AppCompatImageView {
             this.currentDifficulty = 1;
         }
 
+        attempts = 0;
         currentScore = 0;
         currentLives = 4;
         lives = new Drawable[currentLives-1];
@@ -510,6 +512,7 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void fire(Note noteToFireAt) {
 
+        attempts++;
         performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
 
         AnimatedNote closest = null;
@@ -551,6 +554,7 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void playNote(Note noteToPlay) {
         AnimatedNote played;
+        attempts++;
         toasty.setGravity(Gravity.RIGHT, 0, 0);
 
         AnimatedNote note = getFirstUnplayed();
@@ -675,6 +679,11 @@ public class DrawNoteGame extends AppCompatImageView {
                 paint.getTextSize(), paint);
     }
 
+    /**
+     * handles playing sound effects like the explosion in note defense
+     * @param tone the tone to play
+     * @param isSharp whether or not the tone is sharp(just in case)
+     */
     public void playTone(Tone tone, Boolean isSharp){
 
         mp = MediaPlayer.create(getContext(), R.raw.explosion);

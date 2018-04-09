@@ -35,6 +35,22 @@ public class NoteHero extends Fragment {
                 User current = userList.findCurrent();
                 current.setHero_level(current.getHero_level() + drawNoteGame.currentLives - 2);
                 userList.updateUser(current, "hero_level", current.getHero_level());
+
+                current.setNumQuestionsCorrect(current.getNumQuestionsCorrect()
+                        + drawNoteGame.currentScore);
+
+                current.setNumQuestionsAttempted(current.getNumQuestionsAttempted()
+                        + drawNoteGame.attempts);
+
+                if(current.getNumQuestionsCorrect()
+                        >= current.getNumPointsNeeded()){
+                    userList.levelUpUser();
+                    userList.addUserPointsNeeded();
+                }
+
+                userList.updateUser(current, "attempts", current.getNumQuestionsAttempted());
+                userList.updateUser(current, "correct", current.getNumQuestionsCorrect());
+
                 callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
             }else {
                 staff.removeView(drawNoteGame);

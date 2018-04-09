@@ -99,6 +99,11 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         return drawStaff.getCurrentStaff().findNoteLocation(noteToFind);
     }
 
+    /**
+     * returns the note at the current location of the pointer
+     * @param noteToFind the note to check for
+     * @return array
+     */
     public float[] getNoteAtCurrentLocation(Note noteToFind){
         float[] location = null;
         UserList userList = new UserList(this.getContext());
