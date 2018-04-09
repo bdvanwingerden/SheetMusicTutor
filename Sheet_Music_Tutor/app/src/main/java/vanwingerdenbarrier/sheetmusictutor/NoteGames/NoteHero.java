@@ -33,7 +33,7 @@ public class NoteHero extends Fragment {
             if(drawNoteGame.isDone){
                 UserList userList = new UserList(getContext());
                 User current = userList.findCurrent();
-                current.setDefense_level(current.getHero_level() + drawNoteGame.currentLives - 2);
+                current.setHero_level(current.getHero_level() + drawNoteGame.currentLives - 2);
                 userList.updateUser(current, "hero_level", current.getHero_level());
                 callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
             }else {

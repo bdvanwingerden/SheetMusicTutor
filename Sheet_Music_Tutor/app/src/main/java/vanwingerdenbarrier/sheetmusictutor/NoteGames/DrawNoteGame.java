@@ -45,6 +45,8 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     Paint paint;
     Paint paint2;
+    Paint paint3;
+
     /**
      * a temporary random integer to allow testing of our other methods
      */
@@ -175,6 +177,18 @@ public class DrawNoteGame extends AppCompatImageView {
         paint.setTextSize(horMargin / 3);
         paint2 = new Paint();
         paint2.setColor(Color.RED);
+        paint3 = new Paint();
+
+        if(gameMode == 0){
+            paint3.setColor(Color.BLACK);
+
+        }else{
+            paint3.setColor(Color.WHITE);
+
+        }
+        paint3.setTextAlign(Paint.Align.CENTER);
+
+        System.out.println("DIFF " + currentDifficulty);
     }
 
     /**
@@ -188,26 +202,33 @@ public class DrawNoteGame extends AppCompatImageView {
         this.canvas = canvas;
         drawStaff(canvas);
 
-        System.out.println("DIFF " + currentDifficulty);
-
         if (gameMode == 0) {
             if(onFieldNotes.size() < 1) {
                 drawShip(canvas);
             }
             if (onFieldNotes.size() < random.nextInt(4) + 1 && currentLives > 0) {
                 for (int i = random.nextInt(3); i > 0; i--) {
-                    addNote(false, getRandomNote(false),
-                            random.nextInt(2+currentDifficulty) + 1);
+
+                    if(currentDifficulty > 5){
+                        addNote(false, getRandomNote(true),
+                                random.nextInt(2+currentDifficulty) + 1);
+                    }else{
+                        addNote(false, getRandomNote(false),
+                                random.nextInt(2+currentDifficulty) + 1);                    }
                 }
             }
         } else if (gameMode == 1) {
-            int tempo = 3 + currentDifficulty;
+            int tempo = 1 + currentDifficulty;
 
             if (onFieldNotes.size() < 5) {
                 if (onFieldNotes.isEmpty()) {
                     addNote(false, getRandomNote(true), tempo);
                 } else if (onFieldNotes.peekLast().getX() == ((size.x / 4) - ((size.x / 4) % tempo))) {
-                    addNote(false, getRandomNote(true), tempo);
+                    if(currentDifficulty > 5){
+                        addNote(false, getRandomNote(true), tempo);
+                    }else{
+                        addNote(false, getRandomNote(false), tempo);
+                    }
                 }
             }
         }
@@ -296,6 +317,7 @@ public class DrawNoteGame extends AppCompatImageView {
             LayerDrawable tempShape = new LayerDrawable(layers);
             tempShape.setLayerInset(0, noteWidth,0,-noteWidth,0);
             tempShape.setLayerInset(1,-noteWidth,0, noteWidth,0);
+
             noteShape = tempShape;
         }
 
@@ -309,6 +331,8 @@ public class DrawNoteGame extends AppCompatImageView {
      */
     public void updateNotesOnField() {
         LinkedList<AnimatedNote> temp = (LinkedList<AnimatedNote>) onFieldNotes.clone();
+        paint3.setTextSize(noteWidth);
+        paint2.setStrokeWidth(paint.getStrokeWidth() * 3);
 
 
         for (AnimatedNote note : temp) {
@@ -353,6 +377,27 @@ public class DrawNoteGame extends AppCompatImageView {
                 }
 
                 note.noteShape.draw(canvas);
+
+                int x = note.getX();
+                if(note.isSharp()){
+                    x += noteWidth;
+                }
+
+                if(currentDifficulty < 15 && note != spaceship && (!note.isDestroyed && !note.isPlayed)){
+
+                    canvas.drawText(note.getTone().toString(), x,
+                            note.getY() + noteHeight/2, paint3);
+                }
+
+                if(gameMode == 1 && !note.isPlayed){
+                    paint2.setColor(Color.BLACK);
+                    canvas.drawLine(x + (noteWidth - paint2.getStrokeWidth() / 2) - 2
+                            , note.getY() - 15
+                            , x + (noteWidth - paint2.getStrokeWidth() / 2) - 2,
+                            note.getY() - spaceBetween * 2, paint2);
+                    paint2.setColor(Color.RED);
+
+                }
             }
             if ((note.getX() >= size.x - 100 || note.getY() > size.y || note.getY() < 0)
                     && note != spaceship) {
@@ -463,7 +508,10 @@ public class DrawNoteGame extends AppCompatImageView {
         AnimatedNote closest = null;
 
         for (AnimatedNote note : onFieldNotes) {
-            if (!note.isDestroyed && note.getTone() == noteToFireAt.getTone()) {
+            if ((!note.isDestroyed && note.getTone() == noteToFireAt.getTone()
+                    && note.isSharp() == noteToFireAt.isSharp())||
+                    ((noteToFireAt.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp()) ||
+                    ((noteToFireAt.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp())) {
 
                 if(closest == null){
                     closest = note;
@@ -494,12 +542,18 @@ public class DrawNoteGame extends AppCompatImageView {
      * handles note hero note timing functionality
      * @param note the note that the user played
      */
-    public void playNote(Note note) {
+    public void playNote(Note noteToPlay) {
         AnimatedNote played;
         toasty.setGravity(Gravity.RIGHT, 0, 0);
 
-        if (getFirstUnplayed().getTone().equals(note.getTone())
-                && getFirstUnplayed().isSharp() == note.isSharp()) {
+        AnimatedNote note = getFirstUnplayed();
+
+        if ((note.getTone() == noteToPlay.getTone()
+                && note.isSharp() == noteToPlay.isSharp()) ||
+                ((noteToPlay.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp()) ||
+                ((noteToPlay.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp())) {
+
+            System.out.println("DIFF COOL");
 
 
             int noteDist = goalPos - getFirstUnplayed().getX();
