@@ -1,9 +1,11 @@
 package vanwingerdenbarrier.sheetmusictutor.StaffStructure;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -52,6 +54,22 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
             }
         });
 
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();
+        alertDialog.setTitle("Staff");
+        alertDialog.setMessage("Play the note on the staff that the pointer is pointing at!");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        alertDialog.setCancelable(false);
+
+        if(new UserList(this.getContext()).findCurrent().getCurrentLevel() <= 1) {
+            alertDialog.show();
+        }
+
         return staff;
     }
 
@@ -99,6 +117,11 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         return drawStaff.getCurrentStaff().findNoteLocation(noteToFind);
     }
 
+    /**
+     * returns the note at the current location of the pointer
+     * @param noteToFind the note to check for
+     * @return array
+     */
     public float[] getNoteAtCurrentLocation(Note noteToFind){
         float[] location = null;
         UserList userList = new UserList(this.getContext());

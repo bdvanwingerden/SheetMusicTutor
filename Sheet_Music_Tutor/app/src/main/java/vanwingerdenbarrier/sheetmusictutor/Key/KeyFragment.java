@@ -23,6 +23,7 @@ import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Duration;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 
 public class KeyFragment extends Fragment implements AnswerDisplay {
@@ -44,6 +45,8 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
     Bundle args;
 
+    boolean showKeys;
+
     /**
      * Finds the reference to the buttons
      * calls keysound2 to implement sound
@@ -52,6 +55,12 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(new UserList(this.getContext()).findCurrent().getCurrentLevel() > 5){
+            showKeys = false;
+        }else{
+            showKeys = true;
+        }
 
         args = getArguments();
 
@@ -80,6 +89,8 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
         g2 = view.findViewById(R.id.g2);
 
         createPool();
+
+        showLabels(showKeys);
 
         return view;
     }//end onCreate
@@ -412,6 +423,28 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
                     + " must implement OnHeadlineSelectedListener");
         }
     }
+
+    /**
+     * removes the labels from the keys if showKeys is false
+     * @param showKeys boolean determining whether or not to show labels on the keys
+     */
+    public void showLabels(Boolean showKeys){
+        if(!showKeys){
+            a.setText("");
+            as.setText("");
+            b.setText("");
+            c.setText("");
+            cs.setText("");
+            d.setText("");
+            ds.setText("");
+            e.setText("");
+            f.setText("");
+            fs.setText("");
+            g.setText("");
+            gs.setText("");
+        }
+    }
+
 
 }//end class keyboard
 

@@ -71,6 +71,8 @@ public class GameActivity extends FragmentActivity
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.answer_holder, currentAnswer);
             fragmentTransaction.commit();
+        }else if(correct instanceof String){
+
         }
 
     }
@@ -118,6 +120,8 @@ public class GameActivity extends FragmentActivity
         mode = gameType;
 
         fragmentManager = getSupportFragmentManager();
+
+
 
         if (gameType == 1 || gameType == 2) {
             addQuestion(new StaffFragment());
@@ -285,6 +289,12 @@ public class GameActivity extends FragmentActivity
         }
     }
 
+    /**
+     * handles setting the mode argument for a given fragment
+     * @param fragment the fragment to give args to
+     * @param mode the argument to give to the fragment
+     * @return the fragment with the arguments loaded
+     */
     public Fragment setFragmentArgs(Fragment fragment, int mode){
         Bundle args = new Bundle();
         args.putInt("mode", mode);
