@@ -134,7 +134,7 @@ public class GameActivity extends FragmentActivity
         }
         else if (gameType == 6) {
             addQuestion(new KnowYourKeyboardFragment());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
         }
         else {
             System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);

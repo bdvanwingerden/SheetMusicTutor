@@ -45,12 +45,10 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
     QuestionDisplay.Display callback;
 
     /**Button corresponding to notes*/
-    private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2;
+    private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as;
 
     /**Array of strings representing which note to play*/
     private String[] notes = {"A","B","C","D","E","F","G","AS","CS","DS","FS","GS"};
-
-    private int[] noteIndex = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
 
     /**The current view*/
     View view;
@@ -94,7 +92,6 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         g = view.findViewById(R.id.g);
         gs = view.findViewById(R.id.gs);
 
-
         shuffle();//shuffle index of notesIndex array
 
         attempts = 3;
@@ -103,7 +100,6 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         curr = 0;
 
-        //correct = notes[noteIndex[curr]];
         correct = notes[curr];
 
         speechBtn.setText("     Identify The Note: "+correct+"   ");//set initial note
@@ -111,7 +107,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle("Know You're Keyboard!");
         alertDialog.setMessage("Dave here will tell which notes to play on the keyboard." +
-                "If you guess correctly you will be rewarded a point. If not you lose a life!");
+                "If you guess correctly Dave will be reward you with a point. If not you lose a life!");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -214,10 +210,10 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
             }
         }
 
-        if(curr < 12 && attempts > 0){
+        if(curr < 11 && attempts > 0){
             speechBtn.setText("     Identify The Note: "+correct+"   ");
         }
-        else if(curr == 12 || attempts == 0){
+        else if(curr == 11 || attempts == 0){
             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
             alertDialog.setTitle("Game Over!");
             alertDialog.setMessage(scoreDialog());
@@ -285,12 +281,6 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
     }//end setKeyText
 
-    /**
-     * Hides all the notes text on the keyboard
-     */
-    private void hideNoteText(){
-
-    }//end hideNoteText
 
     /**
      * initilizes the callback once it is attached

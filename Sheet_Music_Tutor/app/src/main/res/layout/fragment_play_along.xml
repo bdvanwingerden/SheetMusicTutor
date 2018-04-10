@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.PlayAlongFragment"
+    android:background="@color/purple"
+    android:weightSum="2"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/scoreK"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/score"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:textColor="@color/gold"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="3">
+            <ImageView
+                android:id="@+id/kLife1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_life"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+            <ImageView
+                android:id="@+id/kLife2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_life"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+            <ImageView
+                android:id="@+id/kLife3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_life"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:weightSum="2"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".7">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/button16"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="60dp"
+                android:src="@drawable/play_along_dave" />
+
+            <Button
+                android:id="@+id/button16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/speech_bubble"
+                android:text="     Play The Note: A  "
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ListView2"
+            android:layout_weight="1.4"
+            ></ListView>
+    </LinearLayout>
+
+
+</LinearLayout>

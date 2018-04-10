@@ -48,7 +48,7 @@
         style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="130dp"
         android:onClick="noteHeroGame"
         android:text="HERO"
         app:layout_constraintStart_toStartOf="@+id/button9"
@@ -81,5 +81,8 @@
         android:layout_height="wrap_content"
         android:text="@string/know_keyboard"
         android:onClick="knowKeyboardGame"
-        style="@style/button_style"/>
+        style="@style/button_style"
+        app:layout_constraintStart_toStartOf="@id/button12"
+        app:layout_constraintTop_toBottomOf="@id/button12"
+        android:layout_marginTop="30dp"/>
 </android.support.constraint.ConstraintLayout>

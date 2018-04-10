@@ -96,7 +96,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
         }
 
         /*Load in sound files*/
-        if(args.getInt("mode") == 0) {
+        if(args.getInt("mode") == 0 || args.getInt("mode") == 2) {
             sa = soundPool.load(context, R.raw.a, 1);
             sb = soundPool.load(context, R.raw.b, 1);
             sc = soundPool.load(context, R.raw.c, 1);
@@ -123,6 +123,12 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             sg = soundPool.load(context, R.raw.laser_g, 1);
             sgs = soundPool.load(context, R.raw.laser_gs, 1);
         }
+
+        if(args.getInt("mode") == 2)
+            hideNoteText();//hid note assist text
+        else
+            setNoteText();//show note assist text
+
         /**
          * Implements the action for the specified button.
          * Will Change red and play a sound if pressed
@@ -355,6 +361,46 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
         });
 
     }
+
+    /**
+     * Hides all the notes text on the keyboard
+     */
+     private void hideNoteText(){
+
+     a.setText(" ");
+     as.setText(" ");
+     b.setText(" ");
+     c.setText(" ");
+     cs.setText(" ");
+     d.setText(" ");
+     ds.setText(" ");
+     e.setText(" ");
+     f.setText(" ");
+     fs.setText(" ");
+     g.setText(" ");
+     gs.setText(" ");
+     }//end hideNoteText
+
+    /**
+     * Sets the text for to asist the player in identifying notes
+     */
+    private void setNoteText(){
+
+        a.setText("A");
+        as.setText("AS");
+        b.setText("B");
+        c.setText("C");
+        cs.setText("CS");
+        d.setText("D");
+        ds.setText("DS");
+        e.setText("E");
+        f.setText("F");
+        fs.setText("FS");
+        g.setText("G");
+        gs.setText("GS");
+
+    }//end setNoteText
+
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
