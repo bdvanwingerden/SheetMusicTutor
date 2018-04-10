@@ -299,8 +299,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
             throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
-
-    }
+    }//end onAttach
 
 
 }

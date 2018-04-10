@@ -125,29 +125,47 @@ public class AchievementsListView extends AppCompatActivity{
                 //Take these strings from the XML in future versions
                 switch (position) {
                     case 0:
-                        alertDialog.setTitle("Achievement Description (Baby Steps)");
-                        alertDialog.setMessage("\"One Baby Step at a Time\" \n Get one question " +
-                                "correct to get obtain this achievement");
+                        if(achieved[0] == true){
+                            alertDialog.setTitle("Achievement Description (Baby Steps)");
+                            alertDialog.setMessage("\"One Baby Step at a Time\" \n Get one question " +
+                                    "correct to get obtain this achievement");
+                        }else
+                            genericDialog();
                         break;
                     case 1:
-                        alertDialog.setTitle("Achievement Description (Finding Balance)");
-                        alertDialog.setMessage("Finish your first quiz to obtain this achievement");
+                        if(achieved[1] == true) {
+                            alertDialog.setTitle("Achievement Description (Finding Balance)");
+                            alertDialog.setMessage("Finish your first quiz to obtain this achievement");
+                        }else
+                            genericDialog();
                         break;
                     case 2:
-                        alertDialog.setTitle("Achievement Description (Rookie No More)");
-                        alertDialog.setMessage("Obtain this achievement when you reach level 2");
+                        if(achieved[2] == true) {
+                            alertDialog.setTitle("Achievement Description (Rookie No More)");
+                            alertDialog.setMessage("Obtain this achievement when you reach level 2");
+                        }else
+                            genericDialog();
                         break;
                     case 3:
-                        alertDialog.setTitle("Achievement Description (Hard Rocker)");
-                        alertDialog.setMessage("Obtain this achievement when you reach level 3");
+                        if(achieved[3] == true) {
+                            alertDialog.setTitle("Achievement Description (Hard Rocker)");
+                            alertDialog.setMessage("Obtain this achievement when you reach level 3");
+                        }else
+                            genericDialog();
                         break;
                     case 4:
-                        alertDialog.setTitle("Achievement Description (Blind Ninja)");
-                        alertDialog.setMessage("Get at least 8 questions correct without incorrect answers to get obtain this achievement");
+                        if(achieved[4] == true) {
+                            alertDialog.setTitle("Achievement Description (Blind Ninja)");
+                            alertDialog.setMessage("Get at least 8 questions correct without incorrect answers to get obtain this achievement");
+                        }else
+                            genericDialog();
                         break;
                     case 5:
-                        alertDialog.setTitle("Achievement Description (Note-Meister)");
-                        alertDialog.setMessage("The achievement you obtain when you collect every other achievement");
+                        if(achieved[5] == true) {
+                            alertDialog.setTitle("Achievement Description (Note-Meister)");
+                            alertDialog.setMessage("The achievement you obtain when you collect every other achievement");
+                        }else
+                            genericDialog();
                         break;
                     case 6:
                         break;
@@ -167,6 +185,28 @@ public class AchievementsListView extends AppCompatActivity{
         });//end onItemClick
 
     }//end onCreate
+
+    /**
+     * basic dialog for when an achievement hasnt been met yet
+     */
+    private void genericDialog(){
+
+        AlertDialog alertDialog = new AlertDialog.Builder(AchievementsListView.this).create();
+        alertDialog.setTitle("Hold You're Horses!");
+        alertDialog.setMessage("The achievement will be revealed when you meet the criteria");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        alertDialog.setCancelable(false);
+
+        alertDialog.show();
+
+    }//end genericDialog()
 
     /**
      * Obtains the xml file that will be parsed

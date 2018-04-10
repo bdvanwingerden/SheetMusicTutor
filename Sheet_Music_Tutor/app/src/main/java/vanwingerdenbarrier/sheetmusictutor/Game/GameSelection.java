@@ -66,4 +66,15 @@ public class GameSelection extends AppCompatActivity {
         game.putExtra("gameType", 6);
         this.startActivity(game);
     }//end knowKeyboardGame()
+
+    /**
+     * on click method to take user to play along game mode
+     * @param v - instance of the button
+     */
+    public void playAlongGame(View v){
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 7);
+        this.startActivity(game);
+    }//end knowKeyboardGame()
+
 }//end Class GameSelection

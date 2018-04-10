@@ -8,16 +8,17 @@
 
 
     <TextView
-        android:id="@+id/textView_name"
+        android:id="@+id/songTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="46dp"
         android:layout_marginTop="22dp"
-        android:text="Song Title"
+        android:text="@string/little_star"
         android:textColor="@color/gold"
-        android:textSize="30sp" />
+        android:textStyle="bold"
+        android:textSize="40sp" />
 
 
 

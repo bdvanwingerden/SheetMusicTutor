@@ -24,6 +24,8 @@
     <string name="three_tries">Tries 0/3</string>
     <string name="guess_the_note">Identify The Note: A</string>
     <string name="know_keyboard">Know</string>
+    <string name="select_song">Choose a Song to Play!</string>
+    <string name="little_star">Twinkle Twinkle Little Star</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

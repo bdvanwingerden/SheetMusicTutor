@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="1.7"
         android:weightSum="2">
 
         <TextView
@@ -56,48 +57,184 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".5"
+        android:layout_weight=".3"
         android:weightSum="2"
+        android:orientation="vertical"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".7">
+            android:layout_weight=".1">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/button16"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="60dp"
-                android:src="@drawable/play_along_dave" />
-
-            <Button
-                android:id="@+id/button16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/speech_bubble"
-                android:text="     Play The Note: A  "
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="171dp"
+                android:src="@drawable/play_along_dave" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_toStartOf="@+id/imageView6"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView6"
+                android:layout_alignBottom="@+id/textView6"
+                android:layout_alignEnd="@+id/imageView5"
+                android:layout_marginEnd="26dp"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView7"
+                android:layout_alignBottom="@+id/textView7"
+                android:layout_marginStart="22dp"
+                android:layout_toEndOf="@+id/textView7"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView8"
+                android:layout_alignBottom="@+id/textView8"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/textView8"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView6"
+                android:layout_below="@+id/textView6"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/arrowgreen" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView4"
+                android:layout_alignStart="@+id/textView7"
+                android:src="@drawable/arrow_purple" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView8"
+                android:layout_alignTop="@+id/imageView6"
+                android:src="@drawable/arrow_purple" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView11"
+                android:layout_alignTop="@+id/imageView7"
+                android:src="@drawable/arrow_purple" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imageView4"
+                android:layout_below="@+id/imageView4"
+                android:layout_marginTop="22dp"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView12"
+                android:layout_alignBottom="@+id/textView12"
+                android:layout_alignStart="@+id/imageView6"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView13"
+                android:layout_alignStart="@+id/imageView7"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView14"
+                android:layout_alignStart="@+id/imageView8"
+                android:text="A"
+                android:textColor="@color/gold"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView12"
+                android:layout_below="@+id/textView12"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/arrow_purple" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView13"
+                android:layout_alignTop="@+id/imageView9"
+                android:src="@drawable/arrow_purple" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView14"
+                android:layout_alignTop="@+id/imageView10"
+                android:src="@drawable/arrow_purple" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView15"
+                android:layout_alignTop="@+id/imageView11"
+                android:src="@drawable/arrow_purple" />
+
 
         </RelativeLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/ListView2"
-            android:layout_weight="1.4"
-            ></ListView>
     </LinearLayout>
-
 
 </LinearLayout>

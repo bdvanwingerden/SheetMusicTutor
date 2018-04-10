@@ -50,8 +50,6 @@
             android:name=".NoteGames.NoteDefense"
             android:label="@string/title_activity_note_defense"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Achievements"
-            android:screenOrientation="landscape"></activity>
         <activity android:name=".AchievementsListView"
             android:screenOrientation="landscape"></activity>
     </application>

@@ -22,10 +22,12 @@ import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
+import vanwingerdenbarrier.sheetmusictutor.PlayAlongFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.ResultsActivity;
+import vanwingerdenbarrier.sheetmusictutor.SongSelectionFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
@@ -105,6 +107,9 @@ public class GameActivity extends FragmentActivity
         } else if (currentQuestion instanceof KnowYourKeyboardFragment && event != null) {
             ((KnowYourKeyboardFragment) currentQuestion).checkIfCorrect((Note) answer);
         }
+        else if (currentQuestion instanceof PlayAlongFragment && event != null) {
+            ((PlayAlongFragment) currentQuestion).checkIfCorrect((Note) answer);
+        }
     }
 
     @Override
@@ -116,12 +121,11 @@ public class GameActivity extends FragmentActivity
         rounds = 6;
 
         int gameType = getIntent().getIntExtra("gameType", -1);
+        int songType = getIntent().getIntExtra("songType", -1);
 
         mode = gameType;
 
         fragmentManager = getSupportFragmentManager();
-
-
 
         if (gameType == 1 || gameType == 2) {
             addQuestion(new StaffFragment());
@@ -138,6 +142,19 @@ public class GameActivity extends FragmentActivity
         }
         else if (gameType == 6) {
             addQuestion(new KnowYourKeyboardFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
+        }
+        else if (gameType == 7) {//song selection
+            addQuestion(new SongSelectionFragment());
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
+        }
+        else if (gameType == 8) {//sing along
+
+            Bundle args = new Bundle();
+            args.putInt("songType",songType);
+            PlayAlongFragment playFrag = new PlayAlongFragment();
+            playFrag.setArguments(args);
+            addQuestion(playFrag);
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
         }
         else {
