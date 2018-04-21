@@ -117,6 +117,15 @@
             android:layout_weight="1"
             android:background="@drawable/border"
             android:text="F5" />
+
+        <Button
+            android:id="@+id/fs5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="F#5"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout

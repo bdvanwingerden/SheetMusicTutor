@@ -168,7 +168,7 @@ public class DrawStaff extends AppCompatImageView {
             drawNotes(canvas, true);
         } else if (currentDifficulty < 8) {
             drawNotes(canvas, true);
-        } else if (currentDifficulty < 12) {
+        } else{
             drawNotes(canvas, false);
         }
 
