@@ -115,8 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/border"
-            android:text="F5" />
+            android:background="@drawable/border" />
 
         <Button
             android:id="@+id/fs5"
