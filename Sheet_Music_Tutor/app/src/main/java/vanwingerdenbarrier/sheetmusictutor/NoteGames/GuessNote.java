@@ -127,18 +127,18 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
         }
 
         /*Load in sound files*/
-        sa = soundPool.load(context, R.raw.a, 1);
-        sb = soundPool.load(context, R.raw.b, 1);
-        sc = soundPool.load(context, R.raw.c, 1);
-        sd = soundPool.load(context, R.raw.d, 1);
-        se = soundPool.load(context, R.raw.e, 1);
-        sf = soundPool.load(context, R.raw.f, 1);
-        sg = soundPool.load(context, R.raw.g, 1);
-        scs = soundPool.load(context, R.raw.cs, 1);
-        sds = soundPool.load(context, R.raw.eb, 1);
-        sfs = soundPool.load(context, R.raw.fs, 1);
-        sgs = soundPool.load(context, R.raw.gs, 1);
-        sas = soundPool.load(context, R.raw.bb, 1);
+        sa = soundPool.load(context, R.raw.a5, 1);
+        sb = soundPool.load(context, R.raw.b5, 1);
+        sc = soundPool.load(context, R.raw.c5, 1);
+        sd = soundPool.load(context, R.raw.d5, 1);
+        se = soundPool.load(context, R.raw.e4, 1);
+        sf = soundPool.load(context, R.raw.f4, 1);
+        sg = soundPool.load(context, R.raw.g4, 1);
+        scs = soundPool.load(context, R.raw.cs5, 1);
+        sds = soundPool.load(context, R.raw.ds5, 1);
+        sfs = soundPool.load(context, R.raw.fs4, 1);
+        sgs = soundPool.load(context, R.raw.gs4, 1);
+        sas = soundPool.load(context, R.raw.as5, 1);
     }
 
 

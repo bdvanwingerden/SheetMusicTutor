@@ -336,7 +336,7 @@ public class DrawStaff extends AppCompatImageView {
 
                 boolean isSharp = false;
                 if (sharpsAllowed) {
-                    if (random.nextBoolean()) {
+                    if (tempTone != Tone.E && tempTone != Tone.B && random.nextBoolean()) {
                         isSharp = true;
                     }
                 }
@@ -346,9 +346,6 @@ public class DrawStaff extends AppCompatImageView {
                  */
                 Note tempNote = new Note(tempTone, tempPitch, Duration.QUARTER, isSharp);
                 currentStaff.insertNote(tempNote, i);
-
-                // UNCOMMENT ME TO SHOW MULTIPLE NOTES PER BEAT
-                //currentStaff.insertNote(i,j, Tone.A, 5, beats);
             }
         }
     }

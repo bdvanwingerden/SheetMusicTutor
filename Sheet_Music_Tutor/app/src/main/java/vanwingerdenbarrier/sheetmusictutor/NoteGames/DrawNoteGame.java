@@ -135,9 +135,9 @@ public class DrawNoteGame extends AppCompatImageView {
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
      *
-     * @param context
+     * @param context           the current app context
      * @param gameMode          0 = NoteDefense, 1 = NoteHero
-     * @param currentDifficulty
+     * @param currentDifficulty the current difficulty
      */
     public DrawNoteGame(final Context context, int currentDifficulty, int gameMode) {
         super(context);
@@ -452,7 +452,6 @@ public class DrawNoteGame extends AppCompatImageView {
          * big ole if/else to catch certain tones/pitches
          * lineArray[1 + 4x] gives me the x height of a the desired line
          * then subtracting spaceBetween/2 will put the note directly between 2 lines
-         * TODO expand to support all notes & more pitches
          */
         if (note.getTone() == Tone.E && note.getPitch() == 4) {
             noteLocation = lineArray[17];
@@ -499,7 +498,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
         boolean isSharp = false;
         if (sharpsAllowed) {
-            if (random.nextBoolean()) {
+            if ((tempTone != Tone.E && tempTone != Tone.B) && random.nextBoolean()) {
                 isSharp = true;
             }
         }
@@ -521,9 +520,8 @@ public class DrawNoteGame extends AppCompatImageView {
 
         for (AnimatedNote note : onFieldNotes) {
             if ((!note.isDestroyed && note.getTone() == noteToFireAt.getTone()
-                    && note.isSharp() == noteToFireAt.isSharp())||
-                    ((noteToFireAt.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp()) ||
-                    ((noteToFireAt.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp())) {
+                    && note.isSharp() == noteToFireAt.isSharp())
+                    && note.getPitch() == noteToFireAt.getPitch()) {
 
                 if(closest == null){
                     closest = note;
@@ -562,9 +560,8 @@ public class DrawNoteGame extends AppCompatImageView {
         AnimatedNote note = getFirstUnplayed();
 
         if ((note.getTone() == noteToPlay.getTone()
-                && note.isSharp() == noteToPlay.isSharp()) ||
-                ((noteToPlay.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp()) ||
-                ((noteToPlay.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp())) {
+                && note.isSharp() == noteToPlay.isSharp())
+                && note.getPitch() == noteToPlay.getPitch()) {
 
             int noteDist = goalPos - getFirstUnplayed().getX();
 
@@ -687,10 +684,10 @@ public class DrawNoteGame extends AppCompatImageView {
      * @param isSharp whether or not the tone is sharp(just in case)
      */
     public void playTone(Tone tone, Boolean isSharp){
-
         mp = MediaPlayer.create(getContext(), R.raw.explosion);
-
-
+        if(mp.isPlaying()){
+            mp.release();
+        }
         mp.start();
     }
 

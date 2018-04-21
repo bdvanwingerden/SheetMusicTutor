@@ -5,93 +5,118 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:weightSum="10"
         android:orientation="horizontal">
-        <Button
-            android:layout_weight=".85"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/c2"/>
-        <Button
-            android:layout_weight=".79"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="cs"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:id="@+id/cs"/>
-        <Button
-            android:layout_weight=".88"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/d2"/>
-        <Button
-            android:layout_weight=".79"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="ds"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:id="@+id/ds"/>
-        <Button
-            android:layout_weight=".8465"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/e2"/>
-        <Button
-            android:layout_weight=".85"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/f2"/>
-        <Button
-            android:layout_weight=".79"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="fs"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:id="@+id/fs"/>
-        <Button
-            android:layout_weight=".88"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/g2"/>
-        <Button
-            android:layout_weight=".79"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="gs"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:id="@+id/gs"/>
-        <Button
-            android:layout_weight=".88"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:id="@+id/a2"/>
-        <Button
-            android:layout_weight=".79"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="as"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:id="@+id/as"/>
 
         <Button
-            android:id="@+id/b2"
+            android:id="@+id/e4u"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight=".85"
+            android:layout_weight="1"
             android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/f4u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/fs4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="F#4"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/g4u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/gs4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="G#4"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/a5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/as5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="A#5"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/b5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/c5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/cs5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="C#5"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/d5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/ds5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_key_background"
+            android:text="D#5"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/e5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/f5u"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="F5" />
     </LinearLayout>
 
     <LinearLayout
@@ -99,54 +124,77 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <Button
-            android:layout_weight="1"
+            android:id="@+id/e4"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/border"
-            android:text="c"
-            android:id="@+id/c"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="E4" />
+
+        <Button
+            android:id="@+id/f4"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="d"
-            android:background="@drawable/border"
-            android:id="@+id/d"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="F4" />
+
+        <Button
+            android:id="@+id/g4"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="e"
-            android:background="@drawable/border"
-            android:id="@+id/e"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="G4" />
+
+        <Button
+            android:id="@+id/a5"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="f"
-            android:background="@drawable/border"
-            android:id="@+id/f"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="A5" />
+
+        <Button
+            android:id="@+id/b5"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="g"
-            android:background="@drawable/border"
-            android:id="@+id/g"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="B5" />
+
+        <Button
+            android:id="@+id/c5"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="a"
-            android:background="@drawable/border"
-            android:id="@+id/a"/>
-        <Button
             android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="C5" />
+
+        <Button
+            android:id="@+id/d5"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="b"
+            android:layout_weight="1"
             android:background="@drawable/border"
-            android:id="@+id/b"/>
+            android:text="D5" />
+
+        <Button
+            android:id="@+id/e5"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="E5" />
+
+        <Button
+            android:id="@+id/f5"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:text="F5" />
     </LinearLayout>
 </LinearLayout>

@@ -129,9 +129,8 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         ArrayList<Note> noteList = drawStaff.getCurrentStaff()
                 .getNoteList(drawStaff.getCurrentBar(), drawStaff.getCurrentBeat());
         for(Note note : noteList){
-            if (((note.getTone() == noteToFind.getTone()) && note.isSharp == noteToFind.isSharp) ||
-                    ((noteToFind.getTone() == Tone.F) && note.getTone() == Tone.E && note.isSharp) ||
-                    ((noteToFind.getTone() == Tone.C) && note.getTone() == Tone.B && note.isSharp)) {
+            if (((note.getTone() == noteToFind.getTone()) && note.isSharp == noteToFind.isSharp)
+                    && note.getPitch() == noteToFind.getPitch()) {
 
                 //userList.addUserCorrect();
                 score++;

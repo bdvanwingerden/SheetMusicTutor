@@ -79,18 +79,18 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         life2 = (ImageView) view.findViewById(R.id.kLife2);
         life3 = (ImageView) view.findViewById(R.id.kLife3);
 
-        a = view.findViewById(R.id.a);
-        as = view.findViewById(R.id.as);
-        b = view.findViewById(R.id.b);
-        c = view.findViewById(R.id.c);
-        cs = view.findViewById(R.id.cs);
-        d = view.findViewById(R.id.d);
-        ds = view.findViewById(R.id.ds);
-        e = view.findViewById(R.id.e);
-        f = view.findViewById(R.id.f);
-        fs = view.findViewById(R.id.fs);
-        g = view.findViewById(R.id.g);
-        gs = view.findViewById(R.id.gs);
+        a = view.findViewById(R.id.a5);
+        as = view.findViewById(R.id.as5);
+        b = view.findViewById(R.id.b5);
+        c = view.findViewById(R.id.c5);
+        cs = view.findViewById(R.id.cs5);
+        d = view.findViewById(R.id.d5);
+        ds = view.findViewById(R.id.ds5);
+        e = view.findViewById(R.id.e4);
+        f = view.findViewById(R.id.f4);
+        fs = view.findViewById(R.id.fs4);
+        g = view.findViewById(R.id.g4);
+        gs = view.findViewById(R.id.gs4);
 
         shuffle();//shuffle index of notesIndex array
 

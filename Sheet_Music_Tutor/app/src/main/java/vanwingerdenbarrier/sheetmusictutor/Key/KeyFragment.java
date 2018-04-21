@@ -33,7 +33,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     private SoundPool soundPool;
 
     /*Ints to represent each sound*/
-    private int sa,sb,sc,sd,se,sf,sg,scs,sds,sfs,sgs,sas;
+    private int a5, b5, c5, d5, e5, e4, f5, f4, g4, cs5, ds5, fs4, gs4, as5;
 
     /**Context of class that will be implementing sounds into buttons*/
     private Context context;
@@ -41,7 +41,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     private View view;
 
     /**Button corresponding to notes*/
-    private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2;
+    private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as,a2,b2,c2,d2,e2,f2,g2, e3, e32, f3, f32;
 
     Bundle args;
 
@@ -56,7 +56,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(new UserList(this.getContext()).findCurrent().getCurrentLevel() > 5){
+        if(new UserList(this.getContext()).findCurrent().getCurrentLevel() > 20){
             showKeys = false;
         }else{
             showKeys = true;
@@ -68,25 +68,29 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
         context = this.getContext();
 
-        a = view.findViewById(R.id.a);
-        a2 = view.findViewById(R.id.a2);
-        as = view.findViewById(R.id.as);
-        b = view.findViewById(R.id.b);
-        b2 = view.findViewById(R.id.b2);
-        c = view.findViewById(R.id.c);
-        cs = view.findViewById(R.id.cs);
-        c2 = view.findViewById(R.id.c2);
-        d = view.findViewById(R.id.d);
-        ds = view.findViewById(R.id.ds);
-        d2 = view.findViewById(R.id.d2);
-        e = view.findViewById(R.id.e);
-        e2 = view.findViewById(R.id.e2);
-        f = view.findViewById(R.id.f);
-        fs = view.findViewById(R.id.fs);
-        f2 = view.findViewById(R.id.f2);
-        g = view.findViewById(R.id.g);
-        gs = view.findViewById(R.id.gs);
-        g2 = view.findViewById(R.id.g2);
+        a = view.findViewById(R.id.a5);
+        a2 = view.findViewById(R.id.a5u);
+        as = view.findViewById(R.id.as5);
+        b = view.findViewById(R.id.b5);
+        b2 = view.findViewById(R.id.b5u);
+        c = view.findViewById(R.id.c5);
+        cs = view.findViewById(R.id.cs5);
+        c2 = view.findViewById(R.id.c5u);
+        d = view.findViewById(R.id.d5);
+        ds = view.findViewById(R.id.ds5);
+        d2 = view.findViewById(R.id.d5u);
+        e = view.findViewById(R.id.e4);
+        e2 = view.findViewById(R.id.e4u);
+        f = view.findViewById(R.id.f4);
+        fs = view.findViewById(R.id.fs4);
+        f2 = view.findViewById(R.id.f4u);
+        g = view.findViewById(R.id.g4);
+        gs = view.findViewById(R.id.gs4);
+        g2 = view.findViewById(R.id.g4u);
+        e3 = view.findViewById(R.id.e5);
+        e32 = view.findViewById(R.id.e5u);
+        f3 = view.findViewById(R.id.f5);
+        f32 = view.findViewById(R.id.f5u);
 
         createPool();
 
@@ -108,31 +112,36 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
         /*Load in sound files*/
         if(args.getInt("mode") == 0 || args.getInt("mode") == 2) {
-            sa = soundPool.load(context, R.raw.a, 1);
-            sb = soundPool.load(context, R.raw.b, 1);
-            sc = soundPool.load(context, R.raw.c, 1);
-            sd = soundPool.load(context, R.raw.d, 1);
-            se = soundPool.load(context, R.raw.e, 1);
-            sf = soundPool.load(context, R.raw.f, 1);
-            sg = soundPool.load(context, R.raw.g, 1);
-            scs = soundPool.load(context, R.raw.cs, 1);
-            sds = soundPool.load(context, R.raw.eb, 1);
-            sfs = soundPool.load(context, R.raw.fs, 1);
-            sgs = soundPool.load(context, R.raw.gs, 1);
-            sas = soundPool.load(context, R.raw.bb, 1);
+            a5 = soundPool.load(context, R.raw.a5, 1);
+            b5 = soundPool.load(context, R.raw.b5, 1);
+            c5 = soundPool.load(context, R.raw.c5, 1);
+            d5 = soundPool.load(context, R.raw.d5, 1);
+            e5 = soundPool.load(context, R.raw.e5, 1);
+            f5 = soundPool.load(context, R.raw.f5, 1);
+            e4 = soundPool.load(context, R.raw.e4, 1);
+            f4 = soundPool.load(context, R.raw.f4, 1);
+            g4 = soundPool.load(context, R.raw.g4, 1);
+            as5 = soundPool.load(context, R.raw.as5, 1);
+            cs5 = soundPool.load(context, R.raw.cs5, 1);
+            ds5 = soundPool.load(context, R.raw.ds5, 1);
+            fs4 = soundPool.load(context, R.raw.fs4, 1);
+            gs4 = soundPool.load(context, R.raw.gs4, 1);
+
         }else{
-            sa = soundPool.load(context, R.raw.laser_a, 1);
-            sas = soundPool.load(context, R.raw.laser_as, 1);
-            sb = soundPool.load(context, R.raw.laser_b, 1);
-            sc = soundPool.load(context, R.raw.laser_c, 1);
-            scs = soundPool.load(context, R.raw.laser_cs, 1);
-            sd = soundPool.load(context, R.raw.laser_d, 1);
-            sds = soundPool.load(context, R.raw.laser_ds, 1);
-            se = soundPool.load(context, R.raw.laser_e, 1);
-            sf = soundPool.load(context, R.raw.laser_f, 1);
-            sfs = soundPool.load(context, R.raw.laser_fs, 1);
-            sg = soundPool.load(context, R.raw.laser_g, 1);
-            sgs = soundPool.load(context, R.raw.laser_gs, 1);
+            a5 = soundPool.load(context, R.raw.la5, 1);
+            as5 = soundPool.load(context, R.raw.las5, 1);
+            b5 = soundPool.load(context, R.raw.lb5, 1);
+            c5 = soundPool.load(context, R.raw.lc5, 1);
+            cs5 = soundPool.load(context, R.raw.lcs5, 1);
+            d5 = soundPool.load(context, R.raw.ld5, 1);
+            ds5 = soundPool.load(context, R.raw.lds5, 1);
+            e4 = soundPool.load(context, R.raw.le4, 1);
+            f4 = soundPool.load(context, R.raw.lf4, 1);
+            fs4 = soundPool.load(context, R.raw.lfs4, 1);
+            g4 = soundPool.load(context, R.raw.lg4, 1);
+            gs4 = soundPool.load(context, R.raw.lgs4, 1);
+            e5 = soundPool.load(context, R.raw.le5, 1);
+            f5 = soundPool.load(context, R.raw.lf5, 1);
         }
 
         if(args.getInt("mode") == 2)
@@ -151,7 +160,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sa, 1,1,0,0,1);
+                        soundPool.play(a5, 1,1,0,0,1);
                         a.setBackgroundColor(Color.RED);
                         a2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER, false), event);
@@ -171,7 +180,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sb, 1,1,0,0,1);
+                        soundPool.play(b5, 1,1,0,0,1);
                         b.setBackgroundColor(Color.RED);
                         b2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.B, 5, Duration.QUARTER, false), event);
@@ -191,7 +200,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sc, 1,1,0,0,1);
+                        soundPool.play(c5, 1,1,0,0,1);
                         c.setBackgroundColor(Color.RED);
                         c2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.C, 5, Duration.QUARTER, false), event);
@@ -211,7 +220,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sd, 1,1,0,0,1);
+                        soundPool.play(d5, 1,1,0,0,1);
                         d.setBackgroundColor(Color.RED);
                         d2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.D, 5, Duration.QUARTER, false), event);
@@ -231,10 +240,10 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(se, 1,1,0,0,1);
+                        soundPool.play(e4, 1,1,0,0,1);
                         e.setBackgroundColor(Color.RED);
                         e2.setBackgroundColor(Color.RED);
-                        callback.answerPressed(new Note(Tone.E, 5, Duration.QUARTER, false), event);
+                        callback.answerPressed(new Note(Tone.E, 4, Duration.QUARTER, false), event);
                         return false;
                     case MotionEvent.ACTION_UP:
                         e.setBackgroundResource(R.drawable.border);
@@ -251,14 +260,54 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sf, 1,1,0,0,1);
+                        soundPool.play(f4, 1,1,0,0,1);
                         f.setBackgroundColor(Color.RED);
                         f2.setBackgroundColor(Color.RED);
-                        callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER, false), event);
+                        callback.answerPressed(new Note(Tone.F, 4, Duration.QUARTER, false), event);
                         return false;
                     case MotionEvent.ACTION_UP:
                         f.setBackgroundResource(R.drawable.border);
                         f2.setBackgroundResource(R.drawable.border);
+                        //callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER), event);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        e3.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(e5, 1,1,0,0,1);
+                        e3.setBackgroundColor(Color.RED);
+                        e32.setBackgroundColor(Color.RED);
+                        callback.answerPressed(new Note(Tone.E, 5, Duration.QUARTER, false), event);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        e3.setBackgroundResource(R.drawable.border);
+                        e32.setBackgroundResource(R.drawable.border);
+                        //callback.answerPressed(new Note(Tone.E, 5, Duration.QUARTER), event);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        f3.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        soundPool.play(f5, 1,1,0,0,1);
+                        f3.setBackgroundColor(Color.RED);
+                        f32.setBackgroundColor(Color.RED);
+                        callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER, false), event);
+                        return false;
+                    case MotionEvent.ACTION_UP:
+                        f3.setBackgroundResource(R.drawable.border);
+                        f32.setBackgroundResource(R.drawable.border);
                         //callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER), event);
                         return false;
                 }
@@ -271,7 +320,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sg, 1,1,0,0,1);
+                        soundPool.play(g4, 1,1,0,0,1);
                         g.setBackgroundColor(Color.RED);
                         g2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.G, 5, Duration.QUARTER, false), event);
@@ -291,7 +340,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(scs, 1,1,0,0,1);
+                        soundPool.play(cs5, 1,1,0,0,1);
                         cs.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.C, 5, Duration.QUARTER, true), event);
                         return false;
@@ -308,7 +357,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sds, 1,1,0,0,1);
+                        soundPool.play(ds5, 1,1,0,0,1);
                         ds.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.D, 5, Duration.QUARTER, true), event);
                         return false;
@@ -325,7 +374,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sfs, 1,1,0,0,1);
+                        soundPool.play(fs4, 1,1,0,0,1);
                         callback.answerPressed(new Note(Tone.F, 5, Duration.QUARTER, true), event);
                         fs.setBackgroundColor(Color.RED);
                         return false;
@@ -342,7 +391,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sgs, 1,1,0,0,1);
+                        soundPool.play(gs4, 1,1,0,0,1);
                         gs.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.G, 5, Duration.QUARTER, true), event);
                         return false;
@@ -359,7 +408,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(sas, 1,1,0,0,1);
+                        soundPool.play(as5, 1,1,0,0,1);
                         as.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER, true), event);
                         return false;
@@ -390,6 +439,8 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
      fs.setText(" ");
      g.setText(" ");
      gs.setText(" ");
+     e3.setText(" ");
+     f3.setText(" ");
      }//end hideNoteText
 
     /**
@@ -397,18 +448,20 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
      */
     private void setNoteText(){
 
-        a.setText("A");
-        as.setText("AS");
-        b.setText("B");
-        c.setText("C");
-        cs.setText("CS");
-        d.setText("D");
-        ds.setText("DS");
-        e.setText("E");
-        f.setText("F");
-        fs.setText("FS");
-        g.setText("G");
-        gs.setText("GS");
+        a.setText("A5");
+        as.setText("A#5");
+        b.setText("B5");
+        c.setText("C5");
+        cs.setText("C#5");
+        d.setText("D5");
+        ds.setText("D#5");
+        e.setText("E4");
+        f.setText("F4");
+        fs.setText("F#4");
+        g.setText("G4");
+        gs.setText("G#4");
+        e3.setText("E5");
+        f3.setText("F5");
 
     }//end setNoteText
 
