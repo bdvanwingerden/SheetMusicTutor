@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
         View animatedBG = findViewById(R.id.mainlayout);
         View root = animatedBG.getRootView();
         root.setBackgroundColor(R.color.purple);
-        animatedBG.setBackgroundResource(R.drawable.animatedbackground);
-        bg = (AnimationDrawable) animatedBG.getBackground();
-        bg.start();
-
     }
 
     /**

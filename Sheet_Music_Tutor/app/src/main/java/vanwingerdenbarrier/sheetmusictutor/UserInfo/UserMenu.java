@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.LinkedList;
+
 import vanwingerdenbarrier.sheetmusictutor.R;
 
 
@@ -33,11 +35,15 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     private UserList users;
 
+    LinkedList<Button> buttonList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_menu);
         users = new UserList(this);
+
+        buttonList = new LinkedList<>();
 
         createButtons();
         if(users.findCurrent() == null){
@@ -46,7 +52,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
                 users.getUserList().get(users.getUserList().size() - 1)
                         .swapCurrent();
                 users.updateUser(users.findCurrent(), UserDB.IS_CURRENT, 1);
-                recreate();
+                //recreate();
             } else {
                 createUserDialog.show(getFragmentManager(), "createUserDialog");
             }
@@ -63,12 +69,12 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         boolean currentSet = false;
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
-            tempButton.setText(u.getName());
+            tempButton.setText(u.getName() + " " + i);
             tempButton.setId(i);
             u.setId(i);
             users.updateUser(u, UserDB.KEY_ID, i);
             users.getUserList().get(i).setId(i);
-            i++;
+
             tempButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT));
             tempButton.setOnClickListener(this);
@@ -80,6 +86,8 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
                 u.swapCurrent();
             }
             linearLayout.addView(tempButton);
+            buttonList.add(i, tempButton);
+            i++;
         }
 
         Button addUser = new Button(this);
@@ -138,10 +146,6 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
 
                                 public void onClick(DialogInterface dialog, int i) {
                                     users.removeUser(u);
-
-                                    for (User u : users.getUserList()) {
-                                        System.out.println("BB " + u.getID() + " " + u.getName());
-                                    }
                                     recreate();
                                 }
                             });
@@ -162,17 +166,16 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      * @param name
      */
     public void onAcceptDialog(View view, String name) {
-        if(users.findCurrent() != null){
-            users.findCurrent().swapCurrent();
-        }
-        User user = new User(users.getUserList().size(), name, 1);
+
+        User user = new User(users.getUserList().size(), name, 0);
         users.addUser(user);
         createUserDialog.dismiss();
 
         setUserDifficultyDialog = new SetUserDifficulty();
         setUserDifficultyDialog.show(getFragmentManager(), "setUserDifficultyDialog");
 
-        recreate();
+        createButtons();
+        onClick(buttonList.getLast());
         //finish();
     }
 

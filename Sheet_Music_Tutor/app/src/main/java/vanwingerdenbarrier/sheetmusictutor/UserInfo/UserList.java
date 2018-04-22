@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.ATTEMPTS;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CORRECT;
@@ -79,6 +80,7 @@ public class UserList {
 
         db.insert(USER_TABLE, null, cv);
         db.close();
+        cv.clear();
     }
 
     /**
@@ -88,9 +90,14 @@ public class UserList {
      */
     public void removeUser(User toRemove){
         userLinkedList.remove(toRemove);
-        SQLiteDatabase db = userDB.getWritableDatabase();
-        db.delete(USER_TABLE, KEY_ID + "=" + toRemove.getID(), null);
-        db.close();
+        emptyUserList();
+        int i = 0;
+        ArrayList<User> temp = (ArrayList<User>) userLinkedList.clone();
+        for(User u : temp){
+            u.setId(i);
+            addUser(u);
+            i++;
+        }
     }
 
 
@@ -183,11 +190,13 @@ public class UserList {
         db.execSQL("UPDATE " + USER_TABLE +
                 " SET " + field + "="+ newValue +
                 " WHERE id=" + user.getID());
+        db.close();
     }
 
     public void emptyUserList() {
         SQLiteDatabase db = userDB.getWritableDatabase();
         db.execSQL("DELETE FROM " + USER_TABLE);
+        db.close();
     }
 
 }
