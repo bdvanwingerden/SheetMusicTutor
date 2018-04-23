@@ -314,7 +314,7 @@ public class DrawNoteGame extends AppCompatImageView {
             noteShape = getResources()
                     .getDrawable(R.drawable.q_note_head, null);
         }else{
-            noteShape = getResources().getDrawable(R.drawable.ic_001_ufo, null);
+            noteShape = getResources().getDrawable(R.drawable.ic_001_aliens, null);
         }
         noteShape.setBounds((note.getX() - noteWidth), (note.getY() - noteHeight)
                 , note.getX() + noteWidth, note.getY() + noteHeight);
@@ -395,9 +395,10 @@ public class DrawNoteGame extends AppCompatImageView {
                 }
 
                 if(currentDifficulty < 15 && note != spaceship && (!note.isDestroyed && !note.isPlayed)){
-
+                    paint3.setColor(Color.WHITE);
                     canvas.drawText(note.getTone().toString(), x,
                             note.getY() + noteHeight/2, paint3);
+                    paint3.setColor(Color.BLACK);
                 }
 
                 if(gameMode == 1 && !note.isPlayed){
@@ -544,6 +545,8 @@ public class DrawNoteGame extends AppCompatImageView {
             } else {
                 spaceship.setVerSpeed(0);
             }
+        }else{
+            currentLives--;
         }
 
     }
@@ -565,7 +568,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
             int noteDist = goalPos - getFirstUnplayed().getX();
 
-            if (noteDist < noteWidth * 2 && noteDist > -noteWidth) {
+            if (noteDist < noteWidth && noteDist > -noteWidth) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
                 played.setIsPlayed();
@@ -632,7 +635,7 @@ public class DrawNoteGame extends AppCompatImageView {
      * @param canvas the canvas to draw the ship onto
      */
     public void drawShip(Canvas canvas){
-        Drawable ship = getResources().getDrawable(R.drawable.ic_002_spaceship, null);
+        Drawable ship = getResources().getDrawable(R.drawable.ic_space_invaders, null);
         spaceship.setNoteShape(ship);
         spaceship.setIsPlayed();
         spaceship.setHorSpeed(0);

@@ -151,7 +151,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                         drawStaff.lastClickX = 0;
                         drawStaff.lastClickY = 0;
                         //drawStaff = new DrawStaff(this.getContext());
-                        callback.questionPressed(null, score, 1); // ENDS this question
+                        callback.questionPressed(null, score, drawStaff.currentLives); // ENDS this question
                         //TODO Count score for staff mode
                     }
                     return location;
@@ -159,6 +159,12 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
 
             }else{
                 drawStaff.wrong();
+                drawStaff.currentLives--;
+                staff.removeAllViews();
+                staff.addView(drawStaff);
+                if(drawStaff.currentLives == 0){
+                    callback.questionPressed(null, score, drawStaff.currentLives); // ENDS this question
+                }
             }
         }
 

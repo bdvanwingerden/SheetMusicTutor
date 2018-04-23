@@ -606,7 +606,6 @@ public class DrawStaff extends AppCompatImageView {
         performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 
         ArrayList<Note> noteList = getCurrentStaff().getNoteList(getCurrentBar(), getCurrentBeat());
-        currentLives--;
 
         toasty.setText("Try Again");
         toasty.show();
