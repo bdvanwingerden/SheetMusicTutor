@@ -134,7 +134,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
 
                 //userList.addUserCorrect();
                 score++;
-                System.out.println("ADDING points " + userList.findCurrent().getNumQuestionsCorrect());
+                drawStaff.addPoint();
                 if(userList.findCurrent().getNumPointsNeeded()
                         >= userList.findCurrent().getNumQuestionsCorrect()){
                     userList.addUserPointsNeeded();

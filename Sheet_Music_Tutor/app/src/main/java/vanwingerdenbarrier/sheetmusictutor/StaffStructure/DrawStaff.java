@@ -113,6 +113,10 @@ public class DrawStaff extends AppCompatImageView {
 
     Canvas canvas;
 
+    Drawable[] lives;
+    int currentLives;
+    int currentScore;
+
     Toast toasty = Toast.makeText(this.getContext(), "",Toast.LENGTH_SHORT);
 
     /**
@@ -123,6 +127,10 @@ public class DrawStaff extends AppCompatImageView {
      */
     public DrawStaff(final Context context, int currentDifficulty) {
         super(context);
+
+        currentLives = 4;
+        lives = new Drawable[currentLives - 1];
+        currentScore = 0;
 
         nextToPlay = new LinkedList<>();
 
@@ -179,6 +187,9 @@ public class DrawStaff extends AppCompatImageView {
                 selectNote(tempNote, canvas);
             }
         }
+
+        updateLives();
+        updateScore();
     }
 
     /**
@@ -595,10 +606,50 @@ public class DrawStaff extends AppCompatImageView {
         performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 
         ArrayList<Note> noteList = getCurrentStaff().getNoteList(getCurrentBar(), getCurrentBeat());
+        currentLives--;
 
         toasty.setText("Try Again");
         toasty.show();
+    }
+
+    /**
+     * draws the number of remaining lives that the player has
+     */
+    public void updateLives(){
+
+        for(int i = 0; i < lives.length; i++){
+            if(i < currentLives-1) {
+                lives[i] = getResources().getDrawable(R.drawable.ic_life);
+            }else{
+                lives[i] = getResources().getDrawable(R.drawable.ic_lost_life);
+            }
         }
+
+        int x = size.x;
+        int y = 0;
+
+        for(Drawable life : lives){
+            life.setBounds(x - 2*noteWidth, y, x, y + 2* noteWidth);
+            life.draw(canvas);
+            x -= 3*noteWidth;
+        }
+
+    }
+
+    /**
+     * draws the current score of the user that is playing
+     */
+    public void updateScore(){
+        float oldTextSize = paint.getTextSize();
+        paint.setTextSize(2*noteWidth);
+        canvas.drawText("Score : " + currentScore, size.x- 14*noteWidth,
+                paint.getTextSize(), paint);
+        paint.setTextSize(oldTextSize);
+    }
+
+    public void addPoint() {
+        currentScore++;
+    }
 
 }
 
