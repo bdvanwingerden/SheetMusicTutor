@@ -113,9 +113,10 @@
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Try Again(Placeholder)"
-            android:onClick="quizGame"
+            android:text="@string/done"
+            android:onClick="doneButton"
             style="@style/button_style"
+            android:layout_marginHorizontal="100dp"
             />
     </LinearLayout>
 

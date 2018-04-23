@@ -51,7 +51,7 @@ public class AchievementsListView extends AppCompatActivity{
     /**Number of correct answers needed to obtain hard rocker achievement*/
     private final int ROCKER = 16;
 
-    /**Number of correct answers needed to obtain note-meister achievement*/
+    /**Number of achievements needed to obtain note-meister achievement*/
     private final int MEISTER = 5;
 
     /**Percentage to set progress bar to when all criteria has been met*/
@@ -72,7 +72,7 @@ public class AchievementsListView extends AppCompatActivity{
     /**List of achievement objects parsed from xml*/
     ArrayList<Achievement> achievements;
 
-    boolean[] achieved = {false,false,false,false,false,false};
+    private boolean[] achieved = {false,false,false,false,false,false};
 
     /**Names of the image files being used in the achievements list view*/
     int[] IMAGES = {R.drawable.baby,R.drawable.balance,R.drawable.rookie,R.drawable.ninja,
@@ -400,12 +400,12 @@ public class AchievementsListView extends AppCompatActivity{
         public void rookieNoMore(Drawable drawable,ImageView imageView,int position){
 
             int rookie = Integer.parseInt(achievements.get(2).points);
+            Log.d("Rookie",rookie+"");
 
             float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) rookie)*100;
             progressBar.setProgress((int) percentage);
 
-            if(current.getNumQuestionsCorrect() == current.getNumQuestionsAttempted() ||
-                    current.getNumQuestionsAttempted() >= rookie) {
+            if(current.getNumQuestionsCorrect() >= rookie) {
 
                 textView_name.setText("ROOKIE NO MORE 8/8");
                 progressBar.setProgressDrawable(drawable);
