@@ -59,6 +59,7 @@ public class User {
     private int hero_level;
     private int defense_level;
     private int quiz_level;
+    private boolean show_key;
 
     /**
      * default constructor for a new user
@@ -76,6 +77,7 @@ public class User {
         this.hero_level = 1;
         this.defense_level = 1;
         this.quiz_level = 1;
+        this.show_key = true;
     }
 
     public int getHero_level() {
@@ -111,7 +113,7 @@ public class User {
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
                 int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
-                int defense_level, int quiz_level) {
+                int defense_level, int quiz_level, int show_key) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
@@ -122,6 +124,7 @@ public class User {
         this.hero_level = hero_level;
         this.defense_level = defense_level;
         this.quiz_level = quiz_level;
+        this.show_key = show_key != 0;
     }
 
     /**
@@ -206,6 +209,21 @@ public class User {
 
     public int getNumPointsNeeded() {
         return numPointsNeeded;
+    }
+
+    public boolean isShowing_key() {
+        return show_key;
+    }
+
+    public int showKeyToInt(){
+        if(show_key){
+            return 1;
+        }
+        return 0;
+    }
+
+    public void setShow_key(boolean show_key) {
+        this.show_key = show_key;
     }
 
     /**

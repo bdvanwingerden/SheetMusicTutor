@@ -19,6 +19,7 @@ import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.KEY_ID;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.NAME;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.NUM_POINTS_NEEDED;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.QUIZ_LEVEL;
+import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.SHOW_KEY;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.USER_TABLE;
 
 /**
@@ -53,9 +54,9 @@ public class UserList {
      */
     public void addUser(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
                         int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
-                        int defense_level, int quiz_level){
+                        int defense_level, int quiz_level, int showKey){
         userLinkedList.add(new User(ID, name, numQuestionsAttempted, numQuestionsCorrect,
-                currentLevel, numPointsNeeded, isCurrent, hero_level, defense_level, quiz_level));
+                currentLevel, numPointsNeeded, isCurrent, hero_level, defense_level, quiz_level, showKey));
     }
 
     /**
@@ -77,6 +78,7 @@ public class UserList {
         cv.put(DEFENSE_LEVEL, u.getDefense_level());
         cv.put(QUIZ_LEVEL, u.getQuiz_level());
         cv.put(NUM_POINTS_NEEDED, u.getNumPointsNeeded());
+        cv.put(SHOW_KEY, u.showKeyToInt());
 
         db.insert(USER_TABLE, null, cv);
         db.close();
@@ -122,7 +124,8 @@ public class UserList {
         // Looping through all records and adding to list
         if(c.moveToFirst()){
             do{
-                userLinkedList.add(new User(c.getInt(c.getColumnIndex(UserDB.KEY_ID)),
+                userLinkedList.add(new User(
+                        c.getInt(c.getColumnIndex(UserDB.KEY_ID)),
                         c.getString(c.getColumnIndex(UserDB.NAME)),
                         c.getInt(c.getColumnIndex(UserDB.ATTEMPTS)),
                         c.getInt(c.getColumnIndex(UserDB.CORRECT)),
@@ -131,7 +134,10 @@ public class UserList {
                         c.getInt(c.getColumnIndex(UserDB.IS_CURRENT)),
                         c.getInt(c.getColumnIndex(UserDB.HERO_LEVEL)),
                         c.getInt(c.getColumnIndex(UserDB.DEFENSE_LEVEL)),
-                        c.getInt(c.getColumnIndex(UserDB.QUIZ_LEVEL))));
+                        c.getInt(c.getColumnIndex(UserDB.QUIZ_LEVEL)),
+                        c.getInt(c.getColumnIndex(UserDB.SHOW_KEY))
+                ));
+
             }while (c.moveToNext());
         }
 
@@ -183,6 +189,18 @@ public class UserList {
         int newValue = user.getCurrentLevel()+1;
         user.setCurrentLevel(newValue);
         updateUser(user, CURRENT_LEVEL, newValue);
+    }
+
+    public void toggleShowKey(boolean show){
+        User user = findCurrent();
+        int newValue = 0;
+        if(show != user.isShowing_key()){
+            if(show){
+                newValue = 1;
+            }
+            user.setShow_key(show);
+            updateUser(user, SHOW_KEY, newValue);
+        }
     }
 
     public void updateUser(User user, String field, int newValue){

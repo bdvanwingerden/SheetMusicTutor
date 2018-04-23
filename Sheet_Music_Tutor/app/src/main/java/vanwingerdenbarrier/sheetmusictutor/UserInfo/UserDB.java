@@ -21,7 +21,7 @@ public class UserDB extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "user.db";
 
     // Current version of database
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     // Database table name
     public static final String USER_TABLE = "UserTable";
@@ -37,6 +37,7 @@ public class UserDB extends SQLiteOpenHelper{
     public static final String HERO_LEVEL = "hero_level";
     public static final String DEFENSE_LEVEL = "defense_level";
     public static final String QUIZ_LEVEL = "quiz_level";
+    public static final String SHOW_KEY = "show_key";
 
     // Question Table Create Query in this string
     private static final String CREATE_USER_TABLE = "CREATE TABLE "
@@ -49,7 +50,8 @@ public class UserDB extends SQLiteOpenHelper{
             + HERO_LEVEL + " INTEGER, "
             + DEFENSE_LEVEL + " INTEGER, "
             + QUIZ_LEVEL + " INTEGER, "
-            + NUM_POINTS_NEEDED + " INTEGER);";
+            + NUM_POINTS_NEEDED + " INTEGER,"
+            + SHOW_KEY + " INTEGER);";
 
 
     public UserDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

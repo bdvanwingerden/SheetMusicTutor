@@ -56,11 +56,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(new UserList(this.getContext()).findCurrent().getCurrentLevel() > 20){
-            showKeys = false;
-        }else{
-            showKeys = true;
-        }
+        showKeys = new UserList(getContext()).findCurrent().isShowing_key();
 
         args = getArguments();
 
