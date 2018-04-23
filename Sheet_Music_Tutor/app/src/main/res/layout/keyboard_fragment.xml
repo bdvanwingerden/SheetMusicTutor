@@ -13,7 +13,7 @@
             android:id="@+id/e4u"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_weight=".952"
             android:background="@drawable/border" />
 
         <Button
@@ -68,14 +68,14 @@
             android:id="@+id/b5u"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.023"
             android:background="@drawable/border" />
 
         <Button
             android:id="@+id/c5u"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_weight=".999"
             android:background="@drawable/border" />
 
         <Button
@@ -114,14 +114,14 @@
             android:id="@+id/f5u"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.002"
             android:background="@drawable/border" />
 
         <Button
             android:id="@+id/fs5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.02"
             android:background="@drawable/sharp_key_background"
             android:text="F#5"
             android:textColor="@color/white" />

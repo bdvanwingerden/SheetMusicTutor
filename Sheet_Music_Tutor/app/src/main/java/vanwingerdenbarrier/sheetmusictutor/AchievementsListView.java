@@ -385,7 +385,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("Achievement 2) "+attempted+"/4");
+                textView_name.setText("Achievement 2) "+totalPoints+"/4");
             }
         }//end findingBalance()
 
@@ -404,7 +404,7 @@ public class AchievementsListView extends AppCompatActivity{
             float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) rookie)*100;
             progressBar.setProgress((int) percentage);
 
-            if(current.getNumQuestionsCorrect() == current.getNumQuestionsAttempted() &&
+            if(current.getNumQuestionsCorrect() == current.getNumQuestionsAttempted() ||
                     current.getNumQuestionsAttempted() >= rookie) {
 
                 textView_name.setText("ROOKIE NO MORE 8/8");
@@ -415,7 +415,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("Achievement 3) "+attempted+"/8");
+                textView_name.setText("Achievement 3) "+totalPoints+"/8");
             }
         }//end rookieNoMore()
 
@@ -439,7 +439,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("Achievement 4) "+attempted+"/8");
+                textView_name.setText("Achievement 4) "+totalPoints+"/8");
             }
         }//end blindNinja()
 
@@ -463,7 +463,7 @@ public class AchievementsListView extends AppCompatActivity{
                 achieved[position] = true;
             }
             else{
-                textView_name.setText("Achievement 5) "+attempted+"/16");
+                textView_name.setText("Achievement 5) "+totalPoints+"/16");
             }
         }//end hardRocker()
 
