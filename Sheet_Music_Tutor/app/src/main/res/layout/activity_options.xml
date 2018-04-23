@@ -5,25 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.OptionsActivity"
+    android:gravity="center"
+    android:orientation="vertical"
     android:weightSum="10"
-    android:orientation="vertical">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.OptionsActivity">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/UserMenu"
+        style="@style/button_style"
+        android:layout_width="match_parent "
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="111dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight=".5"
+        android:contentDescription="@string/user"
+        android:onClick="userMenu"
+        android:text="@string/user" />
+
+    <Switch
+        android:id="@+id/keyLabels"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:weightSum="2">
-        <Button
-            android:id="@+id/UserMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/user"
-            android:onClick="userMenu"
-            android:text="@string/user"
-            style="@style/button_style"/>
-    </LinearLayout>
+        android:layout_marginEnd="111dp"
+        android:layout_marginStart="111dp"
+        android:layout_weight="2"
+        android:checked="true"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat"
+        android:text="Toggle Keyboard Labels"
+        android:textOff='"Hide Labels"'
+        android:textOn='"Show Labels"' />
 
 </LinearLayout>
