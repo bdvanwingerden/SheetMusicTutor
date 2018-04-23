@@ -98,9 +98,10 @@ public class ResultsActivity extends AppCompatActivity{
      * Restarts quiz when pressed
      * @param v
      */
-    public void quizButton(View v) {
-        Intent quiz = new Intent(this, QuizActivity.class);
-        this.startActivity(quiz);
+    public void doneButton(View v) {
+        Intent home = new Intent(this, MainActivity.class);
+        this.startActivity(home);
+        finish();
     }
 
     /**
