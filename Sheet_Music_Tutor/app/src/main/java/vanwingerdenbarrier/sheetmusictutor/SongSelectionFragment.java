@@ -21,7 +21,8 @@ import vanwingerdenbarrier.sheetmusictutor.Game.GameActivity;
 public class SongSelectionFragment extends Fragment {
 
     /**Names of songs that can be selected*/
-    String[] SONG_NAMES = {"1)Twinkle Twinkle Little Star","2)Itsy Bitsy Spider"};
+    String[] SONG_NAMES = {"1)Twinkle Twinkle Little Star","2)Itsy Bitsy Spider",
+            "3)Row Row Row Your Boat"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,9 @@ public class SongSelectionFragment extends Fragment {
                         break;
                     case 1:
                         nextActivity.putExtra("songType", 1);//Spider
+                        break;
+                    case 2:
+                        nextActivity.putExtra("songType", 2);//Spider
                         break;
                     default:
                 }

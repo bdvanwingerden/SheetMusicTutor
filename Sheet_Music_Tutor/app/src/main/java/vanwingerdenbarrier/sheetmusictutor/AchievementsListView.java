@@ -81,9 +81,9 @@ public class AchievementsListView extends AppCompatActivity{
     int lockIcon = R.drawable.lock;
 
     /**Names of each particular achievement. Get From XML!!!!*/
-    String[] NAMES = {"Achievement 1) 0/1","Achievement 2) 0/4",
-            "Achievement 3) 0/8","Achievement 4) 0/16",
-            "Achievement 5) 0/8","Achievement 6) 0/5"};
+    String[] NAMES = {"Achievement 1. 0/1","Achievement 2. 0/4",
+            "Achievement 3. 0/8","Achievement 4. 0/16",
+            "Achievement 5. 0/8","Achievement 6. 0/5"};
 
     /**Starting progress for each achievement*/
     int[] PROGRESS = {0,0,0,0,0,0};
@@ -130,42 +130,42 @@ public class AchievementsListView extends AppCompatActivity{
                             alertDialog.setMessage("\"One Baby Step at a Time\" \n Get one question " +
                                     "correct to get obtain this achievement");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 1:
                         if(achieved[1] == true) {
                             alertDialog.setTitle("Achievement Description (Finding Balance)");
                             alertDialog.setMessage("Finish your first quiz to obtain this achievement");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 2:
                         if(achieved[2] == true) {
                             alertDialog.setTitle("Achievement Description (Rookie No More)");
                             alertDialog.setMessage("Obtain this achievement when you reach level 2");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 3:
                         if(achieved[3] == true) {
                             alertDialog.setTitle("Achievement Description (Hard Rocker)");
                             alertDialog.setMessage("Obtain this achievement when you reach level 3");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 4:
                         if(achieved[4] == true) {
                             alertDialog.setTitle("Achievement Description (Blind Ninja)");
                             alertDialog.setMessage("Get at least 8 questions correct without incorrect answers to get obtain this achievement");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 5:
                         if(achieved[5] == true) {
                             alertDialog.setTitle("Achievement Description (Note-Meister)");
                             alertDialog.setMessage("The achievement you obtain when you collect every other achievement");
                         }else
-                            genericDialog();
+                            genericDialog(alertDialog);
                         break;
                     case 6:
                         break;
@@ -189,9 +189,8 @@ public class AchievementsListView extends AppCompatActivity{
     /**
      * basic dialog for when an achievement hasnt been met yet
      */
-    private void genericDialog(){
+    private void genericDialog(AlertDialog alertDialog){
 
-        AlertDialog alertDialog = new AlertDialog.Builder(AchievementsListView.this).create();
         alertDialog.setTitle("Hold You're Horses!");
         alertDialog.setMessage("The achievement will be revealed when you meet the criteria");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",

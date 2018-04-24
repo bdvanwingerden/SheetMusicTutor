@@ -31,7 +31,7 @@ public class UserList {
     /**
      * linked list containing all users
      */
-    private ArrayList<User> userLinkedList;
+    public ArrayList<User> userLinkedList;
 
     private SQLiteOpenHelper userDB;
 

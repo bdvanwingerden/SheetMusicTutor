@@ -17,6 +17,8 @@ import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
+import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 
 /**
@@ -34,15 +36,18 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
     TextView t1,t2,t3,t4,t5,t6,t7,t8;
 
+    /**TextView for the score*/
+    TextView scoreView;
+
     ImageView[] arrowTracker;
 
     /**Array of notes in twinkle twinkle little star*/
     String[] twinkle = {"G","G","D","D","E","E","D","C",
             "C","B","B","A","A","G","D","D",
             "C","C","B","B","A","D","D","C",
-            "C","B","B","A","A","G","G","D",
-            "E","E","D","E","E","D","C","C",
-            "B","B","A","A","G","","",""};
+            "C","B","B","A","G","G","D","E",
+            "E","D","E","E","D","C","C","B",
+            "B","A","A","G","","","",""};
 
     /**Array of notes in twinkle twinkle little star*/
     String[] spider = {"G","C","C","C","D","E","E","E",
@@ -51,6 +56,11 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
             "D","E","E","D","C","D","E","C",
             "G","G","C","C","C","D","E","E",
             "E","D","C","D","E","C","","",};
+
+    String[] row = {"D","D","D","E","F#","F#","E","F#",
+            "G","A","D","D","D","A","A","A",
+            "F#","F#","F#","D","D","D","A","G",
+            "F#","E","D","","","","","",};
 
     /**The current notes to be displayed in the for play along*/
     String[] currentNotes = {"","","","","","","",""};
@@ -75,11 +85,20 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
     /**Current note to be played*/
     String correct;
 
+    /**Once 8 correct answers adds point to stats*/
+    int addCorrect;
+
     /**Number of lives a player has*/
     int attempts;
 
     /**Current score for the game*/
     private int score;
+
+    /**True if user has not leveled up during a quiz session. False if they have leveled up*/
+    boolean levelUp = true;
+
+    UserList userList;
+    User current;
 
 
     @Override
@@ -87,6 +106,9 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_play_along, container, false);
+
+        userList = new UserList(getActivity());
+        current = new UserList(getActivity()).findCurrent();
 
         Bundle b = getArguments();
 
@@ -116,6 +138,8 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         t7 = (TextView) view.findViewById(R.id.textView14);
         t8 = (TextView) view.findViewById(R.id.textView15);
 
+        scoreView = (TextView) view.findViewById(R.id.scoreP);
+
 
         notePointer = 0;
 
@@ -124,6 +148,8 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         attempts = 3;
 
         score = 0;
+
+        addCorrect = 0;
 
         setNotes(setSong());
 
@@ -146,6 +172,9 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         }
         else if(songType == 1){
             songArray = spider;
+        }
+        else if(songType == 2){
+            songArray = row;
         }
 
         return songArray;
@@ -200,15 +229,15 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
             //Sharp Keys
         else if(tmpTone.equals(Tone.A) && isSharp)
-            checkCorrect = "AS";
+            checkCorrect = "A#";
         else if(tmpTone.equals(Tone.C) && isSharp)
-            checkCorrect = "CS";
+            checkCorrect = "C#";
         else if(tmpTone.equals(Tone.D) && isSharp)
-            checkCorrect = "DS";
+            checkCorrect = "D#";
         else if(tmpTone.equals(Tone.F) && isSharp)
-            checkCorrect = "FS";
+            checkCorrect = "F#";
         else if(tmpTone.equals(Tone.G) && isSharp)
-            checkCorrect = "GS";
+            checkCorrect = "G#";
 
         checkCorrectHelper(checkCorrect);
 
@@ -222,7 +251,13 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         //may need to add curr later
 
         if(correct.equals(checkCorrect)){//right
-            score++;
+            addCorrect++;
+            if(addCorrect == 8){
+                score++;
+                scoreView.setText("Score: "+score);
+                addPoint();
+                addCorrect = 0;
+            }
             arrowTracker[currentNote].setImageResource(R.drawable.arrow_purple);
             currentNote++;
             if(currentNote < 8 && !currentNotes[currentNote].equals("")) {
@@ -242,12 +277,28 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         }else{//wrong
             if(attempts > 1){
                 attempts--;
+                userList.addUserAttempt();
                 decrementLife(attempts);
             }else{//attempts == 0
                 finishPlayAlong();
             }
         }
     }//end checkCorrectHelper()
+
+    /**
+     * Add a point to the users overall stats once they have played 8 notes correctly
+     */
+    private void addPoint(){
+        userList.addUserCorrect();
+        userList.addUserAttempt();
+
+        //This if levels up the user if they have reached the number of points needed
+        if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
+            levelUp = false;//So that we don't level up the user more than once by mistake
+            userList.levelUpUser();
+            userList.addUserPointsNeeded();//increment points needed to level up
+        }
+    }
 
     /**
      * Show the alert dialog with the correct results
@@ -285,11 +336,11 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
     private String scoreDialog(){
         String quote = "";
 
-        if(score <= 8)
+        if(score <= 2)
             quote += "Score: "+score+"\nVery Poor. Get to studying!";
-        else if(score <= 16)
+        else if(score <= 4)
             quote += "Score: "+score+"\nYou can do better than that!";
-        else if(score <= 24)
+        else if(score <= 6)
             quote += "Score: "+score+"\nNot bad! Now master it";
         else
             quote += "Score: "+score+"\nGreat! You really do know you're keyboard.";

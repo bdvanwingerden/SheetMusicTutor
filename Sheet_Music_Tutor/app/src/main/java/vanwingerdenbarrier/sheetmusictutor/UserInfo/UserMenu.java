@@ -189,7 +189,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
     public void onSelectDiffDialog(View view, int dif){
 
         //User current = new UserList(getBaseContext()).findCurrent();
-
+        //users.userLinkedList.get(users.userLinkedList.size()-1);
         if(dif == 1){
             /*
             current.setNumQuestionsAttempted(8);
@@ -239,7 +239,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         User currentUser = users.findCurrent();
 
         if (currentUser != null) {
-            currentUser.swapCurrent();
+            currentUser.swapCurrent();//make not current anymore
             Button currentButton = findViewById(currentUser.getID());
             currentButton.getBackground().clearColorFilter();
             users.updateUser(currentUser, UserDB.IS_CURRENT, 0);
