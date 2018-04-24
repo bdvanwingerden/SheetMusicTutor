@@ -2,6 +2,7 @@ package vanwingerdenbarrier.sheetmusictutor;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
@@ -35,10 +37,20 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
     ImageView[] arrowTracker;
 
     /**Array of notes in twinkle twinkle little star*/
-    String[] twinkle = {"G","G","D","D","E","E","D","C"};
+    String[] twinkle = {"G","G","D","D","E","E","D","C",
+            "C","B","B","A","A","G","D","D",
+            "C","C","B","B","A","D","D","C",
+            "C","B","B","A","A","G","G","D",
+            "E","E","D","E","E","D","C","C",
+            "B","B","A","A","G","","",""};
 
     /**Array of notes in twinkle twinkle little star*/
-    String[] spider = {"G","C","C","C","D","E","E","E"};
+    String[] spider = {"G","C","C","C","D","E","E","E",
+            "D","C","D","E","C","E","E","F",
+            "G","F","E","F","G","E","C","C",
+            "D","E","E","D","C","D","E","C",
+            "G","G","C","C","C","D","E","E",
+            "E","D","C","D","E","C","","",};
 
     /**The current notes to be displayed in the for play along*/
     String[] currentNotes = {"","","","","","","",""};
@@ -65,6 +77,9 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
     /**Number of lives a player has*/
     int attempts;
+
+    /**Current score for the game*/
+    private int score;
 
 
     @Override
@@ -107,6 +122,8 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         currentNote = 0;
 
         attempts = 3;
+
+        score = 0;
 
         setNotes(setSong());
 
@@ -205,20 +222,80 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         //may need to add curr later
 
         if(correct.equals(checkCorrect)){//right
+            score++;
             arrowTracker[currentNote].setImageResource(R.drawable.arrow_purple);
             currentNote++;
-            correct = currentNotes[currentNote];
-            arrowTracker[currentNote].setImageResource(R.drawable.arrowgreen);
+            if(currentNote < 8 && !currentNotes[currentNote].equals("")) {
+                correct = currentNotes[currentNote];
+                arrowTracker[currentNote].setImageResource(R.drawable.arrowgreen);
+            }
+            else if(currentNote == 8 || currentNotes[currentNote].equals("")){
+                if(setSong().length == notePointer){//no more notes
+                    finishPlayAlong();
+                }else{
+                    currentNote = 0;//reset currentNote
+                    setNotes(setSong());
+                    correct = currentNotes[currentNote];
+                    arrowTracker[currentNote].setImageResource(R.drawable.arrowgreen);
+                }
+            }
         }else{//wrong
-            if(attempts > 0){
+            if(attempts > 1){
                 attempts--;
                 decrementLife(attempts);
             }else{//attempts == 0
-                //reveal text, but change red
+                finishPlayAlong();
             }
         }
-
     }//end checkCorrectHelper()
+
+    /**
+     * Show the alert dialog with the correct results
+     * redirect to home screen
+     */
+    private void finishPlayAlong(){
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("Game Over!");
+        alertDialog.setMessage(scoreDialog());
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int j) {
+
+                        dialogInterface.dismiss();
+
+                        Intent game = new Intent(getContext(), GameSelection.class);
+                        getContext().startActivity(game);
+
+                        try {
+                            finalize();
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
+
+                    }
+                });
+
+        alertDialog.show();
+    }//end finishPlayAlong
+
+    /**
+     * Sets the best quote based on the player's performance
+     */
+    private String scoreDialog(){
+        String quote = "";
+
+        if(score <= 8)
+            quote += "Score: "+score+"\nVery Poor. Get to studying!";
+        else if(score <= 16)
+            quote += "Score: "+score+"\nYou can do better than that!";
+        else if(score <= 24)
+            quote += "Score: "+score+"\nNot bad! Now master it";
+        else
+            quote += "Score: "+score+"\nGreat! You really do know you're keyboard.";
+
+        return quote;
+    }
 
     /***
      * Takes away a life when incorrect guess is made

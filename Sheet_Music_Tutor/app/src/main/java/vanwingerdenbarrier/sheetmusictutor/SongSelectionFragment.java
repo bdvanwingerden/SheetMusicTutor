@@ -21,7 +21,7 @@ import vanwingerdenbarrier.sheetmusictutor.Game.GameActivity;
 public class SongSelectionFragment extends Fragment {
 
     /**Names of songs that can be selected*/
-    String[] SONG_NAMES = {"twinkle twinkle little star","Itsy Bitsy Spider"};
+    String[] SONG_NAMES = {"1)Twinkle Twinkle Little Star","2)Itsy Bitsy Spider"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
