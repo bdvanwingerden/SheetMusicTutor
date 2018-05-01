@@ -349,7 +349,10 @@ public class DrawNoteGame extends AppCompatImageView {
         paint2.setStrokeWidth(paint.getStrokeWidth() * 3);
 
 
-        for (AnimatedNote note : temp) {
+        int i = 0;
+        while (i < temp.size()) {
+            AnimatedNote note = temp.get(i);
+            i++;
 
             if (currentLives > 0) {
 
