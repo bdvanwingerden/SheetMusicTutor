@@ -215,6 +215,8 @@ public class DrawNoteGame extends AppCompatImageView {
                 speed = currentDifficulty + 2;
             }
 
+            System.out.println("size " + size.x + " speed " + speed);
+
             if(onFieldNotes.size() < 1) {
                 drawShip(canvas);
             }
@@ -223,14 +225,15 @@ public class DrawNoteGame extends AppCompatImageView {
 
                     if(currentDifficulty > 5){
                         addNote(false, getRandomNote(true),
-                                random.nextInt(speed) + 1);
+                                random.nextInt(speed) *(size.x/2000) + 1);
                     }else{
                         addNote(false, getRandomNote(false),
-                                random.nextInt(speed) + 1);                    }
+                                random.nextInt(speed) *(size.x/2000) + 1 );                    }
                 }
             }
         } else if (gameMode == 1) {
             int tempo = 1 + currentDifficulty;
+            tempo = tempo * size.x/2000;
 
             if (onFieldNotes.size() < 5) {
                 if (onFieldNotes.isEmpty()) {
