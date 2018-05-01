@@ -131,6 +131,8 @@ public class DrawNoteGame extends AppCompatImageView {
 
     MediaPlayer mp;
 
+    int initialScore;
+
     /**
      * public constructor to create a DrawStaff object
      * sets up paint and also gets the size of the current display
@@ -153,6 +155,7 @@ public class DrawNoteGame extends AppCompatImageView {
         }
 
         attempts = 0;
+        initialScore = 0;
         currentScore = 0;
         currentLives = 4;
         lives = new Drawable[currentLives-1];
@@ -433,7 +436,7 @@ public class DrawNoteGame extends AppCompatImageView {
             if (currentLives == 0) {
                 temp.clear();
                 isDone = true;
-            }else if(currentScore >= currentDifficulty + 4){
+            }else if(currentScore >= currentDifficulty + initialScore + 4){
                 temp.clear();
                 isDone = true;
             }
@@ -692,6 +695,12 @@ public class DrawNoteGame extends AppCompatImageView {
             mp.release();
         }
         mp.start();
+    }
+
+    public void setLivesAndScore(int lives, int score){
+        this.currentLives = lives;
+        this.currentScore = score;
+        initialScore = score;
     }
 
 }

@@ -54,6 +54,11 @@ public class GameActivity extends FragmentActivity
      */
     int mode;
 
+    int currentGame;
+
+    int currentLives;
+    int currentScore;
+
     /**
      * rounds
      */
@@ -125,28 +130,32 @@ public class GameActivity extends FragmentActivity
 
         mode = gameType;
 
+        currentLives = 4;
+        currentScore = 0;
+
         fragmentManager = getSupportFragmentManager();
 
         if (gameType == 1 || gameType == 2) {
-            addQuestion(new StaffFragment());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+            currentGame = 0;
+            addQuestion(setFragmentArgs(new StaffFragment(), 0, currentLives, currentScore));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
         } else if (gameType == 3) {
-            addQuestion(new NoteDefense());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 1));
+            addQuestion(setFragmentArgs(new NoteDefense(), 0, currentLives, currentScore));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 1, currentLives, currentScore));
         } else if (gameType == 4) {
-            addQuestion(new NoteHero());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+            addQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
         } else if (gameType == 5) {
             addQuestion(new GuessNote());
             addAnswer(new GuessNoteText());
         }
         else if (gameType == 6) {
             addQuestion(new KnowYourKeyboardFragment());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
         }
         else if (gameType == 7) {//song selection
             addQuestion(new SongSelectionFragment());
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
         }
         else if (gameType == 8) {//sing along
 
@@ -155,10 +164,10 @@ public class GameActivity extends FragmentActivity
             PlayAlongFragment playFrag = new PlayAlongFragment();
             playFrag.setArguments(args);
             addQuestion(playFrag);
-            replaceAnswer(setFragmentArgs(new KeyFragment(), 2));
+            replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
         }
         else {
-            System.out.println("AAA GAMETYPE = NOTFOUND" + gameType);
+            System.out.println("GAMETYPE NOTFOUND" + gameType);
         }
 
 
@@ -191,18 +200,22 @@ public class GameActivity extends FragmentActivity
     /**
      * ends the current question
      */
-    public void endQuestion(int score, int lives) {
+    public void endQuestion(int score, final int lives) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
+        currentScore = score;
+        currentLives = lives;
+
         if(lives > 0) {
             alertDialog.setTitle("Good Job!");
-            alertDialog.setMessage("You scored:" + score + "!");
+            alertDialog.setMessage("Current score:" + score + "!");
 
         }else{
             alertDialog.setTitle("Too Bad!");
             alertDialog.setMessage("You ran out of lives!!");
             alertDialog.setMessage("You scored:" + score + "!");
+
         }
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
@@ -210,7 +223,7 @@ public class GameActivity extends FragmentActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {
 
-                        if (rounds <= 1) {
+                        if (rounds <= 1 || lives <= 0) {
                             //finish();
                             sendResults();
                         } else {
@@ -274,34 +287,48 @@ public class GameActivity extends FragmentActivity
      */
     public void makeNextQuestion(){
         if (mode == 1) {
-            replaceQuestion(new StaffFragment());
+            replaceQuestion(setFragmentArgs(new StaffFragment(), 0, currentLives, currentScore));
             rounds--;
 
         }else if (mode == 2){
 
-            Random rand = new Random();
-            int next = rand.nextInt(4);
+            int next;
+
+            if(new UserList(getBaseContext()).findCurrent().getComboPref()){
+                Random rand = new Random();
+                next = rand.nextInt(4);
+                currentGame = next;
+            }else{
+                currentGame++;
+                next = currentGame;
+                if(currentGame > 3){
+                    currentGame = 0;
+                    next = currentGame;
+                }
+            }
+
 
             if(next == 0){
-                replaceQuestion(new StaffFragment());
-                replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+                replaceQuestion(setFragmentArgs(new StaffFragment(), 0, currentLives, currentScore));
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
             }else if(next == 1){
-                replaceQuestion(new QuizQuestionFragment());
+                replaceQuestion(setFragmentArgs(new QuizQuestionFragment(), 0, currentLives, currentScore));
                 replaceAnswer(new QuizAnswerFragment());
             }else if(next == 2){
-                replaceQuestion(new NoteDefense());
-                replaceAnswer(setFragmentArgs(new KeyFragment(), 1));
+                replaceQuestion(setFragmentArgs(new NoteDefense(), 0, currentLives, currentScore));
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 1, currentLives,currentScore));
             }else if(next == 3){
-                replaceQuestion(new NoteHero());
-                replaceAnswer(setFragmentArgs(new KeyFragment(), 0));
+                replaceQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
             }
+
             rounds--;
 
         } else if (mode == 3) {
-            replaceQuestion(new NoteDefense());
+            replaceQuestion(setFragmentArgs(new NoteDefense(), 0, currentLives, currentScore));
             rounds--;
         } else if (mode == 4) {
-            replaceQuestion(new NoteHero());
+            replaceQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
             rounds--;
         }
     }
@@ -312,9 +339,11 @@ public class GameActivity extends FragmentActivity
      * @param mode the argument to give to the fragment
      * @return the fragment with the arguments loaded
      */
-    public Fragment setFragmentArgs(Fragment fragment, int mode){
+    public Fragment setFragmentArgs(Fragment fragment, int mode, int lives, int score){
         Bundle args = new Bundle();
         args.putInt("mode", mode);
+        args.putInt("lives", lives);
+        args.putInt("score", score);
         fragment.setArguments(args);
         return fragment;
     }

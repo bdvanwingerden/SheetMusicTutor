@@ -81,6 +81,9 @@ public class NoteHero extends Fragment {
         drawNoteGame = new DrawNoteGame(this.getContext(),
                 new UserList(getContext()).findCurrent().getHero_level(), 1);
 
+        Bundle args = getArguments();
+        drawNoteGame.setLivesAndScore(args.getInt("lives"), args.getInt("score"));
+
         staff.addView(drawNoteGame);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();

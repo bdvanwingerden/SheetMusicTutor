@@ -60,6 +60,7 @@ public class User {
     private int defense_level;
     private int quiz_level;
     private boolean show_key;
+    private boolean combo_pref;
 
     /**
      * default constructor for a new user
@@ -78,6 +79,7 @@ public class User {
         this.defense_level = 1;
         this.quiz_level = 1;
         this.show_key = true;
+        this.combo_pref = true;
     }
 
     public int getHero_level() {
@@ -113,7 +115,7 @@ public class User {
      */
     public User(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
                 int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
-                int defense_level, int quiz_level, int show_key) {
+                int defense_level, int quiz_level, int combo_pref, int show_key) {
         this.ID = ID;
         this.name = name;
         this.numQuestionsAttempted = numQuestionsAttempted;
@@ -124,6 +126,7 @@ public class User {
         this.hero_level = hero_level;
         this.defense_level = defense_level;
         this.quiz_level = quiz_level;
+        this.combo_pref = combo_pref != 0;
         this.show_key = show_key != 0;
     }
 
@@ -226,14 +229,23 @@ public class User {
         this.show_key = show_key;
     }
 
-    /**
-     * prints the current users info in a CSV friendly format
-     * @return
-     */
-    public String toCSV(){
-        return (ID + "," + name + "," + numQuestionsAttempted + "," + numQuestionsCorrect + ","
-                + currentLevel + "," + numPointsNeeded + "," + isCurrent + ",");
+
+    public int comboPrefToInt(){
+        if(combo_pref){
+            return 1;
+        }
+        return 0;
     }
+
+    public void setCombo_pref(boolean combo_pref) {
+        this.combo_pref = combo_pref;
+    }
+
+    public boolean getComboPref(){
+        return combo_pref;
+    }
+
+
 }
 
 

@@ -85,6 +85,9 @@ public class NoteDefense extends Fragment {
         drawNoteGame = new DrawNoteGame(this.getContext(),
                 new UserList(getContext()).findCurrent().getDefense_level(), 0);
 
+        Bundle args = getArguments();
+        drawNoteGame.setLivesAndScore(args.getInt("lives"), args.getInt("score"));
+
         staff.addView(drawNoteGame);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();

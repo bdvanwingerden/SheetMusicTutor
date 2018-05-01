@@ -30,7 +30,9 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                              Bundle savedInstanceState) {
         getActivity();
 
-        score = 0;
+        Bundle args = getArguments();
+
+        score = args.getInt("score");
 
         staff = (ViewGroup) inflater.inflate(R.layout.fragment_staff,
                 container, false);
@@ -38,6 +40,8 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
         /** setting the difficulty level to the users current level */
         drawStaff = new DrawStaff(this.getContext(),
                 new UserList(getContext()).findCurrent().getCurrentLevel());
+
+        drawStaff.setScoreAndLives(score, args.getInt("lives"));
 
         staff.addView(drawStaff);
 
@@ -132,11 +136,11 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
             if (((note.getTone() == noteToFind.getTone()) && note.isSharp == noteToFind.isSharp)
                     && note.getPitch() == noteToFind.getPitch()) {
 
-                //userList.addUserCorrect();
+                userList.addUserCorrect();
                 score++;
                 drawStaff.addPoint();
                 if(userList.findCurrent().getNumPointsNeeded()
-                        >= userList.findCurrent().getNumQuestionsCorrect()){
+                        <= userList.findCurrent().getNumQuestionsCorrect()){
                     userList.addUserPointsNeeded();
                     userList.levelUpUser();
                 }
@@ -162,7 +166,7 @@ public class StaffFragment extends Fragment implements QuestionDisplay {
                 drawStaff.currentLives--;
                 staff.removeAllViews();
                 staff.addView(drawStaff);
-                if(drawStaff.currentLives == 0){
+                if(drawStaff.currentLives < 0){
                     callback.questionPressed(null, score, drawStaff.currentLives); // ENDS this question
                 }
             }

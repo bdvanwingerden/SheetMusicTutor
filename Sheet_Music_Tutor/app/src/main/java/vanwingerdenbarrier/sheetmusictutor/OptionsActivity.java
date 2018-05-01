@@ -14,6 +14,7 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
 public class OptionsActivity extends AppCompatActivity {
 
     Switch showKeys;
+    Switch comboPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +32,40 @@ public class OptionsActivity extends AppCompatActivity {
         }else{
             showKeys.setChecked(false);
         }
+
         showKeys.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserList list = new UserList(getBaseContext());
 
                 if(isChecked){
-                    System.out.println("A TURNING KEYS ON");
                     list.toggleShowKey(true);
                 }else{
-                    System.out.println("A TURNING KEYS OFF");
                     list.toggleShowKey(false);
                 }
             }
         });
+
+        comboPref = (Switch)findViewById(R.id.comboPref);
+        if(new UserList(getBaseContext()).findCurrent().getComboPref()){
+            comboPref.setChecked(true);
+        }else{
+            comboPref.setChecked(false);
+        }
+
+        comboPref.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserList list = new UserList(getBaseContext());
+
+                if(isChecked){
+                    list.toggleComboPref(true);
+                }else{
+                    list.toggleComboPref(false);
+                }
+            }
+        });
+        
     }
 
     public void userMenu(View v) {

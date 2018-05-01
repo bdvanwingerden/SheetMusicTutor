@@ -30,6 +30,8 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
     QuestionStorage qS;
     String correctAnswer;
     Random random;
+    int currentScore;
+    int currentLives;
 
     /**This Hash Set will hold question numbers that have already been used to avoid duplicate questions*/
     static HashSet<Integer> used = new HashSet<>();
@@ -43,6 +45,10 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
 
         qS = new QuestionStorage();
         qS.initialQuestions(this.getContext());
+
+        Bundle args = getArguments();
+        currentLives = args.getInt("lives");
+        currentScore = args.getInt("score");
 
         view = (ViewGroup) inflater.inflate(R.layout.fragment_quiz_question,
                 container, false);
@@ -80,7 +86,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
         if(answer.equals(correctAnswer)){
             getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
             Toast.makeText(this.getContext(),"Correct", Toast.LENGTH_SHORT).show();
-            callback.questionPressed(null, 1, 1);
+            callback.questionPressed(null, currentScore++, currentLives);
 
         }else{
             getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);

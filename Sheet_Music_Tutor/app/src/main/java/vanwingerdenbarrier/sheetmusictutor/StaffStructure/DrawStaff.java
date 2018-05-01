@@ -650,6 +650,11 @@ public class DrawStaff extends AppCompatImageView {
         currentScore++;
     }
 
+    public void setScoreAndLives(int score, int lives){
+        this.currentScore = score;
+        this.currentLives = lives;
+    }
+
 }
 
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.ATTEMPTS;
+import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.COMBO_PREF;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CORRECT;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.CURRENT_LEVEL;
 import static vanwingerdenbarrier.sheetmusictutor.UserInfo.UserDB.DEFENSE_LEVEL;
@@ -48,18 +49,6 @@ public class UserList {
     }
 
     /**
-     * adds a user to the app used to rebuild the app
-     * @param ID the users ID
-     * @param name the users name
-     */
-    public void addUser(int ID, String name, int numQuestionsAttempted, int numQuestionsCorrect,
-                        int currentLevel,int numPointsNeeded, int isCurrent, int hero_level,
-                        int defense_level, int quiz_level, int showKey){
-        userLinkedList.add(new User(ID, name, numQuestionsAttempted, numQuestionsCorrect,
-                currentLevel, numPointsNeeded, isCurrent, hero_level, defense_level, quiz_level, showKey));
-    }
-
-    /**
      * simplified add user that takes a premade user and adds it to the app
      * @param u the user to add
      */
@@ -78,6 +67,7 @@ public class UserList {
         cv.put(DEFENSE_LEVEL, u.getDefense_level());
         cv.put(QUIZ_LEVEL, u.getQuiz_level());
         cv.put(NUM_POINTS_NEEDED, u.getNumPointsNeeded());
+        cv.put(COMBO_PREF, u.comboPrefToInt());
         cv.put(SHOW_KEY, u.showKeyToInt());
 
         db.insert(USER_TABLE, null, cv);
@@ -135,6 +125,7 @@ public class UserList {
                         c.getInt(c.getColumnIndex(UserDB.HERO_LEVEL)),
                         c.getInt(c.getColumnIndex(UserDB.DEFENSE_LEVEL)),
                         c.getInt(c.getColumnIndex(UserDB.QUIZ_LEVEL)),
+                        c.getInt(c.getColumnIndex(UserDB.COMBO_PREF)),
                         c.getInt(c.getColumnIndex(UserDB.SHOW_KEY))
                 ));
 
@@ -200,6 +191,18 @@ public class UserList {
             }
             user.setShow_key(show);
             updateUser(user, SHOW_KEY, newValue);
+        }
+    }
+
+    public void toggleComboPref(boolean show){
+        User user = findCurrent();
+        int newValue = 0;
+        if(show != user.getComboPref()){
+            if(show){
+                newValue = 1;
+            }
+            user.setCombo_pref(show);
+            updateUser(user, COMBO_PREF, newValue);
         }
     }
 
