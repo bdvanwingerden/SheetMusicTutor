@@ -32,6 +32,8 @@ public class NoteDefense extends Fragment {
     ViewGroup staff;
     /* handles any toasts*/
     Toast toasty;
+
+    int prevScore;
     /* allows us to create and animate any number of notes */
     final Runnable runnable = new Runnable() {
         @Override
@@ -44,7 +46,7 @@ public class NoteDefense extends Fragment {
                 callback.questionPressed(null, drawNoteGame.currentScore, drawNoteGame.currentLives);
 
                 current.setNumQuestionsCorrect(current.getNumQuestionsCorrect()
-                        + drawNoteGame.currentScore);
+                        + drawNoteGame.currentScore - prevScore);
 
                 current.setNumQuestionsAttempted(current.getNumQuestionsAttempted()
                         + drawNoteGame.attempts);
@@ -86,6 +88,8 @@ public class NoteDefense extends Fragment {
                 new UserList(getContext()).findCurrent().getDefense_level(), 0);
 
         Bundle args = getArguments();
+        prevScore = args.getInt("score");
+
         drawNoteGame.setLivesAndScore(args.getInt("lives"), args.getInt("score"));
 
         staff.addView(drawNoteGame);

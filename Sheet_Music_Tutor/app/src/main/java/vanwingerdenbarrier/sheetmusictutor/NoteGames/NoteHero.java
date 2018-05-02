@@ -28,6 +28,9 @@ public class NoteHero extends Fragment {
     QuestionDisplay.Display callback;
     /*the viewgroup where the drawnote defense is drawn*/
     ViewGroup staff;
+
+    int prevScore;
+
     /* allows us to create and animate any number of notes */
     final Runnable runnable = new Runnable() {
         @Override
@@ -39,7 +42,7 @@ public class NoteHero extends Fragment {
                 userList.updateUser(current, "hero_level", current.getHero_level());
 
                 current.setNumQuestionsCorrect(current.getNumQuestionsCorrect()
-                        + drawNoteGame.currentScore);
+                        + drawNoteGame.currentScore - prevScore);
 
                 current.setNumQuestionsAttempted(current.getNumQuestionsAttempted()
                         + drawNoteGame.attempts);
@@ -82,6 +85,9 @@ public class NoteHero extends Fragment {
                 new UserList(getContext()).findCurrent().getHero_level(), 1);
 
         Bundle args = getArguments();
+
+        prevScore = args.getInt("score");
+
         drawNoteGame.setLivesAndScore(args.getInt("lives"), args.getInt("score"));
 
         staff.addView(drawNoteGame);
