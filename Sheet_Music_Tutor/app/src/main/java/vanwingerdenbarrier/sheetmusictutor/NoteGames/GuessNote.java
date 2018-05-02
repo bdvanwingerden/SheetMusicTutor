@@ -1,6 +1,5 @@
 package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.AudioManager;
@@ -14,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-
-import vanwingerdenbarrier.sheetmusictutor.AchievementsListView;
-import vanwingerdenbarrier.sheetmusictutor.Game.AnswerDisplay;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;

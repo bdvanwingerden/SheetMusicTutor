@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import vanwingerdenbarrier.sheetmusictutor.Achievements.AchievementsListView;
 import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
