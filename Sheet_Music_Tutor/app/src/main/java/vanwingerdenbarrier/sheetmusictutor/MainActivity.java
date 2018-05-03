@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int j) {
                             dialogInterface.dismiss();
                             Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            userMenu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(userMenu);
                         }

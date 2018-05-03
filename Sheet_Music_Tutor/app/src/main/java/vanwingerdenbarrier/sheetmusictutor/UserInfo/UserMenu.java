@@ -176,7 +176,6 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
 
         createButtons();
         onClick(buttonList.getLast());
-        //finish();
     }
 
     /**
@@ -222,7 +221,6 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
                 users.addUserPointsNeeded();
             }//end for
 
-
         }//end else if
 
     }//end onSelectDiffDialog
@@ -259,5 +257,11 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
     public void killDB(View v){
         users.emptyUserList();
         recreate();
+    }
+
+    public void goBack(){
+        if(users.getUserList().size() == 1){
+            finish();
+        }
     }
 }

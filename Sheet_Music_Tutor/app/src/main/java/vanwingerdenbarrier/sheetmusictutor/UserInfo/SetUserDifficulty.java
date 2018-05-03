@@ -62,23 +62,24 @@ public class SetUserDifficulty extends DialogFragment implements View.OnClickLis
             case R.id.easy_button:
                 Toast.makeText(getActivity(), "Easy button clicked!",
                         Toast.LENGTH_LONG).show();
+                ((UserMenu) getActivity()).goBack();
                 dismiss();
                 break;
             case R.id.medium_button:
                 Toast.makeText(getActivity(), "Medium button clicked!",
                         Toast.LENGTH_LONG).show();
                 ((UserMenu)(SetUserDifficulty.this.getActivity())).onSelectDiffDialog(view,1);
+                ((UserMenu) getActivity()).goBack();
                 dismiss();
                 break;
             case R.id.hard_button:
                 Toast.makeText(getActivity(), "Hard button clicked!",
                         Toast.LENGTH_LONG).show();
                 ((UserMenu)(SetUserDifficulty.this.getActivity())).onSelectDiffDialog(view,2);
+                ((UserMenu) getActivity()).goBack();
                 dismiss();//dismiss the dialog box
                 break;
         }
     }//end onClick
-
-
 
 }//end SetUserDifficulty

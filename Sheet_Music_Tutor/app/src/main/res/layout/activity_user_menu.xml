@@ -11,11 +11,9 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="88dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/debug_delete_dB"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,18 +55,5 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
-
-    <Button
-        android:id="@+id/debug_delete_dB"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="18dp"
-        android:layout_marginStart="16dp"
-        android:background="?attr/colorAccent"
-        android:onClick="killDB"
-        android:text="kill db"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </android.support.constraint.ConstraintLayout>
