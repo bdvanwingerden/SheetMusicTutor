@@ -170,8 +170,15 @@ public class UserList {
      */
     public void addUserPointsNeeded(){
         User user = findCurrent();
-        int newValue = user.getNumPointsNeeded()+8;
+        int levelIncrement = 8 + (2*user.getCurrentLevel());
+        int newValue = user.getNumPointsNeeded()+levelIncrement;
         user.setNumPointsNeeded(newValue);
+
+        while(newValue < user.getNumQuestionsCorrect()){
+            newValue+= 8 + (2*user.getCurrentLevel());
+            levelUpUser();
+        }
+
         updateUser(user, NUM_POINTS_NEEDED, newValue);
     }
 

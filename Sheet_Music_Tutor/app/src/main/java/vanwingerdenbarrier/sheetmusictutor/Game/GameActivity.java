@@ -42,6 +42,9 @@ public class GameActivity extends FragmentActivity
     Fragment currentQuestion;
     Fragment currentAnswer;
 
+    int previousCorrect;
+    int previousAttempts;
+
     /**
      * indicates the current game mode
      * 0 = quiz,
@@ -129,6 +132,11 @@ public class GameActivity extends FragmentActivity
 
         currentLives = 4;
         currentScore = 0;
+
+         User temp = new UserList(getBaseContext()).findCurrent();
+        previousCorrect =  temp.getNumQuestionsCorrect();
+        previousAttempts = temp.getNumQuestionsAttempted();
+
 
         fragmentManager = getSupportFragmentManager();
 
@@ -243,14 +251,15 @@ public class GameActivity extends FragmentActivity
 
         boolean isQuiz = true;
 
-        float percentage = ( (float) current.getNumQuestionsCorrect()/ (float) current.getNumPointsNeeded())*100;
+        float percentage = ( (float) current.getNumQuestionsCorrect() - previousCorrect)
+                / ((float) current.getNumQuestionsAttempted()-previousAttempts)*100;
 
         Intent stats = new Intent(this, ResultsActivity.class);
 
         stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
-        stats.putExtra("correct",current.getNumQuestionsCorrect());
-        stats.putExtra("numQuestions",current.getNumQuestionsAttempted());
-        stats.putExtra("score",current.getCurrentLevel());//random number for now(Score)
+        stats.putExtra("correct",current.getNumQuestionsCorrect() - previousCorrect);
+        stats.putExtra("numQuestions",current.getNumQuestionsAttempted() - previousAttempts);
+        stats.putExtra("score",current.getNumQuestionsCorrect());//random number for now(Score)
         stats.putExtra("points",current.getNumPointsNeeded());
         stats.putExtra("isQuiz",isQuiz);
 

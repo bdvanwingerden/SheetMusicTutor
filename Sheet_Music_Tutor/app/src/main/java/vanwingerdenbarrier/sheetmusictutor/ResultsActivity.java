@@ -137,8 +137,8 @@ public class ResultsActivity extends AppCompatActivity{
             titleView.setText("Quiz Results");
             correctView.setText("Correct: "+correct+"/"+numQuestions);
             quoteView.setText(quoteResult(percentage));
-            pointsView.setText("Points: "+score+"/"+pointsPossible);
-            percentView.setText("Score: "+percentage+"%");
+            pointsView.setText("Level Progress: "+score+"/"+pointsPossible);
+            percentView.setText("Percent Correct: "+percentage+"%");
             prg.setProgress(percentage);
         }
         else if(!resultType){//if writing user stats

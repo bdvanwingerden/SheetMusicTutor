@@ -19,6 +19,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.zip.CheckedOutputStream;
@@ -145,6 +146,8 @@ public class DrawNoteGame extends AppCompatImageView {
         super(context);
 
         isDone = false;
+
+        mp = MediaPlayer.create(getContext(), R.raw.explosion);
 
         onFieldNotes = new LinkedList<>();
 
@@ -584,8 +587,6 @@ public class DrawNoteGame extends AppCompatImageView {
                 noteDist = (goalPos - noteWidth) - getFirstUnplayed().getX();
             }
 
-            System.out.println("HI " + noteDist + " " + noteWidth/2 );
-
             if (noteDist < noteWidth/2 && noteDist > -noteWidth/2) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
@@ -705,9 +706,15 @@ public class DrawNoteGame extends AppCompatImageView {
      * @param isSharp whether or not the tone is sharp(just in case)
      */
     public void playTone(Tone tone, Boolean isSharp){
-        mp = MediaPlayer.create(getContext(), R.raw.explosion);
         if(mp.isPlaying()){
-            mp.release();
+            mp.stop();
+
+            try {
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         mp.start();
     }
