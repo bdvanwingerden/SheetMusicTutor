@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/sharp_key_background"
-            android:text="A#5"
+            android:text="A#4"
             android:textColor="@color/white" />
 
         <Button
@@ -163,7 +163,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="A5" />
+            android:text="A4" />
 
         <Button
             android:id="@+id/b5"
@@ -171,7 +171,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="B5" />
+            android:text="B4" />
 
         <Button
             android:id="@+id/c5"

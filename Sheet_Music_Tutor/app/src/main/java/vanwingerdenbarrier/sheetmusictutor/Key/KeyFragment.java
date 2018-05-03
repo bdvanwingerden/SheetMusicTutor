@@ -33,7 +33,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
     private SoundPool soundPool;
 
     /*Ints to represent each sound*/
-    private int a5, b5, c5, d5, e5, e4, f5, f4, g4, cs5, ds5, fs4, gs4, as5, fs5;
+    private int a4, b4, c5, d5, e5, e4, f5, f4, g4, cs5, ds5, fs4, gs4, as4, fs5;
 
     /**Context of class that will be implementing sounds into buttons*/
     private Context context;
@@ -109,8 +109,8 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
         /*Load in sound files*/
         if(args.getInt("mode") == 0 || args.getInt("mode") == 2) {
-            a5 = soundPool.load(context, R.raw.a5, 1);
-            b5 = soundPool.load(context, R.raw.b5, 1);
+            a4 = soundPool.load(context, R.raw.a4, 1);
+            b4 = soundPool.load(context, R.raw.b4, 1);
             c5 = soundPool.load(context, R.raw.c5, 1);
             d5 = soundPool.load(context, R.raw.d5, 1);
             e5 = soundPool.load(context, R.raw.e5, 1);
@@ -118,7 +118,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             e4 = soundPool.load(context, R.raw.e4, 1);
             f4 = soundPool.load(context, R.raw.f4, 1);
             g4 = soundPool.load(context, R.raw.g4, 1);
-            as5 = soundPool.load(context, R.raw.as5, 1);
+            as4 = soundPool.load(context, R.raw.as4, 1);
             cs5 = soundPool.load(context, R.raw.cs5, 1);
             ds5 = soundPool.load(context, R.raw.ds5, 1);
             fs4 = soundPool.load(context, R.raw.fs4, 1);
@@ -126,9 +126,9 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             fs5 = soundPool.load(context, R.raw.fs5, 1 );
 
         }else{
-            a5 = soundPool.load(context, R.raw.la5, 1);
-            as5 = soundPool.load(context, R.raw.las5, 1);
-            b5 = soundPool.load(context, R.raw.lb5, 1);
+            a4 = soundPool.load(context, R.raw.la5, 1);
+            as4 = soundPool.load(context, R.raw.las5, 1);
+            b4 = soundPool.load(context, R.raw.lb5, 1);
             c5 = soundPool.load(context, R.raw.lc5, 1);
             cs5 = soundPool.load(context, R.raw.lcs5, 1);
             d5 = soundPool.load(context, R.raw.ld5, 1);
@@ -159,7 +159,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
 
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(a5, 1,1,0,0,1);
+                        soundPool.play(a4, 1,1,0,0,1);
                         a.setBackgroundColor(Color.RED);
                         a2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER, false), event);
@@ -179,7 +179,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(b5, 1,1,0,0,1);
+                        soundPool.play(b4, 1,1,0,0,1);
                         b.setBackgroundColor(Color.RED);
                         b2.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.B, 5, Duration.QUARTER, false), event);
@@ -424,7 +424,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             public boolean onTouch(View v, MotionEvent event){
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        soundPool.play(as5, 1,1,0,0,1);
+                        soundPool.play(as4, 1,1,0,0,1);
                         as.setBackgroundColor(Color.RED);
                         callback.answerPressed(new Note(Tone.A, 5, Duration.QUARTER, true), event);
                         return false;
@@ -465,9 +465,9 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
      */
     private void setNoteText(){
 
-        a.setText("A5");
-        as.setText("A#5");
-        b.setText("B5");
+        a.setText("A4");
+        as.setText("A#4");
+        b.setText("B4");
         c.setText("C5");
         cs.setText("C#5");
         d.setText("D5");

@@ -123,8 +123,8 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
         }
 
         /*Load in sound files*/
-        sa = soundPool.load(context, R.raw.a5, 1);
-        sb = soundPool.load(context, R.raw.b5, 1);
+        sa = soundPool.load(context, R.raw.a4, 1);
+        sb = soundPool.load(context, R.raw.b4, 1);
         sc = soundPool.load(context, R.raw.c5, 1);
         sd = soundPool.load(context, R.raw.d5, 1);
         se = soundPool.load(context, R.raw.e4, 1);
@@ -134,7 +134,7 @@ public class GuessNote extends android.support.v4.app.Fragment implements Questi
         sds = soundPool.load(context, R.raw.ds5, 1);
         sfs = soundPool.load(context, R.raw.fs4, 1);
         sgs = soundPool.load(context, R.raw.gs4, 1);
-        sas = soundPool.load(context, R.raw.as5, 1);
+        sas = soundPool.load(context, R.raw.as4, 1);
     }
 
 
