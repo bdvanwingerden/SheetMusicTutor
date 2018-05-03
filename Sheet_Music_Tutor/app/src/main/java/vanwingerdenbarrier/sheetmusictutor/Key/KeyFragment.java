@@ -519,6 +519,12 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
         }
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        soundPool.release();
+    }
+
 
 }//end class keyboard
 

@@ -109,9 +109,13 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         shuffle();//shuffle index of notesIndex array
 
-        attempts = 3;
+        attempts = getArguments().getInt("lives");
 
-        score = 0;
+        score = getArguments().getInt("score");
+
+        scoreView.setText("score :" + score);
+
+        decrementLife(attempts);
 
         curr = 0;
 
@@ -120,7 +124,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         speechBtn.setText("     Identify The Note: "+correct+"   ");//set initial note
 
         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-        alertDialog.setTitle("Know You're Keyboard!");
+        alertDialog.setTitle("Know Your Keyboard!");
         alertDialog.setMessage("Dave here will tell which notes to play on the keyboard." +
                 "If you guess correctly Dave will be reward you with a point. If not you lose a life!");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",

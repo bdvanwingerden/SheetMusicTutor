@@ -155,7 +155,8 @@ public class GameActivity extends FragmentActivity
             addAnswer(new GuessNoteText());
         }
         else if (gameType == 6) {
-            addQuestion(new KnowYourKeyboardFragment());
+            addQuestion(
+                    setFragmentArgs(new KnowYourKeyboardFragment(), 0, currentLives, currentScore));
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
         }
         else if (gameType == 7) {//song selection
@@ -327,6 +328,17 @@ public class GameActivity extends FragmentActivity
             }else if(next == 3){
                 replaceQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
+            }else if(next == 4){
+                replaceQuestion(
+                        setFragmentArgs(new KnowYourKeyboardFragment(), 0, currentLives, currentScore));
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
+            }else if(next == 5){
+                Bundle args = new Bundle();
+                args.putInt("songType", new Random().nextInt(3));
+                PlayAlongFragment playFrag = new PlayAlongFragment();
+                playFrag.setArguments(args);
+                replaceQuestion(playFrag);
+                replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }
 
             rounds--;
@@ -337,6 +349,8 @@ public class GameActivity extends FragmentActivity
         } else if (mode == 4) {
             replaceQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
             rounds--;
+        }else{
+            rounds = 0;
         }
     }
 
