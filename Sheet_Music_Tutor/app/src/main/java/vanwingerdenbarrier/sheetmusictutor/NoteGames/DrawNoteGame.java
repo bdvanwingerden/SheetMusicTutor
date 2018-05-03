@@ -232,7 +232,7 @@ public class DrawNoteGame extends AppCompatImageView {
                 }
             }
         } else if (gameMode == 1) {
-            int tempo = 1 + currentDifficulty;
+            int tempo = 2 + currentDifficulty;
             tempo = tempo * size.x/2000;
 
             if (onFieldNotes.size() < 5) {
@@ -290,11 +290,19 @@ public class DrawNoteGame extends AppCompatImageView {
 
         canvas.drawLines(lineArray, paint);
 
+        noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
+        noteWidth = noteHeight + (noteHeight / 3);
+
+        horMargin += horMargin;
+
         if (gameMode == 1) {
+            float temp = paint.getStrokeWidth();
+            paint.setStrokeWidth(2*noteWidth);
             paint.setColor(Color.GREEN);
             goalPos = ((size.x / 4) * 3);
             canvas.drawLine(goalPos, lineArray[1], goalPos, lineArray[19], paint);
             paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(temp);
         }
     }
 
@@ -302,11 +310,6 @@ public class DrawNoteGame extends AppCompatImageView {
      * draws all notes in the currentStaff onto visualization of the staff
      */
     public void addNote(boolean labels, AnimatedNote note, int speed) {
-
-        noteHeight = (spaceBetween - (int) paint.getStrokeWidth() / 2) / 2;
-        noteWidth = noteHeight + (noteHeight / 3);
-
-        horMargin += horMargin;
 
 
         note.setX(horMargin);
@@ -577,7 +580,13 @@ public class DrawNoteGame extends AppCompatImageView {
 
             int noteDist = goalPos - getFirstUnplayed().getX();
 
-            if (noteDist < noteWidth && noteDist > -noteWidth) {
+            if(note.isSharp()){
+                noteDist = (goalPos - noteWidth) - getFirstUnplayed().getX();
+            }
+
+            System.out.println("HI " + noteDist + " " + noteWidth/2 );
+
+            if (noteDist < noteWidth/2 && noteDist > -noteWidth/2) {
                 played = getFirstUnplayed();
                 drawResult(getResources().getDrawable(R.drawable.ic_perfect, null), played);
                 played.setIsPlayed();
@@ -703,6 +712,11 @@ public class DrawNoteGame extends AppCompatImageView {
         mp.start();
     }
 
+    /**
+     * sets the current score and lives passed from the last game fragment
+     * @param lives the remaining lives
+     * @param score the current score
+     */
     public void setLivesAndScore(int lives, int score){
         this.currentLives = lives;
         this.currentScore = score;
