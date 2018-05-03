@@ -158,6 +158,9 @@ public class ResultsActivity extends AppCompatActivity{
      */
     public String quoteLevel(int level){
 
+        quote = "Level "+level;
+
+        /*
         if(level <= 1)
             quote = "Novice (LVL 1)";
         else if(level <= 2)
@@ -168,6 +171,7 @@ public class ResultsActivity extends AppCompatActivity{
             quote = "Expert (LVL 4)";
         else
             quote = "Master (LVL 5)";
+         **/
 
         return quote;
     }

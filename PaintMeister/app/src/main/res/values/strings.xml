@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PaintMeister</string>
+    <string name="app_title">Paint Meister</string>
+    <string name="new_drawing">New</string>
+    <string name="load_drawing">Load</string>
+    <string name="options">Options</string>
+    <string name="colorOptions">Color Selection</string>
+    <string name="sizePercent">0%</string>
+    <string name="enter_name">Name Your Painting</string>
+    <string name="ok_button">Ok</string>
+    <string name="apply_changes">Apply Changes</string>
+</resources>

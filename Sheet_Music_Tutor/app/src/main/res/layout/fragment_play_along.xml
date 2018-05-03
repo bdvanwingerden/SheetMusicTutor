@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.PlayAlongFragment"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.NoteGames.PlayAlongFragment"
     android:background="@color/purple"
     android:weightSum="2"
     android:orientation="vertical">

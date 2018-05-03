@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_save"
+        android:title="Save"
+        android:icon="@drawable/save"
+        android:orderInCategory="3"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_color"
+        android:title="Settings"
+        android:icon="@drawable/color"
+        android:orderInCategory="1"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_options"
+    android:title="Settings"
+    android:icon="@drawable/options"
+    android:orderInCategory="2"
+    app:showAsAction="always"/>
+
+    <item android:id="@+id/action_new"
+        android:title="New"
+        android:icon="@drawable/load"
+        android:orderInCategory="4"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_load"
+        android:title="Load"
+        android:icon="@drawable/load"
+        android:orderInCategory="5"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_maine_menu"
+        android:title="Main Menu"
+        android:icon="@drawable/load"
+        android:orderInCategory="7"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_clear_canvas"
+        android:title="Clear Canvas"
+        android:icon="@drawable/load"
+        android:orderInCategory="6"
+        app:showAsAction="never"/>
+
+
+
+</menu>

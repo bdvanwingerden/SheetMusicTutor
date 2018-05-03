@@ -105,6 +105,7 @@ public class QuizActivity extends AppCompatActivity {
                         results.putExtra("points",pointsPossible);
                         results.putExtra("isQuiz",isQuiz);
 
+                        results.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivityForResult(results,0);
                     }
 

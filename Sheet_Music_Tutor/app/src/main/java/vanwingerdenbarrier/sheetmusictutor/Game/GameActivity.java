@@ -2,7 +2,6 @@ package vanwingerdenbarrier.sheetmusictutor.Game;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,24 +9,22 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import java.time.Instant;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
-import vanwingerdenbarrier.sheetmusictutor.KnowYourKeyboardFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.KnowYourKeyboardFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
-import vanwingerdenbarrier.sheetmusictutor.PlayAlongFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.PlayAlongFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.ResultsActivity;
-import vanwingerdenbarrier.sheetmusictutor.SongSelectionFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.SongSelectionFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
@@ -257,6 +254,7 @@ public class GameActivity extends FragmentActivity
         stats.putExtra("points",current.getNumPointsNeeded());
         stats.putExtra("isQuiz",isQuiz);
 
+        stats.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         this.startActivity(stats);
     }//end sendResults
 
