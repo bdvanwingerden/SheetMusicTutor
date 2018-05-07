@@ -409,7 +409,7 @@ public class DrawNoteGame extends AppCompatImageView {
                     x += noteWidth;
                 }
 
-                if(currentDifficulty < 15 && note != spaceship && (!note.isDestroyed && !note.isPlayed)){
+                if(currentDifficulty < 5 && note != spaceship && (!note.isPlayed)){
                     paint3.setColor(Color.WHITE);
                     canvas.drawText(note.getTone().toString(), x,
                             note.getY() + noteHeight/2, paint3);

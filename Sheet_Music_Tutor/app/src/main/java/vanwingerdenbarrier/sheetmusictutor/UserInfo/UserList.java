@@ -151,6 +151,9 @@ public class UserList {
         return tempUser;
     }
 
+    /**
+     * adds a user attempt to the DB and list
+     */
     public void addUserAttempt(){
         User user = findCurrent();
         int newValue = user.getNumQuestionsAttempted()+1;
@@ -158,6 +161,9 @@ public class UserList {
         updateUser(user, ATTEMPTS, newValue);
     }
 
+    /**
+     * increments the number of correct answers
+     */
     public void addUserCorrect(){
         User user = findCurrent();
         int newValue = user.getNumQuestionsCorrect()+1;
@@ -182,6 +188,9 @@ public class UserList {
         updateUser(user, NUM_POINTS_NEEDED, newValue);
     }
 
+    /**
+     * levels the user up
+     */
     public void levelUpUser(){
         User user = findCurrent();
         int newValue = user.getCurrentLevel()+1;
@@ -189,6 +198,10 @@ public class UserList {
         updateUser(user, CURRENT_LEVEL, newValue);
     }
 
+    /**
+     * toggles show keyboard labels
+     * @param show true shows key and false hides key labels
+     */
     public void toggleShowKey(boolean show){
         User user = findCurrent();
         int newValue = 0;
@@ -201,6 +214,10 @@ public class UserList {
         }
     }
 
+    /**
+     * toggles the combo mode cycle
+     * @param show true randomizes games that appear and false plays them in order
+     */
     public void toggleComboPref(boolean show){
         User user = findCurrent();
         int newValue = 0;
@@ -213,6 +230,12 @@ public class UserList {
         }
     }
 
+    /**
+     * updates a given field of a user to a give value in the DB
+     * @param user the user to update
+     * @param field the field to update
+     * @param newValue the value to update the field to
+     */
     public void updateUser(User user, String field, int newValue){
         SQLiteDatabase db = userDB.getWritableDatabase();
         db.execSQL("UPDATE " + USER_TABLE +
@@ -221,6 +244,9 @@ public class UserList {
         db.close();
     }
 
+    /**
+     * completely empties the user list
+     */
     public void emptyUserList() {
         SQLiteDatabase db = userDB.getWritableDatabase();
         db.execSQL("DELETE FROM " + USER_TABLE);

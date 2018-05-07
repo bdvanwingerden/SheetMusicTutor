@@ -13,7 +13,9 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
 
 public class OptionsActivity extends AppCompatActivity {
 
+    /* the switch corresponding to the show keyboard labels preference */
     Switch showKeys;
+    /* the switch corresponding to the combo mode random or ordered preference */
     Switch comboPref;
 
     @Override

@@ -69,7 +69,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         boolean currentSet = false;
         for (User u : users.getUserList()) {
             Button tempButton = new Button(this);
-            tempButton.setText(u.getName() + " " + i);
+            tempButton.setText(u.getName());
             tempButton.setId(i);
             u.setId(i);
             users.updateUser(u, UserDB.KEY_ID, i);
