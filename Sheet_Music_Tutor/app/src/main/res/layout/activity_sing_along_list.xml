@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple">
+    android:background="@color/platinum">
 
 
     <TextView
@@ -16,7 +14,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="22dp"
         android:text="@string/little_star"
-        android:textColor="@color/gold"
+        android:textColor="@color/space_cadet"
         android:textStyle="bold"
         android:textSize="40sp" />
 

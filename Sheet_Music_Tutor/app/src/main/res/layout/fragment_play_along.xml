@@ -1,10 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vanwingerdenbarrier.sheetmusictutor.NoteGames.PlayAlongFragment"
-    android:background="@color/purple"
+    android:background="@color/platinum"
     android:weightSum="2"
     android:orientation="vertical">
 
@@ -22,7 +21,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:textSize="30dp"
-            android:textColor="@color/gold"
+            android:textColor="@color/space_cadet"
             android:textStyle="bold"
             android:gravity="center_vertical" />
         <LinearLayout
@@ -85,7 +84,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_toStartOf="@+id/imageView6"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <TextView
@@ -97,7 +96,7 @@
                 android:layout_alignEnd="@+id/imageView5"
                 android:layout_marginEnd="26dp"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <TextView
@@ -109,7 +108,7 @@
                 android:layout_marginStart="22dp"
                 android:layout_toEndOf="@+id/textView7"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <TextView
@@ -121,7 +120,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_toEndOf="@+id/textView8"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <ImageView
@@ -165,7 +164,7 @@
                 android:layout_below="@+id/imageView4"
                 android:layout_marginTop="22dp"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp"/>
 
             <TextView
@@ -176,7 +175,7 @@
                 android:layout_alignBottom="@+id/textView12"
                 android:layout_alignStart="@+id/imageView6"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <TextView
@@ -186,7 +185,7 @@
                 android:layout_alignBottom="@+id/textView13"
                 android:layout_alignStart="@+id/imageView7"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <TextView
@@ -196,7 +195,7 @@
                 android:layout_alignBottom="@+id/textView14"
                 android:layout_alignStart="@+id/imageView8"
                 android:text="A"
-                android:textColor="@color/gold"
+                android:textColor="@color/space_cadet"
                 android:textSize="30dp" />
 
             <ImageView

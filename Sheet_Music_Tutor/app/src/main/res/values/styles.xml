@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/platinum</item>
+        <item name="colorPrimaryDark">@color/space_cadet</item>
+        <item name="colorAccent">@color/amethyst</item>
+        <item name="android:colorBackground">@color/platinum</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -13,14 +14,15 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="button_style">
-        <item name="android:background">@drawable/round_button</item>
-        <item name="android:textColor">@color/gold</item>
+        <item name="android:background">@drawable/butt_selector</item>
+        <item name="android:textColor">@color/platinum</item>
         <item name="android:textStyle">bold</item>
+
     </style>
 
     <style name="button_style3d">
         <item name="android:background">@drawable/button_style2</item>
-        <item name="android:textColor">@color/gold</item>
+        <item name="android:textColor">@color/platinum</item>
         <item name="android:textStyle">bold</item>
     </style>
 

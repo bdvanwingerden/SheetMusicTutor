@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vanwingerdenbarrier.sheetmusictutor.SplashScreen"
-    android:background="@color/purple"
+    android:background="@drawable/smtbackground"
     android:orientation="horizontal"
     >
 

@@ -5,10 +5,10 @@
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="@drawable/smtbackground"
     android:orientation="vertical"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.MainActivity"
-    android:weightSum="2">
+    android:weightSum="2"
+    tools:context="vanwingerdenbarrier.sheetmusictutor.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,69 +30,70 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight=".9"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:weightSum="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
+
             <Button
                 android:id="@+id/StartButton"
                 style="@style/button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:onClick="startButton"
-                android:text="@string/start"
                 android:layout_marginHorizontal="25dp"
                 android:layout_weight="1"
-                />
+                android:onClick="startButton"
+                android:text="@string/start" />
 
             <Button
                 android:id="@+id/StatsButton"
                 style="@style/button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="statsButton"
-                android:text="@string/stats"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="25dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="statsButton"
+                android:text="@string/stats" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:weightSum="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
+
             <Button
                 android:id="@+id/OptionsButton"
                 style="@style/button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="optionsButton"
-                android:text="@string/options"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="25dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="optionsButton"
+                android:text="@string/options" />
 
             <Button
                 android:id="@+id/AchievementsButton"
                 style="@style/button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="userAchievements"
-                android:text="@string/achievement"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="25dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="userAchievements"
+                android:text="@string/achievement" />
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

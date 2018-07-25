@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple">
+    android:background="@color/platinum">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -26,7 +26,7 @@
         android:layout_marginStart="46dp"
         android:layout_toEndOf="@+id/imageView3"
         android:text="TextView"
-        android:textColor="@color/gold"/>
+        android:textColor="@color/amethyst" />
 
     <ProgressBar
         android:id="@+id/progressBarA"

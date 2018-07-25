@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="@color/platinum"
     android:foregroundGravity="center_vertical|center"
     tools:context="vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment">
 
@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/hello_blank_fragment"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@color/gold"
+        android:textColor="@color/space_cadet"
         android:textSize="30sp"
         android:typeface="normal"
         app:layout_constraintStart_toStartOf="parent"

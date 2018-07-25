@@ -13,6 +13,20 @@
     <color name="gold">#c1a875</color>
     <color name="grey">#383735</color>
     <color name="achievement_green">#39dc10</color>
-    <color name="shadow_gray">#1e1d1d</color>
+
+    <color name="translucent_gray">#771e1d1d</color>
+    <color name="translucent_black">#88000000</color>
+
+    <color name="selected_gray">#cc1e1d1d</color>
+    <color name="selected_black">#cc000000</color>
+
+    #new colors#
+
+    <color name="amethyst">#a360c9</color>
+    <color name="space_cadet">#1b1a2d</color>
+    <color name="amazon">#337357</color>
+    <color name="russian_green">#6d9f71</color>
+    <color name="platinum">#e4e3d3</color>
+
 
 </resources>
