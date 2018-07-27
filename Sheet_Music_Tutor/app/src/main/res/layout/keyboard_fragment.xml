@@ -139,7 +139,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="E4" />
+            android:text="E4"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/f4"
@@ -147,7 +148,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="F4" />
+            android:text="F4"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/g4"
@@ -155,7 +157,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="G4" />
+            android:text="G4"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/a5"
@@ -163,7 +166,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="A4" />
+            android:text="A4"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/b5"
@@ -171,7 +175,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="B4" />
+            android:text="B4"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/c5"
@@ -179,7 +184,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="C5" />
+            android:text="C5"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/d5"
@@ -187,7 +193,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="D5" />
+            android:text="D5"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/e5"
@@ -195,7 +202,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="E5" />
+            android:text="E5"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/f5"
@@ -203,6 +211,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/border"
-            android:text="F5" />
+            android:text="F5"
+            android:textColor="@color/black" />
     </LinearLayout>
 </LinearLayout>

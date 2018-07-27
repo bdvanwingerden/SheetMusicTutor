@@ -3,8 +3,6 @@ package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -19,7 +17,6 @@ import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
-import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Tone;
@@ -59,8 +56,10 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
     /**The current view*/
     View view;
 
-    /**Current attempts for the game*/
-    private int attempts;
+    /**
+     * Current mode used to determine if we are in Combo mode or practice mode
+     */
+    int mode;
 
     /**Current score for the game*/
     private int score;
@@ -76,6 +75,14 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
     /**Curerent User*/
     User current;
+    /**
+     * Number of times to ask user to identify not
+     */
+    int numQuestions;
+    /**
+     * Current lives for the game
+     */
+    private int lives;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,19 +116,32 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         shuffle();//shuffle index of notesIndex array
 
-        attempts = getArguments().getInt("lives");
+        Bundle args = getArguments();
 
-        score = getArguments().getInt("score");
+        mode = args.getInt("mode");
+
+        lives = args.getInt("lives");
+
+        score = args.getInt("score");
 
         scoreView.setText("score :" + score);
 
-        decrementLife(attempts);
+        decrementLife(lives);
 
         curr = 0;
 
+        if (mode == 0) {
+            numQuestions = 11;
+        } else {
+            //TODO Change to get current know your note level
+            numQuestions = userList.findCurrent().getCurrentLevel();
+        }
+
         correct = notes[curr];
 
-        speechBtn.setText("     Identify The Note: "+correct+"   ");//set initial note
+        speechBtn.setText("     Identify The Note: " + correct + "   ");//set initial note
+
+        //TODO add Know your keyboard section to DB
 
         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle("Know Your Keyboard!");
@@ -224,44 +244,47 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
             scoreView.setText("Score: "+score);
             curr++;
             correct = notes[curr];
-        } else{//wrong
-            if(attempts > 0){
-                attempts--;
+        } else {//wrong
+            if(lives > 0){
+                lives--;
                 userList.addUserAttempt();
-                decrementLife(attempts);
-            }else{//attempts == 0
+                decrementLife(lives);
+            }else{//lives == 0
                 //reveal text, but change red
             }
         }
 
-        if(curr < 11 && attempts > 0){
-            speechBtn.setText("     Identify The Note: "+correct+"   ");
-        }
-        else if(curr == 11 || attempts == 0){
-            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-            alertDialog.setTitle("Game Over!");
-            alertDialog.setMessage(scoreDialog());
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int j) {
+        if(curr < numQuestions && lives > 0){
+            speechBtn.setText("     Identify The Note: " + correct + "   ");
+        } else if (curr == numQuestions || lives == 0) {
+            if (mode == 0) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                alertDialog.setTitle("Game Over!");
+                alertDialog.setMessage(scoreDialog());
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
 
-                            dialogInterface.dismiss();
+                                dialogInterface.dismiss();
 
-                            Intent game = new Intent(getContext(), GameSelection.class);
-                            game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            getContext().startActivity(game);
+                                Intent game = new Intent(getContext(), GameSelection.class);
+                                game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getContext().startActivity(game);
 
-                            try {
-                                finalize();
-                            } catch (Throwable throwable) {
-                                throwable.printStackTrace();
+                                try {
+                                    finalize();
+                                } catch (Throwable throwable) {
+                                    throwable.printStackTrace();
+                                }
+
                             }
+                        });
 
-                        }
-                    });
-
-            alertDialog.show();
+                alertDialog.show();
+            } else {
+                callback.questionPressed(null, score, lives);
+            }
         }
 
     }//end checkCorrectHelper()
@@ -304,11 +327,11 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
      * @param life - which life is being taken away
      */
     private void decrementLife(int life){
-        if(life == 2)
+        if(life == 3)
             life1.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 1)
+        else if(life == 2)
             life2.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 0)
+        else if(life == 1)
             life3.setImageResource(R.drawable.ic_lost_life);
 
     }//end decrementLife()

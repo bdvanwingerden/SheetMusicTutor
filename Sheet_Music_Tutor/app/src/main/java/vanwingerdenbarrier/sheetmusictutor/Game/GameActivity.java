@@ -14,17 +14,17 @@ import android.view.MotionEvent;
 import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
-import vanwingerdenbarrier.sheetmusictutor.NoteGames.KnowYourKeyboardFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.KnowYourKeyboardFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.PlayAlongFragment;
+import vanwingerdenbarrier.sheetmusictutor.NoteGames.SongSelectionFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.ResultsActivity;
-import vanwingerdenbarrier.sheetmusictutor.NoteGames.SongSelectionFragment;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
@@ -187,6 +187,7 @@ public class GameActivity extends FragmentActivity
     public void addQuestion(Fragment fragment) {
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragment.setRetainInstance(true);
         fragmentTransaction.add(R.id.question_holder, fragment);
         fragmentTransaction.commit();
 
@@ -199,6 +200,7 @@ public class GameActivity extends FragmentActivity
     public void addAnswer(Fragment fragment) {
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragment.setRetainInstance(true);
         fragmentTransaction.add(R.id.answer_holder, fragment);
         fragmentTransaction.commit();
     }
@@ -275,6 +277,7 @@ public class GameActivity extends FragmentActivity
     public void replaceQuestion(Fragment fragment){
         currentQuestion = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragment.setRetainInstance(true);
         fragmentTransaction.replace(R.id.question_holder, fragment);
         fragmentTransaction.commit();
     }
@@ -286,6 +289,7 @@ public class GameActivity extends FragmentActivity
     public void replaceAnswer(Fragment fragment){
         currentAnswer = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragment.setRetainInstance(true);
         fragmentTransaction.replace(R.id.answer_holder, fragment);
         fragmentTransaction.commit();
     }
@@ -304,12 +308,12 @@ public class GameActivity extends FragmentActivity
 
             if(new UserList(getBaseContext()).findCurrent().getComboPref()){
                 Random rand = new Random();
-                next = rand.nextInt(4);
+                next = rand.nextInt(6);
                 currentGame = next;
             }else{
                 currentGame++;
                 next = currentGame;
-                if(currentGame > 3){
+                if (currentGame > 5) {
                     currentGame = 0;
                     next = currentGame;
                 }
@@ -330,7 +334,7 @@ public class GameActivity extends FragmentActivity
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
             }else if(next == 4){
                 replaceQuestion(
-                        setFragmentArgs(new KnowYourKeyboardFragment(), 0, currentLives, currentScore));
+                        setFragmentArgs(new KnowYourKeyboardFragment(), 1, currentLives, currentScore));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }else if(next == 5){
                 Bundle args = new Bundle();
