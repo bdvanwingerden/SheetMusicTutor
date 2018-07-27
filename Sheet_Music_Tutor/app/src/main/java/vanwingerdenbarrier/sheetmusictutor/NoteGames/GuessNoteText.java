@@ -3,8 +3,6 @@ package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,9 @@ public class GuessNoteText extends Fragment implements View.OnClickListener, Ans
     /**Current score for this particular game*/
     int score;
 
-    /**Number of attempts for each guess*/
+    /**
+     * Number of lives for each guess
+     */
     int attempts;
 
     /**Writes options based on which not we are on*/

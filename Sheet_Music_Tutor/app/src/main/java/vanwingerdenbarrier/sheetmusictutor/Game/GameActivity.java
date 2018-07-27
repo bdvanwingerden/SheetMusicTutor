@@ -165,10 +165,8 @@ public class GameActivity extends FragmentActivity
         }
         else if (gameType == 8) {//sing along
 
-            Bundle args = new Bundle();
-            args.putInt("songType",songType);
             PlayAlongFragment playFrag = new PlayAlongFragment();
-            playFrag.setArguments(args);
+            setPlayAlongArgs(playFrag, 0, currentLives, currentScore, songType);
             addQuestion(playFrag);
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
         }
@@ -319,7 +317,6 @@ public class GameActivity extends FragmentActivity
                 }
             }
 
-
             if(next == 0){
                 replaceQuestion(setFragmentArgs(new StaffFragment(), 0, currentLives, currentScore));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
@@ -337,10 +334,9 @@ public class GameActivity extends FragmentActivity
                         setFragmentArgs(new KnowYourKeyboardFragment(), 1, currentLives, currentScore));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }else if(next == 5){
-                Bundle args = new Bundle();
-                args.putInt("songType", new Random().nextInt(3));
                 PlayAlongFragment playFrag = new PlayAlongFragment();
-                playFrag.setArguments(args);
+                setPlayAlongArgs(playFrag,
+                        1, currentLives, currentScore, new Random().nextInt(3));
                 replaceQuestion(playFrag);
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }
@@ -369,6 +365,16 @@ public class GameActivity extends FragmentActivity
         args.putInt("mode", mode);
         args.putInt("lives", lives);
         args.putInt("score", score);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public Fragment setPlayAlongArgs(PlayAlongFragment fragment, int mode, int lives, int score, int song) {
+        Bundle args = new Bundle();
+        args.putInt("mode", mode);
+        args.putInt("lives", lives);
+        args.putInt("score", score);
+        args.putInt("songType", song);
         fragment.setArguments(args);
         return fragment;
     }

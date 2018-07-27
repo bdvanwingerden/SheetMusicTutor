@@ -9,8 +9,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.zip.CheckedOutputStream;
 
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
@@ -638,7 +635,7 @@ public class DrawNoteGame extends AppCompatImageView {
 
 
     /**
-     * changes the drawable of an animated note and attempts to grow it
+     * changes the drawable of an animated note and lives to grow it
      * @param drawable the drawable to change the ntoe to
      * @param note the note to change the drawable of
      */

@@ -3,7 +3,6 @@ package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -91,7 +90,7 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
     int addCorrect;
 
     /**Number of lives a player has*/
-    int attempts;
+    int lives;
 
     /**Current score for the game*/
     private int score;
@@ -105,6 +104,11 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
     /**Curerent User*/
     User current;
 
+    /**
+     * used to determine if we are playing the game in combo or practice mode
+     */
+    int mode;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,9 +119,10 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         userList = new UserList(getActivity());
         current = new UserList(getActivity()).findCurrent();
 
-        Bundle b = getArguments();
+        Bundle args = getArguments();
 
-        songType = b.getInt("songType");
+        songType = args.getInt("songType");
+        mode = args.getInt("mode");
 
         life1 = (ImageView) view.findViewById(R.id.kLife1);
         life2 = (ImageView) view.findViewById(R.id.kLife2);
@@ -150,9 +155,9 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
         currentNote = 0;
 
-        attempts = 3;
+        lives = args.getInt("lives");
 
-        score = 0;
+        score = args.getInt("score");
 
         addCorrect = 0;
 
@@ -279,12 +284,12 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
                     arrowTracker[currentNote].setImageResource(R.drawable.arrowgreen);
                 }
             }
-        }else{//wrong
-            if(attempts > 1){
-                attempts--;
+        } else {//wrong
+            if (lives > 1) {
+                lives--;
                 userList.addUserAttempt();
-                decrementLife(attempts);
-            }else{//attempts == 0
+                decrementLife(lives);
+            } else {//lives == 0
                 finishPlayAlong();
             }
         }
@@ -309,31 +314,35 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
      * Show the alert dialog with the correct results
      * redirect to home screen
      */
-    private void finishPlayAlong(){
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-        alertDialog.setTitle("Game Over!");
-        alertDialog.setMessage(scoreDialog());
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int j) {
+    private void finishPlayAlong() {
+        if (mode == 0) {
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Game Over!");
+            alertDialog.setMessage(scoreDialog());
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
 
-                        dialogInterface.dismiss();
+                            dialogInterface.dismiss();
 
-                        Intent game = new Intent(getContext(), GameSelection.class);
-                        game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        getContext().startActivity(game);
+                            Intent game = new Intent(getContext(), GameSelection.class);
+                            game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            getContext().startActivity(game);
 
-                        try {
-                            finalize();
-                        } catch (Throwable throwable) {
-                            throwable.printStackTrace();
+                            try {
+                                finalize();
+                            } catch (Throwable throwable) {
+                                throwable.printStackTrace();
+                            }
+
                         }
+                    });
 
-                    }
-                });
-
-        alertDialog.show();
+            alertDialog.show();
+        } else {
+            callback.questionPressed(null, score, lives); // ENDS this question
+        }
     }//end finishPlayAlong
 
     /**
