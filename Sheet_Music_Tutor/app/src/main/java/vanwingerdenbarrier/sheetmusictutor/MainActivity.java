@@ -1,16 +1,15 @@
 package vanwingerdenbarrier.sheetmusictutor;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.Achievements.AchievementsListView;
+import vanwingerdenbarrier.sheetmusictutor.Achievements.ResultsActivity;
+import vanwingerdenbarrier.sheetmusictutor.Game.GameActivity;
 import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
@@ -22,9 +21,6 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserMenu;
  */
 public class MainActivity extends AppCompatActivity {
 
-    AnimationDrawable bg;
-
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,15 +50,40 @@ public class MainActivity extends AppCompatActivity {
 
         View animatedBG = findViewById(R.id.mainlayout);
         View root = animatedBG.getRootView();
-        root.setBackgroundColor(R.color.purple);
     }
 
     /**
-     * when the start button is pressed this method calls the the Game Activity
-     * TODO add a game type selection screen before activity
+     * when the start button is pressed this automatically starts combo mode and gets right into the
+     * game
+     *
      * @param v
      */
     public void startButton(View v){
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 2);
+        if (new UserList(this).findCurrent() == null) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("No Current User found");
+            alertDialog.setMessage("Please Select a User");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
+
+            alertDialog.show();
+        } else {
+            this.startActivity(game);
+        }
+    }//end startButton()
+
+    public void chooseModeButton(View v) {
         Intent game = new Intent(this, GameSelection.class);
         if(new UserList(this).findCurrent() == null){
 
@@ -130,36 +151,5 @@ public class MainActivity extends AppCompatActivity {
             this.startActivity(stats);
         }
     }//end method()
-
-    /**
-     * Creates intent that goes to Achievments activity
-     * @param v
-     */
-    public void userAchievements(View v){
-
-        Intent userAchievements = new Intent(this,AchievementsListView.class);
-
-        if(new UserList(this).findCurrent() == null){
-
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-            alertDialog.setTitle("No Current User found");
-            alertDialog.setMessage("Please Select a User");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int j) {
-                            dialogInterface.dismiss();
-                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
-                            userMenu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            getApplicationContext().startActivity(userMenu);
-                        }
-                    });
-
-            alertDialog.show();
-        }else {
-            this.startActivity(userAchievements);
-        }
-
-    }//end
 
 }

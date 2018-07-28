@@ -2,11 +2,11 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/platinum"
+    android:background="@drawable/smtbackground"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:weightSum="10"
-    tools:context="vanwingerdenbarrier.sheetmusictutor.ResultsActivity">
+    tools:context="vanwingerdenbarrier.sheetmusictutor.Achievements.ResultsActivity">
 
 
     <LinearLayout
@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linlay"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="5"
@@ -24,75 +25,72 @@
             android:weightSum="10">
 
             <TextView
+                android:id="@+id/title"
                 style="@android:style/TextAppearance.DeviceDefault.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
                 android:gravity="center"
                 android:text="@string/quiz_results"
-                android:textColor="@color/gold"
-                android:textStyle="bold"
-                android:id="@+id/title"/>
+                android:textColor="@color/platinum"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/quote"
                 style="@android:style/TextAppearance.DeviceDefault.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/try_studying_more"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:id="@+id/quote"/>
+                android:textColor="@color/platinum"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/correct"
                 style="@android:style/TextAppearance.DeviceDefault.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="Correct: 4/5"
-                android:textColor="@color/gold"
-                android:id="@+id/correct"
-                android:textStyle="bold"
-                />
+                android:textColor="@color/platinum"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/points"
                 style="@android:style/TextAppearance.DeviceDefault.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="Points: 6/10"
-                android:textColor="@color/gold"
-                android:textStyle="bold"
-                android:id="@+id/points"/>
+                android:textColor="@color/platinum"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/percent"
                 style="@android:style/TextAppearance.DeviceDefault.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/score_70"
-                android:textColor="@color/gold"
-                android:textStyle="bold"
-                android:id="@+id/percent"/>
+                android:textColor="@color/platinum"
+                android:textStyle="bold" />
         </LinearLayout>
 
-
-
-        <ProgressBar
-            android:id="@+id/ProgressBar"
-            android:layout_weight="5"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/circular_progress_bar"
-            android:background="@drawable/circle_shape"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:max="100"
-            android:progress="65" />
+            android:layout_height="match_parent"
+            android:background="@color/platinum">
+
+            <ListView
+                android:id="@+id/AcheivementList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
+        </LinearLayout>
 
 
     </LinearLayout>

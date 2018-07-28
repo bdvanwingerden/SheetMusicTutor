@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 
 import java.util.Random;
 
+import vanwingerdenbarrier.sheetmusictutor.Achievements.ResultsActivity;
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
@@ -24,7 +25,6 @@ import vanwingerdenbarrier.sheetmusictutor.NoteGames.SongSelectionFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizAnswerFragment;
 import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizQuestionFragment;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.ResultsActivity;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.StaffFragment;
 import vanwingerdenbarrier.sheetmusictutor.UserInfo.User;
@@ -334,10 +334,9 @@ public class GameActivity extends FragmentActivity
                         setFragmentArgs(new KnowYourKeyboardFragment(), 1, currentLives, currentScore));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }else if(next == 5){
-                PlayAlongFragment playFrag = new PlayAlongFragment();
-                setPlayAlongArgs(playFrag,
-                        1, currentLives, currentScore, new Random().nextInt(3));
-                replaceQuestion(playFrag);
+                System.out.println("TEST Play Along");
+                replaceQuestion(setPlayAlongArgs(new PlayAlongFragment(),
+                        1, currentLives, currentScore, new Random().nextInt(3)));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }
 

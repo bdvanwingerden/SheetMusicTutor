@@ -40,4 +40,10 @@
     <string name="quiz_results">Quiz Results</string>
     <string name="score_70">Score: 70%</string>
     <string name="title_activity_note_defense">NoteDefense</string>
+    <string name="staff_mode">Staff Mode</string>
+    <string name="quiz_mode">Quiz Mode</string>
+    <string name="play_along_mode">Play Along Mode</string>
+    <string name="note_defense_mode">Note Defense Mode</string>
+    <string name="note_hero_mode">Note Hero Mode</string>
+    <string name="know_your_note_mode">Know Your Note Mode</string>
 </resources>

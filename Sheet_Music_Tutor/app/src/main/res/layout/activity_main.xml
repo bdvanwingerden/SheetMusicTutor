@@ -71,6 +71,17 @@
             android:weightSum="2">
 
             <Button
+                android:id="@+id/SelectModeButton"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:layout_weight="1"
+                android:onClick="chooseModeButton"
+                android:text="Select a Mode" />
+
+            <Button
                 android:id="@+id/OptionsButton"
                 style="@style/button_style"
                 android:layout_width="match_parent"
@@ -81,16 +92,6 @@
                 android:onClick="optionsButton"
                 android:text="@string/options" />
 
-            <Button
-                android:id="@+id/AchievementsButton"
-                style="@style/button_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="25dp"
-                android:layout_weight="1"
-                android:onClick="userAchievements"
-                android:text="@string/achievement" />
         </LinearLayout>
 
     </LinearLayout>

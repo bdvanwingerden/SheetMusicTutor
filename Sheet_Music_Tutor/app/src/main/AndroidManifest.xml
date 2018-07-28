@@ -41,7 +41,7 @@
             android:name=".Quiz.QuizActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ResultsActivity"
+            android:name=".Achievements.ResultsActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Game.GameSelection"

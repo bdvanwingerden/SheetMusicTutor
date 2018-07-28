@@ -28,13 +28,6 @@ public class GameSelection extends AppCompatActivity {
         this.startActivity(game);
     }
 
-    public void comboGame(View v){
-        Intent game = new Intent(this, GameActivity.class);
-        /* game type 2 represents the combo game mode */
-        game.putExtra("gameType", 2);
-        this.startActivity(game);
-    }
-
     public void noteDefenseGame(View v) {
         Intent game = new Intent(this, GameActivity.class);
         game.putExtra("gameType", 3);
@@ -46,16 +39,6 @@ public class GameSelection extends AppCompatActivity {
         game.putExtra("gameType", 4);
         this.startActivity(game);
     }
-
-    /**
-     * on click method to take user to guess note game mode
-     * @param v - instance of the button
-     */
-    public void guessNoteGame(View v){
-        Intent game = new Intent(this, GameActivity.class);
-        game.putExtra("gameType", 5);
-        this.startActivity(game);
-    }//end guessNoteGame()
 
     /**
      * on click method to take user to know your keyboard game mode

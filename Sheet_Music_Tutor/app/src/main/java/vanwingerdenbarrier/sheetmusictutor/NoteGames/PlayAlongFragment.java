@@ -159,6 +159,10 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
         score = args.getInt("score");
 
+        scoreView.setText("Score: " + score);
+
+        System.out.println("TEST current Lives: " + lives + " current scoore: " + score);
+
         addCorrect = 0;
 
         setNotes(setSong());
@@ -368,11 +372,11 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
      * @param life - which life is being taken away
      */
     private void decrementLife(int life){
-        if(life == 2)
+        if (life == 3)
             life1.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 1)
+        else if (life == 2)
             life2.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 0)
+        else if(life == 1)
             life3.setImageResource(R.drawable.ic_lost_life);
 
     }//end decrementLife()
