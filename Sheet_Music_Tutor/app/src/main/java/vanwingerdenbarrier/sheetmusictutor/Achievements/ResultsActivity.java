@@ -401,7 +401,6 @@ public class ResultsActivity extends AppCompatActivity{
             quoteView.setText(quoteResult(percentage));
             pointsView.setText("Level Progress: "+score+"/"+pointsPossible);
             percentView.setText("Percent Correct: "+percentage+"%");
-            prg.setProgress(percentage);
         }
         else if(!resultType){//if writing user stats
             titleView.setText(current.getName()+"'s Stats");
