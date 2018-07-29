@@ -45,11 +45,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
             alertDialog.show();
         }
 
         View animatedBG = findViewById(R.id.mainlayout);
-        View root = animatedBG.getRootView();
     }
 
     /**
@@ -109,7 +110,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void optionsButton(View v){
         Intent optionsMenu = new Intent(this, OptionsActivity.class);
-        this.startActivity(optionsMenu);
+        if (new UserList(this).findCurrent() == null) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("No Current User found");
+            alertDialog.setMessage("Please Select a User");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int j) {
+                            dialogInterface.dismiss();
+                            Intent userMenu = new Intent(getApplicationContext(), UserMenu.class);
+                            getApplicationContext().startActivity(userMenu);
+                        }
+                    });
+
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+        } else {
+            this.startActivity(optionsMenu);
+        }
     }
 
 

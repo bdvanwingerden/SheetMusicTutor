@@ -28,8 +28,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      * Will contain the fragment to prompt the user to enter their name
      */
     DialogFragment createUserDialog;
-    /**Will contain the fragment that prompts the user to select a starting difficulty*/
-    DialogFragment setUserDifficultyDialog;
+
     /**
      * contains the current list of users
      */
@@ -48,12 +47,7 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         createButtons();
         if(users.findCurrent() == null){
             createUserDialog = new CreateUserDialog();
-            if (users.getUserList().size() > 0) {
-                users.getUserList().get(users.getUserList().size() - 1)
-                        .swapCurrent();
-                users.updateUser(users.findCurrent(), UserDB.IS_CURRENT, 1);
-                //recreate();
-            } else {
+            if (users.getUserList().size() == 0) {
                 createUserDialog.show(getFragmentManager(), "createUserDialog");
             }
         }
@@ -167,63 +161,13 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
      */
     public void onAcceptDialog(View view, String name) {
 
-        User user = new User(users.getUserList().size(), name, 0);
+        User user = new User(users.getUserList().size(), name, 1);
         users.addUser(user);
         createUserDialog.dismiss();
-
-        setUserDifficultyDialog = new SetUserDifficulty();
-        setUserDifficultyDialog.show(getFragmentManager(), "setUserDifficultyDialog");
 
         createButtons();
         onClick(buttonList.getLast());
     }
-
-    /**
-     *
-     * Sets the users difficulty
-     *
-     * @param view
-     * @param dif - if 1 set to medium difficulty. 2 set to hard difficulty
-     */
-    public void onSelectDiffDialog(View view, int dif){
-
-        //User current = new UserList(getBaseContext()).findCurrent();
-        //users.userLinkedList.get(users.userLinkedList.size()-1);
-        if(dif == 1){
-            /*
-            current.setNumQuestionsAttempted(8);
-            current.setNumQuestionsCorrect(8);
-            current.setCurrentLevel(2);
-            current.setNumPointsNeeded(8);
-            */
-            for(int x = 0; x < 8; x++) {
-                users.addUserCorrect();
-                users.addUserAttempt();
-            }
-            users.levelUpUser();
-            users.addUserPointsNeeded();
-
-        }
-        else if(dif == 2){
-            /*
-            current.setNumQuestionsAttempted(16);
-            current.setNumQuestionsCorrect(16);
-            current.setCurrentLevel(3);
-            current.setNumPointsNeeded(8);
-            */
-
-            for(int x = 0; x < 16; x++) {
-                users.addUserCorrect();
-                users.addUserAttempt();
-            }
-            for(int y = 0; y < 2; y++){
-                users.levelUpUser();
-                users.addUserPointsNeeded();
-            }//end for
-
-        }//end else if
-
-    }//end onSelectDiffDialog
 
 
     /**
@@ -247,15 +191,6 @@ public class UserMenu extends AppCompatActivity implements View.OnClickListener 
         newCurrent.swapCurrent();
         users.updateUser(newCurrent, UserDB.IS_CURRENT, 1);
 
-        recreate();
-    }
-
-    /**
-     * debugging method that makes it easy to delete the db without altering code
-     * @param v
-     */
-    public void killDB(View v){
-        users.emptyUserList();
         recreate();
     }
 

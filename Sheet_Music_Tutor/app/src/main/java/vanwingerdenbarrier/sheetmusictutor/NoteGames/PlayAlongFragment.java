@@ -307,7 +307,7 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
         userList.addUserAttempt();
 
         //This if levels up the user if they have reached the number of points needed
-        if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
+        if (current.getNumPointsNeeded() <= current.getNumQuestionsCorrect()) {
             levelUp = false;//So that we don't level up the user more than once by mistake
             userList.levelUpUser();
             userList.addUserPointsNeeded();//increment points needed to level up

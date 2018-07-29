@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/purple"
+    android:background="@color/translucent_black"
     tools:context="vanwingerdenbarrier.sheetmusictutor.UserInfo.CreateUserDialog">
 
 
@@ -18,7 +18,7 @@
         android:inputType="textPersonName"
         android:labelFor="@+id/button"
         android:selectAllOnFocus="false"
-        android:textColor="@color/gold" />
+        android:textColor="@color/platinum" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:text="@string/accept"
             android:background="@drawable/round_button"
             android:textStyle="bold"
-            android:textColor="@color/gold"/>
+            android:textColor="@color/platinum" />
 
     </LinearLayout>
 </LinearLayout>

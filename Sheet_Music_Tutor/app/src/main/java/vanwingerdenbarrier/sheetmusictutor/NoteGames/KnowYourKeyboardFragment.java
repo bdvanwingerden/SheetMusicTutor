@@ -51,7 +51,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
     private Button a,b,c,d,e,f,g,cs,ds,fs,gs,as;
 
     /**Array of strings representing which note to play*/
-    private String[] notes = {"A","B","C","D","E","F","G","AS","CS","DS","FS","GS"};
+    private String[] notes = {"A", "B", "C", "D", "E", "F", "G", "A#", "C#", "D#", "F#", "G#"};
 
     /**The current view*/
     View view;
@@ -218,15 +218,15 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         //Sharp Keys
         else if(tmpTone.equals(Tone.A) && isSharp)
-            checkCorrect = "AS";
+            checkCorrect = "A#";
         else if(tmpTone.equals(Tone.C) && isSharp)
-            checkCorrect = "CS";
+            checkCorrect = "C#";
         else if(tmpTone.equals(Tone.D) && isSharp)
-            checkCorrect = "DS";
+            checkCorrect = "D#";
         else if(tmpTone.equals(Tone.F) && isSharp)
-            checkCorrect = "FS";
+            checkCorrect = "F#";
         else if(tmpTone.equals(Tone.G) && isSharp)
-            checkCorrect = "GS";
+            checkCorrect = "G#";
 
         checkCorrectHelper(checkCorrect);
 
@@ -297,7 +297,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         userList.addUserAttempt();
 
         //This if levels up the user if they have reached the number of points needed
-        if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
+        if (current.getNumPointsNeeded() <= current.getNumQuestionsCorrect()) {
             levelUp = false;//So that we don't level up the user more than once by mistake
             userList.levelUpUser();
             userList.addUserPointsNeeded();//increment points needed to level up

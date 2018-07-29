@@ -143,7 +143,7 @@ public class KeyFragment extends Fragment implements AnswerDisplay {
             fs5 = soundPool.load(context, R.raw.lfs5, 1);
         }
 
-        if(args.getInt("mode") == 2)
+        if (args.getInt("mode") == 2 && new UserList(getContext()).findCurrent().getCurrentLevel() > 4)
             hideNoteText();//hid note assist text
         else
             setNoteText();//show note assist text

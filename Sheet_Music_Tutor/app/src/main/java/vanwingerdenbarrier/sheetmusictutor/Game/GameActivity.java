@@ -332,9 +332,9 @@ public class GameActivity extends FragmentActivity
             }else if(next == 4){
                 replaceQuestion(
                         setFragmentArgs(new KnowYourKeyboardFragment(), 1, currentLives, currentScore));
+
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
             }else if(next == 5){
-                System.out.println("TEST Play Along");
                 replaceQuestion(setPlayAlongArgs(new PlayAlongFragment(),
                         1, currentLives, currentScore, new Random().nextInt(3)));
                 replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
