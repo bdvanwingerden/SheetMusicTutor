@@ -2,7 +2,6 @@ package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
@@ -25,9 +23,6 @@ import vanwingerdenbarrier.sheetmusictutor.UserInfo.UserList;
 
 
 public class KnowYourKeyboardFragment extends Fragment implements QuestionDisplay{
-
-    /**True if user has not leveled up during a quiz session. False if they have leveled up*/
-    boolean levelUp = true;
 
     /**Button for the speech*/
     Button speechBtn;
@@ -145,8 +140,8 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle("Know Your Keyboard!");
-        alertDialog.setMessage("Dave here will tell which notes to play on the keyboard." +
-                "If you guess correctly Dave will be reward you with a point. If not you lose a life!");
+        alertDialog.setMessage("Dave will tell which notes to play on the keyboard. " +
+                "If you guess correctly Dave will reward you with a point. If not you lose a life!");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -157,9 +152,9 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
 
         alertDialog.setCancelable(false);
 
-
-        alertDialog.show();
-
+        if (userList.findCurrent().getCurrentLevel() < 2) {
+            alertDialog.show();
+        }
         // Inflate the layout for this fragment
         return view;
     }
@@ -238,6 +233,7 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
      */
     private void checkCorrectHelper(String checkCorrect){
 
+
         if(correct.equals(checkCorrect)){
             addPoint();
             score++;//user score as well
@@ -249,42 +245,13 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
                 lives--;
                 userList.addUserAttempt();
                 decrementLife(lives);
-            }else{//lives == 0
-                //reveal text, but change red
             }
         }
 
         if(curr < numQuestions && lives > 0){
             speechBtn.setText("     Identify The Note: " + correct + "   ");
         } else if (curr == numQuestions || lives == 0) {
-            if (mode == 0) {
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                alertDialog.setTitle("Game Over!");
-                alertDialog.setMessage(scoreDialog());
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int j) {
-
-                                dialogInterface.dismiss();
-
-                                Intent game = new Intent(getContext(), GameSelection.class);
-                                game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                getContext().startActivity(game);
-
-                                try {
-                                    finalize();
-                                } catch (Throwable throwable) {
-                                    throwable.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                alertDialog.show();
-            } else {
                 callback.questionPressed(null, score, lives);
-            }
         }
 
     }//end checkCorrectHelper()
@@ -296,30 +263,14 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
         userList.addUserCorrect();
         userList.addUserAttempt();
 
+
         //This if levels up the user if they have reached the number of points needed
-        if (current.getNumPointsNeeded() <= current.getNumQuestionsCorrect()) {
-            levelUp = false;//So that we don't level up the user more than once by mistake
-            userList.levelUpUser();
+        if (userList.findCurrent().getNumPointsNeeded()
+                <= userList.findCurrent().getNumQuestionsCorrect()) {
+
             userList.addUserPointsNeeded();//increment points needed to level up
+            userList.levelUpUser();
         }
-    }
-
-    /**
-     * Sets the best quote based on the player's performance
-     */
-    private String scoreDialog(){
-        String quote = "";
-
-        if(score <= 3)
-            quote += "Score: "+score+"\nVery Poor. Get to studying!";
-        else if(score <= 6)
-            quote += "Score: "+score+"\nYou can do better than that!";
-        else if(score <= 9)
-            quote += "Score: "+score+"\nNot bad! Now master it";
-        else
-            quote += "Score: "+score+"\nGreat! You really do know you're keyboard.";
-
-        return quote;
     }
 
     /***
@@ -327,13 +278,16 @@ public class KnowYourKeyboardFragment extends Fragment implements QuestionDispla
      * @param life - which life is being taken away
      */
     private void decrementLife(int life){
-        if(life == 3)
+        if (life == 3) {
             life1.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 2)
+        } else if (life == 2) {
+            life1.setImageResource(R.drawable.ic_lost_life);
             life2.setImageResource(R.drawable.ic_lost_life);
-        else if(life == 1)
+        } else if (life == 1) {
+            life1.setImageResource(R.drawable.ic_lost_life);
+            life2.setImageResource(R.drawable.ic_lost_life);
             life3.setImageResource(R.drawable.ic_lost_life);
-
+        }
     }//end decrementLife()
 
     /**

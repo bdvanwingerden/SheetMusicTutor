@@ -1,13 +1,10 @@
 package vanwingerdenbarrier.sheetmusictutor.Quiz;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,7 +15,6 @@ import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
-import vanwingerdenbarrier.sheetmusictutor.StaffStructure.DrawStaff;
 
 /**
  * Fragment that displays quiz questions and contains the correct answer
@@ -86,7 +82,7 @@ public class QuizQuestionFragment extends Fragment implements QuestionDisplay{
         if(answer.equals(correctAnswer)){
             getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
             Toast.makeText(this.getContext(),"Correct", Toast.LENGTH_SHORT).show();
-            callback.questionPressed(null, currentScore++, currentLives);
+            callback.questionPressed(null, currentScore, currentLives);
 
         }else{
             getView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);

@@ -30,8 +30,6 @@ public class QuizActivity extends AppCompatActivity {
     UserList userList;
     User current;
 
-    private boolean isQuiz = true;
-
     /**Use to compare user answer to correct answer*/
     private String answer;
 
@@ -80,10 +78,11 @@ public class QuizActivity extends AppCompatActivity {
                     userList.addUserAttempt();
 
                     //This if levels up the user if they have reached the number of points needed
-                    if(current.getNumPointsNeeded() == current.getNumQuestionsCorrect()  && levelUp == true){
-                        levelUp = false;//So that we don't level up the user more than once by mistake
-                        userList.levelUpUser();
+                    if (userList.findCurrent().getNumPointsNeeded()
+                            <= userList.findCurrent().getNumQuestionsCorrect()) {
+
                         userList.addUserPointsNeeded();//increment points needed to level up
+                        userList.levelUpUser();
                     }
 
                     Toast.makeText(QuizActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -103,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
                         results.putExtra("correct",correct);
                         results.putExtra("score",score);
                         results.putExtra("points",pointsPossible);
-                        results.putExtra("isQuiz",isQuiz);
+                        //results.putExtra("isQuiz",isQuiz);
 
                         results.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivityForResult(results,0);
@@ -137,7 +136,7 @@ public class QuizActivity extends AppCompatActivity {
                             results.putExtra("correct",correct);
                             results.putExtra("score",score);
                             results.putExtra("points",pointsPossible);
-                            results.putExtra("isQuiz",isQuiz);
+                            // results.putExtra("isQuiz",isQuiz);
 
                             startActivityForResult(results,0);
 

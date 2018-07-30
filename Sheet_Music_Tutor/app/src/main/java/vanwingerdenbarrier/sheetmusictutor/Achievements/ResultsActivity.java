@@ -505,9 +505,9 @@ public class ResultsActivity extends AppCompatActivity{
             else if (i == 2)
                 rookieNoMore(drawableGreen, imageView, i);
             else if (i == 3)
-                blindNinja(drawableGreen, imageView, i);
-            else if (i == 4)
                 hardRocker(drawableGreen, imageView, i);
+            else if (i == 4)
+                blindNinja(drawableGreen, imageView, i);
             else if (i == 5)
                 noteMeister(drawableGreen, imageView, i);
 

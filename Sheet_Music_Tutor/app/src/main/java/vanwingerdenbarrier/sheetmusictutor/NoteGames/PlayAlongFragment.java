@@ -1,18 +1,14 @@
 package vanwingerdenbarrier.sheetmusictutor.NoteGames;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import vanwingerdenbarrier.sheetmusictutor.Game.GameSelection;
 import vanwingerdenbarrier.sheetmusictutor.Game.QuestionDisplay;
 import vanwingerdenbarrier.sheetmusictutor.R;
 import vanwingerdenbarrier.sheetmusictutor.StaffStructure.Note;
@@ -94,9 +90,6 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
 
     /**Current score for the game*/
     private int score;
-
-    /**True if user has not leveled up during a quiz session. False if they have leveled up*/
-    boolean levelUp = true;
 
     /**list of users*/
     UserList userList;
@@ -277,8 +270,8 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
             if(currentNote < 8 && !currentNotes[currentNote].equals("")) {
                 correct = currentNotes[currentNote];
                 arrowTracker[currentNote].setImageResource(R.drawable.arrowgreen);
-            }
-            else if(currentNote == 8 || currentNotes[currentNote].equals("")){
+
+            } else if (currentNote == 8 || currentNotes[currentNote].equals("")) {
                 if(setSong().length == notePointer){//no more notes
                     finishPlayAlong();
                 }else{
@@ -289,7 +282,7 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
                 }
             }
         } else {//wrong
-            if (lives > 1) {
+            if (lives > 0) {
                 lives--;
                 userList.addUserAttempt();
                 decrementLife(lives);
@@ -303,14 +296,17 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
      * Add a point to the users overall stats once they have played 8 notes correctly
      */
     private void addPoint(){
+
         userList.addUserCorrect();
         userList.addUserAttempt();
 
+
         //This if levels up the user if they have reached the number of points needed
-        if (current.getNumPointsNeeded() <= current.getNumQuestionsCorrect()) {
-            levelUp = false;//So that we don't level up the user more than once by mistake
-            userList.levelUpUser();
+        if (userList.findCurrent().getNumPointsNeeded()
+                <= userList.findCurrent().getNumQuestionsCorrect()) {
+
             userList.addUserPointsNeeded();//increment points needed to level up
+            userList.levelUpUser();
         }
     }
 
@@ -319,53 +315,10 @@ public class PlayAlongFragment extends Fragment implements QuestionDisplay{
      * redirect to home screen
      */
     private void finishPlayAlong() {
-        if (mode == 0) {
-            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-            alertDialog.setTitle("Game Over!");
-            alertDialog.setMessage(scoreDialog());
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int j) {
 
-                            dialogInterface.dismiss();
-
-                            Intent game = new Intent(getContext(), GameSelection.class);
-                            game.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            getContext().startActivity(game);
-
-                            try {
-                                finalize();
-                            } catch (Throwable throwable) {
-                                throwable.printStackTrace();
-                            }
-
-                        }
-                    });
-
-            alertDialog.show();
-        } else {
             callback.questionPressed(null, score, lives); // ENDS this question
-        }
+
     }//end finishPlayAlong
-
-    /**
-     * Sets the best quote based on the player's performance
-     */
-    private String scoreDialog(){
-        String quote = "";
-
-        if(score <= 2)
-            quote += "Score: "+score+"\nVery Poor. Get to studying!";
-        else if(score <= 4)
-            quote += "Score: "+score+"\nYou can do better than that!";
-        else if(score <= 6)
-            quote += "Score: "+score+"\nNot bad! Now master it";
-        else
-            quote += "Score: "+score+"\nGreat! You really do know you're keyboard.";
-
-        return quote;
-    }
 
     /***
      * Takes away a life when incorrect guess is made

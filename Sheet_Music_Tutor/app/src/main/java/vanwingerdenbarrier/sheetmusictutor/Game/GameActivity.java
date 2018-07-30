@@ -15,8 +15,8 @@ import java.util.Random;
 
 import vanwingerdenbarrier.sheetmusictutor.Achievements.ResultsActivity;
 import vanwingerdenbarrier.sheetmusictutor.Key.KeyFragment;
+import vanwingerdenbarrier.sheetmusictutor.MainActivity;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNote;
-import vanwingerdenbarrier.sheetmusictutor.NoteGames.GuessNoteText;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.KnowYourKeyboardFragment;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteDefense;
 import vanwingerdenbarrier.sheetmusictutor.NoteGames.NoteHero;
@@ -100,7 +100,6 @@ public class GameActivity extends FragmentActivity
         } else if(currentQuestion instanceof QuizQuestionFragment){
 
             ((QuizQuestionFragment) currentQuestion).checkIfCorrect((String)answer);
-            new UserList(this.getApplicationContext()).addUserAttempt();
         } else if (currentQuestion instanceof NoteDefense && event != null) {
             ((NoteDefense) currentQuestion).fireNote((Note) answer);
         } else if (currentQuestion instanceof NoteHero && event != null) {
@@ -123,7 +122,7 @@ public class GameActivity extends FragmentActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);//set media volume control
 
-        rounds = 6;
+        rounds = 5;
 
         int gameType = getIntent().getIntExtra("gameType", -1);
         int songType = getIntent().getIntExtra("songType", -1);
@@ -151,26 +150,25 @@ public class GameActivity extends FragmentActivity
             addQuestion(setFragmentArgs(new NoteHero(), 0, currentLives, currentScore));
             replaceAnswer(setFragmentArgs(new KeyFragment(), 0, currentLives, currentScore));
         } else if (gameType == 5) {
-            addQuestion(new GuessNote());
-            addAnswer(new GuessNoteText());
-        }
-        else if (gameType == 6) {
+            rounds = 0;
+            replaceQuestion(setFragmentArgs(new QuizQuestionFragment(), 0, currentLives, currentScore));
+            replaceAnswer(new QuizAnswerFragment());
+        } else if (gameType == 6) {
+            rounds = 0;
             addQuestion(
                     setFragmentArgs(new KnowYourKeyboardFragment(), 0, currentLives, currentScore));
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
-        }
-        else if (gameType == 7) {//song selection
+        } else if (gameType == 7) {//song selection
             addQuestion(new SongSelectionFragment());
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
-        }
-        else if (gameType == 8) {//sing along
+        } else if (gameType == 8) {//sing along
 
+            rounds = 0;
             PlayAlongFragment playFrag = new PlayAlongFragment();
             setPlayAlongArgs(playFrag, 0, currentLives, currentScore, songType);
             addQuestion(playFrag);
             replaceAnswer(setFragmentArgs(new KeyFragment(), 2, currentLives, currentScore));
-        }
-        else {
+        } else {
             System.out.println("GAMETYPE NOTFOUND" + gameType);
         }
 
@@ -213,7 +211,11 @@ public class GameActivity extends FragmentActivity
         currentScore = score;
         currentLives = lives;
 
-        if(lives > 0) {
+        if (mode == 5) {
+            alertDialog.setTitle("Good Job!");
+            alertDialog.setMessage("You got the correct answer!");
+        } else if (lives > 0) {
+            System.out.println("TEST " + lives);
             alertDialog.setTitle("Good Job!");
             alertDialog.setMessage("Current score:" + score + "!");
 
@@ -248,24 +250,28 @@ public class GameActivity extends FragmentActivity
      */
     public void sendResults(){
 
-        User current = new UserList(getBaseContext()).findCurrent();
+        if (mode != 5) {
+            User current = new UserList(getBaseContext()).findCurrent();
 
-        boolean isQuiz = true;
+            boolean isQuiz = true;
 
-        float percentage = ( (float) current.getNumQuestionsCorrect() - previousCorrect)
-                / ((float) current.getNumQuestionsAttempted()-previousAttempts)*100;
+            float percentage = ((float) current.getNumQuestionsCorrect() - previousCorrect)
+                    / ((float) current.getNumQuestionsAttempted() - previousAttempts) * 100;
 
-        Intent stats = new Intent(this, ResultsActivity.class);
+            Intent stats = new Intent(this, ResultsActivity.class);
 
-        stats.putExtra("percent",(int) percentage);//random number for now(Level progress)
-        stats.putExtra("correct",current.getNumQuestionsCorrect() - previousCorrect);
-        stats.putExtra("numQuestions",current.getNumQuestionsAttempted() - previousAttempts);
-        stats.putExtra("score",current.getNumQuestionsCorrect());//random number for now(Score)
-        stats.putExtra("points",current.getNumPointsNeeded());
-        stats.putExtra("isQuiz",isQuiz);
+            stats.putExtra("percent", (int) percentage);//random number for now(Level progress)
+            stats.putExtra("correct", current.getNumQuestionsCorrect() - previousCorrect);
+            stats.putExtra("numQuestions", current.getNumQuestionsAttempted() - previousAttempts);
+            stats.putExtra("score", current.getNumQuestionsCorrect());//random number for now(Score)
+            stats.putExtra("points", current.getNumPointsNeeded());
+            stats.putExtra("isQuiz", isQuiz);
 
-        stats.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        this.startActivity(stats);
+            stats.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            this.startActivity(stats);
+        } else {
+            this.startActivity(new Intent(this, MainActivity.class));
+        }
     }//end sendResults
 
     /**
@@ -304,14 +310,14 @@ public class GameActivity extends FragmentActivity
 
             int next;
 
-            if(new UserList(getBaseContext()).findCurrent().getComboPref()){
+            if (!new UserList(getBaseContext()).findCurrent().getComboPref()) {
                 Random rand = new Random();
-                next = rand.nextInt(6);
+                next = rand.nextInt(5);
                 currentGame = next;
             }else{
                 currentGame++;
                 next = currentGame;
-                if (currentGame > 5) {
+                if (currentGame > 4) {
                     currentGame = 0;
                     next = currentGame;
                 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import vanwingerdenbarrier.sheetmusictutor.Quiz.QuizActivity;
 import vanwingerdenbarrier.sheetmusictutor.R;
 
 public class GameSelection extends AppCompatActivity {
@@ -23,11 +22,6 @@ public class GameSelection extends AppCompatActivity {
         this.startActivity(game);
     }
 
-    public void quizGame(View v){
-        Intent game = new Intent(this, QuizActivity.class);
-        this.startActivity(game);
-    }
-
     public void noteDefenseGame(View v) {
         Intent game = new Intent(this, GameActivity.class);
         game.putExtra("gameType", 3);
@@ -39,6 +33,13 @@ public class GameSelection extends AppCompatActivity {
         game.putExtra("gameType", 4);
         this.startActivity(game);
     }
+
+    public void quizGame(View v) {
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("gameType", 5);
+        this.startActivity(game);
+    }
+
 
     /**
      * on click method to take user to know your keyboard game mode

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vanwingerdenbarrier.sheetmusictutor.Game.Question;
-import vanwingerdenbarrier.sheetmusictutor.Quiz.DatabaseHelper;
 
 /**
  * Created by Doriangh4 on 11/6/2017.
@@ -79,12 +78,12 @@ public class QuestionStorage {
         if(list.isEmpty()){
             myDatabaseHelper.addFirstQuestion(new Question("This acronym will help you remember the notes along the LINES in the TREBLE clef",
                     new String[]{"EVERY GOOD BOY DESERVES FOOD","EDDIE ATE DYNAMITE GOODBYE EDDIE","FACE"},
-                    "5","EVERY GOOD BOY DESERVES FOOD"));
+                    "1", "EVERY GOOD BOY DESERVES FOOD"));
             myDatabaseHelper.addFirstQuestion(new Question("This acronym will help you remember the notes along the SPACES in the TREBLE clef",
                     new String[]{"Every Good Boy Deserves Food","Eddie Ate Dynamite Goodbye Eddie","FACE"},
-                    "3","FACE"));
+                    "1", "FACE"));
             myDatabaseHelper.addFirstQuestion(new Question("The term ________ denotes when to play each note",
-                    new String[]{"Pitch","Rhythm","Time Signature"},"2","Rhythm"));
+                    new String[]{"Pitch", "Rhythm", "Time Signature"}, "1", "Rhythm"));
             myDatabaseHelper.addFirstQuestion(new Question("The term ________ denotes which notes to play.",
                     new String[]{"Pitch","Rhythm","Time Signature"},"1","Pitch"));
 
